@@ -10,15 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = 
+NAME = minishell
 
-FLAGS = -Werror -Wall -Wextra -I stack_lib -I libft -I .
+FLAGS = -Werror -Wall -Wextra -I libft -I .
 
 DEBUG_FLAGS = -fsanitize=address -g3
 
 LIBFT = libft/libft.a
 
-SRC = 
+SRC = minishell.c
 
 BONUS_SRC = 
 
@@ -28,22 +28,16 @@ OBJ = $(addprefix obj/,$(SRC:.c=.o))
 
 BONUS_OBJ = $(addprefix obj/,$(BONUS_SRC:.c=.o))
 
-all : lib .main
+all : create_obj_folder lib
 	$(MAKE) $(NAME)
 
-.main :
-	touch .main
-	$(RM) .bonus
-
-$(NAME) : $(OBJ) .main
-	$(CC) $(OBJ) $(LIBFT) $(STACK_LIB) $(FLAGS) -o $(NAME)
+$(NAME) : $(OBJ)
+	$(CC) $(OBJ) $(LIBFT) $(FLAGS) -o $(NAME)
 
 bonus : create_obj_folder lib .bonus
 
 .bonus : $(OBJ) $(BONUS_OBJ)
 	$(CC) $(OBJ) $(BONUS_OBJ) $(LIBFT) $(STACK_LIB) $(FLAGS) -o $(NAME)
-	touch .bonus
-	$(RM) .mandatory
 
 create_obj_folder :
 	mkdir -p obj
@@ -75,12 +69,9 @@ fclean : clean
 	$(RM) .main .bonus
 	$(MAKE) fclean -C libft
 
-rm_lib :
-	$(RM) -r libft
-
 re : fclean
 	$(MAKE) all
 
-.PHONY : all lib run re clean fclean bonus rm_lib
+.PHONY : all lib run re clean fclean bonus create_obj_folder
 
 -include $(DEPENDS)

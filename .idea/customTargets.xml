@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CLionExternalBuildManager">
+    <target id="0808af64-3f2b-4a8e-bd3f-737810fa1466" name="minishell" defaultType="MAKE">
+      <configuration id="84a7b95f-64d5-4463-95eb-c4ad4638c507" name="minishell">
+        <build type="MAKE">
+          <make targetName="all" />
+        </build>
+        <clean type="MAKE">
+          <make targetName="fclean" />
+        </clean>
+      </configuration>
+    </target>
+  </component>
+</project>
