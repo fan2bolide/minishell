@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/10 03:03:51 by bajeanno         ###   ########lyon.fr   */
+/*   Created: 2022/10/24 18:43:24 by bajeanno          #+#    #+#             */
+/*   Updated: 2022/11/25 11:05:21 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int main(void)
+size_t	ft_putendl(char const *s)
 {
-	
-	return (0);
+	int	i;
+
+	i = 0;
+	while (s[i])
+		ft_putchar(s[i++]);
+	ft_putchar('\n');
+	return (i + 1);
 }

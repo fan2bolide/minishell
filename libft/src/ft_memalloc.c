@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/10 03:03:51 by bajeanno         ###   ########lyon.fr   */
+/*   Created: 2022/09/06 01:31:43 by bajeanno          #+#    #+#             */
+/*   Updated: 2022/11/10 13:42:40 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int main(void)
+void	*ft_memalloc(size_t size)
 {
-	
-	return (0);
+	char	*ptr;
+	size_t	i;
+
+	i = 0;
+	ptr = malloc(size);
+	if (!ptr)
+		return (ptr);
+	while (i < size)
+		ptr[i++] = 0;
+	return (ptr);
 }

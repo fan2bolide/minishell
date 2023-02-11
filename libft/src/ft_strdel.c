@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/10 03:03:51 by bajeanno         ###   ########lyon.fr   */
+/*   Created: 2022/09/06 01:49:34 by bajeanno          #+#    #+#             */
+/*   Updated: 2022/11/10 18:29:18 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int main(void)
+void	ft_strdel(char **as)
 {
-	
-	return (0);
+	ft_memdel((void **)as);
 }

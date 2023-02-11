@@ -12,7 +12,7 @@
 
 NAME = minishell
 
-FLAGS = -Werror -Wall -Wextra -I libft -I .
+FLAGS = -Werror -Wall -Wextra -I libft/head -I .
 
 DEBUG_FLAGS = -fsanitize=address -g3
 
@@ -22,31 +22,32 @@ SRC = minishell.c
 
 BONUS_SRC = 
 
-DEPENDS	:=	$(addprefix obj/,$(SRC:.c=.d)) $(addprefix obj/,${BONUS_SRC:.c=.d})
+DEPENDS	:=	$(addprefix dep/,$(SRC:.c=.d)) $(addprefix dep/,${BONUS_SRC:.c=.d})
 
 OBJ = $(addprefix obj/,$(SRC:.c=.o))
 
 BONUS_OBJ = $(addprefix obj/,$(BONUS_SRC:.c=.o))
 
-all : create_obj_folder lib
-	$(MAKE) $(NAME)
+all : build_directories lib
+	@$(MAKE) $(NAME)
 
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJ) $(LIBFT)
 	$(CC) $(OBJ) $(LIBFT) $(FLAGS) -o $(NAME)
 
-bonus : create_obj_folder lib .bonus
+bonus : build_directories lib .bonus
 
 .bonus : $(OBJ) $(BONUS_OBJ)
 	$(CC) $(OBJ) $(BONUS_OBJ) $(LIBFT) $(STACK_LIB) $(FLAGS) -o $(NAME)
 
-create_obj_folder :
-	mkdir -p obj
+build_directories :
+	@mkdir -p obj
+	@mkdir -p dep
 
 obj/%.o : src/%.c Makefile
-	cc -Wall -Wextra -Werror -c $< -MD -I libft/headers -I head -o $@
+	$(CC) -Wall -Wextra -Werror -c $< -MD -I libft/head -I head -o $@
 
 debug : lib
-	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o debug$(NAME)
+	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o debug_$(NAME)
 
 lib : $(LIBFT)
 
@@ -72,6 +73,6 @@ fclean : clean
 re : fclean
 	$(MAKE) all
 
-.PHONY : all lib run re clean fclean bonus create_obj_folder
+.PHONY : all lib run re clean fclean bonus build_directories
 
 -include $(DEPENDS)

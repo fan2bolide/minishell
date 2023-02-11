@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/10 03:03:51 by bajeanno         ###   ########lyon.fr   */
+/*   Created: 2022/11/10 13:41:18 by bajeanno          #+#    #+#             */
+/*   Updated: 2022/11/10 13:52:05 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int main(void)
+int	ft_strnequ(char const *s1, char const *s2, size_t n)
 {
-	
-	return (0);
+	while (*s1 && *s2 && n > 0 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+		n--;
+	}
+	if ((*s1 == 0 && *s2 == 0) || n == 0)
+		return (1);
+	else
+		return (0);
 }

@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/10 03:03:51 by bajeanno         ###   ########lyon.fr   */
+/*   Created: 2022/11/10 13:41:34 by bajeanno          #+#    #+#             */
+/*   Updated: 2022/11/11 00:44:52 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int main(void)
+char	*ft_strmap(char const *s, char (*f)(char))
 {
-	
-	return (0);
+	int		i;
+	char	*str;
+
+	i = 0;
+	str = ft_strnew(ft_strlen(s));
+	if (str == NULL)
+		return (NULL);
+	while (s[i])
+	{
+		str[i] = f(s[i]);
+		i++;
+	}
+	return (str);
 }

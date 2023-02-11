@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/10 03:03:51 by bajeanno         ###   ########lyon.fr   */
+/*   Created: 2022/09/06 01:28:22 by bajeanno          #+#    #+#             */
+/*   Updated: 2022/11/10 13:42:28 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int main(void)
+void	*ft_memset(void *pointer, int value, size_t count)
 {
-	
-	return (0);
+	char	*ptr;
+	size_t	i;
+
+	ptr = (char *)pointer;
+	i = 0;
+	while (i < count)
+	{
+		ptr[i] = value;
+		i++;
+	}
+	return (pointer);
 }

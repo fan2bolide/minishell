@@ -1,19 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/10 03:03:51 by bajeanno         ###   ########lyon.fr   */
+/*   Created: 2022/11/10 13:41:13 by bajeanno          #+#    #+#             */
+/*   Updated: 2022/11/10 13:41:14 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int main(void)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t n)
 {
-	
-	return (0);
+	size_t	i;
+	size_t	j;
+
+	if (*needle == 0)
+		return ((char *)haystack);
+	i = 0;
+	while (haystack[i] && i < n)
+	{
+		j = 0;
+		while (needle[j] && haystack[i + j] == needle[j] && i + j < n)
+			j++;
+		if (!needle[j])
+			return ((char *)haystack + i);
+		i++;
+	}
+	return (NULL);
 }
