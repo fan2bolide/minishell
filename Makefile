@@ -18,7 +18,7 @@ DEBUG_FLAGS = -fsanitize=address -g3
 
 LIBFT = libft/libft.a
 
-SRC = minishell.c
+SRC = minishell.c prompt.c
 
 BONUS_SRC = 
 
@@ -29,10 +29,10 @@ OBJ = $(addprefix obj/,$(SRC:.c=.o))
 BONUS_OBJ = $(addprefix obj/,$(BONUS_SRC:.c=.o))
 
 all : build_directories lib
-	@$(MAKE) $(NAME)
+	$(MAKE) $(NAME)
 
 $(NAME) : $(OBJ) $(LIBFT)
-	$(CC) $(OBJ) $(LIBFT) $(FLAGS) -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT) $(FLAGS) -o $(NAME)
 
 bonus : build_directories lib .bonus
 
@@ -41,10 +41,11 @@ bonus : build_directories lib .bonus
 
 build_directories :
 	@mkdir -p obj
-	@mkdir -p dep
+	@mkdir -p src
+	@mkdir -p head
 
 obj/%.o : src/%.c Makefile
-	$(CC) -Wall -Wextra -Werror -c $< -MD -I libft/head -I head -o $@
+	@$(CC) -Wall -Wextra -Werror -c $< -MD -I libft/head -I head -o $@
 
 debug : lib
 	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o debug_$(NAME)
@@ -61,17 +62,17 @@ run : all
 	./a.out
 
 clean :
-	$(RM) $(OBJ) $(BONUS_OBJ) $(DEPENDS)
-	$(RM) -r $(NAME).dSYM
-	$(MAKE) clean -C libft
+	@$(RM) $(OBJ) $(BONUS_OBJ) $(DEPENDS)
+	@$(RM) -r $(NAME).dSYM
+	@$(MAKE) clean -C libft
 	
 fclean : clean
-	$(RM) $(NAME)
-	$(RM) .main .bonus
-	$(MAKE) fclean -C libft
+	@$(RM) $(NAME)
+	@$(RM) .main .bonus
+	@$(MAKE) fclean -C libft
 
 re : fclean
-	$(MAKE) all
+	@$(MAKE) all
 
 .PHONY : all lib run re clean fclean bonus build_directories
 

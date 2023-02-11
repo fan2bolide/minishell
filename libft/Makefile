@@ -85,21 +85,21 @@ DEPENDS = $(addprefix obj/,$(SRC:.c=.d))
 all	: create_obj_folder $(NAME)
 
 $(NAME): $(OBJ)
-	ar -rcs $(NAME) $(OBJ)
+	@ar -rcs $(NAME) $(OBJ)
 
 obj/%.o : src/%.c Makefile
-	cc -Wall -Wextra -Werror -c $< -MD -o $@ -I head -g
+	@cc -Wall -Wextra -Werror -c $< -MD -o $@ -I head -g
 
 create_obj_folder :
 	@mkdir -p obj
 
 clean:
-	$(RM) $(OBJ)
-	$(RM) $(BONUS_OBJ)
-	$(RM) -r obj
+	@$(RM) $(OBJ)
+	@$(RM) $(BONUS_OBJ)
+	@$(RM) -r obj
 
 fclean: clean
-	$(RM) -f $(NAME)
+	@$(RM) -f $(NAME)
 
 re: fclean all
 

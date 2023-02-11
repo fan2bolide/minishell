@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/10 03:03:51 by bajeanno         ###   ########lyon.fr   */
+/*   Created: 2023/02/11 04:21:39 by bajeanno          #+#    #+#             */
+/*   Updated: 2023/02/11 04:21:43 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#ifndef MINISHELL_H
+# define MINISHELL_H
+# include "libft.h"
+# define SPEC_CHARSET ">$|"
 
-int main(void)
+int minishell_prompt(char *path);
+
+typedef struct s_command
 {
-	minishell_prompt("/dev/users/bolide");
-	return (0);
-}
+	char				string;
+}	t_command;
+
+#endif
