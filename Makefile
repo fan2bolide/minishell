@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 16:28:53 by bajeanno          #+#    #+#              #
-#    Updated: 2022/12/18 11:58:59 by bajeanno         ###   ########lyon.fr    #
+#    Updated: 2023/02/20 21:08:33 by alevra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FLAGS = -Werror -Wall -Wextra -I libft -I .
+FLAGS = -I libft -I . -lreadline
 
 DEBUG_FLAGS = -fsanitize=address -g3
 
@@ -20,7 +20,7 @@ LIBFT = libft/libft.a
 
 SRC = minishell.c
 
-BONUS_SRC = 
+BONUS_SRC =
 
 DEPENDS	:=	$(addprefix obj/,$(SRC:.c=.d)) $(addprefix obj/,${BONUS_SRC:.c=.d})
 
@@ -63,7 +63,7 @@ clean :
 	$(RM) $(OBJ) $(BONUS_OBJ) $(DEPENDS)
 	$(RM) -r $(NAME).dSYM
 	$(MAKE) clean -C libft
-	
+
 fclean : clean
 	$(RM) $(NAME)
 	$(RM) .main .bonus
