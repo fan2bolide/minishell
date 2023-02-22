@@ -32,12 +32,12 @@ all : build_directories lib
 	$(MAKE) $(NAME)
 
 $(NAME) : $(OBJ) $(LIBFT)
-	@$(CC) $(OBJ) $(LIBFT) $(FLAGS) -o $(NAME)
+	@$(CC) $(OBJ) $(LIBFT) -lreadline $(FLAGS) -o $(NAME)
 
 bonus : build_directories lib .bonus
 
 .bonus : $(OBJ) $(BONUS_OBJ)
-	$(CC) $(OBJ) $(BONUS_OBJ) $(LIBFT) $(STACK_LIB) $(FLAGS) -o $(NAME)
+	$(CC) $(OBJ) $(BONUS_OBJ) $(LIBFT) -lreadline $(FLAGS) -o $(NAME)
 
 build_directories :
 	@mkdir -p obj

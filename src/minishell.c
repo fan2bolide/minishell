@@ -14,6 +14,9 @@
 
 int main(void)
 {
-	minishell_prompt("/dev/users/bolide");
+	char	*prompt;
+	prompt = NULL;
+	while (!prompt || !ft_strequ(prompt, "exit"))
+		prompt = readline("/dev/users/bolide -> ");
 	return (0);
 }
