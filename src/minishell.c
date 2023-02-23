@@ -6,10 +6,11 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/23 15:12:21 by alevra           ###   ########.fr       */
+/*   Updated: 2023/02/23 15:52:44 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "execute_cmd_line.h"
 #include "libft.h"
 #include <readline/history.h>
 #include <readline/readline.h>
@@ -37,15 +38,15 @@ char	**msh_parser(char *line)
 	return (splits);
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
-	char	*res;
+	char	*prompt_res;
 
 	(void)argc;
 	(void)argv;
 	welcome_msg();
-	res = prompt();
-	msh_parser(res);
+	prompt_res = prompt();
+	execute_cmd_line(prompt_res, envp);
 	return (0);
 }
 
@@ -67,14 +68,14 @@ loop :
 
 
  > infile ldsjflsdkjflksdjflkjdsf
---> pipex( < pldsjflsdkjflksdjflkjdsf | dff >> sfdsdf| ksjdbfkjsd);
+--> execute_cmd_line( < pldsjflsdkjflksdjflkjdsf | dff >> sfdsdf| ksjdbfkjsd);
 
 
  > oihteoirhtoerhto;
---> pipex(oihteoirhtoerhto, 0, 0);
+--> execute_cmd_line(oihteoirhtoerhto, 0, 0);
 
 
-split les phrases (une phrase = un appel de pipex)
+split les phrases (une phrase = un appel de execute_cmd_line)
 efface les barres |
 ... | ... | .. > FILE | sdkjdsjf | sdf
 
@@ -85,7 +86,7 @@ efface les barres |
 
 
 
-ls "chemin" | cat -e >> outfile1 | autrechose
+ls "chemin" | cat -e >> outfile1 | wc -l
 
 
 
@@ -94,12 +95,12 @@ ls "chemin" | cat -e >> outfile1 | autrechose
 - wc -l
 - fichier
 
-Il faudra appeler n fois pipex
+Il faudra appeler n fois execute_cmd_line
 n represente le nombre de ofis ou on peut fractionner la ligne
 On peut fractionner quand on est sur qu'un pipe ne prend aucune entree
 
 5) execute commands
 
-routine -> pipex
+routine -> execute_cmd_line
 
  */

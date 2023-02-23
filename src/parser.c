@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "execute_cmd_line.h"
 
 static int	how_many_args(char **str);
 static int	try_to_set_elmt_zero_case_heredoc(t_to_exec *to_exec_tab,
@@ -20,7 +20,7 @@ static int	check_here_doc(char *str);
 /*
 BEHAVIOR EXAMPLE:
 
-./pipex infile "cmd1" | "cmd2 -flagcmd2" | aldhsk | dsjfkjsd outfile (classic case aka hd = 0)
+./execute_cmd_line infile "cmd1" | "cmd2 -flagcmd2" | aldhsk | dsjfkjsd outfile (classic case aka hd = 0)
 	- to_exec_tab size : how_many_args(&argv[2 + 0]) + 1 + 0
 	- to_exec_tab[0].cmd[0] = cmd1
 	-                ...[1] = NULL
@@ -29,7 +29,7 @@ BEHAVIOR EXAMPLE:
 	-                   [2] = NULL
 	- to_exec_tab[2].cmd[0] = NULL
 
-./pipex infile "cmd1" | cmd2  > flagcmd2 | aldhsk | dsjfkjsd outfile (classic case aka hd = 0)
+./execute_cmd_line infile "cmd1" | cmd2  > flagcmd2 | aldhsk | dsjfkjsd outfile (classic case aka hd = 0)
 	- to_exec_tab size : how_many_args(&argv[2 + 0]) + 1 + 0
 	- to_exec_tab[0].cmd[0] = cmd1
 	-                ...[1] = NULL
@@ -38,7 +38,7 @@ BEHAVIOR EXAMPLE:
 	-                   [2] = NULL
 	- to_exec_tab[2].cmd[0] = NULL
 
-./pipex here_doc DELIMITER "cmd1" "cmd2" outfile (here_doc case aka hd = 1)
+./execute_cmd_line here_doc DELIMITER "cmd1" "cmd2" outfile (here_doc case aka hd = 1)
 	- to_exec_tab size :  how_many_args(&argv[2 + 1]) + 1 + 1
 	- to_exec_tab[0].cmd[0] = here_doc
 	-                ...[1] = DELIMITER

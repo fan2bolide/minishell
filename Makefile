@@ -6,7 +6,7 @@
 #    By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 16:28:53 by bajeanno          #+#    #+#              #
-#    Updated: 2023/02/23 15:10:20 by alevra           ###   ########.fr        #
+#    Updated: 2023/02/23 16:12:10 by alevra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC =	minishell.c\
 		execute_cmd.c\
 		get_path.c\
 		parser.c\
-		pipex.c\
+		execute_cmd_line.c\
 		utils.c\
 
 BONUS_SRC =
@@ -50,7 +50,7 @@ create_obj_folder :
 	mkdir -p obj
 
 obj/%.o : src/%.c Makefile
-	cc -Wall -Wextra -Werror -c $< -MD -I libft/head -I head -o $@
+	cc -Wall -Wextra -c $< -MD -I libft/head -I head -o $@
 
 debug : lib
 	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o debug$(NAME)

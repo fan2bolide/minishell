@@ -6,11 +6,11 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 23:14:45 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/16 18:37:49 by alevra           ###   ########.fr       */
+/*   Updated: 2023/02/23 15:25:29 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "execute_cmd_line.h"
 
 //return 0 if new_line is not delim, return -1 if new_line is delimiter
 int	append_new_line_if_not_delim(int fd, char **str_to_append, char *delim)

@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_cmd.c                                    :+:      :+:    :+:   */
+/*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/24 23:25:43 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/08 22:12:59 by alevra           ###   ########.fr       */
+/*   Created: 2023/02/23 16:41:19 by alevra            #+#    #+#             */
+/*   Updated: 2023/02/23 16:53:54 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute_cmd_line.h"
+#ifndef LEXER_H
+# define LEXER_H
 
-//'to_read' linked to child ´stdin´ and child ´stdout´ linked to ´to_write´
-void	execute_cmd(t_to_exec to_exec, int to_read, int to_write)
+enum type
 {
-	dup2(to_read, STDIN_FILENO);
-	dup2(to_write, STDOUT_FILENO);
-	close(to_read);
-	close(to_write);
-	execve(to_exec.path, to_exec.cmd, to_exec.envp);
-	exit(EXIT_FAILURE);
-}
+	cmd = 1,
+	args = 2,
+	redirect = 3,
+	file = 4
+};
+
+# endif

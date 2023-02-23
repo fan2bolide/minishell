@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   execute_cmd_line.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,17 +10,26 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "execute_cmd_line.h"
 
 static int	check_args(int argc, char **argv);
 
-int	pipex(int argc, char **argv, char **envp)
+int	execute_cmd_line(char *prompt_res, char **envp)
 {
 	int			files[2];
 	t_to_exec	*cmds;
 	int			here_doc_option;
+	char *tmp;
+	char **splits = ft_split(prompt_res, '|');
 
-	here_doc_option = ft_strequ(argv[1], "here_doc");
+	//faire le lexer
+	// faire le paarser
+	for (size_t i = 0; splits[i] != NULL; i++)
+	{
+		tmp = ft_strtrim(splits[i], " "); //debug
+	}
+	return (0);
+	/* here_doc_option = ft_strequ(argv[1], "here_doc");
 	if (check_args(argc, argv) < 0)
 		return (-1);
 	if (!here_doc_option)
@@ -31,14 +40,15 @@ int	pipex(int argc, char **argv, char **envp)
 	}
 
 	if (!here_doc_option)
-		files[FILE_2] = open(argv[argc - 1], O_WRONLY | O_TRUNC | O_CREAT, 0644);
+		files[FILE_2] = open(argv[argc - 1], O_WRONLY | O_TRUNC | O_CREAT,
+				0644);
 	else
-		files[FILE_2] = open(argv[argc - 1], O_WRONLY | O_APPEND | O_CREAT, 0644);
-
+		files[FILE_2] = open(argv[argc - 1], O_WRONLY | O_APPEND | O_CREAT,
+				0644);
 	if (files[FILE_2] < 0)
 		perror(argv[argc - 1]);
-
 	cmds = (parser(argv, envp));
+
 	if (!cmds)
 	{
 		if (!ft_strequ(argv[1], "here_doc"))
@@ -47,7 +57,7 @@ int	pipex(int argc, char **argv, char **envp)
 	}
 	if (execute_all_cmds(cmds, files) < 0)
 		return (-1);
-	return (close(files[FILE_2]), 0);
+	return (close(files[FILE_2]), 0); */
 }
 
 static int	check_args(int argc, char **argv)

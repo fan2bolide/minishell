@@ -6,11 +6,11 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 23:06:50 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/14 16:10:34 by alevra           ###   ########.fr       */
+/*   Updated: 2023/02/23 15:25:36 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "execute_cmd_line.h"
 
 void	exit_routine(int pipes[OPEN_MAX][2], int files[2], int pids[OPEN_MAX],
 		int i)

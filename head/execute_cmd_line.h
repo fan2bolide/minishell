@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   execute_cmd_line.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef EXECUTE_CMD_LINE_H
+# define EXECUTE_CMD_LINE_H
 
 # ifndef READ
 #  define READ 0
@@ -28,12 +28,14 @@
 # ifndef OPEN_MAX
 #  define OPEN_MAX 1024
 # endif
+# include "lexer.h"
 # include "libft.h"
+# include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
-# include <sys/wait.h>
-# include <errno.h>
 # include <string.h>
+# include <sys/wait.h>
+
 
 typedef struct s_to_exec
 {
@@ -42,8 +44,7 @@ typedef struct s_to_exec
 	char	**envp;
 }			t_to_exec;
 
-
-
+int			execute_cmd_line(char *prompt_res, char **envp);
 void		manage_here_doc(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
 				int fd_file_1);
 int			append_new_line_if_not_delim(int fd, char **str_to_append,
@@ -61,4 +62,3 @@ void		exit_routine(int pipes[OPEN_MAX][2], int files[2],
 				int pids[OPEN_MAX], int i);
 int			execute_all_cmds(t_to_exec *cmds, int files[2]);
 #endif
-

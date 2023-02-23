@@ -6,11 +6,11 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 23:14:45 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/23 14:39:06 by alevra           ###   ########.fr       */
+/*   Updated: 2023/02/23 15:25:30 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "execute_cmd_line.h"
 
 static void	case_first(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
 				int fd_file_1);
