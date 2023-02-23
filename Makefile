@@ -19,13 +19,13 @@ DEBUG_FLAGS = -fsanitize=address -g3
 LIBFT = libft/libft.a
 
 SRC =	minishell.c\
-		execute_all_cmds.c
-		execute_all_cmds_utils.c
-		execute_cmds.c
-		get_path.c
-		parser.c
-		pipex.c
-		utils.c
+		execute_all_cmds.c\
+		execute_all_cmds_utils.c\
+		execute_cmds.c\
+		get_path.c\
+		parser.c\
+		pipex.c\
+		utils.c\
 
 BONUS_SRC =
 
@@ -44,13 +44,13 @@ $(NAME) : $(OBJ)
 bonus : create_obj_folder lib .bonus
 
 .bonus : $(OBJ) $(BONUS_OBJ)
-	$(CC) $(OBJ) $(BONUS_OBJ) $(LIBFT) $(STACK_LIB) $(FLAGS) -o $(NAME)
+	$(CC) $(OBJ) $(BONUS_OBJ) $(LIBFT) $(FLAGS) -o $(NAME)
 
 create_obj_folder :
 	mkdir -p obj
 
 obj/%.o : src/%.c Makefile
-	cc -Wall -Wextra -Werror -c $< -MD -I libft/headers -I head -o $@
+	cc -Wall -Wextra -Werror -c $< -MD -I libft/head -I head -o $@
 
 debug : lib
 	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o debug$(NAME)
