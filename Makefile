@@ -6,19 +6,19 @@
 #    By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 16:28:53 by bajeanno          #+#    #+#              #
-#    Updated: 2023/02/23 14:02:12 by alevra           ###   ########.fr        #
+#    Updated: 2023/02/23 14:19:37 by alevra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FLAGS = -I libft -I . -lreadline
+FLAGS = -I libft/head -I . -lreadline
 
 DEBUG_FLAGS = -fsanitize=address -g3
 
 LIBFT = libft/libft.a
 
-SRC = minishell.c
+SRC =	minishell.c\
 
 BONUS_SRC =
 

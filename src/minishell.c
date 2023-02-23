@@ -6,7 +6,7 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/21 01:34:31 by alevra           ###   ########.fr       */
+/*   Updated: 2023/02/23 14:17:54 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "../libft/head/libft.h"
+#include "libft.h"
 
 void	welcome_msg(void)
 {
 	ft_printf("Welcome to marrakesh\n");
 }
 
-void	read_line(void)
+char	*prompt()
 {
 	char	*res;
 
 	res = readline(" > ");
-	ft_printf(res);
+	return (res);
 }
 
 char	**msh_parser(char *line)
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 	(void)argc;
 	(void)argv;
 	welcome_msg();
-	msh_parser(read_line());
+	msh_parser(prompt());
 	return (0);
 }
 

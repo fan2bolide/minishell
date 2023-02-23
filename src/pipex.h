@@ -6,7 +6,7 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:20:18 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/21 01:40:24 by alevra           ###   ########.fr       */
+/*   Updated: 2023/02/23 14:14:45 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # ifndef OPEN_MAX
 #  define OPEN_MAX 1024
 # endif
-# include "../libft/libft.h"
+# include "libft.h"
 # include <stdio.h>
 # include <sys/wait.h>
 # include <errno.h>
