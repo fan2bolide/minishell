@@ -6,7 +6,7 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:19:25 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/21 01:20:34 by alevra           ###   ########.fr       */
+/*   Updated: 2023/02/23 14:41:20 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	check_args(int argc, char **argv);
 
-int	main(int argc, char **argv, char **envp)
+int	pipex(int argc, char **argv, char **envp)
 {
 	int			files[2];
 	t_to_exec	*cmds;
@@ -54,7 +54,7 @@ static int	check_args(int argc, char **argv)
 {
 	if (argc != 5)
 		return (ft_printf("Incorrect number of args\n"), -1);
-	if (argc < 5 || ft_strequ(argv[1], "here_doc") && argc < 6)
+	if (argc < 5 || (ft_strequ(argv[1], "here_doc") && argc < 6))
 		return (ft_printf("Not enough args\n"), -1);
 	return (0);
 }

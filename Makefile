@@ -6,7 +6,7 @@
 #    By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 16:28:53 by bajeanno          #+#    #+#              #
-#    Updated: 2023/02/23 14:19:37 by alevra           ###   ########.fr        #
+#    Updated: 2023/02/23 14:39:35 by alevra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBFT = libft/libft.a
 SRC =	minishell.c\
 		execute_all_cmds.c\
 		execute_all_cmds_utils.c\
-		execute_cmds.c\
+		execute_cmd.c\
 		get_path.c\
 		parser.c\
 		pipex.c\

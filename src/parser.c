@@ -76,9 +76,8 @@ t_to_exec	*parser(char **argv, char **envp)
 
 static int	check_here_doc(char *str)
 {
-	if (BONUS)
-		if (ft_strequ(str, "here_doc"))
-			return (1);
+	if (ft_strequ(str, "here_doc"))
+		return (1);
 	return (0);
 }
 

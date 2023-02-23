@@ -6,7 +6,7 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:20:18 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/23 14:14:45 by alevra           ###   ########.fr       */
+/*   Updated: 2023/02/23 14:40:54 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 #  define OPEN_MAX 1024
 # endif
 # include "libft.h"
+# include <fcntl.h>
 # include <stdio.h>
 # include <sys/wait.h>
 # include <errno.h>
@@ -36,8 +37,8 @@
 
 typedef struct s_to_exec
 {
-1	char	**cmd;
- 	char	*path;
+	char	**cmd;
+	char	*path;
 	char	**envp;
 }			t_to_exec;
 
@@ -61,10 +62,3 @@ void		exit_routine(int pipes[OPEN_MAX][2], int files[2],
 int			execute_all_cmds(t_to_exec *cmds, int files[2]);
 #endif
 
-
-
-typedef struct t_parsing_msh
-{
-	ce que tu veux
-
-}			t_parsing_msh;

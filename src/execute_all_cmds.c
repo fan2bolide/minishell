@@ -6,7 +6,7 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 23:14:45 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/16 19:44:50 by alevra           ###   ########.fr       */
+/*   Updated: 2023/02/23 14:39:06 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	case_first(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
 		int fd_file_1)
 {
 	close(pipes[i][READ]);
-	if (i == 0 && BONUS && ft_strequ(to_exec.cmd[0], "here_doc"))
+	if (i == 0 && ft_strequ(to_exec.cmd[0], "here_doc"))
 		manage_here_doc(to_exec, pipes, i, fd_file_1);
 	if (fd_file_1 > 0 && to_exec.path)
 		execute_cmd(to_exec, fd_file_1, pipes[i][WRITE]);
