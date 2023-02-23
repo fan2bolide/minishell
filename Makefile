@@ -6,7 +6,7 @@
 #    By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 16:28:53 by bajeanno          #+#    #+#              #
-#    Updated: 2023/02/20 21:08:33 by alevra           ###   ########.fr        #
+#    Updated: 2023/02/23 14:02:12 by alevra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ debug : lib
 lib : $(LIBFT)
 
 $(LIBFT) : libft
-	$(MAKE) -C libft
+	@$(MAKE) -C libft
 
 libft :
 	git clone git@github.com:fan2bolide/libft.git
@@ -65,12 +65,12 @@ clean :
 	$(MAKE) clean -C libft
 
 fclean : clean
-	$(RM) $(NAME)
-	$(RM) .main .bonus
-	$(MAKE) fclean -C libft
+	@$(RM) $(NAME)
+	@$(RM) .main .bonus
+	@$(MAKE) fclean -C libft
 
 re : fclean
-	$(MAKE) all
+	@$(MAKE) all
 
 .PHONY : all lib run re clean fclean bonus create_obj_folder
 
