@@ -6,22 +6,22 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/23 14:17:54 by alevra           ###   ########.fr       */
+/*   Updated: 2023/02/23 15:12:21 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
+#include <readline/history.h>
+#include <readline/readline.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "libft.h"
 
 void	welcome_msg(void)
 {
 	ft_printf("Welcome to marrakesh\n");
 }
 
-char	*prompt()
+char	*prompt(void)
 {
 	char	*res;
 
@@ -31,15 +31,21 @@ char	*prompt()
 
 char	**msh_parser(char *line)
 {
-	return (ft_split(line, ' '));
+	char	**splits;
+
+	splits = ft_split(line, ' ');
+	return (splits);
 }
 
 int	main(int argc, char **argv)
 {
+	char	*res;
+
 	(void)argc;
 	(void)argv;
 	welcome_msg();
-	msh_parser(prompt());
+	res = prompt();
+	msh_parser(res);
 	return (0);
 }
 

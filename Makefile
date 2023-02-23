@@ -6,13 +6,13 @@
 #    By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 16:28:53 by bajeanno          #+#    #+#              #
-#    Updated: 2023/02/23 14:39:35 by alevra           ###   ########.fr        #
+#    Updated: 2023/02/23 15:10:20 by alevra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-FLAGS = -I libft/head -I head -I . -lreadline
+FLAGS = -I libft/head -I head -I . -lreadline -g3
 
 DEBUG_FLAGS = -fsanitize=address -g3
 
