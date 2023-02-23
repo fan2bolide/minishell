@@ -1,1 +1,5 @@
 **/obj
+cmake-build-debug
+CMakeLists.txt
+minishell
+.idea

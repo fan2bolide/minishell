@@ -18,7 +18,7 @@
 
 void	welcome_msg(void)
 {
-	ft_printf("Welcome to minishell\n");
+	ft_printf("Welcome to marrakesh\n");
 }
 
 void	read_line(void)
