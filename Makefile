@@ -12,13 +12,20 @@
 
 NAME = minishell
 
-FLAGS = -I libft/head -I . -lreadline
+FLAGS = -I libft/head -I head -I . -lreadline
 
 DEBUG_FLAGS = -fsanitize=address -g3
 
 LIBFT = libft/libft.a
 
 SRC =	minishell.c\
+		execute_all_cmds.c
+		execute_all_cmds_utils.c
+		execute_cmds.c
+		get_path.c
+		parser.c
+		pipex.c
+		utils.c
 
 BONUS_SRC =
 
