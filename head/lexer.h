@@ -13,12 +13,12 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-enum type
+enum e_type
 {
-	cmd = 1,
-	args = 2,
-	redirect = 3,
-	file = 4
+	cmd,
+	args,
+	redirect,
+	file
 };
 
 # endif
