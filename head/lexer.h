@@ -13,12 +13,25 @@
 #ifndef LEXER_H
 # define LEXER_H
 
-enum e_type
+# include <stddef.h>
+# include <stdio.h>
+# include "libft.h"
+# include "minishell.h"
+
+typedef enum e_type
 {
 	cmd,
 	args,
 	redirect,
-	file
-};
+	file,
+	operator
+}	t_type;
+
+typedef struct s_tokened_unit
+{
+	t_type	type;
+	char	*content;
+
+}	t_tokened_unit;
 
 # endif
