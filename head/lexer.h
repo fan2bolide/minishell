@@ -20,18 +20,18 @@
 
 typedef enum e_type
 {
+	empty,
 	cmd,
 	args,
-	redirect,
 	file,
 	operator
 }	t_type;
 
-typedef struct s_tokened_unit
+typedef struct s_token
 {
 	t_type	type;
 	char	*content;
 
-}	t_tokened_unit;
+}	t_token;
 
 # endif
