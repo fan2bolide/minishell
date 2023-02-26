@@ -20,7 +20,7 @@
 
 typedef enum e_type
 {
-	empty,
+	error,
 	cmd,
 	args,
 	file,

@@ -35,16 +35,16 @@ t_token	*evaluate_expression(char *expression, t_token *prev)
 		return (NULL);
 	if (ft_strchr(SPEC_CHAR, expression[i]))//TODO: a voir pour le dollar
 		return (curr->type = operator, curr);
-	if (!prev)
+	if (!prev || (ft_strchr("|", *(prev->content)) && ft_isalpha
+	(expression[i])))
 		return (curr->type = file_or_cmd(expression, prev), curr);
-	if (prev->type == operator && ft_strchr("<>", *(prev->content)) &&
-	ft_isalpha
-	(expression[i]))
+	if (ft_strchr("<>", *(prev->content)) && ft_isalpha(expression[i]))
 		return (curr->type = file, curr);
-	//todo ça segfault parce que les regles sont pas finies
+	if (prev->type == cmd || prev->type == args)
+		return (curr->type = args, curr);
 	while (ft_isspace(expression[i]))
 		i++;
-	return (NULL);
+	return (curr->type = error, curr);
 }
 
 static size_t get_next_expression(char *command_line)
@@ -75,7 +75,6 @@ t_list *get_token_list(char *command_line)
 												 curr->content));
 		curr = curr->next;
 		i += get_next_expression(command_line + i);
-		ft_printf("%d\n", i);
 	}
 	return (list);
 }
@@ -85,13 +84,13 @@ void print_token(t_token *token)
 	char *token_type;
 
 	if (token->type == cmd)
-		token_type = "cmd";
+		token_type = "cmd, ";
 	if (token->type == args)
-		token_type = "args";
+		token_type = "args, ";
 	if (token->type == file)
-		token_type = "file";
+		token_type = "file, ";
 	if (token->type == operator)
-		token_type = "operator";
+		token_type = "operator, ";
 	ft_printf(token_type);
 }
 
@@ -104,9 +103,16 @@ int main()
 	curr = list;
 	while (curr)
 	{
-		printf("coucou%p\n", curr->content);
+		if (((t_token *)curr->content)->type == error)
+			return (1);
+		curr = curr->next;
+	}
+	curr = list;
+	while (curr)
+	{
 		print_token(curr->content);
 		curr = curr->next;
 	}
+	ft_printf("\n");
 	return (0);
 }
