@@ -12,8 +12,8 @@ char	*get_token_content(char *expression)
 	char	*content;
 
 	i = 0;
-	if (ft_isalpha(*expression) || *expression == '-')
-		while (expression[i] && (ft_isalpha(expression[i]) || \
+	if (ft_isalnum(*expression) || *expression == '-')
+		while (expression[i] && (ft_isalnum(expression[i]) || \
 		expression[i] == '-'))
 			i++;
 	else

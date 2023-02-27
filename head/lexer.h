@@ -22,9 +22,13 @@ typedef enum e_type
 {
 	error,
 	cmd,
-	args,
+	arg,
 	file,
-	operator
+	operator_pipe,
+	redirect_in,
+	redirect_out,
+	redirect_hd,
+	redirect_append
 }	t_type;
 
 typedef struct s_token
