@@ -105,25 +105,3 @@ void	print_token(t_token *token)
 	ft_printf(token_type);
 }
 
-int	main(void)
-{
-	char *input = get_next_line(0);
-	t_list *list;
-	list = get_token_list(input);
-	t_list *curr;
-	curr = list;
-	while (curr)
-	{
-		if (((t_token *)curr->content)->type == error)
-			return (free(input), ft_lstclear(&list, free), 1);
-		curr = curr->next;
-	}
-	curr = list;
-	while (curr)
-	{
-		print_token(curr->content);
-		curr = curr->next;
-	}
-	ft_printf("\n");
-	return (0);
-}

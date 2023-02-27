@@ -6,7 +6,7 @@
 #    By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 16:28:53 by bajeanno          #+#    #+#              #
-#    Updated: 2023/02/23 16:12:10 by alevra           ###   ########.fr        #
+#    Updated: 2023/02/27 17:19:52 by alevra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,8 @@ SRC =	minishell.c\
 		parser.c\
 		execute_cmd_line.c\
 		utils.c\
+		tokenize.c \
+		token_utils.c 
 
 BONUS_SRC =
 

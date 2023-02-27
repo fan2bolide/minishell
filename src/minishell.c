@@ -6,7 +6,7 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 02:59:28 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/23 15:52:44 by alevra           ###   ########.fr       */
+/*   Updated: 2023/02/27 17:19:12 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,27 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	welcome_msg();
 	prompt_res = prompt();
-	execute_cmd_line(prompt_res, envp);
+
+	t_list *list;
+	list = get_token_list(prompt_res);
+	t_list *curr;
+	curr = list;
+	while (curr)
+	{
+		if (((t_token *)curr->content)->type == error)
+			return (free(prompt_res), ft_lstclear(&list, free), 1);
+		curr = curr->next;
+	}
+	curr = list;
+	while (curr)
+	{
+		print_token(curr->content);
+		curr = curr->next;
+	}
+	ft_printf("\n");
+	return (0);
+
+	// execute_cmd_line(prompt_res, envp);
 	return (0);
 }
 
