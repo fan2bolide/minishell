@@ -4,6 +4,8 @@
 
 #include "lexer.h"
 
+static void	destroy_token(void *token);
+
 char	*get_token_content(char *expression)
 {
 	size_t	i;
@@ -20,9 +22,24 @@ char	*get_token_content(char *expression)
 				i++;
 		else
 			return (NULL);
-	content = ft_strnew(i--);
+	content = ft_strnew(i);
 	if (!content)
 		return (NULL);
 	ft_strncpy(expression, content, i);
 	return (content);
+}
+
+void	destroy_token_list(t_token **token_list)
+{
+	ft_lstclear(token_list, destroy_token);
+	free(*token_list);
+}
+
+static void	destroy_token(void *token)
+{
+	t_token *tmp;
+	tmp = token;
+
+	free(tmp->content);
+	free(tmp);
 }
