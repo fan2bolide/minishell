@@ -34,4 +34,7 @@ typedef struct s_token
 
 }	t_token;
 
+char	*get_token_content(char *expression);
+t_list	*get_token_list(char *command_line);
+
 # endif
