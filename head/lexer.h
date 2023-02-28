@@ -21,7 +21,7 @@
 typedef enum e_type
 {
 	error,
-	cmd,
+	exec_name,
 	arg,
 	file,
 	operator_pipe,
@@ -41,6 +41,6 @@ typedef struct s_token
 char	*get_token_content(char *expression);
 t_list	*get_token_list(char *command_line);
 void	print_token(t_token *token);
-void	destroy_token_list(t_token **token_list);
+void	destroy_token_list(t_list *token_list);
 
 # endif
