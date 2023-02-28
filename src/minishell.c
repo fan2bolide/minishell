@@ -46,24 +46,27 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	welcome_msg();
 	prompt_res = prompt();
-
-	t_list *list;
-	list = get_token_list(prompt_res);
-	t_list *curr;
-	curr = list;
-	while (curr)
+	while (!ft_strequ(prompt_res, "exit"))
 	{
-		if (((t_token *)curr->content)->type == error)
-			return (free(prompt_res), ft_lstclear(&list, free), 1);
-		curr = curr->next;
+		t_list *list;
+		list = get_token_list(prompt_res);
+		t_list *curr;
+		curr = list;
+		while (curr)
+		{
+			if (((t_token *)curr->content)->type == error)
+				return (free(prompt_res), ft_lstclear(&list, free), 1);
+			curr = curr->next;
+		}
+		curr = list;
+		while (curr)
+		{
+			print_token(curr->content);
+			curr = curr->next;
+		}
+		ft_printf("\n");
+		prompt_res = prompt();
 	}
-	curr = list;
-	while (curr)
-	{
-		print_token(curr->content);
-		curr = curr->next;
-	}
-	ft_printf("\n");
 	return (0);
 
 	// execute_cmd_line(prompt_res, envp);
