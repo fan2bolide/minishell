@@ -37,6 +37,7 @@ t_list	*token_parsing(t_list *tokens)
 
 	curr = tokens;
 	while (curr)
+	{
 		curr_token = curr->content;
 		if (curr_token->type == error)
 			return (destroy_token_list(tokens), NULL);
@@ -48,5 +49,18 @@ t_list	*token_parsing(t_list *tokens)
 			curr_token->type != file)
 				return (destroy_token_list(tokens), NULL);
 		}
-	return (tokens)
+	}
+	return (tokens);
+}
+
+static int	check_consecutives_types(t_list *list, t_type type1, t_type type2)
+{
+	while (list && list->next)
+	{
+		if (((t_token *)list->content)->type == type1 && \
+		((t_token *)list->next->content)->type == type2)
+			return (0);
+		list = list->next;
+	}
+	return (1);
 }
