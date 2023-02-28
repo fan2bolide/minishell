@@ -10,12 +10,59 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "execute_cmd_line.h"
-#include "libft.h"
-#include <readline/history.h>
-#include <readline/readline.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include "minishell.h"
+
+
+//debug
+void	log_token(t_token *token)
+{
+	ft_printf("content :%s\n", token->content);
+	ft_printf("type :");
+	switch (token->type) {
+		case 0:
+			ft_printf("error");
+			break;
+		case 1:
+			ft_printf("cmd");
+			break;
+		case 2:
+			ft_printf("arg");
+			break;
+		case 3:
+			ft_printf("file");
+			break;
+		case 4:
+			ft_printf("operator_pipe");
+			break;
+		case 5:
+			ft_printf("redirect_in");
+			break;
+		case 6:
+			ft_printf("redirect_out");
+			break;
+		case 7:
+			ft_printf("redirect_hd");
+			break;
+		case 8:
+			ft_printf("redirect_append");
+			break;
+	}
+	ft_printf("\n\n");
+}
+
+//debug
+void	debug_aurel(int argc, char **argv, char **envp)
+{
+	t_list *token_list;
+	t_token *token_ptr;
+
+	if (argc > 1 && ft_strequ(argv[1], "debug") == 1)
+	{
+		token_list = get_sample_tokens();
+		token_ptr = (t_token *) token_list->content;
+		log_token(token_ptr);
+	}
+}
 
 void	welcome_msg(void)
 {
@@ -30,20 +77,13 @@ char	*prompt(void)
 	return (res);
 }
 
-char	**msh_parser(char *line)
-{
-	char	**splits;
-
-	splits = ft_split(line, ' ');
-	return (splits);
-}
-
 int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt_res;
 
 	(void)argc;
 	(void)argv;
+	debug_aurel(argc, argv, envp);
 	welcome_msg();
 	prompt_res = prompt();
 	while (!ft_strequ(prompt_res, "exit"))

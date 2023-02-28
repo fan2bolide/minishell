@@ -7,6 +7,14 @@
 
 # include "execute_cmd_line.h"
 # include "lexer.h"
+# include "execute_cmd_line.h"
+# include "libft.h"
+# include <readline/history.h>
+# include <readline/readline.h>
+# include <stdio.h>
+# include <stdlib.h>
+
+t_list *get_sample_tokens(); //debug
 
 # define SPEC_CHAR "><|&"
 #endif
