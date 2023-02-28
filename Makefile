@@ -27,7 +27,8 @@ SRC =	minishell.c\
 		execute_cmd_line.c\
 		utils.c\
 		tokenize.c \
-		token_utils.c 
+		token_utils.c \
+		get_sample_tokens.c
 
 BONUS_SRC =
 
