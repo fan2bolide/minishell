@@ -1,27 +1,21 @@
-//
-// Created by basil jeannot on 24/02/2023.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenize.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/27 21:44:06 by bajeanno          #+#    #+#             */
+/*   Updated: 2023/02/27 21:44:09 by bajeanno         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lexer.h"
-
-static t_type	file_or_cmd(char *expression, t_token *prev);
 
 static t_token	*evaluate_expression(char *expression, \
 											t_token *prev);
 
-t_type	file_or_cmd(char *expression, t_token *prev)
-{
-	size_t	i;
-
-	i = 0;
-	if (!prev)
-		return (cmd);
-	if (prev->content[i] == '<' || prev->content[i] == '>')
-		return (file);
-	return (cmd);
-}
-
-t_type assign_operator_to_token(char *expression)
+t_type assign_operator_to_token(char const *expression)
 {
 	if (*expression == '|')
 		return (operator_pipe);
@@ -56,12 +50,12 @@ t_token	*evaluate_expression(char *expression, t_token *prev)
 	i = 0;
 	if (ft_strchr(SPEC_CHAR, expression[i]))//TODO: a voir pour le dollar
 		return (curr->type = assign_operator_to_token(expression), curr);
-	if (!prev || (ft_strchr("|", *(prev->content)) && \
+	if (!prev || ((ft_strchr("|", *(prev->content)) || prev->type == file) && \
 	ft_isalnum(expression[i])))
-		return (curr->type = cmd, curr);
+		return (curr->type = exec_name, curr);
 	if (ft_strchr("<>", *(prev->content)) && ft_isalnum(expression[i]))
 		return (curr->type = file, curr);
-	if (prev->type == cmd || prev->type == arg)
+	if (prev->type == exec_name || prev->type == arg)
 		return (curr->type = arg, curr);
 	while (ft_isspace(expression[i]))
 		i++;
@@ -73,6 +67,12 @@ static size_t	get_next_expression(char *command_line)
 	size_t	i;
 
 	i = 0;
+	if (ft_strchr("\"", *command_line))
+	{
+		i++;
+		while (!ft_strchr("\"", command_line[i]))
+			i++;
+	}
 	if (ft_isalnum(*command_line) || *command_line == '-')
 		while (command_line[i] && (ft_isalnum(command_line[i]) || \
 		command_line[i] == '-'))
@@ -113,8 +113,8 @@ void	print_token(t_token *token)
 {
 	char	*token_type;
 
-	if (token->type == cmd)
-		token_type = "cmd, ";
+	if (token->type == exec_name)
+		token_type = "exec_name, ";
 	if (token->type == arg)
 		token_type = "arg, ";
 	if (token->type == file)
