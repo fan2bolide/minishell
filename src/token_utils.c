@@ -1,6 +1,14 @@
-//
-// Created by basil jeannot on 27/02/2023.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/02/27 21:43:40 by bajeanno          #+#    #+#             */
+/*   Updated: 2023/02/27 21:44:16 by bajeanno         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "lexer.h"
 
@@ -25,21 +33,17 @@ char	*get_token_content(char *expression)
 	content = ft_strnew(i);
 	if (!content)
 		return (NULL);
-	ft_strncpy(expression, content, i);
+	ft_strncpy(expression, content, (int)i);
 	return (content);
 }
 
-void	destroy_token_list(t_token **token_list)
+void	destroy_token_list(t_list *token_list)
 {
-	ft_lstclear(token_list, destroy_token);
-	free(*token_list);
+	ft_lstclear(&token_list, destroy_token);
 }
 
 static void	destroy_token(void *token)
 {
-	t_token *tmp;
-	tmp = token;
-
-	free(tmp->content);
-	free(tmp);
+	free(((t_token *)token)->content);
+	free(token);
 }
