@@ -28,7 +28,6 @@
 # ifndef OPEN_MAX
 #  define OPEN_MAX 1024
 # endif
-# include "lexer.h"
 # include "libft.h"
 # include <errno.h>
 # include <fcntl.h>

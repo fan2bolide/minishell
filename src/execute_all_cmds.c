@@ -6,7 +6,7 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 23:14:45 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/23 15:25:30 by alevra           ###   ########.fr       */
+/*   Updated: 2023/03/01 18:41:04 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,3 +101,30 @@ static void	case_last(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
 	close(fd_file_2);
 	exit(EXIT_FAILURE);
 }
+
+/*
+
+
+typedef struct s_token
+{
+	t_type	type;
+	char	*content;
+
+}	t_token;
+
+
+typedef struct s_to_exec
+{
+	char	**cmd;
+	char	*path;
+	char	**envp;
+}			t_to_exec;
+
+cat file1 | wc
+	CMD cat ARG file1 ENVP envp
+	CMD wc NEVP envp
+cat file1 > file2 | wc
+	CMD cat ARG file1 REDIRECT_OUT file2 ENVP envp
+	CMD wc NEVP envp
+
+ */

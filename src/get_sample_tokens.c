@@ -11,6 +11,8 @@ t_list *get_sample_tokens()
 	t_list *res;
 	t_token *token_array;
 
+	ft_printf("\nsample cmd line : cat file1 | wc\n\n"); //debug
+
 	token_array = malloc(sizeof(t_token) * 4);
 
 	token_array[0].content = ft_strdup("cat");
@@ -33,8 +35,7 @@ t_list *get_sample_tokens()
 	for (int i = 1; i < 4; i++)
 	{
 		tok = &token_array[i];
-		ft_lstadd_back(&res, (void *)tok);
+		ft_lstadd_back(&res, ft_lstnew((void *)tok));
 	}
-
 	return res;
 }

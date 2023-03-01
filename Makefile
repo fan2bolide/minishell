@@ -6,7 +6,7 @@
 #    By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/17 16:28:53 by bajeanno          #+#    #+#              #
-#    Updated: 2023/02/27 17:19:52 by alevra           ###   ########.fr        #
+#    Updated: 2023/03/01 18:39:18 by alevra           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC =	minishell.c\
 		utils.c\
 		tokenize.c \
 		token_utils.c \
-		get_sample_tokens.c
+		get_sample_tokens.c \
+		convert_token_lst_into_to_exec_lst.c
 
 BONUS_SRC =
 
@@ -53,7 +54,7 @@ create_obj_folder :
 	mkdir -p obj
 
 obj/%.o : src/%.c Makefile
-	cc -Wall -Wextra $(DEBUG_FLAGS) -c $< -MD -I libft/head -I head -o $@
+	cc $(DEBUG_FLAGS) -c $< -MD -I libft/head -I head -o $@
 
 debug : lib
 	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o debug$(NAME)

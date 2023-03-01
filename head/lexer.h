@@ -6,17 +6,17 @@
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/23 16:41:19 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/23 16:53:54 by alevra           ###   ########.fr       */
+/*   Updated: 2023/03/01 18:41:40 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
+# include "minishell.h"
 # include <stddef.h>
 # include <stdio.h>
 # include "libft.h"
-# include "minishell.h"
 
 typedef enum e_type
 {
