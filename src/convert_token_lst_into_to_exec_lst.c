@@ -14,6 +14,9 @@
 
 static void	switch_case(t_list *token_lst_cursor, t_to_exec *current_to_exec);
 static int	token_cmd_line_size(t_list *token_lst);
+void	log_to_exec(t_to_exec *to_exec);
+void		case_current_token_type_is_exec_name(
+		t_list *token_lst_cursor, t_to_exec *to_exec);
 
 //debug
 void	log_to_exec_lst(t_list *to_exec_list)
@@ -21,7 +24,7 @@ void	log_to_exec_lst(t_list *to_exec_list)
 	t_to_exec	*current_to_exec;
 
 	if (!to_exec_list)
-		return (ft_printf("log_to_exec_lst failed (NULL pointer)\n", NULL));
+		return (ft_printf("log_to_exec_lst failed (NULL pointer)\n"), (void)0);
 	current_to_exec = to_exec_list->content;
 	log_to_exec(current_to_exec);
 }
@@ -32,7 +35,8 @@ void	log_to_exec(t_to_exec *to_exec)
 	int	i;
 
 	if (!to_exec)
-		return (ft_printf("log_to_exec failed (NULL pointer)\n", NULL)); //debug
+		return (ft_printf("log_to_exec failed (NULL pointer)\n"), (void)0);
+	//debug
 	i = 0;
 	while (to_exec->cmd[i] != NULL)
 	{
@@ -74,7 +78,7 @@ static void	switch_case(t_list *token_lst_cursor, t_to_exec *to_exec)
 
 	current_token = token_lst_cursor->content;
 	ft_printf("Current token :\n"); //debug
-	log_token(current_token);
+	print_token(current_token);
 	if (current_token->type == exec_name)
 		case_current_token_type_is_exec_name(token_lst_cursor, to_exec);
 	else
