@@ -86,8 +86,11 @@ void	welcome_msg(void)
 char	*prompt(void)
 {
 	char	*res;
+	char	*tmp;
 
-	res = readline(" > ");
+	tmp = readline(" > ");
+	res = ft_strtrim(tmp, " \n");
+	free(tmp);
 	return (res);
 }
 
@@ -119,8 +122,10 @@ int	main(int argc, char **argv, char **envp)
 			curr = curr->next;
 		}
 		ft_printf("\n");
+		free(prompt_res);
 		prompt_res = prompt();
 	}
+	free(prompt_res);
 	return (0);
 	// execute_cmd_line(prompt_res, envp);
 	return (0);
