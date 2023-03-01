@@ -42,7 +42,7 @@ all : create_obj_folder lib
 	$(MAKE) $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(OBJ) $(LIBFT) $(FLAGS) -o $(NAME)
+	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o $(NAME)
 
 bonus : create_obj_folder lib .bonus
 
@@ -53,7 +53,7 @@ create_obj_folder :
 	mkdir -p obj
 
 obj/%.o : src/%.c Makefile
-	cc -Wall -Wextra -c $< -MD -I libft/head -I head -o $@
+	cc -Wall -Wextra $(DEBUG_FLAGS) -c $< -MD -I libft/head -I head -o $@
 
 debug : lib
 	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o debug$(NAME)
