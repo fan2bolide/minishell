@@ -20,21 +20,35 @@ char	*get_token_content(char *expression)
 	char	*content;
 
 	i = 0;
-	if (ft_isalnum(*expression) || *expression == '-')
-		while (expression[i] && (ft_isalnum(expression[i]) || \
-		expression[i] == '-'))
+	if (ft_strchr("\"", *expression))
+	{
+		i++;
+		while (expression[i] && !ft_strchr("\"", expression[i]))
 			i++;
+		if (!expression[i])
+			return (NULL);
+		else
+			i++;
+	}
 	else
-		if (ft_strchr(SPEC_CHAR, *expression))
-			while (expression[i] && *expression == expression[i])
+	{
+		if (ft_isalnum(*expression) || ft_strchr("./-_", *expression))
+			while (expression[i] && (ft_isalnum(expression[i]) || \
+			ft_strchr("./-_", expression[i])))
 				i++;
 		else
-			return (NULL);
+			if (ft_strchr(SPEC_CHAR, *expression))
+				while (expression[i] && *expression == expression[i])
+					i++;
+			else
+				return (NULL);
+	}
 	content = ft_strnew(i);
 	if (!content)
 		return (NULL);
 	ft_strncpy(expression, content, (int)i);
-	return (content);
+	ft_strtrim(content, " \"");
+	return (ft_strtrim(content, " \""));
 }
 
 void	destroy_token_list(t_list *token_list)
