@@ -16,5 +16,5 @@
 t_list		*get_sample_tokens(); //debug
 t_to_exec	*convert_token_lst_into_to_exec_lst(t_list *token_lst);
 
-# define SPEC_CHAR "><|&"
+# define SPEC_CHAR "<>|&$"
 #endif

@@ -28,7 +28,8 @@ typedef enum e_type
 	redirect_in,
 	redirect_out,
 	redirect_hd,
-	redirect_append
+	redirect_append,
+	env_variable
 }	t_type;
 
 typedef struct s_token

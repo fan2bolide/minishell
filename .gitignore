@@ -3,3 +3,4 @@ cmake-build-debug
 CMakeLists.txt
 minishell
 .idea
+libft/libft.a

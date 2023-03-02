@@ -48,9 +48,7 @@ t_token	*evaluate_expression(char *expression, t_token *prev)
 		return (NULL);
 	curr->content = get_token_content(expression);
 	if (!expression || !*expression || !curr->content)
-	{
 		return (curr->type = error, curr);
-	}
 	i = 0;
 	if (ft_strchr(SPEC_CHAR, *expression))
 		return (curr->type = assign_operator_to_token(expression), curr);
@@ -61,7 +59,6 @@ t_token	*evaluate_expression(char *expression, t_token *prev)
 	if (ft_strchr("<>", *(prev->content)) && (ft_isalnum(*expression) || \
 		ft_strchr("./-_", *expression)))
 		return (curr->type = file, curr);
-	ft_printf("\n\nexpression : %s\nprev = %s\n", expression, prev->content);
 	if (prev->type == exec_name || prev->type == arg)
 		return (curr->type = arg, curr);
 	while (ft_isspace(expression[i]))
