@@ -105,6 +105,7 @@ int	main(int argc, char **argv, char **envp)
 	debug_aurel(argc, argv, envp);
 	welcome_msg();
 	prompt_res = prompt();
+	int i = 0;
 	while (!ft_strequ(prompt_res, "exit"))
 	{
 		list = get_token_list(prompt_res);
@@ -112,16 +113,14 @@ int	main(int argc, char **argv, char **envp)
 		while (curr)
 		{
 			if (((t_token *)curr->content)->type == error)
-				return (free(prompt_res), ft_lstclear(&list, free), 1);
-			curr = curr->next;
-		}
-		curr = list;
-		while (curr)
-		{
+			{
+				ft_printf("an error occured.\n");
+				break;
+			}
 			print_token(curr->content);
 			curr = curr->next;
+			i++;
 		}
-		ft_printf("\n");
 		free(prompt_res);
 		prompt_res = prompt();
 	}

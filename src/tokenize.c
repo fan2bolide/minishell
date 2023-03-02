@@ -17,6 +17,8 @@ static t_token	*evaluate_expression(char *expression, \
 
 t_type assign_operator_to_token(char const *expression)
 {
+	if (*expression == '$')
+		return (env_variable);
 	if (*expression == '|')
 		return (operator_pipe);
 	if (*expression == '<')
@@ -41,24 +43,25 @@ t_token	*evaluate_expression(char *expression, t_token *prev)
 	size_t	i;
 	t_token	*curr;
 
-	if (!expression)
-		return (NULL);
 	curr = malloc(sizeof (t_token));
 	if (!curr)
 		return (NULL);
 	curr->content = get_token_content(expression);
+	if (!expression || !*expression || !curr->content)
+	{
+		return (curr->type = error, curr);
+	}
 	i = 0;
-	if (ft_strchr(SPEC_CHAR, expression[i]))//TODO: a voir pour le dollar
+	if (ft_strchr(SPEC_CHAR, *expression))
 		return (curr->type = assign_operator_to_token(expression), curr);
 	if (!prev || ((prev->type == operator_pipe || \
-	prev->type == file) && (ft_isalnum(expression[i]) || \
-	ft_strchr("./-_\"", expression[i]))))
+	prev->type == file) && (ft_isalnum(*expression) || \
+	ft_strchr("./-_\"", *expression))))
 		return (curr->type = exec_name, curr);
-	if (ft_strchr("<>", *(prev->content)) && (ft_isalnum(expression[i] || \
-		ft_strchr("./-_", expression[i]))))
-	{
+	if (ft_strchr("<>", *(prev->content)) && (ft_isalnum(*expression) || \
+		ft_strchr("./-_", *expression)))
 		return (curr->type = file, curr);
-	}
+	ft_printf("\n\nexpression : %s\nprev = %s\n", expression, prev->content);
 	if (prev->type == exec_name || prev->type == arg)
 		return (curr->type = arg, curr);
 	while (ft_isspace(expression[i]))
@@ -106,10 +109,11 @@ t_list	*get_token_list(char *command_line)
 	list = ft_lstnew(evaluate_expression(command_line, NULL));
 	i = get_next_expression(command_line);
 	curr = list;
+
 	while (command_line[i])
 	{
-		curr->next = ft_lstnew(evaluate_expression(command_line + i, \
-																curr->content));
+		curr->next = ft_lstnew(\
+		evaluate_expression(command_line + i, curr->content));
 		curr = curr->next;
 		i += get_next_expression(command_line + i);
 		if (i == 0) //todo : gestion d'erreur
