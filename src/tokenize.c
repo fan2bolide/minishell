@@ -46,7 +46,7 @@ t_token	*evaluate_expression(char *expression, t_token *prev)
 	curr = malloc(sizeof (t_token));
 	if (!curr)
 		return (NULL);
-	curr->content = get_token_content(expression);
+	curr->content = set_token_content(expression);
 	if (!expression || !*expression || !curr->content)
 		return (curr->type = error, curr);
 	i = 0;
@@ -54,15 +54,13 @@ t_token	*evaluate_expression(char *expression, t_token *prev)
 		return (curr->type = assign_operator_to_token(expression), curr);
 	if (!prev || ((prev->type == operator_pipe || \
 	prev->type == file) && (ft_isalnum(*expression) || \
-	ft_strchr("./-_\"", *expression))))
+	ft_strchr("./-_\"\'", *expression))))
 		return (curr->type = exec_name, curr);
 	if (ft_strchr("<>", *(prev->content)) && (ft_isalnum(*expression) || \
-		ft_strchr("./-_", *expression)))
+		ft_strchr("./-_=\"\'", *expression)))
 		return (curr->type = file, curr);
 	if (prev->type == exec_name || prev->type == arg)
 		return (curr->type = arg, curr);
-	while (ft_isspace(expression[i]))
-		i++;
 	return (curr->type = error, curr);
 }
 
@@ -109,8 +107,8 @@ t_list	*get_token_list(char *command_line)
 
 	while (command_line[i])
 	{
-		curr->next = ft_lstnew(\
-		evaluate_expression(command_line + i, curr->content));
+		curr->next = \
+		ft_lstnew(evaluate_expression(command_line + i, curr->content));
 		curr = curr->next;
 		i += get_next_expression(command_line + i);
 		if (i == 0) //todo : gestion d'erreur
