@@ -1,0 +1,763 @@
+## This file contains all the build statements describing the
+# compilation DAG.
+
+# =============================================================================
+# Write statements declared in CMakeLists.txt:
+# 
+# Which is the root file.
+# =============================================================================
+
+# =============================================================================
+# Project: minishell
+# Configurations: Debug
+# =============================================================================
+
+#############################################
+# Minimal version of Ninja required by this file
+
+ninja_required_version = 1.5
+
+
+#############################################
+# Set configuration variable for custom commands.
+
+CONFIGURATION = Debug
+# =============================================================================
+# Include auxiliary files.
+
+
+#############################################
+# Include rules file.
+
+include CMakeFiles/rules.ninja
+
+# =============================================================================
+
+#############################################
+# Logical path to working directory; prefix for absolute paths.
+
+cmake_ninja_workdir = /Users/basil/Desktop/42_projects/minishell/cmake-build-debug/
+# =============================================================================
+# Object build statements for EXECUTABLE target minishell
+
+
+#############################################
+# Order-only phony target for minishell
+
+build cmake_object_order_depends_target_minishell: phony || CMakeFiles/minishell.dir
+
+build CMakeFiles/minishell.dir/libft/src/ft_atoi.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_atoi.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_atoi.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_bzero.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_bzero.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_bzero.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_calloc.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_calloc.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_calloc.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_isalnum.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_isalnum.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_isalnum.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_isalpha.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_isalpha.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_isalpha.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_isascii.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_isascii.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_isascii.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_isdigit.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_isdigit.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_isdigit.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_isprint.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_isprint.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_isprint.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_isset.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_isset.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_isset.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_isspace.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_isspace.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_isspace.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_itoa.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_itoa.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_itoa.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_lstadd_back.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_lstadd_back.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_lstadd_back.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_lstadd_front.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_lstadd_front.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_lstadd_front.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_lstclear.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_lstclear.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_lstclear.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_lstdelone.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_lstdelone.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_lstdelone.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_lstiter.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_lstiter.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_lstiter.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_lstlast.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_lstlast.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_lstlast.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_lstmap.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_lstmap.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_lstmap.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_lstnew.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_lstnew.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_lstnew.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_lstpop_back.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_lstpop_back.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_lstpop_back.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_lstpop_front.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_lstpop_front.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_lstpop_front.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_lstsize.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_lstsize.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_lstsize.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_max.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_max.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_max.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_memalloc.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_memalloc.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_memalloc.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_memccpy.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_memccpy.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_memccpy.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_memchr.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_memchr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_memchr.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_memcmp.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_memcmp.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_memcmp.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_memcpy.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_memcpy.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_memcpy.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_memdel.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_memdel.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_memdel.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_memmove.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_memmove.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_memmove.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_memset.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_memset.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_memset.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_print_hexa.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_print_hexa.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_print_hexa.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_print_int.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_print_int.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_print_int.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_printf.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_printf.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_printf.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_putchar.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_putchar.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_putchar.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_putchar_fd.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_putchar_fd.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_putchar_fd.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_putendl.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_putendl.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_putendl.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_putendl_fd.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_putendl_fd.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_putendl_fd.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_putnbr.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_putnbr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_putnbr.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_putnbr_base_unsigned.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_putnbr_base_unsigned.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_putnbr_base_unsigned.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_putnbr_fd.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_putnbr_fd.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_putnbr_fd.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_putstr.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_putstr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_putstr.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_putstr_fd.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_putstr_fd.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_putstr_fd.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_realloc.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_realloc.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_realloc.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_split.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_split.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_split.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_split_destroy.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_split_destroy.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_split_destroy.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strcat.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strcat.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strcat.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strchr.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strchr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strchr.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strclr.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strclr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strclr.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strcmp.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strcmp.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strcmp.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strcpy.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strcpy.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strcpy.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strdel.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strdel.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strdel.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strdup.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strdup.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strdup.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strequ.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strequ.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strequ.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_striter.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_striter.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_striter.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_striteri.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_striteri.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_striteri.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strjoin.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strjoin.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strjoin.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strlcat.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strlcat.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strlcat.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strlcpy.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strlcpy.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strlcpy.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strlen.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strlen.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strlen.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strmap.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strmap.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strmap.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strmapi.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strmapi.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strmapi.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strncat.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strncat.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strncat.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strncmp.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strncmp.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strncmp.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strncpy.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strncpy.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strncpy.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strndup.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strndup.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strndup.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strnequ.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strnequ.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strnequ.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strnew.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strnew.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strnew.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strnstr.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strnstr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strnstr.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strrchr.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strrchr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strrchr.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strstr.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strstr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strstr.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_strtrim.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_strtrim.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_strtrim.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_substr.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_substr.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_substr.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_tolower.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_tolower.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_tolower.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/ft_toupper.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/ft_toupper.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/ft_toupper.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/get_next_line.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/get_next_line.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/get_next_line.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/libft/src/get_next_line_utils.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/libft/src/get_next_line_utils.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/libft/src/get_next_line_utils.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/libft/src
+
+build CMakeFiles/minishell.dir/src/minishell.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/minishell.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/minishell.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/execute_cmd_line.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/execute_cmd_line.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/execute_cmd_line.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/utils.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/utils.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/utils.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/parser.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/parser.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/parser.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/get_path.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/get_path.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/get_path.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/execute_cmd.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/execute_cmd.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/execute_cmd.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/execute_all_cmds_utils.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/execute_all_cmds_utils.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/execute_all_cmds_utils.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/execute_all_cmds.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/execute_all_cmds.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/execute_all_cmds.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/tokenize.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/tokenize.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/tokenize.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/token_utils.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/token_utils.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/token_utils.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/get_sample_tokens.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/get_sample_tokens.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/get_sample_tokens.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/token_parsing.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/token_parsing.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/token_parsing.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+build CMakeFiles/minishell.dir/src/convert_token_lst_into_to_exec_lst.c.o: C_COMPILER__minishell_Debug /Users/basil/Desktop/42_projects/minishell/src/convert_token_lst_into_to_exec_lst.c || cmake_object_order_depends_target_minishell
+  DEP_FILE = CMakeFiles/minishell.dir/src/convert_token_lst_into_to_exec_lst.c.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk -fcolor-diagnostics -std=gnu11
+  INCLUDES = -I/Users/basil/Desktop/42_projects/minishell/head -I/Users/basil/Desktop/42_projects/minishell/libft/head
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  OBJECT_FILE_DIR = CMakeFiles/minishell.dir/src
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target minishell
+
+
+#############################################
+# Link the executable minishell
+
+build minishell: C_EXECUTABLE_LINKER__minishell_Debug CMakeFiles/minishell.dir/libft/src/ft_atoi.c.o CMakeFiles/minishell.dir/libft/src/ft_bzero.c.o CMakeFiles/minishell.dir/libft/src/ft_calloc.c.o CMakeFiles/minishell.dir/libft/src/ft_isalnum.c.o CMakeFiles/minishell.dir/libft/src/ft_isalpha.c.o CMakeFiles/minishell.dir/libft/src/ft_isascii.c.o CMakeFiles/minishell.dir/libft/src/ft_isdigit.c.o CMakeFiles/minishell.dir/libft/src/ft_isprint.c.o CMakeFiles/minishell.dir/libft/src/ft_isset.c.o CMakeFiles/minishell.dir/libft/src/ft_isspace.c.o CMakeFiles/minishell.dir/libft/src/ft_itoa.c.o CMakeFiles/minishell.dir/libft/src/ft_lstadd_back.c.o CMakeFiles/minishell.dir/libft/src/ft_lstadd_front.c.o CMakeFiles/minishell.dir/libft/src/ft_lstclear.c.o CMakeFiles/minishell.dir/libft/src/ft_lstdelone.c.o CMakeFiles/minishell.dir/libft/src/ft_lstiter.c.o CMakeFiles/minishell.dir/libft/src/ft_lstlast.c.o CMakeFiles/minishell.dir/libft/src/ft_lstmap.c.o CMakeFiles/minishell.dir/libft/src/ft_lstnew.c.o CMakeFiles/minishell.dir/libft/src/ft_lstpop_back.c.o CMakeFiles/minishell.dir/libft/src/ft_lstpop_front.c.o CMakeFiles/minishell.dir/libft/src/ft_lstsize.c.o CMakeFiles/minishell.dir/libft/src/ft_max.c.o CMakeFiles/minishell.dir/libft/src/ft_memalloc.c.o CMakeFiles/minishell.dir/libft/src/ft_memccpy.c.o CMakeFiles/minishell.dir/libft/src/ft_memchr.c.o CMakeFiles/minishell.dir/libft/src/ft_memcmp.c.o CMakeFiles/minishell.dir/libft/src/ft_memcpy.c.o CMakeFiles/minishell.dir/libft/src/ft_memdel.c.o CMakeFiles/minishell.dir/libft/src/ft_memmove.c.o CMakeFiles/minishell.dir/libft/src/ft_memset.c.o CMakeFiles/minishell.dir/libft/src/ft_print_hexa.c.o CMakeFiles/minishell.dir/libft/src/ft_print_int.c.o CMakeFiles/minishell.dir/libft/src/ft_printf.c.o CMakeFiles/minishell.dir/libft/src/ft_putchar.c.o CMakeFiles/minishell.dir/libft/src/ft_putchar_fd.c.o CMakeFiles/minishell.dir/libft/src/ft_putendl.c.o CMakeFiles/minishell.dir/libft/src/ft_putendl_fd.c.o CMakeFiles/minishell.dir/libft/src/ft_putnbr.c.o CMakeFiles/minishell.dir/libft/src/ft_putnbr_base_unsigned.c.o CMakeFiles/minishell.dir/libft/src/ft_putnbr_fd.c.o CMakeFiles/minishell.dir/libft/src/ft_putstr.c.o CMakeFiles/minishell.dir/libft/src/ft_putstr_fd.c.o CMakeFiles/minishell.dir/libft/src/ft_realloc.c.o CMakeFiles/minishell.dir/libft/src/ft_split.c.o CMakeFiles/minishell.dir/libft/src/ft_split_destroy.c.o CMakeFiles/minishell.dir/libft/src/ft_strcat.c.o CMakeFiles/minishell.dir/libft/src/ft_strchr.c.o CMakeFiles/minishell.dir/libft/src/ft_strclr.c.o CMakeFiles/minishell.dir/libft/src/ft_strcmp.c.o CMakeFiles/minishell.dir/libft/src/ft_strcpy.c.o CMakeFiles/minishell.dir/libft/src/ft_strdel.c.o CMakeFiles/minishell.dir/libft/src/ft_strdup.c.o CMakeFiles/minishell.dir/libft/src/ft_strequ.c.o CMakeFiles/minishell.dir/libft/src/ft_striter.c.o CMakeFiles/minishell.dir/libft/src/ft_striteri.c.o CMakeFiles/minishell.dir/libft/src/ft_strjoin.c.o CMakeFiles/minishell.dir/libft/src/ft_strlcat.c.o CMakeFiles/minishell.dir/libft/src/ft_strlcpy.c.o CMakeFiles/minishell.dir/libft/src/ft_strlen.c.o CMakeFiles/minishell.dir/libft/src/ft_strmap.c.o CMakeFiles/minishell.dir/libft/src/ft_strmapi.c.o CMakeFiles/minishell.dir/libft/src/ft_strncat.c.o CMakeFiles/minishell.dir/libft/src/ft_strncmp.c.o CMakeFiles/minishell.dir/libft/src/ft_strncpy.c.o CMakeFiles/minishell.dir/libft/src/ft_strndup.c.o CMakeFiles/minishell.dir/libft/src/ft_strnequ.c.o CMakeFiles/minishell.dir/libft/src/ft_strnew.c.o CMakeFiles/minishell.dir/libft/src/ft_strnstr.c.o CMakeFiles/minishell.dir/libft/src/ft_strrchr.c.o CMakeFiles/minishell.dir/libft/src/ft_strstr.c.o CMakeFiles/minishell.dir/libft/src/ft_strtrim.c.o CMakeFiles/minishell.dir/libft/src/ft_substr.c.o CMakeFiles/minishell.dir/libft/src/ft_tolower.c.o CMakeFiles/minishell.dir/libft/src/ft_toupper.c.o CMakeFiles/minishell.dir/libft/src/get_next_line.c.o CMakeFiles/minishell.dir/libft/src/get_next_line_utils.c.o CMakeFiles/minishell.dir/src/minishell.c.o CMakeFiles/minishell.dir/src/execute_cmd_line.c.o CMakeFiles/minishell.dir/src/utils.c.o CMakeFiles/minishell.dir/src/parser.c.o CMakeFiles/minishell.dir/src/get_path.c.o CMakeFiles/minishell.dir/src/execute_cmd.c.o CMakeFiles/minishell.dir/src/execute_all_cmds_utils.c.o CMakeFiles/minishell.dir/src/execute_all_cmds.c.o CMakeFiles/minishell.dir/src/tokenize.c.o CMakeFiles/minishell.dir/src/token_utils.c.o CMakeFiles/minishell.dir/src/get_sample_tokens.c.o CMakeFiles/minishell.dir/src/token_parsing.c.o CMakeFiles/minishell.dir/src/convert_token_lst_into_to_exec_lst.c.o
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk
+  OBJECT_DIR = CMakeFiles/minishell.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = minishell
+  TARGET_PDB = minishell.dbg
+
+
+#############################################
+# Utility command for edit_cache
+
+build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/basil/Desktop/42_projects/minishell/cmake-build-debug && "/Users/basil/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/bin/cmake" -E echo No\ interactive\ CMake\ dialog\ available.
+  DESC = No interactive CMake dialog available...
+  restat = 1
+
+build edit_cache: phony CMakeFiles/edit_cache.util
+
+
+#############################################
+# Utility command for rebuild_cache
+
+build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /Users/basil/Desktop/42_projects/minishell/cmake-build-debug && "/Users/basil/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/bin/cmake" --regenerate-during-build -S/Users/basil/Desktop/42_projects/minishell -B/Users/basil/Desktop/42_projects/minishell/cmake-build-debug
+  DESC = Running CMake to regenerate build system...
+  pool = console
+  restat = 1
+
+build rebuild_cache: phony CMakeFiles/rebuild_cache.util
+
+# =============================================================================
+# Target aliases.
+
+# =============================================================================
+# Folder targets.
+
+# =============================================================================
+
+#############################################
+# Folder: /Users/basil/Desktop/42_projects/minishell/cmake-build-debug
+
+build all: phony minishell
+
+# =============================================================================
+# Built-in targets
+
+
+#############################################
+# Re-run CMake if any of its inputs changed.
+
+build build.ninja: RERUN_CMAKE | /Users/basil/Desktop/42_projects/minishell/CMakeLists.txt /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake
+  pool = console
+
+
+#############################################
+# A missing CMake input file is not an error.
+
+build /Users/basil/Desktop/42_projects/minishell/CMakeLists.txt /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCInformation.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeCommonLanguageInclude.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeGenericSystem.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeInitializeConfigs.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeLanguageInformation.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInformation.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/CMakeSystemSpecificInitialize.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/AppleClang-C.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/CMakeCommonCompilerMacros.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/Clang.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Compiler/GNU.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-AppleClang-C.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang-C.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Apple-Clang.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin-Initialize.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/Darwin.cmake /Users/basil/Library/Application$ Support/JetBrains/Toolbox/apps/CLion/ch-0/223.8617.54/CLion.app/Contents/bin/cmake/mac/share/cmake-3.24/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.24.2/CMakeCCompiler.cmake CMakeFiles/3.24.2/CMakeSystem.cmake: phony
+
+
+#############################################
+# Clean all the built files.
+
+build clean: CLEAN
+
+
+#############################################
+# Print all primary targets available.
+
+build help: HELP
+
+
+#############################################
+# Make the all target the default.
+
+default all
