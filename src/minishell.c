@@ -12,59 +12,6 @@
 
 #include "minishell.h"
 
-//debug
-void	log_token(t_token *token)
-{
-	ft_printf("content\t: %s\n", token->content);
-	ft_printf("type\t: ");
-	switch (token->type)
-	{
-	case 0:
-		ft_printf("error");
-		break ;
-	case 1:
-		ft_printf("cmd");
-		break ;
-	case 2:
-		ft_printf("arg");
-		break ;
-	case 3:
-		ft_printf("file");
-		break ;
-	case 4:
-		ft_printf("operator_pipe");
-		break ;
-	case 5:
-		ft_printf("redirect_in");
-		break ;
-	case 6:
-		ft_printf("redirect_out");
-		break ;
-	case 7:
-		ft_printf("redirect_hd");
-		break ;
-	case 8:
-		ft_printf("redirect_append");
-		break ;
-	}
-	ft_printf("\n\n");
-}
-
-void	log_token_list(t_list *token_list)
-{
-	t_token	*token_ptr;
-	t_list	*token_list_cursor;
-
-	token_ptr = (t_token *)token_list->content;
-	log_token(token_ptr);
-	token_list_cursor = token_list->next;
-	while (token_list_cursor)
-	{
-		token_ptr = (t_token *)token_list_cursor->content;
-		log_token(token_ptr);
-		token_list_cursor = token_list_cursor->next;
-	}
-}
 
 //debug
 void	debug_aurel(int argc, char **argv, char **envp)
