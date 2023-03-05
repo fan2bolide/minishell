@@ -72,3 +72,26 @@ static void	destroy_token(void *token)
 	free(((t_token *)token)->content);
 	free(token);
 }
+
+// for a cmd line (given into a token-list format),
+// returns 1(for the exec_name) + the number of args following the exec_name
+//ex : "echo te quiero loco | ... ": returns 4
+//ex : "ls | ..." : returns only 1
+//ex : "< file | ..." : returns 0
+int	token_cmd_line_size(t_list *token_lst)
+{
+    int	res;
+
+    res = 0;
+    if (((t_token *)token_lst->content)->type != exec_name)
+        return (0);
+    res++;
+    token_lst = token_lst->next;
+    while (((t_token *)token_lst->content)->type == arg)
+    {
+        res++;
+        token_lst = token_lst->next;
+    }
+
+    return (res);
+}

@@ -41,6 +41,8 @@ typedef struct s_to_exec
 	char	**cmd;
 	char	*path;
 	char	**envp;
+    char    *redirect_in;
+    char    *redirect_out;
 }			t_to_exec;
 
 int			execute_cmd_line(char *prompt_res, char **envp);
