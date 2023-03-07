@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-
 //debug
 void	debug_aurel(int argc, char **argv, char **envp)
 {

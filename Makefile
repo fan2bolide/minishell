@@ -11,7 +11,6 @@
 # **************************************************************************** #
 
 NAME = minishell
-
 FLAGS = -I libft/head -I head -I . -lreadline -g3
 
 DEBUG_FLAGS = -fsanitize=address -g3
