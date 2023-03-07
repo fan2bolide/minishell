@@ -20,7 +20,7 @@ void	debug_aurel(int argc, char **argv, char **envp)
 	if (argc > 1 && ft_strequ(argv[1], "debug") == 1)
 	{
 		token_list = get_sample_tokens();
-		convert_token_lst_into_to_exec_lst(token_list);
+        convert_token_lst_into_to_exec_lst(token_list);
 	}
 }
 
@@ -60,7 +60,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			if (((t_token *)curr->content)->type == error)
 			{
-				ft_printf("an error occured.\n");
+				ft_printf("an error occurred.\n");
 				break;
 			}
 			print_token(curr->content);

@@ -13,8 +13,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-t_to_exec	*convert_token_lst_into_to_exec_lst(t_list *token_lst);
-int	        token_cmd_line_size(t_list *token_lst);
+t_list	*convert_token_lst_into_to_exec_lst(t_list *token_lst);
+int		token_cmd_line_size(t_list *token_lst);
 //debug
 t_list		*get_sample_tokens();
 void	log_token(struct s_token *token);

@@ -87,11 +87,10 @@ int	token_cmd_line_size(t_list *token_lst)
         return (0);
     res++;
     token_lst = token_lst->next;
-    while (((t_token *)token_lst->content)->type == arg)
+    while (token_lst && ((t_token *)token_lst->content)->type == arg)
     {
         res++;
         token_lst = token_lst->next;
     }
-
     return (res);
 }
