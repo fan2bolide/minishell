@@ -43,7 +43,16 @@ typedef struct s_to_exec
 	char	**envp;
     char    *redirect_in;
     char    *redirect_out;
+	int 	redirect_out_mode;
+	int 	here_doc_mode;
 }			t_to_exec;
+
+typedef enum e_redirect_mode
+{
+	none,
+	append,
+	trunc,
+} t_redirect_mode;
 
 int			execute_cmd_line(char *prompt_res, char **envp);
 void		manage_here_doc(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
