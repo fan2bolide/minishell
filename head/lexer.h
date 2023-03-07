@@ -42,6 +42,7 @@ typedef struct s_token
 char	*set_token_content(char *expression);
 t_list	*get_token_list(char *command_line);
 void	print_token(t_token *token);
-void	destroy_token_list(t_list *token_list);
+void	destroy_token(void *token);
+size_t	end_of_quote(char *expression);
 
 # endif

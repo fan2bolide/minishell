@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bajeanno <ba...@student.42lyon.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 21:43:40 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/27 21:44:16 by bajeanno         ###   ########lyon.fr   */
+/*   Created: 2023/03/06 14:43:37 by bajeanno          #+#    #+#             */
+/*   Updated: 2023/03/06 14:59:22 by bajeanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-static void	destroy_token(void *token);
 
 char	*set_token_content(char *expression)
 {
@@ -20,40 +18,32 @@ char	*set_token_content(char *expression)
 	char	*content;
 
 	i = 0;
-	//todo : faire une fonction pour ces cas là
-	if (ft_strchr("\"", *expression))
+	if (ft_strchr("\"\'", *expression))
 	{
-		i++;
-		while (expression[i] && !ft_strchr("\"", expression[i]))
-			i++;
+		i = end_of_quote(expression);
 		if (!expression[i])
 			return (NULL);
-		else
-			i++;
+		i++;
 	}
 	else
 	{
-		if (ft_strchr("\'", *expression))
+		if (!ft_strchr(SPEC_CHAR, *expression))
+			while (expression[i] && (!ft_strchr(SPEC_CHAR, expression[i]) || \
+			expression[i] == '$') && !ft_isspace(expression[i]))
+				i++;
+		else
+		if (ft_strchr(SPEC_CHAR, *expression))
 		{
-			i++;
-			while (expression[i] && !ft_strchr("\'", expression[i]))
+			while (expression[i] && *expression == expression[i])
 				i++;
-			if (!expression[i])
-				return (NULL);
-			else
-				i++;
+			if (*expression == '$' && i == 1)
+				while (expression[i] && \
+				!ft_strchr(SPEC_CHAR, expression[i]) && \
+				!ft_isspace(expression[i]))
+					i++;
 		}
 		else
-			if (ft_isalnum(*expression) || ft_strchr("./-_=", *expression))
-				while (expression[i] && (ft_isalnum(expression[i]) || \
-				ft_strchr("./-_=", expression[i])))
-					i++;
-			else
-				if (ft_strchr(SPEC_CHAR, *expression))
-					while (expression[i] && *expression == expression[i])
-						i++;
-				else
-					return (NULL);
+			return (NULL);
 	}
 	content = ft_strnew(i);
 	if (!content)
@@ -62,12 +52,22 @@ char	*set_token_content(char *expression)
 	return (ft_strtrim(content, " "));
 }
 
-void	destroy_token_list(t_list *token_list)
+/*
+ * in absolute, it will search for the next occurrence of the first char in
+ * the string. But if you send it a quote, it will bring you the index of the
+ * end of the quote.
+ */
+size_t	end_of_quote(char *expression)
 {
-	ft_lstclear(&token_list, destroy_token);
+	size_t	i;
+
+	i = 1;
+	while (expression[i] && expression[i] != *expression)
+		i++;
+	return (i);
 }
 
-static void	destroy_token(void *token)
+void	destroy_token(void *token)
 {
 	free(((t_token *)token)->content);
 	free(token);
