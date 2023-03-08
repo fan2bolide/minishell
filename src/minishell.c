@@ -43,8 +43,8 @@ char	*prompt(void)
 int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt_res;
-		t_list *list;
-		t_list *curr;
+	t_list	*list;
+	t_list	*curr;
 
 	(void)argc;
 	(void)argv;
@@ -67,6 +67,10 @@ int	main(int argc, char **argv, char **envp)
 			curr = curr->next;
 			i++;
 		}
+		list = token_parsing(list);
+		if (!list)
+			return (ft_printf("syntax error, aborting.\n"), 1);
+		ft_lstclear(&list, destroy_token);
 		free(prompt_res);
 		prompt_res = prompt();
 	}

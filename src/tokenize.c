@@ -85,8 +85,6 @@ static size_t	get_next_expression(char *command_line)
 				while (command_line[i] && !ft_strchr(SPEC_CHAR, \
 				command_line[i]) && !ft_isspace(command_line[i]))
 					i++;
-			else
-				return (0);
 		}
 	}
 	while (command_line[i] && ft_isspace(command_line[i]))
@@ -120,7 +118,7 @@ void	print_token(t_token *token)
 {
 	char	*token_type;
 
-	token_type = error;
+	token_type = "error, \t";
 	if (token->type == exec_name)
 		token_type = "exec_name, \t";
 	if (token->type == arg)

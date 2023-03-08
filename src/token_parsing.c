@@ -12,24 +12,27 @@
 
 #include "lexer.h"
 
-static int	check_all_consecutives_types(t_list *list);
-static int	are_consecutives_types(t_list *list, t_type type1, t_type type2);
-static int	types_following_each_other(t_list *list, t_type type1, \
-t_type type2);
+static int	check_all_consecutives_types(t_list *tokens);
+static int	are_consecutives_types(t_list *tokens, t_type type1, t_type type2);
+static int	types_following_each_other(t_list *tokens, t_type type1, \
+														t_type type2);
+static int	check_files_after_redirect(t_list *tokens);
 
 /*
  * checks for parsing rules
- * RULE 1 : there can't be two consecutive redirect operator
- * RULE 2 : a command cannot begin with a pipe (but it can begin with a
- * redirect operator)
- * RULE 3 : There can't be two consecutive pipes (we do not handle minishell
- * bonuses..)
- * RULE 7 : after a redirect comes automatically a file
- * RULE 8 : after a file comes either :
+ * RULE 1 : there can't be two consecutive redirect operator V
+ *
+ * RULE 2 : There can't be two consecutive pipes (we do not handle minishell
+ * bonuses..) V
+ *
+ * RULE 3 : after a redirect comes automatically a file Veneral Vegaulle
+ *
+ * RULE 4 : after a file comes either :
  * 			- an exec_name (ex : "< file cat " )
- * 			- a redirect operator (ex : "< file > file2 cat " )
+ * 			- a redirect operator (ex : "< file > file2 < file3 > file4 cat ")
  * 			- a pipe operator (ex : "cat < file | cat" )
- * RULE 9 : before an arg, comes an arg or exec_name. Nothing else is allowed
+ *
+ * 	----------------------------jusqu'a preuve du contraire c'est bon.
  * todo : search for other rules to be applicated.
  */
 t_list	*token_parsing(t_list *tokens)
@@ -38,68 +41,63 @@ t_list	*token_parsing(t_list *tokens)
 	t_token *curr_token;
 
 	curr = tokens;
-	if (!check_all_consecutives_types(tokens))
-		return (NULL);
+	if (!check_all_consecutives_types(tokens) || \
+	((t_token *)tokens->content)->type == operator_pipe || \
+	!check_files_after_redirect(tokens))
+		return (ft_lstclear(&tokens, destroy_token), NULL);
 	while (curr)
 	{
 		curr_token = curr->content;
 		if (curr_token->type == error)
 			return (ft_lstclear(&tokens, destroy_token), NULL);
-		if (curr_token->type != exec_name && curr_token->type != arg && \
-			curr_token->type != file)
-		{
-			curr_token = curr->next->content;
-			if (curr_token->type != exec_name && curr_token->type != arg && \
-			curr_token->type != file)
-				return (ft_lstclear(&tokens, destroy_token), NULL);
-		}
+		curr = curr->next;
 	}
 	return (tokens);
 }
 
-int	are_consecutives_types(t_list *list, t_type type1, t_type type2)
+int	check_files_after_redirect(t_list *tokens)
 {
-	while (list && list->next)
+	t_list *curr;
+
+	curr = tokens;
+	while (curr)
 	{
-		if (((t_token *)list->content)->type == type1 && \
-		((t_token *)list->next->content)->type == type2)
-			return (0);
-		list = list->next;
+		if (((t_token *)curr->content)->type == redirect_in || \
+			((t_token *)curr->content)->type == redirect_out || \
+			((t_token *)curr->content)->type == redirect_append || \
+			((t_token *)curr->content)->type == redirect_hd)
+			if (!curr->next || ((t_token *)curr->next->content)->type != file)
+				return (0);
+		curr = curr->next;
 	}
 	return (1);
 }
 
-int check_all_consecutives_types(t_list *tokens)
+int	check_all_consecutives_types(t_list *tokens)
 {
-	if (!types_following_each_other(tokens, operator_pipe, operator_pipe) || \
-		!types_following_each_other(tokens, redirect_append, operator_pipe) || \
-		!types_following_each_other(tokens, redirect_in, operator_pipe) || \
-		!types_following_each_other(tokens, redirect_out, operator_pipe) || \
-		!types_following_each_other(tokens, redirect_hd, operator_pipe) || \
-		!are_consecutives_types(tokens, redirect_hd, redirect_in) || \
-		!are_consecutives_types(tokens, redirect_hd, redirect_hd) || \
-		!are_consecutives_types(tokens, redirect_hd, redirect_append) || \
-		!are_consecutives_types(tokens, redirect_hd, redirect_out) || \
-		!are_consecutives_types(tokens, redirect_out, redirect_append) || \
-		!are_consecutives_types(tokens, redirect_in, redirect_append) || \
-		!are_consecutives_types(tokens, redirect_append, redirect_append) || \
-		!are_consecutives_types(tokens, redirect_out, redirect_out) || \
-		!are_consecutives_types(tokens, redirect_out, redirect_in) || \
-		!are_consecutives_types(tokens, redirect_in, redirect_in))
-		return (1);
-	return (0);
-}
+	t_list	*curr;
 
-int	types_following_each_other(t_list *list, t_type type1, t_type type2)
-{
-	while (list && list->next)
+	curr = tokens;
+	while (curr && curr->next)
 	{
-		if ((((t_token *)list->content)->type == type1 && \
-		((t_token *)list->next->content)->type == type2) || \
-		(((t_token *)list->content)->type == type1 && \
-		((t_token *)list->content)->type == type2))
-			return (0);
-		list = list->next;
+		if (((t_token *)curr->content)->type != exec_name && \
+			((t_token *)curr->content)->type != arg && \
+			((t_token *)curr->content)->type != file)
+		{
+			if (((t_token *)curr->next->content)->type != exec_name && \
+				((t_token *)curr->next->content)->type != arg && \
+				((t_token *)curr->next->content)->type != file)
+			{
+				if (((t_token *)curr->content)->type == operator_pipe && \
+					((t_token *)curr->next->content)->type != operator_pipe)
+				{
+					curr = curr->next;
+					continue;
+				}
+				return (0);
+			}
+		}
+		curr = curr->next;
 	}
 	return (1);
 }
