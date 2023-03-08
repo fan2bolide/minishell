@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   convert_token_lst_into_to_exec_lst_by_pipes.c               :+:      :+:    :+:   */
+/*   debug_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -110,6 +110,27 @@ void	log_to_exec(t_to_exec *to_exec)
 		ft_printf("to_exec->cmd[%d] : %s\n", i, to_exec->cmd[i]); //debug
 		i++;
 	}
+	if (to_exec->redirect_in)
+		ft_printf("to_exec->redirect_in : %s\n", to_exec->redirect_in);
+	if (to_exec->redirect_out)
+	{
+		ft_printf("to_exec->redirect_out : %s\n", to_exec->redirect_out);
+		ft_printf("to_exec->redirect_out_mode : ");
+		switch (to_exec->redirect_out_mode) {
+			case 0:
+				ft_printf("none\n");
+				break;
+			case 1:
+				ft_printf("append\n");
+				break;
+			case 2:
+				ft_printf("trunc\n");
+				break;
+		}
+
+	}
+	if (to_exec->here_doc_mode)
+		ft_printf("here_doc mode !\n");
 }
 
 //only for debug purpose
@@ -118,32 +139,53 @@ t_list *get_sample_tokens()
 {
 	t_list *res;
 	t_token *token_array;
+	int 	size = 10;
 
-	ft_printf("\nsample cmd line : cat file1 | wc\n\n"); //debug
+	token_array = malloc(sizeof(t_token) * size);
 
-	token_array = malloc(sizeof(t_token) * 4);
-
-	token_array[0].content = ft_strdup("cat");
-	token_array[0].type = exec_name;
+	token_array[0].content = ft_strdup(">");
+	token_array[0].type = redirect_out;
 
 	token_array[1].content = ft_strdup("file1");
-	token_array[1].type = arg;
+	token_array[1].type = file;
 
-	token_array[2].content = ft_strdup("|");
-	token_array[2].type = operator_pipe;
+	token_array[2].content = ft_strdup("cat");
+	token_array[2].type = exec_name;
 
-	token_array[3].content = ft_strdup("wc");
-	token_array[3].type = exec_name;
+	token_array[3].content = ft_strdup("-e");
+	token_array[3].type = arg;
+
+	token_array[4].content = ft_strdup("|");
+	token_array[4].type = operator_pipe;
+
+	token_array[5].content = ft_strdup("cat");
+	token_array[5].type = exec_name;
+
+	token_array[6].content = ft_strdup("-e");
+	token_array[6].type = arg;
+
+	token_array[7].content = ft_strdup("-a");
+	token_array[7].type = arg;
+
+	token_array[8].content = ft_strdup("<");
+	token_array[8].type = redirect_in;
+
+	token_array[9].content = ft_strdup("file2");
+	token_array[9].type = file;
 
 	res = ft_lstnew((void *)token_array);
 
 
 	t_token *tok = NULL;
 
-	for (int i = 1; i < 4; i++)
+	ft_printf("\nsample cmd line : %s ", token_array[0].content); //debug
+	for (int i = 1; i < size; i++)
 	{
 		tok = &token_array[i];
 		ft_lstadd_back(&res, ft_lstnew((void *)tok));
+		ft_printf(tok->content);
+		ft_printf(" ");
 	}
+	ft_printf("\n");
 	return res;
 }

@@ -40,14 +40,14 @@ t_list	*token_parsing(t_list *tokens)
 	{
 		curr_token = curr->content;
 		if (curr_token->type == error)
-			return (destroy_token_list(tokens), NULL);
+			return (ft_lstclear(&tokens, free), NULL);
 		if (curr_token->type != exec_name && curr_token->type != arg &&\
 			curr_token->type != file)
 		{
 			curr_token = curr->next->content;
 			if (curr_token->type != exec_name && curr_token->type != arg &&\
 			curr_token->type != file)
-				return (destroy_token_list(tokens), NULL);
+				return (ft_lstclear(&tokens, free), NULL);
 		}
 	}
 	return (tokens);

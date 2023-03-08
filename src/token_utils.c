@@ -94,3 +94,11 @@ int	token_cmd_line_size(t_list *token_lst)
     }
     return (res);
 }
+
+//static int token_is_null(void *token_lst_content)
+//{
+//	t_token *token;
+//
+//	token = token_lst_content;
+//	return (token->content == NULL);
+//}
