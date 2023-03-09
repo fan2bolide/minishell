@@ -24,7 +24,6 @@ SRC =	minishell.c\
 		execute_cmd.c\
 		execute_cmd_line.c\
 		get_path.c\
-		parser.c\
 		token_parsing.c\
 		token_utils.c \
 		utils.c\
