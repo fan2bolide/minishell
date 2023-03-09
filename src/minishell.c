@@ -65,16 +65,14 @@ int	main(int argc, char **argv, char **envp)
 	{
 		token_list = get_token_list(prompt_res);
 		curr = token_list;
+		if (!curr)
+			ft_printf("get_token_list has returned NULL ! ..\n");
 		while (curr)
 		{
 			if (((t_token *)curr->content)->type == error)
 			{
 				ft_printf("an error occurred.\n");
 				break;
-			}
-			else{
-				t_list *cmd_lst = convert_token_lst_into_cmd_lst(token_list, envp);
-				execute_cmd_line(cmd_lst);
 			}
 //			print_token(curr->content);
 			curr = curr->next;
@@ -83,6 +81,8 @@ int	main(int argc, char **argv, char **envp)
 		token_list = token_parsing(token_list);
 		if (!token_list)
 			return (ft_printf("syntax error, aborting.\n"), 1);
+		t_list *cmd_lst = convert_token_lst_into_cmd_lst(token_list, envp);
+		execute_cmd_line(cmd_lst);
 		ft_lstclear(&token_list, destroy_token);
 		free(prompt_res);
 		prompt_res = prompt();

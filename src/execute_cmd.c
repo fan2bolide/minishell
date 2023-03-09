@@ -15,11 +15,7 @@
 //'to_read' linked to child ´stdin´ and child ´stdout´ linked to ´to_write´
 void	execute_cmd(t_cmd cmd, int to_read, int to_write)
 {
-	ft_printf("\n\ncmd.argv[0] : %s\n", cmd.argv[0]);
-	ft_printf("cmd.argv[1] : %s\n", cmd.argv[1]);
-	ft_printf("cmd.path : %s\n", cmd.path);
-	ft_printf("cmd.envp[0] : %s\n", cmd.envp[0]);
-	ft_printf("cmd.redirect_out : %s\n", cmd.redirect_out);
+	execve(cmd.path, cmd.argv, cmd.envp); //debug
 	if (cmd.redirect_in)
 	{
 		close(to_read);
@@ -34,7 +30,10 @@ void	execute_cmd(t_cmd cmd, int to_read, int to_write)
 	dup2(to_write, STDOUT_FILENO);
 	close(to_read);
 	close(to_write);
-	execve(cmd.path, cmd.argv, cmd.envp);
-	exit(EXIT_FAILURE);
+	if (execve(cmd.path, cmd.argv, cmd.envp) == -1)
+	{
+		perror("execve");
+		exit(EXIT_FAILURE);
+	}
 }
 

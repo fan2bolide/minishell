@@ -23,10 +23,8 @@ t_cmd *create_new_cmd(char **envp)
 	res->envp = envp;
 	res->path = NULL;
 	res->redirect_in = NULL;
-	res->redirect_out = ft_strdup("MAGIC_WILL_APPEAR"); //debug
-//	res->redirect_out = NULL;
-	res->redirect_out_mode = O_APPEND; //debug
-//	res->redirect_out_mode = 0;
+	res->redirect_out = NULL;
+	res->redirect_out_mode = 0;
 	res->here_doc_mode = 0;
 	return (res);
 }

@@ -34,7 +34,6 @@ t_list 	*convert_token_lst_into_cmd_lst(t_list *token_lst, char **envp)
 		switch_case(token_lst, &cmd_lst, envp);
 		token_lst = token_lst->next;
 	}
-	log_cmd_lst(res);
 	return (res);
 }
 
@@ -57,8 +56,6 @@ static void	switch_case(t_list *token_lst_cursor, t_list **cmd_lst, char **envp)
 		(*cmd_lst)->next = ft_lstnew(malloc(sizeof (t_cmd))); // à protéger
 		*cmd_lst = (*cmd_lst)->next;
 	}
-	else
-		ft_printf("\t(switch case)another case\n");//debug
 }
 
 void		case_current_token_type_is_exec_name(
