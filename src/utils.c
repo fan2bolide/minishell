@@ -27,7 +27,9 @@ void	wait_all_child_proc(int *pids, int childs_counter)
 
 	k = 0;
 	while (k < childs_counter)
+	{
 		waitpid(pids[k++], NULL, 0);
+	}
 }
 
 void	close_pipes(int pipes[OPEN_MAX][2], int i)
@@ -37,8 +39,10 @@ void	close_pipes(int pipes[OPEN_MAX][2], int i)
 	k = 0;
 	while (k < i)
 	{
-		close(pipes[k][READ]);
-		close(pipes[k][WRITE]);
+		if (pipes[k][READ] != STDIN_FILENO)
+			close(pipes[k][READ]);
+		if (pipes[k][WRITE] != STDOUT_FILENO && pipes[k][WRITE] != STDIN_FILENO)
+			close(pipes[k][WRITE]);
 		k++;
 	}
 }

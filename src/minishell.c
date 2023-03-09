@@ -47,6 +47,11 @@ char	*prompt(void)
 	char	*tmp;
 
 	tmp = readline(" > ");
+	if (tmp == NULL)
+	{
+		perror("readline failed\n");
+		exit(0);
+	}
 	res = ft_strtrim(tmp, " \n");
 	free(tmp);
 	return (res);
@@ -54,11 +59,9 @@ char	*prompt(void)
 
 int	main(int argc, char **argv, char **envp)
 {
-
-
 	char	*prompt_res;
-		t_list *token_list;
-		t_list *curr;
+	t_list	*token_list;
+	t_list	*curr;
 
 	(void)argc;
 	(void)argv;

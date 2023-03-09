@@ -53,7 +53,7 @@ static void	switch_case(t_list *token_lst_cursor, t_list **cmd_lst, char **envp)
 	{ case_current_token_type_is_redirect_in(token_lst_cursor, (*cmd_lst)->content);}//debug
 	else if (current_token->type == operator_pipe)
 	{
-		(*cmd_lst)->next = ft_lstnew(malloc(sizeof (t_cmd))); // à protéger
+		(*cmd_lst)->next = ft_lstnew(create_new_cmd(envp)); // à protéger
 		*cmd_lst = (*cmd_lst)->next;
 	}
 }

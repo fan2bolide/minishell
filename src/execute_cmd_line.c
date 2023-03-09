@@ -13,12 +13,16 @@
 #include "execute_cmd_line.h"
 #include "minishell.h"
 
-static int	get_fd_to_read(int	pipes[OPEN_MAX][2], int i);
-static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_list *next_cmd);
+static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd);
+static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_list *cmd_lst);
+static int	last_cmd(t_list *cmd);
+
 int	execute_cmd_line(t_list *cmd_lst )
 {
 	int	pipes[OPEN_MAX][2];
 	int	pids[OPEN_MAX];
+	int fd_to_read;
+	int fd_to_write;
 	int	i;
 
 	i = 0;
@@ -26,42 +30,59 @@ int	execute_cmd_line(t_list *cmd_lst )
 	{
 		if (!((t_cmd *)cmd_lst->content)->path)
 			ft_printf("command not found: %s\n", ((t_cmd *)cmd_lst)->argv[0]);
-		if (pipe(pipes[i]) < 0)
-			return (ft_printf("Failed to create pipes\n"), -1);
+
+		if (!last_cmd(cmd_lst))
+			if (pipe(pipes[i]) < 0)
+				return (ft_printf("Failed to create pipes\n"), -1);
+
+		fd_to_read = get_fd_to_read(pipes, i, *((t_cmd *)cmd_lst->content));
+		fd_to_write = get_fd_to_write(pipes, i, cmd_lst);
 		pids[i] = fork();
 		if (pids[i] < 0)
 			return (ft_printf("Failed to fork\n"), -1);
 		if (pids[i] == 0)
 			execute_cmd(*(t_cmd *)cmd_lst->content,\
-			get_fd_to_read(pipes, i),\
-			get_fd_to_write(pipes, i , cmd_lst->next));
-		if (close(pipes[i][WRITE]) < 0 || close(pipes[i - (i > 0)][READ]))
-		{
-			ft_printf("Failed to close pipe %d\n", i);
-			return (exit_routine(pipes, pids, i), free_cmd_lst(&cmd_lst), -1);
-		}
+			fd_to_read,\
+			fd_to_write);
+		if (fd_to_read != STDIN_FILENO)
+			close(fd_to_read);
+		if (fd_to_write != STDOUT_FILENO)
+			close(fd_to_write);
 		cmd_lst = cmd_lst->next;
 		i++;
 	}
 	return (exit_routine(pipes, pids, i), free_cmd_lst(&cmd_lst), 0);
 }
 
-static int	get_fd_to_read(int	pipes[OPEN_MAX][2], int i)
-{
-	if (i > 0)
-		return pipes[i - 1][READ];
-	return (pipes[0][READ]);
-}
-
-static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_list *next_cmd)
+static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd)
 {
 	int res;
-	int is_last_cmd;
-	is_last_cmd = (next_cmd == NULL);
 
-	if (is_last_cmd)
-		res = (STDOUT_FILENO);
+	if (cmd.redirect_in)
+		res = open_and_get_fd(cmd.redirect_in, O_RDONLY, 0);
+	else if (i == 0)
+		res = STDIN_FILENO;
+	else
+		res = (pipes[i][READ]);
+	return res;
+}
+
+static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_list *cmd_lst)
+{
+	int res;
+	t_cmd cmd;
+
+	cmd = *(t_cmd *)cmd_lst->content;
+	if (((t_cmd *)(cmd_lst->content))->redirect_out)
+		res = open_and_get_fd(cmd.redirect_out, O_WRONLY | cmd.redirect_out_mode | O_CREAT, 0644);
+	else if (last_cmd(cmd_lst))
+		res = STDOUT_FILENO;
 	else
 		res = (pipes[i][WRITE]);
 	return (res);
+}
+
+static int	last_cmd(t_list *cmd)
+{
+	return (cmd->next == NULL);
 }
