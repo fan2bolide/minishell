@@ -56,12 +56,12 @@ void	here_doc_routine(int pipes[OPEN_MAX][2], int i, char *delimiter)
 	free(to_write_in_pipe);
 }
 
-void	manage_here_doc(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
-		int fd_file_1)
+void	manage_here_doc(t_cmd cmd, int pipes[OPEN_MAX][2], int i,
+						int fd_file_1)
 {
 	char	*delimiter;
 
-	delimiter = to_exec.cmd[1];
+	delimiter = cmd.argv[1];
 	here_doc_routine(pipes, i, delimiter);
 	close(fd_file_1);
 	if (close(pipes[i][WRITE]) < 0)

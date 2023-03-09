@@ -55,7 +55,7 @@ int	execute_cmd_line(char *prompt_res, char **envp)
 			close(files[FILE_1]);
 		return (close(files[FILE_2]), -1);
 	}
-	if (execute_all_cmds(cmds, files) < 0)
+	if (execute_cmd_line(cmds, files) < 0)
 		return (-1);
 	return (close(files[FILE_2]), 0); */
 }

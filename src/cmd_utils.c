@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_cmd *create_new_cmd(void)
+t_cmd *create_new_cmd(char **envp)
 {
 	t_cmd *res;
 
@@ -20,11 +20,13 @@ t_cmd *create_new_cmd(void)
 	if (!res)
 		return (NULL);
 	res->argv = NULL;
-	res->envp = NULL;
+	res->envp = envp;
 	res->path = NULL;
 	res->redirect_in = NULL;
-	res->redirect_out = NULL;
-	res->redirect_out_mode = none;
+	res->redirect_out = ft_strdup("MAGIC_WILL_APPEAR"); //debug
+//	res->redirect_out = NULL;
+	res->redirect_out_mode = O_APPEND; //debug
+//	res->redirect_out_mode = 0;
 	res->here_doc_mode = 0;
 	return (res);
 }

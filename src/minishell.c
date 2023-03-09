@@ -20,13 +20,20 @@ void	debug_aurel(int argc, char **argv, char **envp)
 	if (argc > 1 && ft_strequ(argv[1], "debug") == 1)
 	{
 		token_list = get_sample_tokens();
-        convert_token_lst_into_to_exec_lst(token_list);
+//		convert_token_lst_into_cmd_lst(token_list); need envp here
 	}
 }
 
 void	welcome_msg(void)
 {
-	ft_printf("Welcome to marrakesh\n");
+	ft_printf(" ███████████                      █████                      █████               ████  ████ \n");
+	ft_printf("░█░░░███░░░█                     ░░███                      ░░███               ░░███ ░░███ \n");
+	ft_printf("░   ░███  ░  █████ ████ ████████  ░███████   ██████   █████  ░███████    ██████  ░███  ░███ \n");
+	ft_printf("    ░███    ░░███ ░███ ░░███░░███ ░███░░███ ███░░███ ███░░   ░███░░███  ███░░███ ░███  ░███ \n");
+	ft_printf("    ░███     ░███ ░███  ░███ ░░░  ░███ ░███░███ ░███░░█████  ░███ ░███ ░███████  ░███  ░███ \n");
+	ft_printf("    ░███     ░███ ░███  ░███      ░███ ░███░███ ░███ ░░░░███ ░███ ░███ ░███░░░   ░███  ░███ \n");
+	ft_printf("    █████    ░░████████ █████     ████████ ░░██████  ██████  ████ █████░░██████  █████ █████\n");
+	ft_printf("   ░░░░░      ░░░░░░░░ ░░░░░     ░░░░░░░░   ░░░░░░  ░░░░░░  ░░░░ ░░░░░  ░░░░░░  ░░░░░ ░░░░░ \n");
 }
 
 char	*prompt(void)
@@ -42,20 +49,22 @@ char	*prompt(void)
 
 int	main(int argc, char **argv, char **envp)
 {
+
+
 	char	*prompt_res;
-		t_list *list;
+		t_list *token_list;
 		t_list *curr;
 
 	(void)argc;
 	(void)argv;
-	debug_aurel(argc, argv, envp);
+//	debug_aurel(argc, argv, envp);
 	welcome_msg();
 	prompt_res = prompt();
 	int i = 0;
 	while (!ft_strequ(prompt_res, "exit"))
 	{
-		list = get_token_list(prompt_res);
-		curr = list;
+		token_list = get_token_list(prompt_res);
+		curr = token_list;
 		while (curr)
 		{
 			if (((t_token *)curr->content)->type == error)
@@ -63,7 +72,11 @@ int	main(int argc, char **argv, char **envp)
 				ft_printf("an error occurred.\n");
 				break;
 			}
-			print_token(curr->content);
+			else{
+				t_list *cmd_lst = convert_token_lst_into_cmd_lst(token_list, envp);
+				execute_cmd_line(cmd_lst);
+			}
+//			print_token(curr->content);
 			curr = curr->next;
 			i++;
 		}
@@ -71,8 +84,6 @@ int	main(int argc, char **argv, char **envp)
 		prompt_res = prompt();
 	}
 	free(prompt_res);
-	return (0);
-	// execute_cmd_line(prompt_res, envp);
 	return (0);
 }
 

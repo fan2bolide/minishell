@@ -18,18 +18,17 @@ DEBUG_FLAGS = -fsanitize=address -g3
 LIBFT = libft/libft.a
 
 SRC =	minishell.c\
-		execute_all_cmds.c\
-		execute_all_cmds_utils.c\
+		cmd_utils.c \
+		convert_token_lst_into_cmd_lst.c \
+		debug_utils.c \
 		execute_cmd.c\
+		execute_cmd_line.c\
 		get_path.c\
 		parser.c\
-		execute_cmd_line.c\
-		utils.c\
-		tokenize.c \
+		token_parsing.c\
 		token_utils.c \
-		debug_utils.c \
-		convert_token_lst_into_to_exec_lst.c \
-		to_exec_utils.c
+		tokenize.c \
+		utils.c\
 
 BONUS_SRC =
 

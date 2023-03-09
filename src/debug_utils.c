@@ -29,7 +29,7 @@ void	log_token(t_token *token)
 			ft_printf("error");
 			break ;
 		case 1:
-			ft_printf("cmd");
+			ft_printf("exec_name");
 			break ;
 		case 2:
 			ft_printf("arg");
@@ -77,46 +77,46 @@ void	log_token_list(t_list *token_list)
 }
 
 //debug
-void	log_to_exec_lst(t_list *to_exec_list)
+void	log_cmd_lst(t_list *cmd_list)
 {
-	t_to_exec	*current_to_exec;
+	t_cmd	*current_cmd;
 	int         node;
 
 	node = 0;
-	if (!to_exec_list)
-		return (ft_printf("log_to_exec_lst failed (NULL pointer)\n"), (void)0);
-	current_to_exec = to_exec_list->content;
-	while(to_exec_list)
+	if (!cmd_list)
+		return (ft_printf("log_cmd_lst failed (NULL pointer)\n"), (void)0);
+	current_cmd = cmd_list->content;
+	while(cmd_list)
 	{
 		ft_printf("node %d\n", node++);
-		log_to_exec(current_to_exec);
-		to_exec_list = to_exec_list->next;
-		if (to_exec_list)
-			current_to_exec = to_exec_list->content;
+		log_cmd(current_cmd);
+		cmd_list = cmd_list->next;
+		if (cmd_list)
+			current_cmd = cmd_list->content;
 	}
 }
 
 //debug
-void	log_to_exec(t_to_exec *to_exec)
+void	log_cmd(t_cmd *cmd)
 {
 	int	i;
 
-	if (!to_exec)
-		return (ft_printf("log_to_exec failed (NULL pointer)\n"), (void)0);
+	if (!cmd)
+		return (ft_printf("log_cmd failed (NULL pointer)\n"), (void)0);
 	//debug
 	i = 0;
-	while (to_exec->cmd[i] != NULL)
+	while (cmd->argv[i] != NULL)
 	{
-		ft_printf("to_exec->cmd[%d] : %s\n", i, to_exec->cmd[i]); //debug
+		ft_printf("cmd->argv[%d] : %s\n", i, cmd->argv[i]); //debug
 		i++;
 	}
-	if (to_exec->redirect_in)
-		ft_printf("to_exec->redirect_in : %s\n", to_exec->redirect_in);
-	if (to_exec->redirect_out)
+	if (cmd->redirect_in)
+		ft_printf("cmd->redirect_in : %s\n", cmd->redirect_in);
+	if (cmd->redirect_out)
 	{
-		ft_printf("to_exec->redirect_out : %s\n", to_exec->redirect_out);
-		ft_printf("to_exec->redirect_out_mode : ");
-		switch (to_exec->redirect_out_mode) {
+		ft_printf("cmd->redirect_out : %s\n", cmd->redirect_out);
+		ft_printf("cmd->redirect_out_mode : ");
+		switch (cmd->redirect_out_mode) {
 			case 0:
 				ft_printf("none\n");
 				break;
@@ -129,7 +129,7 @@ void	log_to_exec(t_to_exec *to_exec)
 		}
 
 	}
-	if (to_exec->here_doc_mode)
+	if (cmd->here_doc_mode)
 		ft_printf("here_doc mode !\n");
 }
 
@@ -178,7 +178,7 @@ t_list *get_sample_tokens()
 
 	t_token *tok = NULL;
 
-	ft_printf("\nsample cmd line : %s ", token_array[0].content); //debug
+	ft_printf("\nsample exec_name line : %s ", token_array[0].content); //debug
 	for (int i = 1; i < size; i++)
 	{
 		tok = &token_array[i];

@@ -73,7 +73,7 @@ void	destroy_token(void *token)
 	free(token);
 }
 
-// for a cmd line (given into a token-list format),
+// for a exec_name line (given into a token-list format),
 // returns 1(for the exec_name) + the number of args following the exec_name
 //ex : "echo te quiero loco | ... ": returns 4
 //ex : "ls | ..." : returns only 1

@@ -36,39 +36,31 @@
 # include <sys/wait.h>
 
 
-typedef struct s_to_exec
+typedef struct s_cmd
 {
-	char	**cmd;
+	char	**argv;
 	char	*path;
 	char	**envp;
     char    *redirect_in;
     char    *redirect_out;
 	int 	redirect_out_mode;
 	int 	here_doc_mode;
-}			t_to_exec;
+}			t_cmd;
 
-typedef enum e_redirect_mode
-{
-	none,
-	append,
-	trunc,
-} t_redirect_mode;
-
-int			execute_cmd_line(char *prompt_res, char **envp);
-void		manage_here_doc(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
-				int fd_file_1);
+void		manage_here_doc(t_cmd cmd, int pipes[OPEN_MAX][2], int i,
+							int fd_file_1);
 int			append_new_line_if_not_delim(int fd, char **str_to_append,
 				char *delim);
 void		here_doc_routine(int pipes[OPEN_MAX][2], int i, char *delimiter);
-void		execute_cmd(t_to_exec to_exec, int to_read, int to_write);
-char		*get_path(char *cmd, char **envp);
+void		execute_cmd(t_cmd cmd, int to_read, int to_write);
+char		*get_path(char *exec_name, char **envp);
 void		wait_all_child_proc(int *pids, int childs_counter);
-void		close_pipes_and_file_fd(int pipes[OPEN_MAX][2], int files[2],
-				int i);
-void		free_cmd_tab(t_to_exec **cmds);
-void		free_cmd_tab2(t_to_exec *cmds);
-t_to_exec	*parser(char **splits, char **envp);
-void		exit_routine(int pipes[OPEN_MAX][2], int files[2],
-				int pids[OPEN_MAX], int i);
-int			execute_all_cmds(t_to_exec *cmds, int files[2]);
+void		close_pipes(int pipes[OPEN_MAX][2],	int i);
+void		free_cmd_lst(t_list **cmd_lst);
+void		free_cmd(t_cmd *cmd_lst);
+t_cmd		*parser(char **splits, char **envp);
+void		exit_routine(int pipes[OPEN_MAX][2], int pids[OPEN_MAX], int i);
+int			execute_cmd_line(t_list *cmd_lst);
+int 		open_and_get_fd(char *file, int open_mode, int rights);
+t_cmd *create_new_cmd(char **envp);
 #endif

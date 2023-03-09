@@ -12,10 +12,12 @@
 
 #include "execute_cmd_line.h"
 
-void	exit_routine(int pipes[OPEN_MAX][2], int files[2], int pids[OPEN_MAX],
+void	ft_free_arr(void ** array, void (*del)(void *)); // might want to move this into baj libft
+
+void	exit_routine(int pipes[OPEN_MAX][2], int pids[OPEN_MAX],
 		int i)
 {
-	close_pipes_and_file_fd(pipes, files, i);
+	close_pipes(pipes, i);
 	wait_all_child_proc(pids, i);
 }
 
@@ -28,7 +30,7 @@ void	wait_all_child_proc(int *pids, int childs_counter)
 		waitpid(pids[k++], NULL, 0);
 }
 
-void	close_pipes_and_file_fd(int pipes[OPEN_MAX][2], int files[2], int i)
+void	close_pipes(int pipes[OPEN_MAX][2], int i)
 {
 	int	k;
 
@@ -39,32 +41,38 @@ void	close_pipes_and_file_fd(int pipes[OPEN_MAX][2], int files[2], int i)
 		close(pipes[k][WRITE]);
 		k++;
 	}
-	close(files[FILE_1]);
-	close(files[FILE_1]);
 }
 
-void	free_cmd_tab(t_to_exec **cmds)
+void	free_cmd_lst(t_list **cmd_list)
 {
-	free_cmd_tab2(*cmds);
-	free(*cmds);
+	ft_lstclear(cmd_list, (void *)(free_cmd));
 }
 
-void	free_cmd_tab2(t_to_exec *cmds)
+void	free_cmd(t_cmd *cmd)
 {
-	int	a;
-	int	b;
+	free(cmd->path);
+	free(cmd->redirect_out);
+	free(cmd->redirect_in);
 
-	a = 0;
-	while (cmds[a].cmd != NULL)
-	{
-		b = 0;
-		while (cmds[a].cmd[b])
-		{
-			free(cmds[a].cmd[b++]);
-			if (cmds[a].cmd[b - 1] == 0)
-				break ;
-		}
-		free(cmds[a].cmd);
-		free(cmds[a++].path);
-	}
+	ft_free_arr((void **) cmd->envp, free);
+	ft_free_arr((void **) cmd->argv, free);
+
+}
+
+//last element of array must be a NULL pointer
+void	ft_free_arr(void ** array, void (*del)(void *))
+{
+	int	i;
+
+	i = 0;
+	while(array[i])
+		del(array[i++]);
+}
+
+int open_and_get_fd(char *file, int open_mode, int rights)
+{
+	ft_printf("opening file : %s\n", file);
+	if (rights)
+		return (open(file,open_mode, rights));
+	return (open(file,open_mode));
 }

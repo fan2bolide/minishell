@@ -15,7 +15,7 @@
 static void	freepath(char **paths);
 static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd);
 
-char	*get_path(char *cmd, char **envp)
+char	*get_path(char *exec_name, char **envp)
 {
 	char	**paths;
 	char	*path;
@@ -32,16 +32,16 @@ char	*get_path(char *cmd, char **envp)
 	i = 0;
 	while (paths[i])
 	{
-		path = ft_strjoin_w_slash(paths[i++], cmd);
+		path = ft_strjoin_w_slash(paths[i++], exec_name);
 		if (access(path, F_OK) == 0)
 		{
-			if (access(path, X_OK) != 0 || cmd[0] == 0)
-				ft_printf("permission denied :%s\n", cmd);
-			return (freepath(paths), free(paths), path);
+			if (access(path, X_OK) != 0 || exec_name[0] == 0)
+				ft_printf("permission denied :%s\n", exec_name);
+			return (free(paths), path);
 		}
 		free(path);
 	}
-	return (freepath(paths), free(paths), NULL);
+	return (free(paths), NULL);
 }
 
 static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd)
@@ -54,7 +54,7 @@ static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd)
 		path_w_slash = ft_strjoin(incomplete_path, "/");
 		path = ft_strjoin(path_w_slash, cmd);
 		if (!path || !path_w_slash)
-			ft_printf("An error occured while finding the cmd path\n");
+			ft_printf("An error occured while finding the exec_name path\n");
 		free(path_w_slash);
 		return (path);
 	}

@@ -14,13 +14,13 @@
 
 static void	case_first(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
 				int fd_file_1);
-static void	case_middle(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i);
-static void	case_last(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
-				int fd_file_2);
-static void	switch_case(t_to_exec *cmds, int pipes[OPEN_MAX][2], int i,
-				int files[2]);
+static void	case_middle(t_cmd *cmd, int pipes[OPEN_MAX][2], int i);
+static void	case_last(t_cmd *cmd, int pipes[OPEN_MAX][2], int i,
+						 int fd_file_2);
+static void	switch_case(t_list *cmds, int pipes[OPEN_MAX][2], int i,
+						   int files[2]);
 
-int	execute_all_cmds(t_to_exec *cmds, int files[2])
+int	execute_cmd_line(t_list *cmds, int files[2])
 {
 	int	pipes[OPEN_MAX][2];
 	int	pids[OPEN_MAX];
@@ -72,22 +72,22 @@ static void	case_first(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
 	exit(EXIT_FAILURE);
 }
 
-static void	case_middle(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i)
+static void	case_middle(t_cmd *cmd, int pipes[OPEN_MAX][2], int i)
 {
 	if (close(pipes[i - 1][WRITE]) < 0)
 	{
 		ft_printf("Failed to close some pipes\n");
 		exit(EXIT_FAILURE);
 	}
-	if (to_exec.path)
-		execute_cmd(to_exec, pipes[i - 1][READ], pipes[i][WRITE]);
+	if (cmd.path)
+		execute_cmd(cmd, pipes[i - 1][READ], pipes[i][WRITE]);
 	close(pipes[i - 1][READ]);
 	close(pipes[i][WRITE]);
 	exit(EXIT_FAILURE);
 }
 
-static void	case_last(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
-		int fd_file_2)
+static void	case_last(t_cmd *cmd, int pipes[OPEN_MAX][2], int i,
+						 int fd_file_2)
 {
 	if (close(pipes[i][WRITE]) < 0)
 	{
@@ -96,7 +96,7 @@ static void	case_last(t_to_exec to_exec, int pipes[OPEN_MAX][2], int i,
 	}
 	close(pipes[i - 1][WRITE]);
 	if (fd_file_2 > 0)
-		execute_cmd(to_exec, pipes[i - 1][READ], fd_file_2);
+		execute_cmd(cmd, pipes[i - 1][READ], fd_file_2);
 	close(pipes[i - 1][READ]);
 	close(fd_file_2);
 	exit(EXIT_FAILURE);
