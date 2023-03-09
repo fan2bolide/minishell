@@ -44,7 +44,6 @@ static void	switch_case(t_list *token_lst_cursor, t_list **to_exec_lst)
 
 
 	current_token = token_lst_cursor->content;
-//    print_token(current_token);
 	if (current_token->type == exec_name)
 		case_current_token_type_is_exec_name(token_lst_cursor, (*to_exec_lst)->content);
 	else if (current_token->type == arg)

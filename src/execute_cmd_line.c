@@ -1,70 +1,102 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_cmd_line.c                                            :+:      :+:    :+:   */
+/*   execute_all_cmds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/29 16:19:25 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/23 14:41:20 by alevra           ###   ########.fr       */
+/*   Created: 2023/02/09 23:14:45 by alevra            #+#    #+#             */
+/*   Updated: 2023/03/01 18:41:04 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute_cmd_line.h"
 
-static int	check_args(int argc, char **argv);
+static void	case_first(t_cmd *cmd, int pipes[OPEN_MAX][2], int i,
+						  int fd_file_1);
+static void	case_middle(t_cmd *cmd, int pipes[OPEN_MAX][2], int i);
+static void	case_last(t_cmd *cmd, int pipes[OPEN_MAX][2], int i,
+						 int fd_file_2);
+static void	switch_case(t_list *cmd_lst, int pipes[OPEN_MAX][2], int i,
+						   int files[2]);
 
-int	execute_cmd_line(char *prompt_res, char **envp)
+int	execute_all_cmds(t_list *cmd_lst, int files[2])
 {
-	int			files[2];
-	t_to_exec	*cmds;
-	int			here_doc_option;
-	char *tmp;
-	char **splits = ft_split(prompt_res, '|');
+	int	pipes[OPEN_MAX][2];
+	int	pids[OPEN_MAX];
+	int	i;
 
-	//faire le lexer
-	// faire le paarser
-	for (size_t i = 0; splits[i] != NULL; i++)
+	i = 0;
+	while (cmd_lst)
 	{
-		tmp = ft_strtrim(splits[i], " "); //debug
+		if (!((t_cmd *)cmd_lst)->path)
+			ft_printf("command not found: %s\n", ((t_cmd *)cmd_lst)->argv[0]);
+		if (pipe(pipes[i]) < 0)
+			return (ft_printf("Failed to create pipes\n"), -1);
+		pids[i] = fork();
+		if (pids[i] < 0)
+			return (ft_printf("Failed to fork\n"), -1);
+		if (pids[i] == 0)
+			switch_case(cmd_lst, pipes, i, files);
+		if (close(pipes[i][WRITE]) < 0)
+		{
+			ft_printf("Failed to close pipe %d\n", i);
+			return (exit_routine(pipes, files, pids, i), free_cmd_tab(&cmd_lst),
+				-1);
+		}
+		i++;
 	}
-	return (0);
-	/* here_doc_option = ft_strequ(argv[1], "here_doc");
-	if (check_args(argc, argv) < 0)
-		return (-1);
-	if (!here_doc_option)
-	{
-		files[FILE_1] = open(argv[1], O_RDONLY);
-		if (files[FILE_1] < 0)
-			perror(argv[1]);
-	}
-
-	if (!here_doc_option)
-		files[FILE_2] = open(argv[argc - 1], O_WRONLY | O_TRUNC | O_CREAT,
-				0644);
-	else
-		files[FILE_2] = open(argv[argc - 1], O_WRONLY | O_APPEND | O_CREAT,
-				0644);
-	if (files[FILE_2] < 0)
-		perror(argv[argc - 1]);
-	cmds = (parser(argv, envp));
-
-	if (!cmds)
-	{
-		if (!ft_strequ(argv[1], "here_doc"))
-			close(files[FILE_1]);
-		return (close(files[FILE_2]), -1);
-	}
-	if (execute_all_cmds(cmds, files) < 0)
-		return (-1);
-	return (close(files[FILE_2]), 0); */
+	return (exit_routine(pipes, files, pids, i), free_cmd_tab(&cmd_lst), 0);
 }
 
-static int	check_args(int argc, char **argv)
+static void	switch_case(t_list *cmd_lst, int pipes[OPEN_MAX][2], int i,
+						   int files[2])
 {
-	if (argc != 5)
-		return (ft_printf("Incorrect number of args\n"), -1);
-	if (argc < 5 || (ft_strequ(argv[1], "here_doc") && argc < 6))
-		return (ft_printf("Not enough args\n"), -1);
-	return (0);
+	if (i == 0)
+		return (case_first( (t_cmd *)cmd_lst->content , pipes, i, files[FILE_1]));
+	if (!cmd_lst->next)
+		return (case_last(cmd_lst->content, pipes, i, files[FILE_2]));
+	return (case_middle(cmd_lst->content, pipes, i));
+}
+
+static void	case_first(t_cmd *cmd, int pipes[OPEN_MAX][2], int i,
+						  int fd_file_1)
+{
+	close(pipes[i][READ]);
+	if (cmd->here_doc_mode)
+		manage_here_doc(*cmd, pipes, i, fd_file_1);
+	if (fd_file_1 > 0 && cmd->path)
+		execute_cmd(*cmd, fd_file_1, pipes[i][WRITE]);
+	close(pipes[i][WRITE]);
+	exit(EXIT_FAILURE);
+}
+
+static void	case_middle(t_cmd *cmd, int pipes[OPEN_MAX][2], int i)
+{
+	if (close(pipes[i - 1][WRITE]) < 0)
+	{
+		ft_printf("Failed to close some pipes\n");
+		exit(EXIT_FAILURE);
+	}
+	if (cmd->path)
+		execute_cmd(*cmd, pipes[i - 1][READ], pipes[i][WRITE]);
+	close(pipes[i - 1][READ]);
+	close(pipes[i][WRITE]);
+	exit(EXIT_FAILURE);
+}
+
+static void	case_last(t_cmd *cmd, int pipes[OPEN_MAX][2], int i,
+						 int fd_file_2)
+{
+	if (close(pipes[i][WRITE]) < 0)
+	{
+		ft_printf("Failed to close some pipes\n");
+		exit(EXIT_FAILURE);
+	}
+	close(pipes[i - 1][WRITE]);
+	if (fd_file_2 > 0)
+		execute_cmd(*cmd, pipes[i - 1][READ], fd_file_2);
+	close(pipes[i - 1][READ]);
+	close(fd_file_2);
+	exit(EXIT_FAILURE);
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   to_exec_utils.c                                    :+:      :+:    :+:   */
+/*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,14 +12,14 @@
 
 #include "minishell.h"
 
-t_to_exec *create_new_to_exec(void)
+t_cmd *create_new_cmd(void)
 {
-	t_to_exec *res;
+	t_cmd *res;
 
-	res = ft_calloc(sizeof(t_to_exec), 1);
+	res = ft_calloc(sizeof(t_cmd), 1);
 	if (!res)
 		return (NULL);
-	res->cmd = NULL;
+	res->argv = NULL;
 	res->envp = NULL;
 	res->path = NULL;
 	res->redirect_in = NULL;
