@@ -80,10 +80,10 @@ int	main(int argc, char **argv, char **envp)
 			curr = curr->next;
 			i++;
 		}
-		list = token_parsing(list);
-		if (!list)
+		token_list = token_parsing(token_list);
+		if (!token_list)
 			return (ft_printf("syntax error, aborting.\n"), 1);
-		ft_lstclear(&list, destroy_token);
+		ft_lstclear(&token_list, destroy_token);
 		free(prompt_res);
 		prompt_res = prompt();
 	}
