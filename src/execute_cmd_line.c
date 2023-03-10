@@ -18,6 +18,7 @@ static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_list *cmd_lst);
 static int	last_cmd(t_list *cmd);
 
 int	execute_cmd_line(t_list *cmd_lst )
+int	execute_cmd_line(t_list *cmd_lst)
 {
 	int	pipes[OPEN_MAX][2];
 	int	pids[OPEN_MAX];
@@ -30,6 +31,7 @@ int	execute_cmd_line(t_list *cmd_lst )
 	{
 		if (!((t_cmd *)cmd_lst->content)->path)
 			ft_printf("command not found: %s\n", ((t_cmd *)cmd_lst)->argv[0]);
+			ft_printf("Turboshell: command not found: %s\n", ((t_cmd *)cmd_lst->content)->argv[0]);
 
 		if (!last_cmd(cmd_lst))
 			if (pipe(pipes[i]) < 0)
