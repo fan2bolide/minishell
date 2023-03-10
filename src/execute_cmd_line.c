@@ -17,7 +17,6 @@ static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd);
 static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_list *cmd_lst);
 static int	last_cmd(t_list *cmd);
 
-int	execute_cmd_line(t_list *cmd_lst )
 int	execute_cmd_line(t_list *cmd_lst)
 {
 	int	pipes[OPEN_MAX][2];
@@ -64,7 +63,7 @@ static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd)
 	else if (i == 0)
 		res = STDIN_FILENO;
 	else
-		res = (pipes[i][READ]);
+		res = (pipes[i - 1][READ]);
 	return res;
 }
 
