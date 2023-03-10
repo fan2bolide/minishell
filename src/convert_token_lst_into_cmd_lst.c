@@ -45,9 +45,7 @@ static void	switch_case(t_list *token_lst_cursor, t_list **cmd_lst, char **envp)
 	current_token = token_lst_cursor->content;
 	if (current_token->type == exec_name)
 		case_current_token_type_is_exec_name(token_lst_cursor, (*cmd_lst)->content, envp);
-	else if (current_token->type == arg)
-	{ft_printf("\n");}//debug
-	else if (current_token->type == redirect_out)
+	else if (current_token->type == redirect_out_trunc || current_token->type == redirect_out_append)
 	{       case_current_token_type_is_redirect_out(token_lst_cursor, (*cmd_lst)->content);}//debug
 	else if (current_token->type == redirect_in)
 	{ case_current_token_type_is_redirect_in(token_lst_cursor, (*cmd_lst)->content);}//debug
@@ -68,7 +66,6 @@ void		case_current_token_type_is_exec_name(
 	i = 0;
 	cmd_tab_size = token_cmd_line_size(token_lst_cursor) + 1;
 	cmd->argv = ft_calloc(cmd_tab_size, sizeof(char *));
-	current_token = token_lst_cursor->content;
 	while (cmd_tab_size > 1)
 		{
 			current_token = token_lst_cursor->content;
@@ -85,15 +82,13 @@ void	case_current_token_type_is_redirect_out(
 {
 	t_token *token_with_the_redirect_file;
 	int open_mode;
-	char	*operator;
 	char *file;
 
 	token_with_the_redirect_file = token_lst_cursor->next->content;
 	file = token_with_the_redirect_file->content;
-	operator = ((t_token *)(token_lst_cursor->content))->content;
-	if (ft_strequ(operator, ">"))
+	if (((t_token *)token_lst_cursor)->type == redirect_out_trunc)
 		open_mode = O_TRUNC;
-	if (ft_strequ(operator, ">>"))
+	if (((t_token *)token_lst_cursor)->type == redirect_out_append)
 		open_mode = O_APPEND;
 	cmd->redirect_out = ft_strdup(file); // a proteger
 	cmd->redirect_out_mode = open_mode;

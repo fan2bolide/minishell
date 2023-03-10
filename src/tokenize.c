@@ -31,9 +31,9 @@ t_type assign_operator_to_token(char const *expression)
 	if (*expression == '>')
 	{
 		if (expression[1] == '>')
-			return (redirect_append);
+			return (redirect_out_append);
 		else
-			return (redirect_out);
+			return (redirect_out_trunc);
 	}
 	return (error);
 }
@@ -127,12 +127,12 @@ void	print_token(t_token *token)
 		token_type = "file, \t\t";
 	if (token->type == operator_pipe)
 		token_type = "operator_pipe, \t";
-	if (token->type == redirect_append)
-		token_type = "redirect_append, \t";
+	if (token->type == redirect_out_append)
+		token_type = "redirect_out_append, \t";
 	if (token->type == redirect_in)
 		token_type = "redirect_in, \t";
-	if (token->type == redirect_out)
-		token_type = "redirect_out, \t";
+	if (token->type == redirect_out_trunc)
+		token_type = "redirect_out_trunc, \t";
 	if (token->type == redirect_hd)
 		token_type = "redirect_hd, \t";
 	if (token->type == env_variable)

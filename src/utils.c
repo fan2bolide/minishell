@@ -75,7 +75,6 @@ void	ft_free_arr(void ** array, void (*del)(void *))
 
 int open_and_get_fd(char *file, int open_mode, int rights)
 {
-	ft_printf("opening file : %s\n", file);
 	if (rights)
 		return (open(file,open_mode, rights));
 	return (open(file,open_mode));

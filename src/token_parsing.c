@@ -63,8 +63,8 @@ int	check_files_after_redirect(t_list *tokens)
 	while (curr)
 	{
 		if (((t_token *)curr->content)->type == redirect_in || \
-			((t_token *)curr->content)->type == redirect_out || \
-			((t_token *)curr->content)->type == redirect_append || \
+			((t_token *)curr->content)->type == redirect_out_trunc || \
+			((t_token *)curr->content)->type == redirect_out_append || \
 			((t_token *)curr->content)->type == redirect_hd)
 			if (!curr->next || ((t_token *)curr->next->content)->type != file)
 				return (0);

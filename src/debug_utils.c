@@ -44,13 +44,13 @@ void	log_token(t_token *token)
 			ft_printf("redirect_in");
 			break ;
 		case 6:
-			ft_printf("redirect_out");
+			ft_printf("redirect_out_trunc");
 			break ;
 		case 7:
 			ft_printf("redirect_hd");
 			break ;
 		case 8:
-			ft_printf("redirect_append");
+			ft_printf("redirect_out_append");
 			break ;
 		case 9:
 			ft_printf("env_variable");
@@ -114,7 +114,7 @@ void	log_cmd(t_cmd *cmd)
 		ft_printf("cmd->redirect_in : %s\n", cmd->redirect_in);
 	if (cmd->redirect_out)
 	{
-		ft_printf("cmd->redirect_out : %s\n", cmd->redirect_out);
+		ft_printf("cmd->redirect_out_trunc : %s\n", cmd->redirect_out);
 		ft_printf("cmd->redirect_out_mode : ");
 		switch (cmd->redirect_out_mode) {
 			case 0:
@@ -144,7 +144,7 @@ t_list *get_sample_tokens()
 	token_array = malloc(sizeof(t_token) * size);
 
 	token_array[0].content = ft_strdup(">");
-	token_array[0].type = redirect_out;
+	token_array[0].type = redirect_out_trunc;
 
 	token_array[1].content = ft_strdup("file1");
 	token_array[1].type = file;

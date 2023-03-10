@@ -26,9 +26,9 @@ typedef enum e_type
 	file,
 	operator_pipe,
 	redirect_in,
-	redirect_out,
+	redirect_out_trunc,
 	redirect_hd,
-	redirect_append,
+	redirect_out_append,
 	env_variable
 }	t_type;
 

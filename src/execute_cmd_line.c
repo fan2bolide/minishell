@@ -70,11 +70,11 @@ static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd)
 static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_list *cmd_lst)
 {
 	int res;
-	t_cmd cmd;
+	t_cmd *cmd;
 
-	cmd = *(t_cmd *)cmd_lst->content;
-	if (((t_cmd *)(cmd_lst->content))->redirect_out)
-		res = open_and_get_fd(cmd.redirect_out, O_WRONLY | cmd.redirect_out_mode | O_CREAT, 0644);
+	cmd = (t_cmd *)cmd_lst->content;
+	if (cmd->redirect_out)
+		res = open_and_get_fd(cmd->redirect_out, O_WRONLY | cmd->redirect_out_mode | O_CREAT, 0644);
 	else if (last_cmd(cmd_lst))
 		res = STDOUT_FILENO;
 	else
