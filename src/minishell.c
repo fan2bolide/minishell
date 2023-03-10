@@ -54,6 +54,7 @@ char	*prompt(void)
 	}
 	res = ft_strtrim(tmp, " \n");
 	free(tmp);
+	add_history(res);
 	return (res);
 }
 
