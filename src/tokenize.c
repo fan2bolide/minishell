@@ -64,28 +64,25 @@ static size_t	get_next_expression(char *command_line)
 	size_t	i;
 
 	i = 0;
-	if (ft_strchr("\"\'", *command_line))
-	{
-		i = end_of_quote(command_line);
-		if (!command_line[i])
-			return (0);
-		i++;
-	}
+	if (!ft_strchr(SPEC_CHAR, *command_line))
+		while ((command_line[i] && (!ft_strchr(SPEC_CHAR, command_line[i]) \
+		|| command_line[i] == '$' || ft_strchr("\'\"", command_line[i])) && \
+		!ft_isspace(command_line[i])))
+		{
+			if (ft_strchr("\'\"", command_line[i]))
+				i += end_of_quote(command_line + i);
+			if (!command_line[i])
+				return (0);
+			i++;
+		}
 	else
 	{
-		if (!ft_strchr(SPEC_CHAR, *command_line))
-			while (command_line[i] && (!ft_strchr(SPEC_CHAR, command_line[i]) \
-			|| command_line[i] == '$') && !ft_isspace(command_line[i]))
+		while (command_line[i] && *command_line == command_line[i])
+			i++;
+		if (*command_line == '$' && i == 1)
+			while (command_line[i] && !ft_strchr(SPEC_CHAR, \
+			command_line[i]) && !ft_isspace(command_line[i]))
 				i++;
-		else
-		{
-			while (command_line[i] && *command_line == command_line[i])
-				i++;
-			if (*command_line == '$' && i == 1)
-				while (command_line[i] && !ft_strchr(SPEC_CHAR, \
-				command_line[i]) && !ft_isspace(command_line[i]))
-					i++;
-		}
 	}
 	while (command_line[i] && ft_isspace(command_line[i]))
 		i++;
@@ -98,17 +95,21 @@ t_list	*get_token_list(char *command_line)
 	t_list	*list;
 	t_list	*curr;
 
+	if (!command_line || !*command_line)
+		return (NULL);
 	list = ft_lstnew(evaluate_expression(command_line, NULL));
 	i = get_next_expression(command_line);
 	curr = list;
-
 	while (command_line[i])
 	{
 		curr->next = ft_lstnew(evaluate_expression(command_line + i, \
 												   			curr->content));
 		curr = curr->next;
 		if (get_next_expression(command_line + i) == 0)
+		{
+			ft_printf("coucou je suis un fils de pute\n");
 			return (ft_lstclear(&list, destroy_token), NULL);
+		}
 		i += get_next_expression(command_line + i);
 	}
 	return (list);

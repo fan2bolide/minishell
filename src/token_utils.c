@@ -18,32 +18,26 @@ char	*set_token_content(char *expression)
 	char	*content;
 
 	i = 0;
-	if (ft_strchr("\"\'", *expression))
-	{
-		i = end_of_quote(expression);
-		if (!expression[i])
-			return (NULL);
-		i++;
-	}
+	if (!ft_strchr(SPEC_CHAR, *expression))
+		while ((expression[i] && (!ft_strchr(SPEC_CHAR, expression[i]) || \
+		expression[i] == '$' || ft_strchr("\"\'", expression[i])) &&
+		!ft_isspace(expression[i])))
+		{
+			if (ft_strchr("\"\'", expression[i]))
+				i += end_of_quote(expression + i);
+			if (!expression[i])
+				return (NULL);
+			i++;
+		}
 	else
 	{
-		if (!ft_strchr(SPEC_CHAR, *expression))
-			while (expression[i] && (!ft_strchr(SPEC_CHAR, expression[i]) || \
-			expression[i] == '$') && !ft_isspace(expression[i]))
+		while (expression[i] && *expression == expression[i])
+			i++;
+		if (*expression == '$' && i == 1)
+			while (expression[i] && \
+			!ft_strchr(SPEC_CHAR, expression[i]) && \
+			!ft_isspace(expression[i]))
 				i++;
-		else
-		if (ft_strchr(SPEC_CHAR, *expression))
-		{
-			while (expression[i] && *expression == expression[i])
-				i++;
-			if (*expression == '$' && i == 1)
-				while (expression[i] && \
-				!ft_strchr(SPEC_CHAR, expression[i]) && \
-				!ft_isspace(expression[i]))
-					i++;
-		}
-		else
-			return (NULL);
 	}
 	content = ft_strnew(i);
 	if (!content)
