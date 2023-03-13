@@ -119,4 +119,8 @@ int			ft_printf(const char *format, ...);
 int			ft_max(int a, int b);
 int			ft_min(int a, int b);
 
+size_t	ft_tabsize(void ** tab);
+void	**ft_dup_tab(void **tab, size_t sizeof_tab_elmnt);
+
+
 #endif
