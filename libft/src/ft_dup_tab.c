@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t ft_tabsize(void ** tab)
+size_t ft_tabsize(void **tab)
 {
 	size_t size;
 
@@ -33,7 +33,7 @@ void **ft_dup_tab(void **tab, size_t sizeof_tab_elmnt)
 	if (!tab)
 		return (ft_printf("%s : tab is null, returning null\n", __FUNCTION__ ),NULL);
 	tab_size = ft_tabsize((void **)tab);
-	tab_dup = malloc(tab_size * sizeof_tab_elmnt);
+	tab_dup = malloc((tab_size + 1) * sizeof_tab_elmnt);
 	if (!tab_dup)
 		return (ft_printf("An error occurred (%s).\n", __FUNCTION__), NULL);
 	while (i < tab_size)
@@ -41,5 +41,6 @@ void **ft_dup_tab(void **tab, size_t sizeof_tab_elmnt)
 		tab_dup[i] = tab[i];
 		i++;
 	}
+	tab_dup[i] = NULL;
 	return (tab_dup);
 }
