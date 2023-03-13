@@ -7,8 +7,7 @@ static char *get_content(char *raw_content)
 	char *new_content;
 
 	i = 0;
-	while (raw_content[i] && !ft_strchr("\'\"$", raw_content[i]) && \
-	!ft_isspace(raw_content[i]))
+	while (raw_content[i] && !ft_strchr("\'\"$", raw_content[i]))
 		i++;
 	new_content = ft_strnew(i);
 	if (!new_content)
@@ -36,15 +35,21 @@ static t_expansion *evaluate_token(char *expression, t_expansion *prev)
 			token->type = word, token);
 }
 
-static size_t	get_next_token(char *token_content)
+static size_t	get_next_token(char *token_content, t_expansion *prev)
 {
 	size_t	i;
 
 	i = 0;
 	if (ft_strchr("\'\"$", *token_content))
 		return (1);
-	while (token_content[i] && !ft_strchr("\'\"$", token_content[i]) && \
-	!ft_isspace(token_content[i]))
+	if (prev && prev->type == dollar)
+	{
+		while (token_content[i] && !ft_strchr("\'\"$", token_content[i]) && \
+			!ft_isspace(token_content[i]))
+			i++;
+		return (i);
+	}
+	while (token_content[i] && !ft_strchr("\'\"$", token_content[i]))
 		i++;
 	return (i);
 }
@@ -56,21 +61,28 @@ t_list *get_token_list(char *raw_content)
 	size_t	i;
 
 	list = ft_lstnew(evaluate_token(raw_content, NULL));
-	i = get_next_token(raw_content);
+	i = get_next_token(raw_content, NULL);
 	curr = list;
 	while (raw_content[i])
 	{
 		curr->next = ft_lstnew(evaluate_token(raw_content + i, \
 		((t_expansion *)curr->content)));
-		i += get_next_token(raw_content + i);
+		i += get_next_token(raw_content + i, ((t_expansion *)curr->content));
 		curr = curr->next;
 	}
 	return (list);
 }
 
-char *get_expanded_string(t_list *token_list)
+int	get_expanded_content(char *content)
 {
-	return (NULL);
+	char *res;
+	t_list *list;
+
+	if (!ft_strchr(content, '$'))
+		return (0);
+	list = get_token_list(content);
+	free(content);
+	return (1);
 }
 
 void print_expand_token(t_expansion *token)
@@ -85,13 +97,13 @@ void print_expand_token(t_expansion *token)
 		res = "dollar";
 	if (token->type == word)
 		res = "word";
-	ft_printf("%s, %s\n", res, token->content);
+	ft_printf("%s, '%s'\n", res, token->content);
 }
 
 //int main()
 //{
 //	//todo : test avec plusieurs mots dans les guillemets
-//	t_list *list = get_token_list("\"$token\"blabla");
+//	t_list *list = get_token_list("\"dsda$token das\"blabla");
 //	t_list *curr = list;
 //	while (curr)
 //	{

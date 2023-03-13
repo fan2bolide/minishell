@@ -30,7 +30,6 @@ void remove_quotes(t_list **token_list)
 			ft_printf("removing : ");
 			print_expand_token(((t_expansion *)remove->content));
 			ft_lstdelone(remove, destroy_token);
-
 		}
 	}
 	curr = *token_list;
@@ -40,3 +39,7 @@ void remove_quotes(t_list **token_list)
 		curr = curr->next;
 	}
 }
+//
+//void
+//
+//void replace_with_value()
