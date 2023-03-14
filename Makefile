@@ -28,6 +28,8 @@ SRC =	minishell.c\
 		token_utils.c \
 		utils.c\
 		tokenize.c\
+		expand.c\
+		expand_utils.c
 
 BONUS_SRC =
 
@@ -57,9 +59,7 @@ obj/%.o : src/%.c Makefile
 debug : lib
 	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o debug$(NAME)
 
-lib : $(LIBFT)
-
-$(LIBFT) : libft
+lib : libft
 	@$(MAKE) -C libft
 
 libft :
