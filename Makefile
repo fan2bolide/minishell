@@ -24,11 +24,11 @@ SRC =	minishell.c\
 		execute_cmd.c\
 		execute_cmd_line.c\
 		get_path.c\
-		token_parsing.c\
-		token_utils.c \
+		main_token_parsing.c\
+		main_token_utils.c \
 		utils.c\
-		tokenize.c\
-		expand.c\
+		main_tokenizer.c\
+		expand_token.c\
 		expand_utils.c
 
 BONUS_SRC =
