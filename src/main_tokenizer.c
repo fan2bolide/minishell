@@ -89,7 +89,7 @@ static size_t	get_next_expression(char *command_line)
 	return (i);
 }
 
-t_list	*get_token_list(char *command_line)
+t_list	*get_main_token_list(char *command_line)
 {
 	size_t	i;
 	t_list	*list;
