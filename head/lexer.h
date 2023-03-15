@@ -40,7 +40,7 @@ typedef struct s_token
 }	t_token;
 
 char	*set_token_content(char *expression);
-t_list	*get_token_list(char *command_line);
+t_list	*get_main_token_list(char *command_line);
 void	print_token(t_token *token);
 void	log_token(t_token *token);
 void	destroy_token(void *token);
