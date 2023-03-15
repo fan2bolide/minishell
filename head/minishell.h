@@ -15,6 +15,7 @@
 
 # include "execute_cmd_line.h"
 # include "lexer.h"
+# include "expand_token.h"
 # include "libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>

@@ -52,7 +52,7 @@ char	*prompt(void)
 		perror("readline failed\n");
 		exit(0);
 	}
-	res = ft_strtrim(tmp, " \n");
+	res = ft_strtrim(tmp, " ");
 	free(tmp);
 	add_history(res);
 	return (res);
@@ -68,14 +68,19 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 //	debug_aurel(argc, argv, envp);
 	welcome_msg();
+	expand_content(NULL);
 	prompt_res = prompt();
 	int i = 0;
 	while (!ft_strequ(prompt_res, "exit"))
 	{
-		token_list = get_token_list(prompt_res);
+		token_list = get_main_token_list(prompt_res);
+		free(prompt_res);
 		curr = token_list;
 		if (!curr)
-			ft_printf("get_token_list has returned NULL ! ..\n");
+		{
+			prompt_res = prompt();
+			continue;
+		}
 		while (curr)
 		{
 			if (((t_token *)curr->content)->type == error)
@@ -83,7 +88,7 @@ int	main(int argc, char **argv, char **envp)
 				ft_printf("an error occurred.\n");
 				break;
 			}
-//			print_token(curr->content);
+			print_token(curr->content);
 			curr = curr->next;
 			i++;
 		}
@@ -93,7 +98,6 @@ int	main(int argc, char **argv, char **envp)
 		t_list *cmd_lst = convert_token_lst_into_cmd_lst(token_list, envp);
 		execute_cmd_line(cmd_lst);
 		ft_lstclear(&token_list, destroy_token);
-		free(prompt_res);
 		prompt_res = prompt();
 	}
 	free(prompt_res);
