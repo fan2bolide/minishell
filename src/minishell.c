@@ -12,18 +12,6 @@
 
 #include "minishell.h"
 
-//debug
-void	debug_aurel(int argc, char **argv, char **envp)
-{
-	t_list	*token_list;
-
-	if (argc > 1 && ft_strequ(argv[1], "debug") == 1)
-	{
-		token_list = get_sample_tokens();
-//		convert_token_lst_into_cmd_lst(token_list); need envp here
-	}
-}
-
 void	welcome_msg(void)
 {
 	//ft_printf(" ███████████                      █████             \n");
@@ -65,8 +53,6 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*curr;
 
 	(void)argc;
-	(void)argv;
-//	debug_aurel(argc, argv, envp);
 	welcome_msg();
 	expand_content(NULL);
 	prompt_res = prompt();
@@ -103,58 +89,3 @@ int	main(int argc, char **argv, char **envp)
 	free(prompt_res);
 	return (0);
 }
-
-/*
-
-The minishell sould :
-
-1) Display "Welcome to minishell msg"
-loop :
-2) ??
-3) Readline + diplay prompt (ls )
-4) Parse line
-
-		infile cmd1 cmd2 outfile append
--->		< infile  cmd1 | cmd2 >> outfile
-
-		infile cmd1 cmd2 outfile trunc
--->		infile << cmd1 | cmd2 > outfile
-
-
- > infile ldsjflsdkjflksdjflkjdsf
---> execute_cmd_line( < pldsjflsdkjflksdjflkjdsf | dff >> sfdsdf| ksjdbfkjsd);
-
-
- > oihteoirhtoerhto;
---> execute_cmd_line(oihteoirhtoerhto, 0, 0);
-
-
-split les phrases (une phrase = un appel de execute_cmd_line)
-efface les barres |
-... | ... | .. > FILE | sdkjdsjf | sdf
-
-
-
-
-
-
-
-
-ls "chemin" | cat -e >> outfile1 | wc -l
-
-
-
--ls "args"
-- cat -e
-- wc -l
-- fichier
-
-Il faudra appeler n fois execute_cmd_line
-n represente le nombre de ofis ou on peut fractionner la ligne
-On peut fractionner quand on est sur qu'un pipe ne prend aucune entree
-
-5) execute commands
-
-routine -> execute_cmd_line
-
- */

@@ -189,3 +189,15 @@ t_list *get_sample_tokens()
 	ft_printf("\n");
 	return res;
 }
+
+//debug
+void	debug_aurel(int argc, char **argv, char **envp)
+{
+	t_list	*token_list;
+
+	if (argc > 1 && ft_strequ(argv[1], "debug") == 1)
+	{
+		token_list = get_sample_tokens();
+//		convert_token_lst_into_cmd_lst(token_list); need envp_lst_ptr here
+	}
+}

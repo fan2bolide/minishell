@@ -26,9 +26,6 @@ void	execute_cmd(t_cmd cmd, int to_read, int to_write)
 		close(to_write);
 	}
 	if (execve(cmd.path, cmd.argv, cmd.envp) == -1)
-	{
-		perror("execve");
-		exit(EXIT_FAILURE);
-	}
+	exit(EXIT_FAILURE);
 }
 
