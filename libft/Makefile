@@ -84,22 +84,23 @@ OBJ = $(addprefix obj/,$(SRC:.c=.o))
 all	: create_obj_folder $(NAME)
 
 $(NAME): $(OBJ)
-	@ar -rcs $(NAME) $(OBJ)
+	ar -rcs $(NAME) $(OBJ)
 
 obj/%.o : src/%.c Makefile head/libft.h
-	@cc -Wall -Wextra -Werror -c $< -o $@ -I head -g
+	cc -Wall -Wextra -Werror -c $< -o $@ -I head -g
 
 create_obj_folder :
-	@mkdir -p obj
+	mkdir -p obj
 
 clean:
-	@$(RM) $(OBJ)
-	@$(RM) $(BONUS_OBJ)
-	@$(RM) -r obj
+	$(RM) $(OBJ)
+	$(RM) $(BONUS_OBJ)
+	$(RM) -r obj
 
 fclean: clean
-	@$(RM) -f $(NAME)
+	$(RM) -f $(NAME)
 
 re: fclean all
 
 .PHONY : all bonus clean fclean re
+
