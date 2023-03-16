@@ -15,20 +15,20 @@
 static void	freepath(char **paths);
 static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd);
 
-char	*get_path(char *exec_name, char **envp)
+char	*get_path(char *exec_name, t_list *envp_lst)
 {
 	char	**paths;
 	char	*path;
 	int		i;
 
 	i = 0;
-	if (!envp || !envp[0])
+	if (!envp_lst)
 		return (NULL);
-	while (ft_strnstr(envp[i], "PATH", 4) == 0)
-		i++;
-	paths = ft_split(envp[i] + 5, ':');
+	while (ft_strnstr(envp_lst->content, "PATH=", 5) == 0)
+		envp_lst = envp_lst->next;
+	paths = ft_split(envp_lst->content + 5, ':');
 	if (!paths)
-		return (ft_printf("An error occured (split)\n"), NULL);
+		return (ft_printf("An error occurred (split)\n"), NULL);
 	i = 0;
 	while (paths[i])
 	{

@@ -40,7 +40,7 @@ typedef struct s_cmd
 {
 	char	**argv;
 	char	*path;
-	char	**envp;
+	t_list 	**envp_lst_ptr;
     char    *redirect_in;
     char    *redirect_out;
 	int 	redirect_out_mode;
@@ -53,7 +53,7 @@ int			append_new_line_if_not_delim(int fd, char **str_to_append,
 				char *delim);
 void		here_doc_routine(int pipes[OPEN_MAX][2], int i, char *delimiter);
 void		execute_cmd(t_cmd cmd, int to_read, int to_write);
-char		*get_path(char *exec_name, char **envp);
+char		*get_path(char *exec_name, t_list *envp_lst);
 void		wait_all_child_proc(int *pids, int childs_counter);
 void		close_pipes(int pipes[OPEN_MAX][2],	int i);
 void		free_cmd_lst(t_list **cmd_lst);
@@ -62,5 +62,5 @@ t_cmd		*parser(char **splits, char **envp);
 void		exit_routine(int pipes[OPEN_MAX][2], int pids[OPEN_MAX], int i);
 int			execute_cmd_line(t_list *cmd_lst);
 int 		open_and_get_fd(char *file, int open_mode, int rights);
-t_cmd *create_new_cmd(char **envp);
+t_cmd		*create_new_cmd(t_list **envp_lst_ptr);
 #endif

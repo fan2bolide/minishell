@@ -58,7 +58,7 @@ void	free_cmd(t_cmd *cmd)
 	free(cmd->redirect_out);
 	free(cmd->redirect_in);
 
-	ft_free_arr((void **) cmd->envp, free);
+	ft_free_arr((void **) cmd->envp_lst_ptr, free);
 	ft_free_arr((void **) cmd->argv, free);
 
 }

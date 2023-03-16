@@ -46,17 +46,50 @@ char	*prompt(void)
 	return (res);
 }
 
+t_list *convert_arr_into_new_list(void **array)
+{
+	t_list *res;
+
+	res = ft_lstnew(NULL);
+	if (array == NULL)
+		return (res);
+	res->content = *array;
+	array++;
+	while(*array)
+	{
+		ft_lstadd_back(&res, ft_lstnew(*array));
+		array++;
+	}
+	return (res);
+}
+
+t_list * dup_envp(char **envp)
+{
+
+	if (!envp)
+		return (NULL);
+	size_t sizeof_char_ptr = sizeof (char *);
+//	res = ft_dup_arr((void **) envp, sizeof_char_ptr);
+	return (convert_arr_into_new_list((void **)envp));
+
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt_res;
 	t_list	*token_list;
 	t_list	*curr;
+	int 	i;
+	t_list 	*envp_lst;
 
 	(void)argc;
+	pwd = getcwd(pwd, sizeof (pwd));
+	ft_printf("pwd : %s\n", pwd);
+	envp_lst = dup_envp(envp);
 	welcome_msg();
 	expand_content(NULL);
 	prompt_res = prompt();
-	int i = 0;
+	i = 0;
 	while (!ft_strequ(prompt_res, "exit"))
 	{
 		token_list = get_main_token_list(prompt_res);
@@ -81,11 +114,14 @@ int	main(int argc, char **argv, char **envp)
 		token_list = token_parsing(token_list);
 		if (!token_list)
 			return (ft_printf("syntax error, aborting.\n"), 1);
-		t_list *cmd_lst = convert_token_lst_into_cmd_lst(token_list, envp);
+//		ft_printf("*token_list : %p\n", *token_list);
+		t_list *cmd_lst = convert_token_lst_into_cmd_lst(token_list, &envp_lst);
 		execute_cmd_line(cmd_lst);
 		ft_lstclear(&token_list, destroy_token);
 		prompt_res = prompt();
 	}
+	ft_printf("exit\n");
 	free(prompt_res);
+//	ft_lstclear(&envp_lst, free); segf car envp-lst est dans la stack
 	return (0);
 }

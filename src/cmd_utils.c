@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_cmd *create_new_cmd(char **envp)
+t_cmd *create_new_cmd(t_list **envp_lst_ptr)
 {
 	t_cmd *res;
 
@@ -20,7 +20,7 @@ t_cmd *create_new_cmd(char **envp)
 	if (!res)
 		return (NULL);
 	res->argv = NULL;
-	res->envp = envp;
+	res->envp_lst_ptr = envp_lst_ptr;
 	res->path = NULL;
 	res->redirect_in = NULL;
 	res->redirect_out = NULL;

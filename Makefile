@@ -18,6 +18,7 @@ DEBUG_FLAGS = -fsanitize=address -g3
 LIBFT = libft/libft.a
 
 SRC =	minishell.c\
+		builtins.c \
 		cmd_utils.c \
 		convert_token_lst_into_cmd_lst.c \
 		debug_utils.c \

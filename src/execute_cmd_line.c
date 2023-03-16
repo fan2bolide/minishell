@@ -44,6 +44,10 @@ int	execute_cmd_line(t_list *cmd_lst)
 			execute_cmd(*(t_cmd *)cmd_lst->content,\
 			fd_to_read,\
 			fd_to_write);
+		if (is_builtin(((t_cmd *)cmd_lst->content)->argv[0]) >= 0 )
+			exec_builtin((t_cmd *)cmd_lst->content,\
+			fd_to_read,\
+			fd_to_write);
 		if (fd_to_read != STDIN_FILENO)
 			close(fd_to_read);
 		if (fd_to_write != STDOUT_FILENO)

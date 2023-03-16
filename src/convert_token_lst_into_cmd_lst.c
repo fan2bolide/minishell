@@ -12,52 +12,51 @@
 
 #include "minishell.h"
 
-static void	switch_case(t_list *token_lst_cursor, t_list **cmd_lst, char **envp);
+static void	switch_case(t_list *token_lst_cursor, t_list **cmd_lst, t_list **envp_list_ptr);
 void		case_current_token_type_is_exec_name(
-		t_list *token_lst_cursor, t_cmd *cmd, char **envp); //static ?
+		t_list *token_lst_cursor, t_cmd *cmd, t_list *envp_lst); //static ?
 void    case_current_token_type_is_redirect_out(
 		t_list *token_lst_cursor, t_cmd *cmd); //static ?
 void	case_current_token_type_is_redirect_in(
 		t_list *token_lst_cursor, t_cmd *cmd);
 static int token_is_null(void *token_lst_content);
 
-t_list 	*convert_token_lst_into_cmd_lst(t_list *token_lst, char **envp)
+t_list 	*convert_token_lst_into_cmd_lst(t_list *token_lst, t_list **envp_list_ptr)
 {
 	t_list *cmd_lst;
 	t_list  *res;
 
 	cmd_lst = ft_lstnew(NULL);
 	res = cmd_lst;
-	cmd_lst->content = create_new_cmd(envp);
+	cmd_lst->content = create_new_cmd(envp_list_ptr);
 	while (token_lst)
 	{
-		switch_case(token_lst, &cmd_lst, envp);
+		switch_case(token_lst, &cmd_lst, envp_list_ptr);
 		token_lst = token_lst->next;
 	}
 	return (res);
 }
 
-static void	switch_case(t_list *token_lst_cursor, t_list **cmd_lst, char **envp)
+static void	switch_case(t_list *token_lst_cursor, t_list **cmd_lst, t_list **envp_list_ptr)
 {
 	t_token *current_token;
 
-
 	current_token = token_lst_cursor->content;
 	if (current_token->type == exec_name)
-		case_current_token_type_is_exec_name(token_lst_cursor, (*cmd_lst)->content, envp);
+		case_current_token_type_is_exec_name(token_lst_cursor, (*cmd_lst)->content, *envp_list_ptr);
 	else if (current_token->type == redirect_out_trunc || current_token->type == redirect_out_append)
 	{       case_current_token_type_is_redirect_out(token_lst_cursor, (*cmd_lst)->content);}//debug
 	else if (current_token->type == redirect_in)
 	{ case_current_token_type_is_redirect_in(token_lst_cursor, (*cmd_lst)->content);}//debug
 	else if (current_token->type == operator_pipe)
 	{
-		(*cmd_lst)->next = ft_lstnew(create_new_cmd(envp)); // à protéger
+		(*cmd_lst)->next = ft_lstnew(create_new_cmd(envp_list_ptr)); // todo protect this
 		*cmd_lst = (*cmd_lst)->next;
 	}
 }
 
 void		case_current_token_type_is_exec_name(
-		t_list *token_lst_cursor, t_cmd *cmd, char **envp)
+		t_list *token_lst_cursor, t_cmd *cmd, t_list *envp_lst)
 {
 	int		cmd_tab_size;
 	t_token	*current_token;
@@ -74,7 +73,10 @@ void		case_current_token_type_is_exec_name(
 			cmd_tab_size--;
 		}
 	cmd->argv[i] = NULL;
-	cmd->path = get_path(cmd->argv[0], envp);
+	if (is_builtin(cmd->argv[0]) < 0)
+		cmd->path = get_path(cmd->argv[0], envp_lst);
+	else
+		cmd->path = ft_strdup("builtin");// a proteger
 }
 
 void	case_current_token_type_is_redirect_out(
