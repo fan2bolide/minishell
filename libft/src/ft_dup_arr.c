@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_dup_tab.c                                       :+:      :+:    :+:   */
+/*   ft_dup_arr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,36 +11,48 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-size_t ft_tabsize(void **tab)
+size_t ft_arrsize(void **arr)
 {
 	size_t size;
 
 	size = 0;
-	if (tab == NULL)
+	if (arr == NULL)
 		return (0);
-	while (tab[size] != NULL)
+	while (arr[size] != NULL)
 		size++;
 	return (size);
 }
 
-void **ft_dup_tab(void **tab, size_t sizeof_tab_elmnt)
+void cpy_arr(void ** arr_src, void ** arr_dest)
 {
-	size_t tab_size;
-	void	**tab_dup;
 	size_t i;
 
 	i = 0;
-	if (!tab)
-		return (ft_printf("%s : tab is null, returning null\n", __FUNCTION__ ),NULL);
-	tab_size = ft_tabsize((void **)tab);
-	tab_dup = malloc((tab_size + 1) * sizeof_tab_elmnt);
-	if (!tab_dup)
-		return (ft_printf("An error occurred (%s).\n", __FUNCTION__), NULL);
-	while (i < tab_size)
+	while (arr_src[i] && arr_dest[i] == NULL)
 	{
-		tab_dup[i] = tab[i];
+		arr_dest[i] = arr_src[i];
 		i++;
 	}
-	tab_dup[i] = NULL;
+	arr_src[i] = NULL;
+	if (arr_src[i] != NULL)
+	{
+		ft_printf("%s error : tab_dest was not empty,", __FUNCTION__ );
+		ft_printf("couldn't copy entirely tab_src into tab_dest.\n");
+	}
+
+}
+
+void **ft_dup_arr(void **tab, size_t sizeof_tab_elemnt)
+{
+	size_t	tab_size;
+	void	**tab_dup;
+
+	if (!tab)
+		return (ft_printf("%s : tab is null, returning null\n", __FUNCTION__ ),NULL);
+	tab_size = ft_arrsize((void **) tab);
+	tab_dup = ft_calloc((tab_size + 1), sizeof_tab_elemnt);
+	if (!tab_dup)
+		return (ft_printf("An error occurred (%s).\n", __FUNCTION__), NULL);
+	cpy_arr(tab, tab_dup);
 	return (tab_dup);
 }

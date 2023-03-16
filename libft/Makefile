@@ -77,7 +77,8 @@ SRC			=	ft_atoi.c			\
 				ft_putnbr_base_unsigned.c\
 				ft_max.c			\
 				ft_realloc.c		\
-				ft_dup_tab.c		\
+				ft_dup_arr.c		\
+				ft_lst_to_arr.c		\
 
 OBJ = $(addprefix obj/,$(SRC:.c=.o))
 

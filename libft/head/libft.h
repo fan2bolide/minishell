@@ -119,8 +119,9 @@ int			ft_printf(const char *format, ...);
 int			ft_max(int a, int b);
 int			ft_min(int a, int b);
 
-size_t	ft_tabsize(void **tab);
-void	**ft_dup_tab(void **tab, size_t sizeof_tab_elmnt);
-
+size_t	ft_arrsize(void **arr);
+void **ft_dup_arr(void **arr, size_t sizeof_arr_elemnt);
+void	cpy_arr(void ** arr_src, void ** arr_dest);
+void	**ft_lst_to_arr(t_list *lst, size_t size_of_arr_elemnt);
 
 #endif
