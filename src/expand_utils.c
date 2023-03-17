@@ -78,12 +78,12 @@ int replace_with_value(void *expansion_token)
 			i = 0;
 			while (token->content[i] && token->content[i] != '$')
 				i++;
-			ft_strncat(tmp, token->content, (int)i);
+			tmp = ft_strnjoin(tmp, token->content, (int)i);
 			i++;
 			value = get_value_of_var(token->content + i);
 			if (!value)
 				value = "";
-			ft_strcat(tmp, value);
+			tmp = ft_strjoin(tmp, value);
 			while (token->content[i] && (ft_isalnum(token->content[i]) || \
 					token->content[i] == '_'))
 				i++;
