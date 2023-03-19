@@ -134,17 +134,6 @@ char	*expand_content(char *raw_content)
 		curr = curr->next;
 	}
 	ft_printf("%s\n", join_contents(list));
-	return (0);
-	ft_printf("\n\n\n");
-	replace_with_value(&list);
-
-	curr = list;
-	while (curr)
-	{
-		print_expand_token((t_expansion *)curr->content);
-		curr = curr->next;
-	}
-	ft_printf("\n\nreassembled token = <%s>\n", join_contents(list));
-	return (0);
+	return (NULL);
 }
 

@@ -59,7 +59,7 @@ char *get_value_of_var(char *var)
 int replace_with_value(void *expansion_token)
 {
 	t_expansion	*token;
-	char *token_content;
+	char		*token_content_save;
 	size_t		i;
 	char		*tmp;
 	char		*value;
@@ -70,7 +70,9 @@ int replace_with_value(void *expansion_token)
 		if (!ft_strchr(token->content, '$'))
 			return (1);
 		tmp = ft_strnew(0);
-		token_content = token->content;
+		if (!tmp)
+			return (0);
+		token_content_save = token->content;
 		i = 0;
 		while (token->content[i])
 		{
@@ -78,8 +80,7 @@ int replace_with_value(void *expansion_token)
 			i = 0;
 			while (token->content[i] && token->content[i] != '$')
 				i++;
-			tmp = ft_strnjoin(tmp, token->content, (int)i);
-			i++;
+			tmp = ft_strnjoin(tmp, token->content, (int)i++);
 			value = get_value_of_var(token->content + i);
 			if (!value)
 				value = "";
@@ -88,7 +89,8 @@ int replace_with_value(void *expansion_token)
 					token->content[i] == '_'))
 				i++;
 		}
-		free(token_content);
+		//leaks !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		free(token_content_save);
 		token->content = tmp;
 	}
 	return (1);
