@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/05 05:17:30 by bajeanno          #+#    #+#             */
-/*   Updated: 2022/11/19 06:50:23 by bajeanno         ###   ########lyon.fr   */
+/*   Updated: 2023/02/23 15:13:12 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static int	ft_get_end(char const *s, char const *set)
 	int	i;
 
 	i = ft_strlen(s) - 1;
-	ft_printf("i = '%s'\n", s);
 	if (i == 0)
 		return (!ft_isset(s[0], set));
 	while (i >= 0 && ft_isset(s[i], set))

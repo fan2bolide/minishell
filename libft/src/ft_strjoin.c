@@ -26,3 +26,18 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_strcat(res, (char *)s2);
 	return (res);
 }
+
+char	*ft_strnjoin(char *s1, const char *s2, int n)
+{
+	char	*res;
+	size_t	len;
+
+	len = ft_strlen((char *)s1) + n;
+	res = ft_strnew(len);
+	if (res == NULL)
+		return (NULL);
+	*res = 0;
+	ft_strcat(res, (char *)s1);
+	ft_strncat(res, (char *)s2, n);
+	return (res);
+}

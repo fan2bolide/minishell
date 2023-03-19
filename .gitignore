@@ -1,3 +1,6 @@
 **/obj
 minishell
 .idea
+libft/libft.a
+CMakeLists.txt
+cmake-build-debug

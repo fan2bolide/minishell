@@ -67,6 +67,7 @@ int			ft_strequ(char const *s1, char const *s2);
 int			ft_strnequ(char const *s1, char const *s2, size_t n);
 
 char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strnjoin(char *s1, const char *s2, int n);
 char		**ft_split(const char *s, char c);
 void		ft_split_destroy(char **split);
 void		ft_old_split_destroy(char **split);
@@ -109,7 +110,7 @@ int			ft_lstsize(t_list *lst);
 t_list		*ft_lstlast(t_list *lst);
 void		ft_lstdelone(t_list *lst, void (*del)(void *));
 void		ft_lstclear(t_list **lst, void (*del)(void *));
-void		ft_lstclear_mais_pas_trop(t_list **lst);
+void		ft_lstclear_mais_pas_trop(t_list **lst); //ne passe pas la norme
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
@@ -118,5 +119,10 @@ int			ft_printf(const char *format, ...);
 
 int			ft_max(int a, int b);
 int			ft_min(int a, int b);
+
+size_t	ft_arrsize(void **arr);
+void **ft_dup_arr(void **arr, size_t sizeof_arr_elemnt);
+void	cpy_arr(void ** arr_src, void ** arr_dest);
+void	**ft_lst_to_arr(t_list *lst, size_t size_of_arr_elemnt);
 
 #endif

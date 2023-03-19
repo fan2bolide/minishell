@@ -77,32 +77,31 @@ SRC			=	ft_atoi.c			\
 				ft_putnbr_base_unsigned.c\
 				ft_max.c			\
 				ft_realloc.c		\
-				
+				ft_dup_arr.c		\
+				ft_lst_to_arr.c		\
 
 OBJ = $(addprefix obj/,$(SRC:.c=.o))
-DEPENDS = $(addprefix obj/,$(SRC:.c=.d))
 
 all	: create_obj_folder $(NAME)
 
 $(NAME): $(OBJ)
-	@ar -rcs $(NAME) $(OBJ)
+	ar -rcs $(NAME) $(OBJ)
 
-obj/%.o : src/%.c Makefile
-	@cc -Wall -Wextra -Werror -c $< -MD -o $@ -I head -g
+obj/%.o : src/%.c Makefile head/libft.h
+	cc -Wall -Wextra -Werror -c $< -o $@ -I head -g
 
 create_obj_folder :
-	@mkdir -p obj
+	mkdir -p obj
 
 clean:
-	@$(RM) $(OBJ)
-	@$(RM) $(BONUS_OBJ)
-	@$(RM) -r obj
+	$(RM) $(OBJ)
+	$(RM) $(BONUS_OBJ)
+	$(RM) -r obj
 
 fclean: clean
-	@$(RM) -f $(NAME)
+	$(RM) -f $(NAME)
 
 re: fclean all
 
 .PHONY : all bonus clean fclean re
 
--include $(DEPENDS)
