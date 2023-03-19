@@ -44,7 +44,7 @@ all : create_obj_folder lib
 	$(MAKE) $(NAME)
 
 $(NAME) : $(OBJ)
-	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o $(NAME)
+	$(CC) $(OBJ) $(LIBFT) $(FLAGS) -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include $(DEBUG_FLAGS) -o $(NAME)
 
 bonus : create_obj_folder lib .bonus
 
@@ -55,7 +55,7 @@ create_obj_folder :
 	mkdir -p obj
 
 obj/%.o : src/%.c Makefile
-	cc $(DEBUG_FLAGS) -c $< -MD -I libft/head -I head -o $@
+	cc $(DEBUG_FLAGS) -c $< -MD -I /opt/homebrew/opt/readline/include -I libft/head -I head -o $@
 
 debug : lib
 	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o debug$(NAME)
