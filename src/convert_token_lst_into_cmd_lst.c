@@ -20,6 +20,7 @@ void    case_current_token_type_is_redirect_out(
 void	case_current_token_type_is_redirect_in(
 		t_list *token_lst_cursor, t_cmd *cmd);
 static int token_is_null(void *token_lst_content);
+void	case_current_token_type_is_redirect_hd(t_list **cmd_lst, t_list *token_lst_cursor);
 
 t_list 	*convert_token_lst_into_cmd_lst(t_list *token_lst, t_list **envp_list_ptr)
 {
@@ -51,8 +52,22 @@ static void	switch_case(t_list *token_lst_cursor, t_list **cmd_lst, t_list **env
 	else if (current_token->type == operator_pipe)
 	{
 		(*cmd_lst)->next = ft_lstnew(create_new_cmd(envp_list_ptr)); // todo protect this
+		if (((t_cmd *)((*cmd_lst)->content))->heredoc_mode)
+			((t_cmd *)((*cmd_lst)->next->content))->previous_cmd_was_heredoc = 1;
 		*cmd_lst = (*cmd_lst)->next;
 	}
+	else if (current_token->type == redirect_hd)
+		case_current_token_type_is_redirect_hd(cmd_lst, token_lst_cursor);
+}
+
+void	case_current_token_type_is_redirect_hd(t_list **cmd_lst, t_list *token_lst_cursor)
+{
+	((t_cmd *)(*cmd_lst)->content)->heredoc_mode = 1;
+	((t_cmd *)(*cmd_lst)->content)->heredoc_delim = ( (t_token *)token_lst_cursor->next->content)->content;
+	pipe( (*(t_cmd *)(*cmd_lst)->content).heredoc_pipe );
+	manage_here_doc(*(t_cmd *)(*cmd_lst)->content);
+	((t_cmd *)(*cmd_lst)->content)->path = ft_strdup("heredoc"); // todo protect this
+	((t_cmd *)(*cmd_lst)->content)->argv = ft_strdup("");
 }
 
 void		case_current_token_type_is_exec_name(

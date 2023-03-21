@@ -129,7 +129,7 @@ void	log_cmd(t_cmd *cmd)
 		}
 
 	}
-	if (cmd->here_doc_mode)
+	if (cmd->heredoc_mode)
 		ft_printf("here_doc mode !\n");
 }
 

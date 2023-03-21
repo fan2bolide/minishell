@@ -18,9 +18,8 @@ int	append_new_line_if_not_delim(int fd, char **str_to_append, char *delim)
 	char	*new_line;
 	char	*str_to_append_tmp;
 
-	new_line = get_next_line(fd);
-	if (ft_strncmp(new_line, delim, ft_max(ft_strlen(new_line),
-				ft_strlen(delim))) == 10)
+	new_line = get_next_line(fd); // on peut remplacer par un readline (ne pas faire add_history)
+	if (ft_strcmp(new_line, delim) == '\n')
 	{
 		free(new_line);
 		return (-1);
@@ -34,39 +33,41 @@ int	append_new_line_if_not_delim(int fd, char **str_to_append, char *delim)
 	return (0);
 }
 
-void	here_doc_routine(int pipes[OPEN_MAX][2], int i, char *delimiter)
+void here_doc_routine(int fd_to_write, char *delimiter)
 {
-	char	*to_write_in_pipe;
+	char	*heredoc_buf;
 	int		bytes_written;
 
-	to_write_in_pipe = NULL;
-	ft_printf("> ");
-	while (append_new_line_if_not_delim(0, &to_write_in_pipe, delimiter) == 0)
-		ft_printf("> ");
-	if (to_write_in_pipe)
+	heredoc_buf = NULL;
+	ft_printf("heredoc> ");
+	while (append_new_line_if_not_delim(0, &heredoc_buf, delimiter) == 0)
+		ft_printf("heredoc> ");
+	if (heredoc_buf)
 	{
 		bytes_written = \
-		write(pipes[i][WRITE], to_write_in_pipe, ft_strlen(to_write_in_pipe));
+		write(fd_to_write, heredoc_buf, ft_strlen(heredoc_buf));
 		if (bytes_written < 0)
 		{
-			ft_printf("Error while trying to write in pipe %d\n", i);
+			ft_printf("Error while trying to write in heredoc's pipe\n");
 			ft_printf("%s\n", strerror(errno));
 		}
 	}
-	free(to_write_in_pipe);
+	free(heredoc_buf);
 }
 
-void	manage_here_doc(t_cmd cmd, int pipes[OPEN_MAX][2], int i,
-						int fd_file_1)
+void manage_here_doc(t_cmd cmd)
 {
 	char	*delimiter;
+	int 	pipe_heredoc[2];
 
-	delimiter = cmd.argv[1];
-	here_doc_routine(pipes, i, delimiter);
-	close(fd_file_1);
-	if (close(pipes[i][WRITE]) < 0)
+	delimiter = cmd.heredoc_delim;
+	pipe(pipe_heredoc);
+	dup2(fd_to_write, pipe_heredoc[READ]);
+	close(fd_to_write);
+	here_doc_routine(pipe_heredoc[WRITE], delimiter);
+	if (close(pipe_heredoc[WRITE]) < 0)
 	{
-		ft_printf("Failed to close pipe %d\n", i);
+		ft_printf("Failed to close heredoc's pipe\n");
 		exit(EXIT_FAILURE);
 	}
 	exit(1);

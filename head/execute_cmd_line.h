@@ -44,21 +44,19 @@ typedef struct s_cmd
     char    *redirect_in;
     char    *redirect_out;
 	int 	redirect_out_mode;
-	int 	here_doc_mode;
+	int 	heredoc_mode;
+	char	*heredoc_delim;
+	int 	heredoc_pipe[2];
+	int 	previous_cmd_was_heredoc;
 }			t_cmd;
 
-void		manage_here_doc(t_cmd cmd, int pipes[OPEN_MAX][2], int i,
-							int fd_file_1);
-int			append_new_line_if_not_delim(int fd, char **str_to_append,
-				char *delim);
-void		here_doc_routine(int pipes[OPEN_MAX][2], int i, char *delimiter);
+void manage_here_doc(t_cmd cmd);
 void		execute_cmd(t_cmd cmd, int to_read, int to_write);
 char		*get_path(char *exec_name, t_list *envp_lst);
 void		wait_all_child_proc(int *pids, int childs_counter);
 void		close_pipes(int pipes[OPEN_MAX][2],	int i);
 void		free_cmd_lst(t_list **cmd_lst);
 void		free_cmd(t_cmd *cmd_lst);
-t_cmd		*parser(char **splits, char **envp);
 void		exit_routine(int pipes[OPEN_MAX][2], int pids[OPEN_MAX], int i);
 int			execute_cmd_line(t_list *cmd_lst);
 int 		open_and_get_fd(char *file, int open_mode, int rights);

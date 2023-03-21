@@ -26,6 +26,8 @@ int	is_builtin(char *str)
 	const char	*builtins[] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 	int	i;
 
+	if (!str)
+		return (-1);
 	i = 0;
 	while (i < 7)
 		if (ft_strequ(str, builtins[i++]))
@@ -38,7 +40,7 @@ void	echo(char **argv, int to_write) // adapt
 	char *msg;
 	int 	option_n;
 
-	msg = argv[1]; // need to be imnproved
+	msg = argv[1]; // need to be improved
 	option_n = 0;
 	if (argv[1] && argv[2])
 		option_n = ft_strequ(argv[2], "-n"); //need to be improved
