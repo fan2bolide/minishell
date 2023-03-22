@@ -76,52 +76,15 @@ char *get_env_var(char *env_var, char **envp)
 
 void	export(char **argv, t_list **envp_lst_ptr)
 {
-//	char *var_to_export;
-//	char* var_value;
-//	char	*equal_char;
-//
-//	equal_char = ft_strstr(argv[1], "=");
-//	if (!equal_char)
-//		return ;
-//	*equal_char = 0;
-//	var_to_export = argv[1];
-//	var_value = (equal_char +1);
-//	export2(var_to_export, var_value, envp_lst_ptr);
-	ft_lstadd_back(envp_lst_ptr, ft_lstnew(argv[1])); //todo insert in alphabetical order)
-//	for (int i = 0; (*envp_lst_ptr)[i]; ++i) {
-//		ft_printf("(*envp_lst_ptr)[%d] : %s\n", i,(*envp_lst_ptr)[i]);
-//	}
+	t_list *envp_lst_ptr_cpy = *envp_lst_ptr;
+	while(envp_lst_ptr_cpy->next && ft_strcmp(argv[1], envp_lst_ptr_cpy->next->content) > 0)
+	{
+		(envp_lst_ptr_cpy) = (envp_lst_ptr_cpy)->next;
+	}
+	t_list *tmp = envp_lst_ptr_cpy->next;
+	envp_lst_ptr_cpy->next = ft_lstnew(argv[1]);
+	envp_lst_ptr_cpy->next->next = tmp;
 }
-
-//void	export2(char *var_to_export, char* var_value, t_list *envp_lst_ptr)
-//{
-//	char **new_envp;
-//	size_t envp_size;
-//	char **envp;
-//
-//	envp = *envp_lst_ptr;
-//	envp_size = ft_arrsize((void **) envp);
-//	ft_printf("envp_size : %d\n", envp_size);
-//	if (!var_to_export)
-//		return(ft_printf("Error while trying to export a new var in env.\n"), (void)0);
-//	new_envp = ft_calloc((envp_size + 2)*sizeof (char *), 1);
-//	if (!new_envp)
-//		return (ft_printf("%s : An error occurred.\n", __FUNCTION__ ), (void)0);
-//	cpy_arr((void **) envp, (void **) new_envp);
-//	if (var_value)
-//	{
-//		ft_printf("var_to_export : %s\n", var_to_export);
-//		ft_printf("var_value exist\n");
-//		new_envp[envp_size] = ft_strjoin(var_to_export, "="); //segf
-//		new_envp[envp_size] = ft_strjoin(new_envp[envp_size], var_value);
-//		ft_printf("new_envp[envp_size] : %s\n", new_envp[envp_size]);
-//	}
-//	else
-//		new_envp[envp_size] = var_to_export;
-//	new_envp[envp_size + 1] = NULL;
-//	free(*envp_lst_ptr);
-//	*envp_lst_ptr = new_envp;
-//}
 
 //return 1 if str start with keyword, 0 if not
 int str_starts_with(char *str, char *keyword)
