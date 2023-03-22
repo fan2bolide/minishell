@@ -116,7 +116,7 @@ void print_expand_token(t_expansion *token)
 
 char	*expand_content(char *raw_content)
 {
-	t_list *list = get_expand_token_list(readline("----->"));
+	t_list *list = get_expand_token_list(raw_content);
 	t_list *curr = list;
 
 	ft_printf("\n\n\n");
