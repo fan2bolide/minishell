@@ -25,7 +25,7 @@
 # include <sys/stat.h>
 
 static char *pwd;
-t_list	*convert_token_lst_into_cmd_lst(t_list *token_lst, t_list **envp_list_ptr);
+t_cmdlist * convert_token_lst_into_cmd_lst(t_list *token_lst, t_list **envp_list_ptr);
 int		token_cmd_line_size(t_list *token_lst);
 //debug
 t_list	*get_sample_tokens();

@@ -25,6 +25,8 @@ t_cmd *create_new_cmd(t_list **envp_lst_ptr)
 	res->redirect_in = NULL;
 	res->redirect_out = NULL;
 	res->redirect_out_mode = 0;
-	res->here_doc_mode = 0;
+	res->heredoc_mode = 0;
+	res->heredoc_delim = NULL;
+	res->previous_cmd_was_heredoc = 0;
 	return (res);
 }

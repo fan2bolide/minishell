@@ -84,10 +84,10 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	pwd = getcwd(pwd, sizeof (pwd));
+	ft_printf("getpid() : %d\n", getpid());
 	ft_printf("pwd : %s\n", pwd);
 	envp_lst = dup_envp(envp);
 	welcome_msg();
-	expand_content(NULL);
 	prompt_res = prompt();
 	i = 0;
 	while (!ft_strequ(prompt_res, "exit"))
@@ -107,7 +107,7 @@ int	main(int argc, char **argv, char **envp)
 				ft_printf("an error occurred.\n");
 				break;
 			}
-			print_token(curr->content);
+//			print_token(curr->content);
 			curr = curr->next;
 			i++;
 		}
