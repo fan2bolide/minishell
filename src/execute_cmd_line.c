@@ -14,15 +14,15 @@
 #include "minishell.h"
 
 static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd);
-static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_list *cmd_lst);
-static int	is_last_cmd(t_list *cmd);
-void check_path(const t_list *cmd_lst);
+static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmdlist *cmd_lst);
+static int	is_last_cmd(t_cmdlist *cmd);
+void check_path(const t_cmdlist *cmd_lst);
 int create_and_check_pipes(const int pipes[10240][2], int i);
-void get_fds(t_list *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, int *fd_to_write);
+void get_fds(t_cmdlist *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, int *fd_to_write);
 
 void close_fds(int fd_to_read, int fd_to_write);
 
-int	execute_cmd_line(t_list *cmd_lst)
+int	execute_cmd_line(t_cmdlist *cmd_lst)
 {
 	int	pipes[OPEN_MAX][2];
 	int	pids[OPEN_MAX];
@@ -42,16 +42,16 @@ int	execute_cmd_line(t_list *cmd_lst)
 		if (pids[i] < 0)
 			return (ft_printf("Failed to fork\n"), 0);
 		if (pids[i] == 0)
-			execute_cmd(*(t_cmd *)cmd_lst->content,\
+			execute_cmd(*cmd_lst->content,\
 			fd_to_read,\
 			fd_to_write);
-		if (is_builtin(((t_cmd *)cmd_lst->content)->argv[0]) >= 0 )
-			exec_builtin((t_cmd *)cmd_lst->content,\
+		if (is_builtin((cmd_lst->content)->argv[0]) >= 0 )
+			exec_builtin(cmd_lst->content,\
 			fd_to_read,\
 			fd_to_write);
 		close_fds(fd_to_read, fd_to_write);
-		if (((t_cmd *)cmd_lst->content)->heredoc_mode)
-			close(((t_cmd *)cmd_lst->content)->heredoc_pipe[READ]);
+		if ((cmd_lst->content)->heredoc_mode)
+			close((cmd_lst->content)->heredoc_pipe[READ]);
 		cmd_lst = cmd_lst->next;
 		i++;
 	}
@@ -65,8 +65,8 @@ void close_fds(int fd_to_read, int fd_to_write) {
 		close(fd_to_write);
 }
 
-void get_fds(t_list *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, int *fd_to_write) {
-	(*fd_to_read) = get_fd_to_read(pipes, i, *((t_cmd *)cmd_lst->content));
+void get_fds(t_cmdlist *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, int *fd_to_write) {
+	(*fd_to_read) = get_fd_to_read(pipes, i, *(cmd_lst->content));
 	(*fd_to_write) = get_fd_to_write(pipes, i, cmd_lst);
 }
 
@@ -80,7 +80,7 @@ static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd)
 	{
 		if (i != 0)
 			close (pipes[i - 1][READ]);
-		res = cmd.heredoc_pipe[READ]; ft_printf("res : %d\n", res); // debug
+		res = cmd.heredoc_pipe[READ];
 	}
 	else if (i == 0)
 		res = STDIN_FILENO;
@@ -89,12 +89,12 @@ static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd)
 	return res;
 }
 
-static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_list *cmd_lst)
+static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmdlist *cmd_lst)
 {
 	int res;
 	t_cmd *cmd;
 
-	cmd = (t_cmd *)cmd_lst->content;
+	cmd = cmd_lst->content;
 	if (cmd->redirect_out)
 		res = open_and_get_fd(cmd->redirect_out, O_WRONLY | cmd->redirect_out_mode | O_CREAT, 0644);
 	else if (is_last_cmd(cmd_lst))
@@ -104,14 +104,14 @@ static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_list *cmd_lst)
 	return (res);
 }
 
-static int	is_last_cmd(t_list *cmd)
+static int	is_last_cmd(t_cmdlist *cmd)
 {
 	return (cmd->next == NULL);
 }
 
-void check_path(const t_list *cmd_lst) {
-	if (!((t_cmd *)cmd_lst->content)->path)
-		ft_printf("Turboshell: command not found: %s\n", ((t_cmd *)cmd_lst->content)->argv[0]); //TODO SEGFAULT ICI
+void check_path(const t_cmdlist *cmd_lst) {
+	if (!(cmd_lst->content)->path)
+		ft_printf("Turboshell: command not found: %s\n", (cmd_lst->content)->argv[0]); //TODO SEGFAULT ICI
 }
 
 int create_and_check_pipes(const int pipes[10240][2], int i) {

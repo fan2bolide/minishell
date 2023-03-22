@@ -15,11 +15,7 @@
 //'to_read' linked to child ´stdin´ and child ´stdout´ linked to ´to_write´
 void	execute_cmd(t_cmd cmd, int to_read, int to_write)
 {
-	ft_printf("to_read : %d\n", to_read);
-	ft_printf("to_write : %d\n", to_write);
-	ft_printf("cmd.argv[0] : %s\n", cmd.argv[0]);
-	ft_printf("cmd.argv[1] : %s\n", cmd.argv[1]);
-	if(is_builtin(cmd.argv[0]) >= 0 || cmd.heredoc_mode)
+	if(is_builtin(cmd.argv[0]) >= 0)
 		exit(EXIT_SUCCESS);
 	if (to_read != STDIN_FILENO)
 	{

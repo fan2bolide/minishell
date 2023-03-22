@@ -61,6 +61,7 @@ static int append_str(char **str_to_append, char *new_line)
 	if (!*str_to_append)
 	{
 		*str_to_append = ft_strdup(new_line);
+		return 1;
 	}
 	*str_to_append = ft_strjoin(*str_to_append, new_line);
 	if (!*str_to_append)
