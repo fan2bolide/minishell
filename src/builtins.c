@@ -35,18 +35,34 @@ int	is_builtin(char *str)
 	return (-1);
 }
 
+/* can manage :
+ *
+ * >echo message
+ * >message
+ *
+ *>echo -n message
+ * message >
+ *
+ * >echo  message1          message2
+ * >message1 message2
+ *
+ * */
 void	echo(char **argv, int to_write) // adapt
 {
-	char *msg;
 	int 	option_n;
+	int i;
 
 	if (!argv[1])
 		return;
-	msg = argv[1]; // need to be improved
-	option_n = 0;
-	if (argv[1] && argv[2])
-		option_n = ft_strequ(argv[2], "-n"); //need to be improved
-	ft_putstr_fd(msg, to_write);
+	option_n = ft_strequ(argv[1], "-n");
+	i = 1 + option_n;
+	while (argv[i])
+	{
+		ft_putstr_fd(argv[i], to_write);
+		if (argv[i + 1])
+			ft_putstr_fd(" ", to_write);
+		i++;
+	}
 	if (!option_n)
 		ft_putstr_fd("\n", to_write);
 }
