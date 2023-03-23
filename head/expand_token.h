@@ -1,5 +1,5 @@
-#ifndef MINISHELL_EXPAND_TOKEN_H
-#define MINISHELL_EXPAND_TOKEN_H
+#ifndef EXPAND_TOKEN_H
+#define EXPAND_TOKEN_H
 
 typedef enum e_expand_token_type
 {
@@ -14,10 +14,9 @@ typedef struct s_expansion
 	char			*content;
 }	t_expansion;
 
-void	print_expand_token(t_expansion *token);
-char	*expand_content(char *raw_content);
+void	destroy_expand_token(void *token);
 void	remove_quotes(t_list *token_list);
-int		replace_with_value(void *expansion_token);
+int		replace_with_value(void *expansion_token, t_list **envp);
 char	*join_contents(t_list *token_list);
 
 #endif

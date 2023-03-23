@@ -15,7 +15,6 @@
 
 # include "execute_cmd_line.h"
 # include "lexer.h"
-# include "expand_token.h"
 # include "libft.h"
 # include "builtins.h"
 # include <readline/history.h>
@@ -33,8 +32,11 @@ typedef struct s_str_list
 static char *pwd;
 t_cmdlist * convert_token_lst_into_cmd_lst(t_list *token_lst, t_list **envp_list_ptr);
 int		token_cmd_line_size(t_list *token_lst);
+
 //debug
 t_list	*get_sample_tokens();
+
+char	*expand_content(char *raw_content, t_list **envp);
 t_list	*token_parsing(t_list *tokens);
 void	log_token_list(t_list *token_list);
 void	log_cmd_lst(t_list *cmd_list);
