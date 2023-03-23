@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "execute_cmd_line.h"
 
 static void	switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst, t_list **envp_list_ptr);
 void		case_current_token_type_is_exec_name(

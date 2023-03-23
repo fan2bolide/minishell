@@ -30,6 +30,7 @@ SRC =	minishell.c\
 		utils.c\
 		main_tokenizer.c\
 		expand_token.c\
+		expand_token_utils.c\
 		expand_utils.c \
 		heredoc_manager.c
 

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_token.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/19 03:08:22 by bajeanno          #+#    #+#             */
+/*   Updated: 2023/03/23 00:13:24 by bajeanno         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "expand_token.h"
 
-static char *get_clean_content(char *raw_content)
+static char	*get_clean_content(char *raw_content)
 {
-	char *clean_content;
+	char	*clean_content;
 	size_t	i;
 
 	i = 0;
@@ -33,9 +45,9 @@ static char *get_clean_content(char *raw_content)
 	return (ft_strncpy(raw_content, clean_content, (int)i));
 }
 
-static t_expansion *evaluate_token(char *raw_content)
+static t_expansion	*evaluate_token(char *raw_content)
 {
-	t_expansion *token;
+	t_expansion	*token;
 
 	token = ft_calloc(1, sizeof (t_expansion));
 	if (!token)
@@ -74,7 +86,7 @@ static size_t	get_next_token(char *token_content)
 	return (i);
 }
 
-static t_list *get_expand_token_list(char *raw_content)
+static t_list	*get_expand_token_list(char *raw_content)
 {
 	t_list	*list;
 	t_list	*curr;
@@ -86,7 +98,7 @@ static t_list *get_expand_token_list(char *raw_content)
 	list = ft_lstnew(evaluate_token(raw_content));
 	curr = list;
 	if (!curr)
-		return (NULL);//leaks
+		return (ft_lstclear(&list, destroy_expand_token), NULL);
 	curr->next = (NULL);
 	i = get_next_token(raw_content);
 	while (raw_content[i])
@@ -95,36 +107,17 @@ static t_list *get_expand_token_list(char *raw_content)
 		curr->next = ft_lstnew(evaluate_token(raw_content + i));
 		curr = curr->next;
 		if (!curr)
-			return (NULL);//leaks
+			return (ft_lstclear(&list, destroy_expand_token), NULL);
 		i += get_next_token(raw_content + i);
 	}
 	return (list);
 }
 
-void print_expand_token(t_expansion *token)
+char	*expand_content(char *raw_content, t_list **envp)
 {
-	char *res = "none";
+	t_list	*list = get_expand_token_list(raw_content);
+	t_list	*curr;
 
-	if (token->type == double_quote)
-		res = "double_quote";
-	if (token->type == quote)
-		res = "quote";
-	if (token->type == word)
-		res = "word";
-	ft_printf("%s, <%s>\n", res, token->content);
-}
-
-char	*expand_content(char *raw_content)
-{
-	t_list *list = get_expand_token_list(raw_content);
-	t_list *curr = list;
-
-	ft_printf("\n\n\n");
-	while (curr)
-	{
-		print_expand_token((t_expansion *)curr->content);
-		curr = curr->next;
-	}
 	remove_quotes(list);
 	curr = list;
 	while (curr)
@@ -133,7 +126,5 @@ char	*expand_content(char *raw_content)
 			return (NULL);
 		curr = curr->next;
 	}
-	ft_printf("%s\n", join_contents(list));
-	return (NULL);
+	return (join_contents(list));
 }
-

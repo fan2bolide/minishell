@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.h                                            :+:      :+:    :+:   */
+/*   expand_token_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: bajeanno <bajeanno@student.42lyon.f>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/23 16:41:19 by alevra            #+#    #+#             */
-/*   Updated: 2023/03/01 18:41:40 by alevra           ###   ########.fr       */
+/*   Created: 2023/03/23 00:15:06 by bajeanno          #+#    #+#             */
+/*   Updated: 2023/03/23 00:23:13 by bajeanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEXER_H
-# define LEXER_H
+#include <stdlib.h>
+#include "expand_token.h"
 
-# include "minishell.h"
+void	destroy_expand_token(void *token)
+{
+	t_expansion	*to_destroy;
 
-char	*set_token_content(char *expression);
-void	print_token(t_token *token);
-void	log_token(t_token *token);
-size_t	end_of_quote(char *expression);
-
-# endif
+	to_destroy = token;
+	free(to_destroy->content);
+	free(to_destroy);
+}

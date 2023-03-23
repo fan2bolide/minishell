@@ -3,10 +3,8 @@
 
 # include "minishell.h"
 
-void	exec_builtin(t_cmd *cmd, int to_read, int to_write);
-int		is_builtin(char *str);
 void	echo(char **argv, int option_n);
-char	*get_env_var(char *env_var, char **envp);
+char	*get_env_var(char *env_var, t_str_list **envp);
 void	export2(char *var_to_export, char* var_value, t_list *envp_lst);
 void	export(char **argv, t_list **envp_lst_ptr);
 int		str_starts_with(char *str, char *keyword);

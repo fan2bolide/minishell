@@ -1,5 +1,5 @@
 
-#include "minishell.h"
+#include "builtins.h"
 
 void	exec_builtin(t_cmd *cmd, int to_read, int to_write)
 {
@@ -49,16 +49,18 @@ void	echo(char **argv, int to_write) // adapt
 		ft_putstr_fd("\n", to_write);
 }
 
-char *get_env_var(char *env_var, char **envp)
+char *get_env_var(char *env_var, t_str_list **envp)
 {
 	int		i;
+	t_str_list	*curr;
 
 	i = 0;
-	if (!env_var || !envp)
+	curr = *envp;
+	if (!env_var || !*envp)
 		return NULL;
-	while (envp[i] && ft_strstr(envp[i], env_var) == 0)
+	while (curr && ft_strstr(curr->content, env_var) == 0)
 		i++;
-	return (envp[i]);
+	return (curr->content);
 }
 
 //char *get_env_var_value(char *env_var, char **envp_lst_ptr)
