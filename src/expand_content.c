@@ -6,12 +6,12 @@
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 03:08:22 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/03/23 00:13:24 by bajeanno         ###   ########.fr       */
+/*   Updated: 2023/03/23 08:06:58 by bajeanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "expand_token.h"
+#include "expand_content.h"
 
 static char	*get_clean_content(char *raw_content)
 {
@@ -126,5 +126,8 @@ char	*expand_content(char *raw_content, t_str_list **envp)
 			return (NULL);
 		curr = curr->next;
 	}
-	return (join_contents(list));
+	free(raw_content);
+	raw_content = join_contents(list);
+	ft_lstclear(&list, destroy_expand_token);
+	return (raw_content);
 }

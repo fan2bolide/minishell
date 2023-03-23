@@ -29,8 +29,9 @@ SRC =	minishell.c\
 		main_token_utils.c \
 		utils.c\
 		main_tokenizer.c\
-		expand_token.c\
-		expand_token_utils.c\
+		expand_content.c\
+		expand_tokens_from_list.c\
+		expand_content_utils.c\
 		expand_utils.c \
 		heredoc_manager.c
 

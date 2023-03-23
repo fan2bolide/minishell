@@ -6,12 +6,11 @@
 /*   By: bajeanno <bajeanno@student.42lyon.f>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 00:15:06 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/03/23 00:23:13 by bajeanno         ###   ########.fr       */
+/*   Updated: 2023/03/23 08:06:58 by bajeanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "expand_token.h"
+#include "expand_content.h"
 
 void	destroy_expand_token(void *token)
 {
