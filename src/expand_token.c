@@ -113,7 +113,7 @@ static t_list	*get_expand_token_list(char *raw_content)
 	return (list);
 }
 
-char	*expand_content(char *raw_content, t_list **envp)
+char	*expand_content(char *raw_content, t_str_list **envp)
 {
 	t_list	*list = get_expand_token_list(raw_content);
 	t_list	*curr;
@@ -122,7 +122,7 @@ char	*expand_content(char *raw_content, t_list **envp)
 	curr = list;
 	while (curr)
 	{
-		if (!replace_with_value(curr->content))
+		if (!replace_with_value(curr->content, envp))
 			return (NULL);
 		curr = curr->next;
 	}

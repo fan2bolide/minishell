@@ -75,7 +75,7 @@ int		token_cmd_line_size(t_list *token_lst);
 t_list	*get_sample_tokens();
 
 int		execute_cmd_line(t_cmdlist *cmd_lst);
-char	*expand_content(char *raw_content, t_list **envp);
+char	*expand_content(char *raw_content, t_str_list **envp);
 t_list	*get_main_token_list(char *command_line);
 t_list	*token_parsing(t_list *tokens);
 void	destroy_token(void *token);
@@ -84,4 +84,5 @@ void	exec_builtin(t_cmd *cmd, int to_read, int to_write);
 int		is_builtin(char *str);
 void	log_cmd_lst(t_list *cmd_list);
 void	log_cmd(t_cmd *cmd);
+char	*get_env_var(char *env_var, t_str_list **envp);
 #endif

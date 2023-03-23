@@ -4,7 +4,6 @@
 # include "minishell.h"
 
 void	echo(char **argv, int option_n);
-char	*get_env_var(char *env_var, t_str_list **envp);
 void	export2(char *var_to_export, char* var_value, t_list *envp_lst);
 void	export(char **argv, t_list **envp_lst_ptr);
 int		str_starts_with(char *str, char *keyword);

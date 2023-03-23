@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "minishell.h"
 #include "expand_token.h"
 
 void	remove_quotes(t_list *token_list)
@@ -44,7 +42,7 @@ char	*join_contents(t_list *token_list)
 	return (res);
 }
 
-char	*get_value_of_var(char *var, t_list **envp)
+char	*get_value_of_var(char *var, t_str_list **envp)
 {
 	char	*value;
 	char	*var_name;
@@ -61,7 +59,7 @@ char	*get_value_of_var(char *var, t_list **envp)
 }
 
 static char	*join_words_with_values(t_expansion *token, size_t i, char *tmp, \
-								t_list **envp)
+								t_str_list **envp)
 {
 	char	*value;
 
@@ -72,7 +70,7 @@ static char	*join_words_with_values(t_expansion *token, size_t i, char *tmp, \
 		while (token->content[i] && token->content[i] != '$')
 			i++;
 		tmp = ft_strnjoin(tmp, token->content, (int)i++);
-		value = get_value_of_var(token->content + i);
+		value = get_value_of_var(token->content + i, envp);
 		if (!value)
 			value = "";
 		tmp = ft_strjoin(tmp, value);
@@ -83,7 +81,7 @@ static char	*join_words_with_values(t_expansion *token, size_t i, char *tmp, \
 	return (tmp);
 }
 
-int	replace_with_value(void *expansion_token, t_list **envp)
+int	replace_with_value(void *expansion_token, t_str_list **envp)
 {
 	t_expansion	*token;
 	char		*token_content_save;
