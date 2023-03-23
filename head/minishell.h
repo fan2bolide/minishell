@@ -24,6 +24,12 @@
 # include <stdlib.h>
 # include <sys/stat.h>
 
+typedef struct s_str_list
+{
+	char				*content;
+	struct s_str_list	*next;
+}	t_str_list;
+
 static char *pwd;
 t_cmdlist * convert_token_lst_into_cmd_lst(t_list *token_lst, t_list **envp_list_ptr);
 int		token_cmd_line_size(t_list *token_lst);
