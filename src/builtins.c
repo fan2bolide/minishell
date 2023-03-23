@@ -40,6 +40,8 @@ void	echo(char **argv, int to_write) // adapt
 	char *msg;
 	int 	option_n;
 
+	if (!argv[1])
+		return;
 	msg = argv[1]; // need to be improved
 	option_n = 0;
 	if (argv[1] && argv[2])

@@ -16,7 +16,6 @@
 # include "minishell.h"
 
 char	*set_token_content(char *expression);
-void	print_token(t_token *token);
 void	log_token(t_token *token);
 size_t	end_of_quote(char *expression);
 

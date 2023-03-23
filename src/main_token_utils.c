@@ -77,11 +77,14 @@ int	token_cmd_line_size(t_list *token_lst)
     int	res;
 
     res = 0;
+	if (!token_lst)
+		return 1;
     if (((t_token *)token_lst->content)->type != exec_name)
         return (0);
     res++;
     token_lst = token_lst->next;
-    while (token_lst && ((t_token *)token_lst->content)->type == arg)
+    while (token_lst && (((t_token *)token_lst->content)->type == arg || \
+	((t_token *)token_lst->content)->type == env_variable))
     {
         res++;
         token_lst = token_lst->next;

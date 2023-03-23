@@ -119,6 +119,8 @@ void	print_token(t_token *token)
 {
 	char	*token_type;
 
+	if (!token)
+		return (ft_printf("(null token)\n"), (void)0);
 	token_type = "error, \t";
 	if (token->type == exec_name)
 		token_type = "exec_name, \t";

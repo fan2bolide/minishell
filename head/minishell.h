@@ -75,6 +75,7 @@ int		token_cmd_line_size(t_list *token_lst);
 t_list	*get_sample_tokens();
 
 int		execute_cmd_line(t_cmdlist *cmd_lst);
+void	print_token(t_token *token);
 char	*expand_content(char *raw_content, t_str_list **envp);
 t_list	*get_main_token_list(char *command_line);
 t_list	*token_parsing(t_list *tokens);
