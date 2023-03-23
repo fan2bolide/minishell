@@ -49,32 +49,31 @@ void	echo(char **argv, int to_write) // adapt
 		ft_putstr_fd("\n", to_write);
 }
 
-char *get_env_var(char *env_var, t_str_list **envp)
+/**
+ * DO NOT FREE THE RETURN VALUE
+ * @param var_name
+ * @param envp
+ * @return value of the variable <varname> in environment
+ */
+char *get_env_var_value(char *var_name, t_str_list **envp)
 {
 	int		i;
 	t_str_list	*curr;
 
 	i = 0;
 	curr = *envp;
-	if (!env_var || !*envp)
+	if (!var_name || !*envp)
 		return NULL;
-	while (curr && ft_strstr(curr->content, env_var) == 0)
+	while (curr && str_starts_with(curr->content, var_name))
+		curr = curr->next;
+	if (!curr)
+		return (NULL);
+	while (curr->content[i] && curr->content[i] != '=')
 		i++;
-	return (curr->content);
+	if (curr->content[i])
+		i++;
+	return (curr->content + i);
 }
-
-//char *get_env_var_value(char *env_var, char **envp_lst_ptr)
-//{
-//	int		i;
-//	char 	*env_var_value;
-//
-//	i = 0;
-//	if (!env_var || !envp_lst_ptr)
-//		return NULL;
-//	env_var_value = get_env_var(env_var, envp_lst_ptr);
-//	env
-//}
-
 
 void	export(char **argv, t_str_list **envp_lst_ptr)
 {
@@ -88,7 +87,12 @@ void	export(char **argv, t_str_list **envp_lst_ptr)
 	envp_lst_ptr_cpy->next->next = tmp;
 }
 
-//return 1 if str start with keyword, 0 if not
+/**
+ *
+ * @param str
+ * @param keyword
+ * @return 1 if str starts with keyword, 0 if not
+ */
 int str_starts_with(char *str, char *keyword)
 {
 	int res = ft_strncmp(str, keyword, ft_strlen(keyword));
@@ -104,8 +108,8 @@ void	unset(char *var_to_unset, t_str_list **envp_lst_ptr)
 	t_str_list *envp_lst;
 
 	envp_lst = *envp_lst_ptr;
-	if (!get_env_var(var_to_unset, envp_lst_ptr))
-		return;
+//	if (!get_env_var_value(var_to_unset, envp_lst_ptr))
+//		return;
 	if (!var_to_unset)
 		return((void)0);
 //	envp_size = ft_arrsize((void **) envp_lst_ptr);

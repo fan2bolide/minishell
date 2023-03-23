@@ -6,7 +6,7 @@
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 03:08:22 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/03/23 00:12:45 by bajeanno         ###   ########.fr       */
+/*   Updated: 2023/03/23 03:06:15 by bajeanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,18 @@ char	*get_value_of_var(char *var, t_str_list **envp)
 		i++;
 	var_name = ft_strnew(i);
 	var_name = ft_strncpy(var, var_name, i);
-	value = get_env_var(var_name, envp);
+	value = get_env_var_value(var_name, envp);
 	free(var_name);
 	return (value);
 }
 
-static char	*join_words_with_values(t_expansion *token, size_t i, char *tmp, \
+static char	*join_words_with_values(t_expansion *token, char *tmp, \
 								t_str_list **envp)
 {
 	char	*value;
+	size_t	i;
 
+	i = 0;
 	while (token->content[i])
 	{
 		token->content += i;
@@ -85,7 +87,6 @@ int	replace_with_value(void *expansion_token, t_str_list **envp)
 {
 	t_expansion	*token;
 	char		*token_content_save;
-	size_t		i;
 	char		*tmp;
 
 	token = expansion_token;
@@ -97,8 +98,7 @@ int	replace_with_value(void *expansion_token, t_str_list **envp)
 		if (!tmp)
 			return (0);
 		token_content_save = token->content;
-		i = 0;
-		tmp = join_words_with_values(token, i, tmp, envp);
+		tmp = join_words_with_values(token, tmp, envp);
 		free(token_content_save);
 		token->content = tmp;
 	}
