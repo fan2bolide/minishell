@@ -111,6 +111,8 @@ int	main(int argc, char **argv, char **envp)
 		token_list = token_parsing(token_list);
 		if (!token_list)
 			return (ft_printf("syntax error, aborting.\n"), 1);
+		if (!expand_tokens_from_list(token_list, envp_lst))
+			return (0);
 		t_cmdlist *cmd_lst = convert_token_lst_into_cmd_lst(token_list, &envp_lst);
 		execute_cmd_line(cmd_lst);
 		ft_lstclear(&token_list, destroy_token);

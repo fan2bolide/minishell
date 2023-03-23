@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_token_utils.c                               :+:      :+:    :+:   */
+/*   expand_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.f>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/23 00:15:06 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/03/23 08:06:58 by bajeanno         ###   ########.fr       */
+/*   Created: 2023/03/23 08:08:45 by bajeanno          #+#    #+#             */
+/*   Updated: 2023/03/23 08:08:51 by bajeanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "expand_content.h"
 
-void	destroy_expand_token(void *token)
+int	expand_tokens_from_list(t_list *token_list, t_str_list *envp)
 {
-	t_expansion	*to_destroy;
+	t_list *curr;
+	t_token *token;
 
-	to_destroy = token;
-	free(to_destroy->content);
-	free(to_destroy);
+	curr = token_list;
+	while (curr)
+	{
+		token = curr->content;
+		if (token->type == redirect_hd)
+			curr = curr->next;
+		else
+		{
+			token->content = expand_content(token->content, &envp);
+			if (!token->content)
+				return (ft_lstclear(&token_list, destroy_token), 0);
+		}
+		curr = curr->next;
+	}
+	return (1);
 }
