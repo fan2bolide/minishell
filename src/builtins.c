@@ -35,18 +35,28 @@ int	is_builtin(char *str)
 	return (-1);
 }
 
-void	echo(char **argv, int to_write) // adapt
+void	echo(char **argv, int to_write)
 {
-	char *msg;
 	int 	option_n;
+	int		i;
 
 	if (!argv[1])
 		return;
-	msg = argv[1]; // need to be improved
+	i = 0;
 	option_n = 0;
-	if (argv[1] && argv[2])
-		option_n = ft_strequ(argv[2], "-n"); //need to be improved
-	ft_putstr_fd(msg, to_write);
+	while (argv[i])
+	{
+		if (ft_strequ(argv[i], "-n"))
+		{
+			if (option_n == 0)
+				option_n = i;
+			else
+				return (ft_putstr_fd("Syntax error: illegal expression: duplicated option \"-n\"", STDERR_FILENO));
+		}
+		else
+			ft_putstr_fd(argv[i], to_write);
+		i++;
+	}
 	if (!option_n)
 		ft_putstr_fd("\n", to_write);
 }
