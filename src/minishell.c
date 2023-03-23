@@ -101,6 +101,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		prompt_res = prompt();
+		if (ft_strequ(prompt_res, "exit"))
+			return (0);
 		token_list = get_main_token_list(prompt_res);
 		free(prompt_res);
 		curr = token_list;
