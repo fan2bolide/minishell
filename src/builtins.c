@@ -64,7 +64,7 @@ char *get_env_var_value(char *var_name, t_str_list **envp)
 	curr = *envp;
 	if (!var_name || !*envp)
 		return NULL;
-	while (curr && str_starts_with(curr->content, var_name))
+	while (curr && !str_starts_with(curr->content, var_name))
 		curr = curr->next;
 	if (!curr)
 		return (NULL);

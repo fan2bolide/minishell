@@ -115,7 +115,7 @@ static t_list	*get_expand_token_list(char *raw_content)
 
 char	*expand_content(char *raw_content, t_str_list **envp)
 {
-	t_list	*list = get_expand_token_list(readline("-->"));
+	t_list	*list = get_expand_token_list(raw_content);
 	t_list	*curr;
 
 	remove_quotes(list);
