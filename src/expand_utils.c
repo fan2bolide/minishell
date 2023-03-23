@@ -6,11 +6,11 @@
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 03:08:22 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/03/23 03:06:15 by bajeanno         ###   ########.fr       */
+/*   Updated: 2023/03/23 08:06:58 by bajeanno         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "expand_token.h"
+#include "expand_content.h"
 
 void	remove_quotes(t_list *token_list)
 {
