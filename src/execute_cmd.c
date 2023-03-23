@@ -27,6 +27,6 @@ void	execute_cmd(t_cmd cmd, int to_read, int to_write)
 		dup2(to_write, STDOUT_FILENO);
 		close(to_write);
 	}
-	execve(cmd.path, cmd.argv,	(char *const*)ft_lst_to_arr(*(cmd.envp_lst_ptr), sizeof(char *)));
+	execve(cmd.path, cmd.argv,	(char *const*)ft_lst_to_arr((t_list *)*(cmd.envp_lst_ptr), sizeof(char *)));
 	exit(EXIT_FAILURE);
 }

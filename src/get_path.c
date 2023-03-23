@@ -15,7 +15,7 @@
 static void	freepath(char **paths);
 static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd);
 
-char	*get_path(char *exec_name, t_list *envp_lst)
+char	*get_path(char *exec_name, t_str_list *envp_lst)
 {
 	char	**paths;
 	char	*path;

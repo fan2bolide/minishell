@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "execute_cmd_line.h"
 
-t_cmd *create_new_cmd(t_list **envp_lst_ptr)
+t_cmd *create_new_cmd(t_str_list **envp_lst_ptr)
 {
 	t_cmd *res;
 

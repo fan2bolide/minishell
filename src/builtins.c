@@ -76,15 +76,15 @@ char *get_env_var(char *env_var, t_str_list **envp)
 //}
 
 
-void	export(char **argv, t_list **envp_lst_ptr)
+void	export(char **argv, t_str_list **envp_lst_ptr)
 {
-	t_list *envp_lst_ptr_cpy = *envp_lst_ptr;
+	t_str_list *envp_lst_ptr_cpy = *envp_lst_ptr;
 	while(envp_lst_ptr_cpy->next && ft_strcmp(argv[1], envp_lst_ptr_cpy->next->content) > 0)
 	{
 		(envp_lst_ptr_cpy) = (envp_lst_ptr_cpy)->next;
 	}
-	t_list *tmp = envp_lst_ptr_cpy->next;
-	envp_lst_ptr_cpy->next = ft_lstnew(argv[1]);
+	t_str_list *tmp = envp_lst_ptr_cpy->next;
+	envp_lst_ptr_cpy->next = (t_str_list *)ft_lstnew(argv[1]);
 	envp_lst_ptr_cpy->next->next = tmp;
 }
 
@@ -97,15 +97,15 @@ int str_starts_with(char *str, char *keyword)
 	return (0);
 }
 
-void	unset(char *var_to_unset, t_list **envp_lst_ptr)
+void	unset(char *var_to_unset, t_str_list **envp_lst_ptr)
 {
 	char **new_envp;
 	size_t envp_size;
-	t_list *envp_lst;
+	t_str_list *envp_lst;
 
 	envp_lst = *envp_lst_ptr;
-//	if (!get_env_var(var_to_unset, envp_lst_ptr))
-//		return;
+	if (!get_env_var(var_to_unset, envp_lst_ptr))
+		return;
 	if (!var_to_unset)
 		return((void)0);
 //	envp_size = ft_arrsize((void **) envp_lst_ptr);
@@ -119,7 +119,6 @@ void	unset(char *var_to_unset, t_list **envp_lst_ptr)
 	}
 	else
 	{
-
 		while (envp_lst && \
 				envp_lst->next && \
 				!str_starts_with(envp_lst->next->content, ft_strjoin(var_to_unset, "=")))
@@ -128,7 +127,7 @@ void	unset(char *var_to_unset, t_list **envp_lst_ptr)
 
 		if(envp_lst->next)
 		{
-			t_list *elemnt_to_del = envp_lst->next;
+			t_str_list *elemnt_to_del = envp_lst->next;
 //			free(elemnt_to_del->content);
 			envp_lst->next = elemnt_to_del->next;
 //			free(elemnt_to_del);
@@ -136,7 +135,7 @@ void	unset(char *var_to_unset, t_list **envp_lst_ptr)
 	}
 }
 
-void env(t_list *envp_lst, int to_write)
+void env(t_str_list *envp_lst, int to_write)
 {
 	int i = 0;
 
@@ -170,7 +169,7 @@ void	trim_last_folder_if_possible(char *pwd)
 	pwd = new_pwd;
 }
 
-void update_pwd(char *dir, t_list *envp_lst)
+void update_pwd(char *dir, t_str_list *envp_lst)
 {
 	int i = 0;
 	char *new_pwd;

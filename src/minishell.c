@@ -63,15 +63,14 @@ t_list *convert_arr_into_new_list(void **array)
 	return (res);
 }
 
-t_list * dup_envp(char **envp)
+t_str_list * dup_envp(char **envp)
 {
 
 	if (!envp)
 		return (NULL);
 	size_t sizeof_char_ptr = sizeof (char *);
 //	res = ft_dup_arr((void **) envp, sizeof_char_ptr);
-	return (convert_arr_into_new_list((void **)envp));
-
+	return ((t_str_list *)convert_arr_into_new_list((void **)envp));
 }
 
 void sig_handler(int sig)
@@ -90,7 +89,7 @@ int	main(int argc, char **argv, char **envp)
 	char	*prompt_res;
 	t_list	*token_list;
 	t_list	*curr;
-	t_list 	*envp_lst;
+	t_str_list 	*envp_lst;
 
 	(void)argc;
 	signal(SIGINT, sig_handler);
@@ -110,7 +109,7 @@ int	main(int argc, char **argv, char **envp)
 		token_list = token_parsing(token_list);
 		if (!token_list)
 			return (ft_printf("syntax error, aborting.\n"), 1);
-		t_list *cmd_lst = convert_token_lst_into_cmd_lst(token_list, &envp_lst);
+		t_cmdlist *cmd_lst = convert_token_lst_into_cmd_lst(token_list, &envp_lst);
 		execute_cmd_line(cmd_lst);
 		ft_lstclear(&token_list, destroy_token);
 	}

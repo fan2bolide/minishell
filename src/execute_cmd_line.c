@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "execute_cmd_line.h"
-#include "minishell.h"
 
 static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd);
 static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmdlist *cmd_lst);
@@ -45,7 +44,7 @@ int	execute_cmd_line(t_cmdlist *cmd_lst)
 			execute_cmd(*cmd_lst->content,\
 			fd_to_read,\
 			fd_to_write);
-		if (is_builtin((cmd_lst->content)->argv[0]) >= 0 )
+		if (!cmd_lst->content->heredoc_mode && is_builtin((cmd_lst->content)->argv[0]) >= 0 ) // ici aussi ?
 			exec_builtin(cmd_lst->content,\
 			fd_to_read,\
 			fd_to_write);

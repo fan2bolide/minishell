@@ -12,9 +12,9 @@
 
 #include "execute_cmd_line.h"
 
-static void	switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst, t_list **envp_list_ptr);
+static void	switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst, t_str_list **envp_list_ptr);
 void		case_current_token_type_is_exec_name(
-		t_list *token_lst_cursor, t_cmd *cmd, t_list *envp_lst); //static ?
+		t_list *token_lst_cursor, t_cmd *cmd, t_str_list *envp_lst); //static ?
 void    case_current_token_type_is_redirect_out(
 		t_list *token_lst_cursor, t_cmd *cmd); //static ?
 void	case_current_token_type_is_redirect_in(
@@ -22,7 +22,7 @@ void	case_current_token_type_is_redirect_in(
 static int token_is_null(void *token_lst_content);
 void	case_current_token_type_is_redirect_hd(t_cmdlist **cmd_lst, t_list *token_lst_cursor);
 
-t_cmdlist * convert_token_lst_into_cmd_lst(t_list *token_lst, t_list **envp_list_ptr)
+t_cmdlist * convert_token_lst_into_cmd_lst(t_list *token_lst, t_str_list **envp_list_ptr)
 {
 	t_cmdlist *cmd_lst;
 	t_cmdlist  *res;
@@ -38,7 +38,7 @@ t_cmdlist * convert_token_lst_into_cmd_lst(t_list *token_lst, t_list **envp_list
 	return (res);
 }
 
-static void	switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst, t_list **envp_list_ptr)
+static void	switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst, t_str_list **envp_list_ptr)
 {
 	t_token *current_token;
 
@@ -71,7 +71,7 @@ void	case_current_token_type_is_redirect_hd(t_cmdlist **cmd_lst, t_list *token_l
 }
 
 void		case_current_token_type_is_exec_name(
-		t_list *token_lst_cursor, t_cmd *cmd, t_list *envp_lst)
+		t_list *token_lst_cursor, t_cmd *cmd, t_str_list *envp_lst)
 {
 	int		cmd_tab_size;
 	t_token	*current_token;
