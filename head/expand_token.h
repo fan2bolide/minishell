@@ -1,6 +1,8 @@
 #ifndef EXPAND_TOKEN_H
 #define EXPAND_TOKEN_H
 
+# include "minishell.h"
+
 typedef enum e_expand_token_type
 {
 	double_quote,
