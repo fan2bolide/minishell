@@ -35,26 +35,32 @@ int	is_builtin(char *str)
 	return (-1);
 }
 
-void	echo(char **argv, int to_write)
+/* can manage :
+ *
+ * >echo message
+ * >message
+ *
+ *>echo -n message
+ * message >
+ *
+ * >echo  message1          message2
+ * >message1 message2
+ *
+ * */
+void	echo(char **argv, int to_write) // adapt
 {
 	int 	option_n;
-	int		i;
+	int i;
 
 	if (!argv[1])
 		return;
-	i = 1;
-	option_n = 0;
+	option_n = ft_strequ(argv[1], "-n");
+	i = 1 + option_n;
 	while (argv[i])
 	{
-		if (ft_strequ(argv[i], "-n"))
-		{
-			if (option_n == 0)
-				option_n = i;
-			else
-				return (ft_putstr_fd("Syntax error: illegal expression: duplicated option \"-n\"", STDERR_FILENO));
-		}
-		else
-			ft_putstr_fd(argv[i], to_write);
+		ft_putstr_fd(argv[i], to_write);
+		if (argv[i + 1])
+			ft_putstr_fd(" ", to_write);
 		i++;
 	}
 	if (!option_n)
@@ -78,7 +84,7 @@ char *get_env_var_value(char *var_name, t_str_list **envp)
 		return NULL;
 	while (curr && !str_starts_with(curr->content, var_name))
 		curr = curr->next;
-	if (!curr || curr->content[ft_strlen(var_name)] != '=')
+	if (!curr)
 		return (NULL);
 	while (curr->content[i] && curr->content[i] != '=')
 		i++;
