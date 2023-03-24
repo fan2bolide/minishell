@@ -49,7 +49,7 @@ char	*get_value_of_var(char *var, t_str_list **envp)
 	int		i;
 
 	i = 0;
-	while (var[i] && (ft_isalnum(var[i]) || var[i] == '_'))
+	while (var[i] && var[i] != '?' && (ft_isalnum(var[i]) || var[i] == '_'))
 		i++;
 	var_name = ft_strnew(i);
 	var_name = ft_strncpy(var, var_name, i);
@@ -76,8 +76,10 @@ static char	*join_words_with_values(t_expansion *token, char *tmp, \
 		if (!value)
 			value = "";
 		tmp = ft_strjoin(tmp, value);
-		while (token->content[i] && (ft_isalnum(token->content[i]) || \
-				token->content[i] == '_'))
+		while (token->content[i] && token->content[i] != '?' && \
+		(ft_isalnum(token->content[i]) || token->content[i] == '_'))
+			i++;
+		if (token->content[i] == '?')
 			i++;
 	}
 	return (tmp);
