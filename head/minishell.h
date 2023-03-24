@@ -14,6 +14,9 @@
 # define MINISHELL_H
 
 # define SPEC_CHAR "<>|&$"
+# define ANSI_RED "\x1b[31m"
+# define ANSI_RESET "\x1b[0m"
+# define ANSI_BLUE "\x1b[34m"
 # include "libft.h"
 # include <stdio.h>
 # include <sys/stat.h>
@@ -37,7 +40,6 @@ typedef enum e_type
 	redirect_out_trunc,
 	redirect_hd,
 	redirect_out_append,
-	env_variable
 }	t_type;
 
 typedef struct s_token

@@ -12,13 +12,8 @@
 
 #include "lexer.h"
 
-static t_token	*evaluate_expression(char *expression, \
-											t_token *prev);
-
 t_type assign_operator_to_token(char const *expression)
 {
-	if (*expression == '$')
-		return (env_variable);
 	if (*expression == '|')
 		return (operator_pipe);
 	if (*expression == '<')
@@ -38,7 +33,7 @@ t_type assign_operator_to_token(char const *expression)
 	return (error);
 }
 
-t_token	*evaluate_expression(char *expression, t_token *prev)
+t_token	*evaluate_expression(char *expression, t_token *prev, int is_exec_name)
 {
 	t_token	*curr;
 
@@ -48,13 +43,14 @@ t_token	*evaluate_expression(char *expression, t_token *prev)
 	curr->content = set_token_content(expression);
 	if (!expression || !*expression || !curr->content)
 		return (curr->type = error, curr);
-	if (ft_strchr(SPEC_CHAR, *expression))
+	if (ft_strchr(SPEC_CHAR, *expression) && *expression != '$')
 		return (curr->type = assign_operator_to_token(expression), curr);
-	if (!prev || ((prev->type == operator_pipe || prev->type == file)))
+	if (!prev || prev->type == operator_pipe || (prev->type == file && \
+		!is_exec_name))
 		return (curr->type = exec_name, curr);
 	if (ft_strchr("<>", *(prev->content)))
 		return (curr->type = file, curr);
-	if (prev->type == exec_name || prev->type == arg)
+	if (prev->type == exec_name || prev->type == arg || prev->type == file)
 		return (curr->type = arg, curr);
 	return (curr->type = error, curr);
 }
@@ -64,7 +60,7 @@ static size_t	get_next_expression(char *command_line)
 	size_t	i;
 
 	i = 0;
-	if (!ft_strchr(SPEC_CHAR, *command_line))
+	if (!ft_strchr(SPEC_CHAR, *command_line) || *command_line == '$')
 		while ((command_line[i] && (!ft_strchr(SPEC_CHAR, command_line[i]) \
 		|| command_line[i] == '$' || ft_strchr("\'\"", command_line[i])) && \
 		!ft_isspace(command_line[i])))
@@ -89,31 +85,45 @@ static size_t	get_next_expression(char *command_line)
 	return (i);
 }
 
+static int is_there_an_exec_name_between_those_pipes(int is_exec_name, const t_list *curr)
+{
+	if (((t_token *)curr->content)->type == operator_pipe)
+		is_exec_name = 0;
+	if (((t_token *)curr->content)->type == exec_name)
+		is_exec_name = 1;
+	return is_exec_name;
+}
+
 t_list	*get_main_token_list(char *command_line)
 {
 	size_t	i;
 	t_list	*list;
 	t_list	*curr;
+	int		is_exec_name;
 
 	if (!command_line || !*command_line)
 		return (NULL);
-	list = ft_lstnew(evaluate_expression(command_line, NULL));
+	is_exec_name = 0;
+	list = ft_lstnew(evaluate_expression(command_line, NULL, 0));
 	i = get_next_expression(command_line);
 	curr = list;
 	while (command_line[i])
 	{
 		curr->next = ft_lstnew(evaluate_expression(command_line + i, \
-												   			curr->content));
+
+												   curr->content, is_exec_name));
+		is_exec_name = is_there_an_exec_name_between_those_pipes(is_exec_name, curr);
 		curr = curr->next;
 		if (get_next_expression(command_line + i) == 0)
 		{
-			ft_printf("coucou je suis un fils de pute\n");
+			ft_printf("coucou je suis un fils de pute i = %d\n", i);
 			return (ft_lstclear(&list, destroy_token), NULL);
 		}
 		i += get_next_expression(command_line + i);
 	}
 	return (list);
 }
+
 
 void	print_token(t_token *token)
 {
@@ -138,7 +148,5 @@ void	print_token(t_token *token)
 		token_type = "redirect_out_trunc, \t";
 	if (token->type == redirect_hd)
 		token_type = "redirect_hd, \t";
-	if (token->type == env_variable)
-		token_type = "env_variable, \t";
 	ft_printf("%s%s\n", token_type, token->content);
 }

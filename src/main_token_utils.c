@@ -18,7 +18,7 @@ char	*set_token_content(char *expression)
 	char	*content;
 
 	i = 0;
-	if (!ft_strchr(SPEC_CHAR, *expression))
+	if (!ft_strchr(SPEC_CHAR, *expression) || *expression == '$')
 		while ((expression[i] && (!ft_strchr(SPEC_CHAR, expression[i]) || \
 		expression[i] == '$' || ft_strchr("\"\'", expression[i])) &&
 		!ft_isspace(expression[i])))
@@ -83,8 +83,7 @@ int	token_cmd_line_size(t_list *token_lst)
         return (0);
     res++;
     token_lst = token_lst->next;
-    while (token_lst && (((t_token *)token_lst->content)->type == arg || \
-	((t_token *)token_lst->content)->type == env_variable))
+    while (token_lst && ((t_token *)token_lst->content)->type == arg)
     {
         res++;
         token_lst = token_lst->next;

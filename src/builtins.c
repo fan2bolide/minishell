@@ -42,7 +42,7 @@ void	echo(char **argv, int to_write)
 
 	if (!argv[1])
 		return;
-	i = 0;
+	i = 1;
 	option_n = 0;
 	while (argv[i])
 	{
@@ -78,7 +78,7 @@ char *get_env_var_value(char *var_name, t_str_list **envp)
 		return NULL;
 	while (curr && !str_starts_with(curr->content, var_name))
 		curr = curr->next;
-	if (!curr)
+	if (!curr || curr->content[ft_strlen(var_name)] != '=')
 		return (NULL);
 	while (curr->content[i] && curr->content[i] != '=')
 		i++;

@@ -12,6 +12,8 @@
 
 #include "execute_cmd_line.h"
 
+extern int exit_code;
+
 void	ft_free_arr(void ** array, void (*del)(void *)); // might want to move this into baj libft
 
 void	exit_routine(int pipes[OPEN_MAX][2], int pids[OPEN_MAX],
@@ -24,12 +26,15 @@ void	exit_routine(int pipes[OPEN_MAX][2], int pids[OPEN_MAX],
 void	wait_all_child_proc(int *pids, int childs_counter)
 {
 	int	k;
+	int status;
 
 	k = 0;
 	while (k < childs_counter)
 	{
-		waitpid(pids[k++], NULL, 0);
+		waitpid(pids[k++], &status, 0);
 	}
+	if (WIFEXITED(status))
+		exit_code = WEXITSTATUS(status);
 }
 
 void	close_pipes(int pipes[OPEN_MAX][2], int i)

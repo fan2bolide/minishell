@@ -29,15 +29,20 @@ void	welcome_msg(void)
 	ft_printf("/_/    \\__,_/ /_/    /_.___/\\____//____/ /_/ /_/\\___//_/  /_/   \n");
 }
 
+int exit_code;
+
 char	*prompt(void)
 {
 	char	*res;
 	char	*tmp;
 
-	tmp = readline(" > ");
+	if (exit_code)
+		tmp = readline(ANSI_RED" ➜ "ANSI_RESET);
+	else
+		tmp = readline(ANSI_BLUE" ➜ "ANSI_RESET);
 	if (tmp == NULL)
 	{
-		ft_printf("\r > exit\n");
+		ft_printf("\r ➜ exit\n");
 		exit(1);
 	}
 	res = ft_strtrim(tmp, " ");
@@ -77,10 +82,12 @@ void sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
+		exit_code = 127;
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
+		ft_printf(ANSI_RED"\r ➜ "ANSI_RESET);
 	}
 }
 
@@ -98,11 +105,17 @@ int	main(int argc, char **argv, char **envp)
 	ft_printf("pwd : %s\n", pwd);
 	envp_lst = dup_envp(envp);
 	welcome_msg();
+	exit_code = 0;
 	while (1)
 	{
 		prompt_res = prompt();
 		if (ft_strequ(prompt_res, "exit"))
 			return (0);
+		if (ft_strequ(prompt_res, "$?"))
+		{
+			ft_printf("%d\n", exit_code);
+			continue;
+		}
 		token_list = get_main_token_list(prompt_res);
 		free(prompt_res);
 		curr = token_list;
