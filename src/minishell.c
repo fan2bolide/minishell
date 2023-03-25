@@ -98,11 +98,9 @@ int	main(int argc, char **argv, char **envp)
 	t_list	*curr;
 	t_str_list 	*envp_lst;
 
+
 	(void)argc;
 	signal(SIGINT, sig_handler);
-	pwd = getcwd(pwd, sizeof (pwd));
-	ft_printf("getpid() : %d\n", getpid());
-	ft_printf("pwd : %s\n", pwd);
 	envp_lst = dup_envp(envp);
 	welcome_msg();
 	exit_code = 0;

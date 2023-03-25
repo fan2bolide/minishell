@@ -69,7 +69,6 @@ typedef struct s_cmdlist
 	struct s_cmdlist	*next;
 }	t_cmdlist;
 
-static char *pwd;
 t_cmdlist * convert_token_lst_into_cmd_lst(t_list *token_lst, t_str_list **envp_list_ptr);
 int		token_cmd_line_size(t_list *token_lst);
 

@@ -10,7 +10,7 @@ void	exec_builtin(t_cmd *cmd, int to_read, int to_write)
 	else if (type == 1)
 		cd(cmd);
 	else if (type == 2)
-		ft_putstr_fd("pwd\n", to_write);
+		pwd(to_write);
 	else if (type == 3)
 		export(cmd->argv, cmd->envp_lst_ptr);
 	else if (type == 4)
@@ -35,11 +35,27 @@ int	is_builtin(char *str)
 	return (-1);
 }
 
+void pwd(int fd_to_write)
+{
+	char *cwd;
+
+	cwd = ft_calloc(1024 , sizeof(char));
+	if (!cwd)
+		return (ft_putstr_fd("an error occured (pwd)\nexiting..\n", 2));
+	if (!getcwd(cwd, 1024))
+		ft_putstr_fd("error retrieving the current working directory", fd_to_write);
+	else
+		ft_putstr_fd( cwd, fd_to_write);
+	ft_putstr_fd("\n", fd_to_write);
+	free(cwd);
+}
+
+
 /* can manage :
  *
  * >echo message
  * >message
- *
+ *k
  *>echo -n message
  * message >
  *
@@ -47,7 +63,7 @@ int	is_builtin(char *str)
  * >message1 message2
  *
  * */
-void	echo(char **argv, int to_write) // adapt
+void	echo(char **argv, int to_write)
 {
 	int 	option_n;
 	int i;
@@ -168,48 +184,35 @@ void env(t_str_list *envp_lst, int to_write)
 	}
 }
 
-void	trim_last_folder_if_possible(char *pwd)
-{
-	char	*last_slash;
-	char 	*new_pwd;
-	int 	i;
 
-	i = 0;
-	if (ft_strequ(pwd, "/"))
-		return ;
-	last_slash=ft_strrchr(pwd, '/');
-	new_pwd = malloc(sizeof (char) * (last_slash - pwd) + 1);
-	if (!new_pwd)
-		return (ft_printf("turboshell: cd: an error occurred\n"), (void) 0);
-	while (i < (last_slash - pwd))
-	{
-		new_pwd[i] = pwd[i];
-		i ++;
-	}
-	new_pwd[i] = 0;
-	free(pwd);
-	pwd = new_pwd;
-}
-
-void update_pwd(char *dir, t_str_list *envp_lst)
+void update_pwd(const char *dir, t_str_list *envp_lst)
 {
 	int i = 0;
-	char *new_pwd;
 
-	if (!envp_lst)
-		return ;
-	if (ft_strequ(dir, ".."))
-		return (trim_last_folder_if_possible(pwd));
-	new_pwd = ft_strjoin(pwd, "/");
-	new_pwd = ft_strjoin(new_pwd, dir);
-	free(pwd);
-	pwd = new_pwd;
-//	while (!str_starts_with(envp_lst_ptr[i], "PWD="))
-//		i++;
-//	if (!envp_lst_ptr[i])
-//		return ;
-//	free(envp_lst_ptr[i]);
-//	envp_lst_ptr[i] = ft_strjoin("PWD=", pwd);
+	char * path;
+	char *dir_w_slash;
+	char * path_tmp =ft_calloc(1024, sizeof (char));
+
+	if (!path_tmp || (!envp_lst && (free(path_tmp), 1) )
+	{
+		ft_putstr_fd("an error occured (!envp_lst || !path_tmp)\nexiting..\n", 2);
+		exit(EXIT_FAILURE);
+	}
+	path_tmp = getcwd(path_tmp, 1024);
+	if (!path_tmp)
+		return  (ft_putstr_fd("an error occured (!path_tmp)\n", 2));
+	dir_w_slash = ft_strjoin("//", dir);
+	path = ft_strjoin(path_tmp, dir_w_slash);
+	if (!path)
+		return  (ft_putstr_fd("an error occured (!path)\n", 2));
+	if (chdir(path) != 0)
+	{
+		perror("chdir() error");
+		exit(EXIT_FAILURE);
+	}
+	free(path);
+	free(dir_w_slash);
+	free(path_tmp);
 }
 
 void cd(t_cmd *cmd)
@@ -223,7 +226,7 @@ void cd(t_cmd *cmd)
 	if ((st.st_mode & S_IFMT) != S_IFDIR)
 		return(ft_printf("turboshell: cd: %s: Not a directory\n", dir), (void)0);
 	if (st.st_mode & S_IRUSR)
-		update_pwd(dir, (cmd->envp_lst_ptr));
+		update_pwd((const char*)dir, *(cmd->envp_lst_ptr));
 	else
 		ft_printf("turboshell: cd: %s: Permission denied\n", dir);
 }
