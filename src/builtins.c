@@ -193,7 +193,7 @@ void update_pwd(const char *dir, t_str_list *envp_lst)
 	char *dir_w_slash;
 	char * path_tmp =ft_calloc(1024, sizeof (char));
 
-	if (!path_tmp || (!envp_lst && (free(path_tmp), 1) )
+	if (!path_tmp || (!envp_lst && (free(path_tmp), 1)) )
 	{
 		ft_putstr_fd("an error occured (!envp_lst || !path_tmp)\nexiting..\n", 2);
 		exit(EXIT_FAILURE);
