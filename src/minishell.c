@@ -37,9 +37,9 @@ char	*prompt(void)
 	char	*tmp;
 
 	if (exit_code)
-		tmp = readline(ANSI_RED" ➜ "ANSI_RESET);
+		tmp = readline(ANSI_RED"\001 ➜ \002"ANSI_RESET);
 	else
-		tmp = readline(ANSI_BLUE" ➜ "ANSI_RESET);
+		tmp = readline(ANSI_BLUE"\001 ➜ \002"ANSI_RESET);
 	if (tmp == NULL)
 	{
 		ft_printf("\r ➜ exit\n");
@@ -91,6 +91,8 @@ void sig_handler(int sig)
 	}
 }
 
+#include <signal.h>
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt_res;
@@ -100,7 +102,8 @@ int	main(int argc, char **argv, char **envp)
 
 
 	(void)argc;
-	signal(SIGINT, sig_handler);
+
+	sigaction(SIGINT, )
 	envp_lst = dup_envp(envp);
 	welcome_msg();
 	exit_code = 0;
