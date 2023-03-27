@@ -53,14 +53,12 @@ typedef struct s_cmd
 {
 	char	**argv;
 	char	*path;
-	t_str_list 	**envp_lst_ptr;
 	char    *redirect_in;
 	char    *redirect_out;
 	int 	redirect_out_mode;
 	int 	heredoc_mode;
 	char	*heredoc_delim;
 	int 	heredoc_pipe[2];
-	int 	previous_cmd_was_heredoc;
 }			t_cmd;
 
 typedef struct s_cmdlist
@@ -69,7 +67,9 @@ typedef struct s_cmdlist
 	struct s_cmdlist	*next;
 }	t_cmdlist;
 
-t_cmdlist * convert_token_lst_into_cmd_lst(t_list *token_lst, t_str_list **envp_list_ptr);
+t_str_list 	*envp_lst;
+
+t_cmdlist *convert_token_lst_into_cmd_lst(t_list *token_lst);
 int		token_cmd_line_size(t_list *token_lst);
 
 //debug
@@ -77,8 +77,8 @@ t_list	*get_sample_tokens();
 
 int		execute_cmd_line(t_cmdlist *cmd_lst);
 void	print_token(t_token *token);
-char	*expand_content(char *raw_content, t_str_list **envp);
-int		expand_tokens_from_list(t_list *token_list, t_str_list *envp);
+char *expand_content(char *raw_content);
+int expand_tokens_from_list(t_list *token_list);
 t_list	*get_main_token_list(char *command_line);
 t_list	*token_parsing(t_list *tokens);
 void	destroy_token(void *token);
@@ -87,5 +87,5 @@ void	exec_builtin(t_cmd *cmd, int to_read, int to_write);
 int		is_builtin(char *str);
 void	log_cmd_lst(t_list *cmd_list);
 void	log_cmd(t_cmd *cmd);
-char	*get_env_var_value(char *var_name, t_str_list **envp);
+char *get_env_var_value(char *var_name);
 #endif

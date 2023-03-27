@@ -51,31 +51,32 @@ char	*prompt(void)
 	return (res);
 }
 
-t_list *convert_arr_into_new_list(void **array)
+t_str_list * convert_str_arr_into_new_str_list(char **array)
 {
-	t_list *res;
+	t_str_list *res;
 
-	res = ft_lstnew(NULL);
+	res = (t_str_list *)ft_lstnew(NULL);
 	if (array == NULL)
 		return (res);
 	res->content = *array;
-	array++;
+	array ++;
 	while(*array)
 	{
-		ft_lstadd_back(&res, ft_lstnew(*array));
-		array++;
+		ft_lstadd_back((t_list **)&res, ft_lstnew(*array));
+		array ++;
 	}
 	return (res);
 }
 
-t_str_list * dup_envp(char **envp)
+//assign correct value to glabal var 'envp_lst'
+void dup_envp(char **envp)
 {
-
 	if (!envp)
-		return (NULL);
-	size_t sizeof_char_ptr = sizeof (char *);
-//	res = ft_dup_arr((void **) envp, sizeof_char_ptr);
-	return ((t_str_list *)convert_arr_into_new_list((void **)envp));
+	{
+		envp_lst = NULL;
+		return ;
+	}
+	envp_lst = convert_str_arr_into_new_str_list(envp);
 }
 
 void sig_handler(int sig)
@@ -96,12 +97,11 @@ int	main(int argc, char **argv, char **envp)
 	char	*prompt_res;
 	t_list	*token_list;
 	t_list	*curr;
-	t_str_list 	*envp_lst;
 
 
 	(void)argc;
 	signal(SIGINT, sig_handler);
-	envp_lst = dup_envp(envp);
+	dup_envp(envp);
 	welcome_msg();
 	exit_code = 0;
 	while (1)
@@ -122,9 +122,9 @@ int	main(int argc, char **argv, char **envp)
 		token_list = token_parsing(token_list);
 		if (!token_list)
 			return (ft_printf("syntax error, aborting.\n"), 1);
-		if (!expand_tokens_from_list(token_list, envp_lst))
+		if (!expand_tokens_from_list(token_list))
 			return (0);
-		t_cmdlist *cmd_lst = convert_token_lst_into_cmd_lst(token_list, &envp_lst);
+		t_cmdlist *cmd_lst = convert_token_lst_into_cmd_lst(token_list);
 		execute_cmd_line(cmd_lst);
 		ft_lstclear(&token_list, destroy_token);
 	}

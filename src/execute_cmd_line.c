@@ -16,7 +16,7 @@ static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd);
 static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmdlist *cmd_lst);
 static int	is_last_cmd(t_cmdlist *cmd);
 void check_path(const t_cmdlist *cmd_lst);
-int create_and_check_pipes(const int pipes[10240][2], int i);
+int create_and_check_pipes(int pipes[10240][2], int i);
 void get_fds(t_cmdlist *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, int *fd_to_write);
 
 void close_fds(int fd_to_read, int fd_to_write);
@@ -44,7 +44,8 @@ int	execute_cmd_line(t_cmdlist *cmd_lst)
 			execute_cmd(*cmd_lst->content,\
 			fd_to_read,\
 			fd_to_write);
-		if (!cmd_lst->content->heredoc_mode && is_builtin((cmd_lst->content)->argv[0]) >= 0 ) // ici aussi ?
+		if (!cmd_lst->content->heredoc_mode && (cmd_lst->content)->argv &&\
+		is_builtin((cmd_lst->content)->argv[0]) >= 0 )
 			exec_builtin(cmd_lst->content,\
 			fd_to_read,\
 			fd_to_write);
@@ -110,10 +111,11 @@ static int	is_last_cmd(t_cmdlist *cmd)
 
 void check_path(const t_cmdlist *cmd_lst) {
 	if (!(cmd_lst->content)->path)
-		ft_printf("Turboshell: command not found: %s\n", (cmd_lst->content)->argv[0]); //TODO SEGFAULT ICI
+		if ((cmd_lst->content)->argv)
+			ft_printf("Turboshell: command not found: %s\n", (cmd_lst->content)->argv[0]); //TODO SEGFAULT ICI
 }
 
-int create_and_check_pipes(const int pipes[10240][2], int i) {
+int create_and_check_pipes(int pipes[OPEN_MAX][2], int i) {
 	if (pipe(pipes[i]) < 0)
 		return (ft_printf("Failed to create pipes\n"), 0);
 	return (1);

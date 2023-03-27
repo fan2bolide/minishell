@@ -1,9 +1,9 @@
 #include "execute_cmd_line.h"
 #include "builtins.h"
 
-static void here_doc_routine(int fd_to_write, char *delimiter, t_str_list **envp);
+static void here_doc_routine(int fd_to_write, char *delimiter);
 //return 0 if new_line is not delim, return -1 if new_line is delimiter
-static int append_new_line_if_not_delim(int fd, char **str_to_append, char *delim, t_str_list **envp);
+static int append_new_line_if_not_delim(int fd, char **str_to_append, char *delim);
 static int append_str(char **str_to_append, char *new_line);
 static char *remove_quotes(const char *raw);
 static int is_delimiter(char *delim, const char *new_line);
@@ -17,21 +17,21 @@ void manage_here_doc(t_cmd cmd)
 	if (!cmd.heredoc_mode)
 		return;
 
-	here_doc_routine(cmd.heredoc_pipe[WRITE], cmd.heredoc_delim, cmd.envp_lst_ptr);
+	here_doc_routine(cmd.heredoc_pipe[WRITE], cmd.heredoc_delim);
 	close(cmd.heredoc_pipe[WRITE]);
 	return ;
 }
 
 
 
-static void here_doc_routine(int fd_to_write, char *delimiter, t_str_list **envp)
+static void here_doc_routine(int fd_to_write, char *delimiter)
 {
 	char	*heredoc_buf;
 	int		bytes_written;
 
 	heredoc_buf = NULL;
 	ft_printf("heredoc> ");
-	while (append_new_line_if_not_delim(STDIN_FILENO, &heredoc_buf, delimiter,envp) == 0)
+	while (append_new_line_if_not_delim(STDIN_FILENO, &heredoc_buf, delimiter) == 0)
 		ft_printf("heredoc> ");
 	if (heredoc_buf)
 	{
@@ -43,7 +43,7 @@ static void here_doc_routine(int fd_to_write, char *delimiter, t_str_list **envp
 	free(heredoc_buf);
 }
 
-static int append_new_line_if_not_delim(int fd, char **str_to_append, char *delim, t_str_list **envp)
+static int append_new_line_if_not_delim(int fd, char **str_to_append, char *delim)
 {
 	char	*new_line;
 	int 	expand_optn;
@@ -64,7 +64,7 @@ static int append_new_line_if_not_delim(int fd, char **str_to_append, char *deli
 		if (!tmp && ft_printf("An error occurred \n"))
 			return 0;
 		tmp[ft_strlen(tmp) - 1]= 0;
-		tmp2 = ft_strjoin(expand_content(tmp, envp), "\n");
+		tmp2 = ft_strjoin(expand_content(tmp), "\n");
 		append_str(str_to_append, tmp2);
 		free(tmp2);
 		free(tmp);

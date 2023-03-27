@@ -22,7 +22,7 @@ char	*get_path(char *exec_name, t_str_list *envp_lst)
 	int		i;
 
 	i = 0;
-	if (!envp_lst)
+	if (!envp_lst || !exec_name)
 		return (NULL);
 	while (ft_strnstr(envp_lst->content, "PATH=", 5) == 0)
 		envp_lst = envp_lst->next;

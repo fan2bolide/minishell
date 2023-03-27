@@ -12,9 +12,8 @@
 
 #include "execute_cmd_line.h"
 
-static void	switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst, t_str_list **envp_list_ptr);
-void		case_current_token_type_is_exec_name(
-		t_list *token_lst_cursor, t_cmd *cmd, t_str_list *envp_lst); //static ?
+static void switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst);
+void case_current_token_type_is_exec_name(t_list *token_lst_cursor, t_cmd *cmd); //static ?
 void    case_current_token_type_is_redirect_out(
 		t_list *token_lst_cursor, t_cmd *cmd); //static ?
 void	case_current_token_type_is_redirect_in(
@@ -22,38 +21,36 @@ void	case_current_token_type_is_redirect_in(
 static int token_is_null(void *token_lst_content);
 void	case_current_token_type_is_redirect_hd(t_cmdlist **cmd_lst, t_list *token_lst_cursor);
 
-t_cmdlist * convert_token_lst_into_cmd_lst(t_list *token_lst, t_str_list **envp_list_ptr)
+t_cmdlist *convert_token_lst_into_cmd_lst(t_list *token_lst)
 {
 	t_cmdlist *cmd_lst;
 	t_cmdlist  *res;
 
 	cmd_lst = (t_cmdlist *)ft_lstnew(NULL);
 	res = cmd_lst;
-	cmd_lst->content = create_new_cmd(envp_list_ptr);
+	cmd_lst->content = create_new_cmd();
 	while (token_lst)
 	{
-		switch_case(token_lst, &cmd_lst, envp_list_ptr);
+		switch_case(token_lst, &cmd_lst);
 		token_lst = token_lst->next;
 	}
 	return (res);
 }
 
-static void	switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst, t_str_list **envp_list_ptr)
+static void switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst)
 {
 	t_token *current_token;
 
 	current_token = token_lst_cursor->content;
 	if (current_token->type == exec_name)
-		case_current_token_type_is_exec_name(token_lst_cursor, (*cmd_lst)->content, *envp_list_ptr);
+		case_current_token_type_is_exec_name(token_lst_cursor, (*cmd_lst)->content);
 	else if (current_token->type == redirect_out_trunc || current_token->type == redirect_out_append)
 	{       case_current_token_type_is_redirect_out(token_lst_cursor, (*cmd_lst)->content);}//debug
 	else if (current_token->type == redirect_in)
 	{ case_current_token_type_is_redirect_in(token_lst_cursor, (*cmd_lst)->content);}//debug
 	else if (current_token->type == operator_pipe)
 	{
-		(*cmd_lst)->next = (t_cmdlist *)ft_lstnew(create_new_cmd(envp_list_ptr)); // todo protect this
-		if (((t_cmd *)((*cmd_lst)->content))->heredoc_mode)
-			((t_cmd *)((*cmd_lst)->next->content))->previous_cmd_was_heredoc = 1;
+		(*cmd_lst)->next = (t_cmdlist *)ft_lstnew(create_new_cmd()); // todo protect this
 		*cmd_lst = (*cmd_lst)->next;
 	}
 	else if (current_token->type == redirect_hd)
@@ -70,8 +67,7 @@ void	case_current_token_type_is_redirect_hd(t_cmdlist **cmd_lst, t_list *token_l
 	(*cmd_lst)->content->argv = ft_strdup("");
 }
 
-void		case_current_token_type_is_exec_name(
-		t_list *token_lst_cursor, t_cmd *cmd, t_str_list *envp_lst)
+void case_current_token_type_is_exec_name(t_list *token_lst_cursor, t_cmd *cmd)
 {
 	int		cmd_tab_size;
 	t_token	*current_token;

@@ -18,7 +18,7 @@ typedef struct s_expansion
 
 void	destroy_expand_token(void *token);
 void	remove_quotes(t_list *token_list);
-int		replace_with_value(void *expansion_token, t_str_list **envp);
+int replace_with_value(void *expansion_token);
 char	*join_contents(t_list *token_list);
 
 #endif

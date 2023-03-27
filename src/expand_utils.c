@@ -42,7 +42,7 @@ char	*join_contents(t_list *token_list)
 	return (res);
 }
 
-char	*get_value_of_var(char *var, t_str_list **envp)
+char *get_value_of_var(char *var)
 {
 	char	*value;
 	char	*var_name;
@@ -53,13 +53,12 @@ char	*get_value_of_var(char *var, t_str_list **envp)
 		i++;
 	var_name = ft_strnew(i);
 	var_name = ft_strncpy(var, var_name, i);
-	value = get_env_var_value(var_name, envp);
+	value = get_env_var_value(var_name);
 	free(var_name);
 	return (value);
 }
 
-static char	*join_words_with_values(t_expansion *token, char *tmp, \
-								t_str_list **envp)
+static char *join_words_with_values(t_expansion *token, char *tmp)
 {
 	char	*value;
 	size_t	i;
@@ -72,7 +71,7 @@ static char	*join_words_with_values(t_expansion *token, char *tmp, \
 		while (token->content[i] && token->content[i] != '$')
 			i++;
 		tmp = ft_strnjoin(tmp, token->content, (int)i++);
-		value = get_value_of_var(token->content + i, envp);
+		value = get_value_of_var(token->content + i);
 		if (!value)
 			value = "";
 		tmp = ft_strjoin(tmp, value);
@@ -85,7 +84,7 @@ static char	*join_words_with_values(t_expansion *token, char *tmp, \
 	return (tmp);
 }
 
-int	replace_with_value(void *expansion_token, t_str_list **envp)
+int replace_with_value(void *expansion_token)
 {
 	t_expansion	*token;
 	char		*token_content_save;
@@ -100,7 +99,7 @@ int	replace_with_value(void *expansion_token, t_str_list **envp)
 		if (!tmp)
 			return (0);
 		token_content_save = token->content;
-		tmp = join_words_with_values(token, tmp, envp);
+		tmp = join_words_with_values(token, tmp);
 		free(token_content_save);
 		token->content = tmp;
 	}

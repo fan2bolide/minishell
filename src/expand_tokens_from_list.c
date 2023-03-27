@@ -12,7 +12,7 @@
 
 #include "expand_content.h"
 
-int	expand_tokens_from_list(t_list *token_list, t_str_list *envp)
+int expand_tokens_from_list(t_list *token_list)
 {
 	t_list *curr;
 	t_token *token;
@@ -25,7 +25,7 @@ int	expand_tokens_from_list(t_list *token_list, t_str_list *envp)
 			curr = curr->next;
 		else
 		{
-			token->content = expand_content(token->content, &envp);
+			token->content = expand_content(token->content);
 			if (!token->content)
 				return (ft_lstclear(&token_list, destroy_token), 0);
 		}
