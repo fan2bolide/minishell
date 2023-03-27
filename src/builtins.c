@@ -110,10 +110,11 @@ char *get_env_var_value(char *var_name)
 
 void export(char **argv, int to_write)
 {
-	t_str_list *envp_lst_ptr_cpy = *envp_lst_ptr;
-	while(envp_lst_ptr_cpy->next && ft_strcmp(argv[1], envp_lst_ptr_cpy->next->content) > 0)
-	{
-		(envp_lst_ptr_cpy) = (envp_lst_ptr_cpy)->next;
+	if (!envp_lst)
+		return;
+	t_str_list *curr = envp_lst;
+	if (!argv[1]){
+		return ;
 	}
 	while(curr->next && ft_strcmp(argv[1], curr->next->content) > 0)
 		(curr) = (curr)->next;
