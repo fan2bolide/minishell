@@ -114,6 +114,13 @@ void export(char **argv, int to_write)
 		return;
 	t_str_list *curr = envp_lst;
 	if (!argv[1]){
+		while (curr)
+		{
+			ft_putstr_fd("declare -x ", to_write);
+			ft_putstr_fd(curr->content, to_write);
+			ft_putstr_fd("\n", to_write);
+			curr = curr->next;
+		}
 		return ;
 	}
 	while(curr->next && ft_strcmp(argv[1], curr->next->content) > 0)
