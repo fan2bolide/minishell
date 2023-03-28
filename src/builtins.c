@@ -3,6 +3,8 @@
 
 int check_export_syntax(char **argv);
 
+int is_echos_option_n(char *argv1);
+
 void	exec_builtin(t_cmd *cmd, int to_read, int to_write)
 {
 	int type;
@@ -72,7 +74,7 @@ void	echo(char **argv, int to_write)
 
 	if (!argv[1])
 		return;
-	option_n = ft_strequ(argv[1], "-n");
+	option_n = is_echos_option_n(argv[1]);
 	i = 1 + option_n;
 	while (argv[i])
 	{
@@ -83,6 +85,16 @@ void	echo(char **argv, int to_write)
 	}
 	if (!option_n)
 		ft_putstr_fd("\n", to_write);
+}
+
+int is_echos_option_n(char *argv1)
+{
+	if (!str_starts_with(argv1, "-n"))
+		return 0;
+	int i = 2;
+	while (argv1[i] == 'n')
+		i++;
+	return (argv1[i] == 0);
 }
 
 /**
