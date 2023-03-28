@@ -1,6 +1,8 @@
 
 #include "builtins.h"
 
+int check_export_syntax(char **argv);
+
 void	exec_builtin(t_cmd *cmd, int to_read, int to_write)
 {
 	int type;
@@ -17,8 +19,8 @@ void	exec_builtin(t_cmd *cmd, int to_read, int to_write)
 		unset(cmd->argv[1]);
 	else if (type == 5)
 		env(to_write);
-
 }
+
 // returns -1 if str is not a builtins
 // returns [0...6] if str is builtins
 int	is_builtin(char *str)
@@ -113,7 +115,10 @@ void export(char **argv, int to_write)
 	if (!envp_lst)
 		return;
 	t_str_list *curr = envp_lst;
-	if (!argv[1]){
+	if (check_export_syntax(argv) <= 0)
+		return (ft_printf("Bad syntax\n"), (void)(0));
+	if (!argv[1])
+	{
 		while (curr)
 		{
 			ft_putstr_fd("declare -x ", to_write);
@@ -128,6 +133,15 @@ void export(char **argv, int to_write)
 	t_str_list *tmp = curr->next;
 	curr->next = (t_str_list *)ft_lstnew(argv[1]);
 	curr->next->next = tmp;
+}
+
+int check_export_syntax(char **argv)
+{
+	if (argv[1] == NULL)
+		return 1;
+	if (isalpha(argv[1][0]) || argv[1][0] == '_')
+		return (1);
+	return 0;
 }
 
 /**
@@ -168,7 +182,6 @@ void unset(char *var_to_unset)
 	}
 }
 
-//todo handle -i arg
 void env(int to_write)
 {
 	int i = 0;
@@ -177,8 +190,12 @@ void env(int to_write)
 	curr = envp_lst;
 	while (curr)
 	{
-		ft_putstr_fd((char *)curr->content, to_write);
-		ft_putstr_fd("\n", to_write);
+		char *equal = ft_strstr(curr->content, "=");
+		if (equal)
+		{
+			ft_putstr_fd((char *)curr->content, to_write);
+			ft_putstr_fd("\n", to_write);
+		}
 		curr = curr->next;
 	}
 }
@@ -216,7 +233,9 @@ void cd(t_cmd *cmd)
 	struct stat st;
 	char 		*dir;
 
-	dir = cmd->argv[1]; //need to be improved
+	dir = cmd->argv[1];
+	if (!dir)
+		return ;
 	if (stat(dir, &st) < 0)
 		return(perror("turboshell: cd:"), (void)0);
 	if ((st.st_mode & S_IFMT) != S_IFDIR)
