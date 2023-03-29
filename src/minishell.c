@@ -89,7 +89,7 @@ t_keyval_list * convert_str_arr_into_new_keyval_list(char **array)
 
 
 //assign correct values to glabal var 'envp_lst'
-void dup_envp(char **envp)
+void dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
 {
 	if (!envp)
 	{

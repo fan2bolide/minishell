@@ -5,6 +5,7 @@ int check_export_syntax(char **argv);
 
 int is_echos_option_n(char *argv1);
 void free_keyval(void *uncasted_keyval);
+void insert_or_update_env_var(t_keyval *keyval_to_insert);
 
 void	exec_builtin(t_cmd *cmd, int to_read, int to_write)
 {
@@ -64,6 +65,74 @@ char *get_env_var_value(char *var_name)
 	return (curr->content->value);
 }
 
+/**
+ * @param var_name
+ * @return keyval of <varname> in environment
+ */
+t_keyval *get_env_var(char *var_name)
+{
+	int		i;
+	t_keyval_list	*curr;
+
+	i = 0;
+	curr = envp_lst;
+	if (!var_name || !envp_lst)
+		return NULL;
+	while (curr && !ft_strequ(curr->content->key, var_name))
+		curr = curr->next;
+	if (!curr)
+		return (NULL);
+	return (curr->content);
+}
+
+/**
+ * @param var_name
+ */
+void set_env_var_value(char *var_key, char *var_value)
+{
+	if (!var_key)
+		return (ft_putstr_fd("set_env_var_value : no key\n", 2));
+	t_keyval *var_to_set = get_env_var(var_key);
+	if (var_to_set)
+		free(var_to_set->value);
+	if (!var_to_set)
+	{
+		var_to_set = create_keyval();
+		var_to_set->key = ft_strdup(var_key);
+		insert_or_update_env_var(var_to_set);
+	}
+	var_to_set->value = ft_strdup(var_value);
+	if (!var_to_set->value)
+		ft_putstr_fd("An error occurred (set_env_var_value)\n",2);
+}
+
+/**
+ * insert env_var in ascii order
+ * if env_var already exist, update the value and free the keyval given in parameter
+ * @param keyval_to_insert
+ */
+void insert_or_update_env_var(t_keyval *keyval_to_insert)
+{
+	t_keyval_list *curr = envp_lst;
+	if (!curr)
+		return (ft_putstr_fd("An error occurred (insert env var)\n", 2),(void)0);
+	while(curr->next && ft_strcmp(keyval_to_insert->key, curr->next->content->key) >= 0)
+		(curr) = (curr)->next;
+	if (ft_strequ(keyval_to_insert->key, curr->content->key))
+	{
+		free(curr->content->value);
+		curr->content->value = ft_strdup(keyval_to_insert->value);
+		if (!curr->content->value)
+			ft_putstr_fd("an error occurred (upsert env var)\n", 2);
+		free_keyval(keyval_to_insert);
+		free(keyval_to_insert);
+		return ;
+	}
+	t_keyval_list *tmp = curr->next;
+	curr->next = (t_keyval_list *)ft_lstnew(keyval_to_insert);
+	curr->next->next = tmp;
+}
+
 void export(char **argv, int to_write)
 {
 	if (!envp_lst)
@@ -89,12 +158,9 @@ void export(char **argv, int to_write)
 		return ;
 	}
 	t_keyval *keyval_to_export = create_keyval_from_env_var(argv[1]);
-	unset(keyval_to_export->key);
-	while(curr->next && ft_strcmp(argv[1], curr->next->content->key) > 0)
-		(curr) = (curr)->next;
-	t_keyval_list *tmp = curr->next;
-	curr->next = (t_keyval_list *)ft_lstnew(keyval_to_export);
-	curr->next->next = tmp;
+	if (!keyval_to_export)
+		return(ft_putstr_fd("An error occurred (export)\n", 2));
+	insert_or_update_env_var(keyval_to_export);
 }
 
 int check_export_syntax(char **argv)
@@ -145,18 +211,8 @@ void unset(char *var_to_unset)
 
 void free_keyval(void *uncasted_keyval) {
 	t_keyval *keyval = uncasted_keyval;
-
-	ft_printf("(free keyval..)\n"); //debug
-	ft_printf("keyval->key : %s\n", keyval->key);
-	ft_printf("keyval->val : %s\n", keyval->value);
-
 	free(keyval->key);
 	free(keyval->value);
-
-	ft_printf("keyval->key : %s\n", keyval->key);
-	ft_printf("keyval->val : %s\n", keyval->value);
-	ft_printf("(exiting free keyval..)\n");
-
 }
 
 void env(int to_write)
