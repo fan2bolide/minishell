@@ -22,9 +22,14 @@ void **ft_keyval_lst_to_str_arr(t_keyval_list *lst)
 
 
 
-//create a new "keyval"
-//strdup whats before the first equal sign to the key element
-//strdup whats after the first equal sign to the value element
+/**
+ * create a new "keyval"
+ *  var must be something like --> abc=value
+ * strdup whats before the first equal sign to the key element
+ * strdup whats after the first equal sign to the value element
+ * @param var
+ * @return a new keyval
+ */
 t_keyval *create_keyval_from_env_var(char *var) {
 	t_keyval *res;
 

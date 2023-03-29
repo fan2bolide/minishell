@@ -28,28 +28,28 @@ void	log_token(t_token *token)
 		case 0:
 			ft_printf("error");
 			break ;
-		case 1:
+		case exec_name:
 			ft_printf("exec_name");
 			break ;
-		case 2:
+		case arg:
 			ft_printf("arg");
 			break ;
-		case 3:
+		case file:
 			ft_printf("file");
 			break ;
-		case 4:
+		case operator_pipe:
 			ft_printf("operator_pipe");
 			break ;
-		case 5:
+		case redirect_in:
 			ft_printf("redirect_in");
 			break ;
-		case 6:
+		case redirect_out_trunc:
 			ft_printf("redirect_out_trunc");
 			break ;
-		case 7:
+		case redirect_hd:
 			ft_printf("redirect_hd");
 			break ;
-		case 8:
+		case redirect_out_append:
 			ft_printf("redirect_out_append");
 			break ;
 		case 9:
