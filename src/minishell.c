@@ -127,8 +127,6 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		prompt_res = prompt();
-		if (ft_strequ(prompt_res, "exit"))
-			return (0);
 		if (ft_strequ(prompt_res, "$?"))
 		{
 			ft_printf("%d\n", exit_code);

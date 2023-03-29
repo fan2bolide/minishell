@@ -22,6 +22,8 @@ void	exec_builtin(t_cmd *cmd, int to_read, int to_write)
 		unset(cmd->argv[1]);
 	else if (type == 5)
 		env(to_write);
+	else if (type == 6)
+		exit(EXIT_SUCCESS); // todo replace with exit_code or with argv[1]
 }
 
 // returns -1 if str is not a builtins
@@ -40,63 +42,6 @@ int	is_builtin(char *str)
 	return (-1);
 }
 
-void pwd(int fd_to_write)
-{
-	char *cwd;
-
-	cwd = ft_calloc(1024 , sizeof(char));
-	if (!cwd)
-		return (ft_putstr_fd("an error occured (pwd)\nexiting..\n", 2));
-	if (!getcwd(cwd, 1024))
-		ft_putstr_fd("error retrieving the current working directory", fd_to_write);
-	else
-		ft_putstr_fd( cwd, fd_to_write);
-	ft_putstr_fd("\n", fd_to_write);
-	free(cwd);
-}
-
-
-/* can manage :
- *
- * >echo message
- * >message
- *k
- *>echo -n message
- * message >
- *
- * >echo  message1          message2
- * >message1 message2
- *
- * */
-void	echo(char **argv, int to_write)
-{
-	int 	option_n;
-	int i;
-
-	if (!argv[1])
-		return;
-	option_n = is_echos_option_n(argv[1]);
-	i = 1 + option_n;
-	while (argv[i])
-	{
-		ft_putstr_fd(argv[i], to_write);
-		if (argv[i + 1])
-			ft_putstr_fd(" ", to_write);
-		i++;
-	}
-	if (!option_n)
-		ft_putstr_fd("\n", to_write);
-}
-
-int is_echos_option_n(char *argv1)
-{
-	if (!str_starts_with(argv1, "-n"))
-		return 0;
-	int i = 2;
-	while (argv1[i] == 'n')
-		i++;
-	return (argv1[i] == 0);
-}
 
 /**
  * DO NOT FREE THE RETURN VALUE
@@ -236,47 +181,4 @@ void env(int to_write)
 }
 
 
-void update_pwd(const char *dir)
-{
 
-	char * path;
-	char *dir_w_slash;
-	char * path_tmp =ft_calloc(1024, sizeof (char));
-
-	if (!path_tmp || (!envp_lst && (free(path_tmp), 1)) )
-	{
-		ft_putstr_fd("an error occurred (!envp_lst || !path_tmp)\nexiting..\n", 2);
-		exit(EXIT_FAILURE);
-	}
-	path_tmp = getcwd(path_tmp, 1024);
-	if (!path_tmp)
-		return  (ft_putstr_fd("an error occurred (!path_tmp)\n", 2));
-	dir_w_slash = ft_strjoin("//", dir);
-	path = ft_strjoin(path_tmp, dir_w_slash);
-	if (!path)
-		return  (ft_putstr_fd("an error occurred (!path)\n", 2));
-	if (chdir(path) != 0)
-	{
-		perror("chdir() error");
-		exit(EXIT_FAILURE);
-	}
-	return (free(path),	free(dir_w_slash),	free(path_tmp));
-}
-
-void cd(t_cmd *cmd)
-{
-	struct stat st;
-	char 		*dir;
-
-	dir = cmd->argv[1];
-	if (!dir)
-		return ;
-	if (stat(dir, &st) < 0)
-		return(perror("turboshell: cd:"), (void)0);
-	if ((st.st_mode & S_IFMT) != S_IFDIR)
-		return(ft_printf("turboshell: cd: %s: Not a directory\n", dir), (void)0);
-	if (st.st_mode & S_IRUSR)
-		update_pwd((const char *) dir);
-	else
-		ft_printf("turboshell: cd: %s: Permission denied\n", dir);
-}
