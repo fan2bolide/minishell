@@ -14,9 +14,9 @@
 # define MINISHELL_H
 
 # define SPEC_CHAR "<>|&$"
-# define ANSI_RED "\x1b[31m"
-# define ANSI_RESET "\x1b[0m"
-# define ANSI_BLUE "\x1b[34m"
+# define ANSI_RED "\001\x1b[31m\002"
+# define ANSI_RESET "\001\x1b[0m\002"
+# define ANSI_BLUE "\001\x1b[34m\002"
 # include "libft.h"
 # include <stdio.h>
 # include <sys/stat.h>
