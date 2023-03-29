@@ -33,7 +33,9 @@ SRC =	minishell.c\
 		expand_tokens_from_list.c\
 		expand_content_utils.c\
 		expand_utils.c \
-		heredoc_manager.c
+		heredoc_manager.c \
+		keyval_utils.c \
+
 
 BONUS_SRC =
 

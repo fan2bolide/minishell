@@ -37,7 +37,7 @@
 
 void		manage_here_doc(t_cmd cmd);
 void		execute_cmd(t_cmd cmd, int to_read, int to_write);
-char		*get_path(char *exec_name, t_str_list *envp_lst);
+char		*get_path(char *exec_name, t_keyval_list *envp_lst);
 void		wait_all_child_proc(int *pids, int childs_counter);
 void		close_pipes(int pipes[OPEN_MAX][2],	int i);
 void		free_cmd_lst(t_cmdlist **cmd_list);
@@ -45,4 +45,8 @@ void		free_cmd(t_cmd *cmd_lst);
 void		exit_routine(int pipes[OPEN_MAX][2], int pids[OPEN_MAX], int i);
 int 		open_and_get_fd(char *file, int open_mode, int rights);
 t_cmd *create_new_cmd();
+void **ft_keyval_lst_to_str_arr(t_keyval_list *lst);
+t_keyval *create_keyval_from_env_var(char *var);
+t_keyval *create_keyval(void);
+
 #endif

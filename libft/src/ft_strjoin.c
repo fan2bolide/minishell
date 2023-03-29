@@ -41,3 +41,20 @@ char	*ft_strnjoin(char *s1, const char *s2, int n)
 	ft_strncat(res, (char *)s2, n);
 	return (res);
 }
+
+char	*ft_strjoin_secure(char const *s1, char const *s2)
+{
+	char	*res;
+	size_t	len;
+
+	if (!s1 || !s2)
+		return (NULL);
+	len = ft_strlen((char *)s1) + ft_strlen((char *)s2);
+	res = ft_strnew(len);
+	if (res == NULL)
+		return (NULL);
+	*res = 0;
+	ft_strcat(res, (char *)s1);
+	ft_strcat(res, (char *)s2);
+	return (res);
+}

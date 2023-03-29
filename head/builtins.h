@@ -2,6 +2,7 @@
 # define BUILTINS_H
 
 # include "minishell.h"
+# include "execute_cmd_line.h"
 
 void	echo(char **argv, int option_n);
 void	export2(char *var_to_export, char* var_value, t_list *envp_lst);

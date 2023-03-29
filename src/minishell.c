@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "execute_cmd_line.h"
 
 void	welcome_msg(void)
 {
@@ -68,7 +69,26 @@ t_str_list * convert_str_arr_into_new_str_list(char **array)
 	return (res);
 }
 
-//assign correct value to glabal var 'envp_lst'
+t_keyval_list * convert_str_arr_into_new_keyval_list(char **array)
+{
+	t_keyval_list *res;
+
+	res = (t_keyval_list *)ft_lstnew(create_keyval());
+	if (array == NULL)
+		return (res);
+	res->content = create_keyval_from_env_var(*array);
+
+	array ++;
+	while(*array)
+	{
+		ft_lstadd_back((t_list **)&res, ft_lstnew(create_keyval_from_env_var(*array)));
+		array ++;
+	}
+	return (res);
+}
+
+
+//assign correct values to glabal var 'envp_lst'
 void dup_envp(char **envp)
 {
 	if (!envp)
@@ -76,7 +96,7 @@ void dup_envp(char **envp)
 		envp_lst = NULL;
 		return ;
 	}
-	envp_lst = convert_str_arr_into_new_str_list(envp);
+	envp_lst = convert_str_arr_into_new_keyval_list(envp);
 }
 
 void sig_handler(int sig)

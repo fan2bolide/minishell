@@ -29,6 +29,19 @@ typedef struct s_str_list
 	struct s_str_list	*next;
 }	t_str_list;
 
+typedef struct s_keyval
+{
+	char	*key;
+	char 	*value;
+}	t_keyval;
+
+
+typedef struct s_keyval_list
+{
+	t_keyval 				*content;
+	struct s_keyval_list	*next;
+}	t_keyval_list;
+
 typedef enum e_type
 {
 	error,
@@ -67,7 +80,7 @@ typedef struct s_cmdlist
 	struct s_cmdlist	*next;
 }	t_cmdlist;
 
-t_str_list 	*envp_lst;
+t_keyval_list 	*envp_lst;
 
 t_cmdlist *convert_token_lst_into_cmd_lst(t_list *token_lst);
 int		token_cmd_line_size(t_list *token_lst);
@@ -88,4 +101,5 @@ int		is_builtin(char *str);
 void	log_cmd_lst(t_list *cmd_list);
 void	log_cmd(t_cmd *cmd);
 char *get_env_var_value(char *var_name);
+t_keyval_list * convert_str_arr_into_new_keyval_list(char **array);
 #endif
