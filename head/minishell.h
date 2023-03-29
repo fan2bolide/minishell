@@ -97,8 +97,10 @@ void	destroy_token(void *token);
 void	exec_builtin(t_cmd *cmd, int to_read, int to_write);
 int		is_builtin(char *str);
 void	log_cmd(t_cmd *cmd);
-char *get_env_var_value(char *var_name);
+char	*get_env_var_value(char *var_name);
 t_keyval_list * convert_str_arr_into_new_keyval_list(char **array);
 t_keyval *create_keyval_from_env_var(char *var);
 t_keyval *create_keyval(void);
+void	update_exit_code(int exit_code);
+
 #endif

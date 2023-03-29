@@ -49,8 +49,11 @@ char *get_value_of_var(char *var)
 	int		i;
 
 	i = 0;
-	while (var[i] && var[i] != '?' && (ft_isalnum(var[i]) || var[i] == '_'))
-		i++;
+	if (var[0] == '?')
+		i = 1;
+	else
+		while (var[i] && var[i] != '?' && (ft_isalnum(var[i]) || var[i] == '_'))
+			i++;
 	if (i == 0)
 		return (NULL);
 	var_name = ft_strnew(i);
@@ -72,7 +75,10 @@ static char *join_words_with_values(t_expansion *token, char *tmp)
 		i = 0;
 		while (token->content[i] && token->content[i] != '$')
 			i++;
-		tmp = ft_strnjoin(tmp, token->content, (int)i++);
+		tmp = ft_strnjoin(tmp, token->content, (int)i);
+		if (!token->content[i])
+			return (tmp);
+		i++;
 		value = get_value_of_var(token->content + i);
 		if (!value)
 			value = "";

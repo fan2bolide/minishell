@@ -30,14 +30,43 @@ void	welcome_msg(void)
 	ft_printf("/_/    \\__,_/ /_/    /_.___/\\____//____/ /_/ /_/\\___//_/  /_/   \n");
 }
 
-int exit_code;
+void	update_exit_code(int exit_code)
+{
+	char *new_exit_code;
+
+	new_exit_code = ft_itoa(exit_code);
+	free(envp_lst->content->value);
+	envp_lst->content->value = new_exit_code;
+}
+
+int	set_exit_code(void)
+{
+	t_keyval_list *new;
+
+	new = malloc(sizeof (t_keyval_list));
+	if (!new)
+		return (1);
+	new->next = envp_lst;
+	new->content = malloc(sizeof(t_keyval));
+	if (!new->content)
+		return (free(new), 1);
+	new->content->key = ft_strdup("?");
+	new->content->value = ft_strdup("0");
+	envp_lst = new;
+	return (0);
+}
+
+int	get_exit_code(void)
+{
+	return (ft_atoi(envp_lst->content->value));
+}
 
 char	*prompt(void)
 {
 	char	*res;
 	char	*tmp;
 
-	if (exit_code)
+	if (get_exit_code())
 		tmp = readline(ANSI_RED" ➜ "ANSI_RESET);
 	else
 		tmp = readline(ANSI_BLUE" ➜ "ANSI_RESET);
@@ -97,13 +126,14 @@ void dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
 		return ;
 	}
 	envp_lst = convert_str_arr_into_new_keyval_list(envp);
+	set_exit_code();
 }
 
 void sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		exit_code = 127;
+		update_exit_code(130);
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
@@ -123,13 +153,12 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, sig_handler);
 	dup_envp(envp);
 	welcome_msg();
-	exit_code = 0;
 	while (1)
 	{
 		prompt_res = prompt();
 		if (ft_strequ(prompt_res, "$?"))
 		{
-			ft_printf("%d\n", exit_code);
+			ft_printf("%d\n", get_exit_code());
 			continue;
 		}
 		token_list = get_main_token_list(prompt_res);
