@@ -151,6 +151,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, sig_handler);
 	dup_envp(envp);
 	welcome_msg();
 	while (1)
