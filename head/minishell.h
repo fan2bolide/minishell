@@ -19,6 +19,7 @@
 # define ANSI_BLUE "\001\x1b[34m\002"
 # include "libft.h"
 # include <stdio.h>
+# include <signal.h>
 # include <sys/stat.h>
 # include <readline/history.h>
 # include <readline/readline.h>

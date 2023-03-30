@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "execute_cmd_line.h"
 
 void	welcome_msg(void)
 {
@@ -23,11 +22,50 @@ void	welcome_msg(void)
 	//ft_printf("    ░███     ░███ ░███  ░███      ░███ ░███░███ ░███\n");
 	//ft_printf("    █████    ░░████████ █████     ████████ ░░██████ \n");
 	//ft_printf("   ░░░░░      ░░░░░░░░ ░░░░░     ░░░░░░░░   ░░░░░░  \n");
-	ft_printf("________             ______              ______      ___________\n");
+	ft_printf("\003c________             ______              ______      ___________\n");
 	ft_printf("___  __/___  ___________  /_________________  /_________  /__  /\n");
 	ft_printf("__  /  _  / / /_  ___/_  __ \\  __ \\_  ___/_  __ \\  _ \\_  /__  / \n");
 	ft_printf("_  /   / /_/ /_  /   _  /_/ / /_/ /(__  )_  / / /  __/  / _  /  \n");
 	ft_printf("/_/    \\__,_/ /_/    /_.___/\\____//____/ /_/ /_/\\___//_/  /_/   \n");
+}
+
+/**
+ * sets system calls for minishell signals handling
+ */
+static int	setup_signals(void (sig_handler)(int))
+{
+	struct sigaction sa;
+	sa.sa_handler = sig_handler;
+	sa.sa_flags = SA_RESTART;
+	if (sigaction(SIGINT, &sa, NULL) == -1)
+	{
+		perror("Error setting up SIGINT handler");
+		return (0);
+	}
+	if (sigaction(SIGQUIT, &sa, NULL) == -1)
+	{
+		perror("Error setting up SIGQUIT handler");
+		return (0);
+	}
+	return (1);
+}
+
+void	sig_handler_interactive_mode(int sig)
+{
+	if (sig == SIGINT)
+	{
+		update_exit_code(130);
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+		ft_printf(ANSI_RED"\r ➜ "ANSI_RESET);
+	}
+}
+
+void	sig_handler_execution_mode(int sig)
+{
+	update_exit_code(130);
 }
 
 void	update_exit_code(int exit_code)
@@ -61,11 +99,13 @@ int	get_exit_code(void)
 	return (ft_atoi(envp_lst->content->value));
 }
 
-char	*prompt(void)
+char	*prompt()
 {
 	char	*res;
 	char	*tmp;
 
+	if (!setup_signals(sig_handler_interactive_mode))
+		return (NULL);
 	if (get_exit_code())
 		tmp = readline(ANSI_RED" ➜ "ANSI_RESET);
 	else
@@ -77,7 +117,10 @@ char	*prompt(void)
 	}
 	res = ft_strtrim(tmp, " ");
 	free(tmp);
-	add_history(res);
+	if (!ft_strequ(res, ""))
+		add_history(res);
+	if (!setup_signals(sig_handler_execution_mode))
+		return (NULL);
 	return (res);
 }
 
@@ -116,7 +159,6 @@ t_keyval_list * convert_str_arr_into_new_keyval_list(char **array)
 	return (res);
 }
 
-
 //assign correct values to glabal var 'envp_lst'
 void dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
 {
@@ -129,18 +171,7 @@ void dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
 	set_exit_code();
 }
 
-void sig_handler(int sig)
-{
-	if (sig == SIGINT)
-	{
-		update_exit_code(130);
-		rl_replace_line("", 0);
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_redisplay();
-		ft_printf(ANSI_RED"\r ➜ "ANSI_RESET);
-	}
-}
+
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -150,18 +181,13 @@ int	main(int argc, char **argv, char **envp)
 
 
 	(void)argc;
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
 	dup_envp(envp);
 	welcome_msg();
 	while (1)
 	{
 		prompt_res = prompt();
-		if (ft_strequ(prompt_res, "$?"))
-		{
-			ft_printf("%d\n", get_exit_code());
-			continue;
-		}
+		if (!prompt_res)
+			return (perror("signal setup failed: "), 1);
 		token_list = get_main_token_list(prompt_res);
 		free(prompt_res);
 		curr = token_list;
