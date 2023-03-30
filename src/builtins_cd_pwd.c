@@ -27,8 +27,9 @@ static void update_pwd(const char *dir)
 	char * path;
 	char *dir_w_slash;
 	char * path_tmp =ft_calloc(1024, sizeof (char));
+	char * path_tmp2 =ft_calloc(1024, sizeof (char));
 
-	if (!path_tmp || (!envp_lst && (free(path_tmp), 1)) )
+	if (!path_tmp || !path_tmp2 || (!envp_lst && (free(path_tmp), 1)) )
 	{
 		ft_putstr_fd("an error occurred (!envp_lst || !path_tmp)\nexiting..\n", 2);
 		exit(EXIT_FAILURE);
@@ -36,7 +37,7 @@ static void update_pwd(const char *dir)
 	path_tmp = getcwd(path_tmp, 1024);
 	if (!path_tmp)
 		return  (ft_putstr_fd("an error occurred (!path_tmp)\n", 2));
-	dir_w_slash = ft_strjoin("//", dir);
+	dir_w_slash = ft_strjoin("/", dir);
 	path = ft_strjoin(path_tmp, dir_w_slash);
 	if (!path)
 		return  (ft_putstr_fd("an error occurred (!path)\n", 2));
@@ -45,7 +46,13 @@ static void update_pwd(const char *dir)
 		perror("chdir() error");
 		exit(EXIT_FAILURE);
 	}
-	return (free(path),	free(dir_w_slash),	free(path_tmp));
+	path_tmp2 = getcwd(path_tmp2, 1024);
+	char *env_var_oldpwd = ft_strjoin_secure("OLDPWD=", path_tmp);
+	char *env_var_newpwd = ft_strjoin_secure("PWD=", path_tmp2);
+	insert_or_update_env_var(create_keyval_from_env_var(env_var_oldpwd));
+	insert_or_update_env_var(create_keyval_from_env_var(env_var_newpwd));
+	free(env_var_oldpwd);
+	return (free(path),	free(dir_w_slash),	free(path_tmp), free(path_tmp2));
 }
 
 void cd(struct s_cmd *cmd)
@@ -56,12 +63,26 @@ void cd(struct s_cmd *cmd)
 	dir = cmd->argv[1];
 	if (!dir)
 		return ;
-	if (stat(dir, &st) < 0)
-		return(perror("turboshell: cd:"), (void)0);
-	if ((st.st_mode & S_IFMT) != S_IFDIR)
-		return(ft_printf("turboshell: cd: %s: Not a directory\n", dir), (void)0);
+	if (stat(dir, &st) < 0){
+		perror("Turboshell :cd");
+		update_exit_code(1);
+		return ;
+	}
+	if ((st.st_mode & S_IFMT) != S_IFDIR) {
+		perror("Turboshell :cd");
+		update_exit_code(1);
+		return ;
+	}
 	if (st.st_mode & S_IRUSR)
+	{
 		update_pwd((const char *) dir);
+		update_exit_code(0);
+		return ;
+	}
 	else
-		ft_printf("turboshell: cd: %s: Permission denied\n", dir);
+	{
+		perror("Turboshell :");
+		update_exit_code(errno);
+		return ;
+	}
 }

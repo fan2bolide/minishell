@@ -12,5 +12,6 @@ void	echo(char **argv, int option_n);
 void pwd(int fd_to_write);
 
 void cd(struct s_cmd *cmd);
+void insert_or_update_env_var(t_keyval *keyval_to_insert);
 
 # endif

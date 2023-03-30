@@ -1,11 +1,17 @@
 
+#include <stdbool.h>
 #include "builtins.h"
 
 int check_export_syntax(char **argv);
 
 int is_echos_option_n(char *argv1);
 void free_keyval(void *uncasted_keyval);
-void insert_or_update_env_var(t_keyval *keyval_to_insert);
+
+void insert_env_var(t_keyval *keyval_to_insert);
+
+void update_env_var(t_keyval *keyval_to_update);
+
+bool env_var_exist(t_keyval *keyval_to_check);
 
 void	exec_builtin(t_cmd *cmd, int to_read, int to_write)
 {
@@ -113,25 +119,55 @@ void set_env_var_value(char *var_key, char *var_value)
  */
 void insert_or_update_env_var(t_keyval *keyval_to_insert)
 {
-	t_keyval_list *curr = envp_lst;
+
+	if (env_var_exist(keyval_to_insert))
+		update_env_var(keyval_to_insert);
+	else
+		insert_env_var(keyval_to_insert);
+}
+
+bool env_var_exist(t_keyval *keyval_to_check) {
+	t_keyval_list *curr;
+	if (envp_lst)
+		curr = envp_lst->next;
+	if (!envp_lst || !curr)
+		return 0;
+	while (curr && !ft_strequ(keyval_to_check->key, curr->content->key))
+		curr = curr->next;
 	if (!curr)
-		return (ft_putstr_fd("An error occurred (insert env var)\n", 2),(void)0);
-	while(curr->next && ft_strcmp(keyval_to_insert->key, curr->next->content->key) >= 0)
-		(curr) = (curr)->next;
-	if (ft_strequ(keyval_to_insert->key, curr->content->key))
-	{
-		free(curr->content->value);
-		curr->content->value = ft_strdup(keyval_to_insert->value);
-		if (!curr->content->value)
-			ft_putstr_fd("an error occurred (upsert env var)\n", 2);
-		free_keyval(keyval_to_insert);
-		free(keyval_to_insert);
+		return 0;
+	return 1;
+}
+
+void update_env_var(t_keyval *keyval_to_update) {
+	t_keyval_list *curr;
+	if (envp_lst)
+		curr = envp_lst->next;
+	if (!envp_lst || !curr)
 		return ;
-	}
+	while (!ft_strequ(keyval_to_update->key, curr->content->key))
+	 	curr = curr->next;
+	free(curr->content->value);
+	curr->content->value = ft_strdup(keyval_to_update->value);
+	if (!curr->content->value)
+		ft_putstr_fd("an error occurred (upsert env var)\n", 2);
+	free_keyval(keyval_to_update);
+	free(keyval_to_update);
+}
+
+void insert_env_var(t_keyval *keyval_to_insert) {
+	t_keyval_list *curr;
+	if (envp_lst)
+		curr = envp_lst->next;
+	if (!curr || !envp_lst)
+		return (ft_putstr_fd("An error occurred (insert env var)\n", 2),(void)0);
+	while(curr->next && ft_strcmp(keyval_to_insert->key, curr->next->content->key) > 0)
+		(curr) = (curr)->next;
 	t_keyval_list *tmp = curr->next;
 	curr->next = (t_keyval_list *)ft_lstnew(keyval_to_insert);
 	curr->next->next = tmp;
 }
+
 
 void export(char **argv, int to_write)
 {

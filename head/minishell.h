@@ -22,6 +22,7 @@
 # include <sys/stat.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+#include <sys/errno.h>
 
 typedef struct s_str_list
 {
