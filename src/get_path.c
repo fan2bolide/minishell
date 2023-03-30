@@ -12,7 +12,7 @@
 
 #include "execute_cmd_line.h"
 
-static void	freepath(char **paths);
+//static void	freepath(char **paths);
 static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd);
 
 char	*get_path(char *exec_name, t_keyval_list *envp_lst)
@@ -62,11 +62,11 @@ static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd)
 		return (ft_strdup(cmd));
 }
 
-static void	freepath(char **paths)
-{
-	int	i;
-
-	i = 0;
-	while (paths && paths[i])
-		free(paths[i++]);
-}
+//static void	freepath(char **paths)
+//{
+//	int	i;
+//
+//	i = 0;
+//	while (paths && paths[i])
+//		free(paths[i++]);
+//}

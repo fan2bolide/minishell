@@ -7,22 +7,13 @@ static int append_new_line_if_not_delim(int fd, char **str_to_append, char *deli
 static int append_str(char **str_to_append, char *new_line);
 static char *remove_quotes(const char *raw);
 static int is_delimiter(char *delim, const char *new_line);
-static char *trim_nl(char *str);
 void manage_here_doc(t_cmd cmd)
 {
-
-	char	**splits;
-
-
 	if (!cmd.heredoc_mode)
 		return;
-
 	here_doc_routine(cmd.heredoc_pipe[WRITE], cmd.heredoc_delim);
 	close(cmd.heredoc_pipe[WRITE]);
-	return ;
 }
-
-
 
 static void here_doc_routine(int fd_to_write, char *delimiter)
 {

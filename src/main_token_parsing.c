@@ -13,9 +13,6 @@
 #include "lexer.h"
 
 static int	check_all_consecutives_types(t_list *tokens);
-static int	are_consecutives_types(t_list *tokens, t_type type1, t_type type2);
-static int	types_following_each_other(t_list *tokens, t_type type1, \
-														t_type type2);
 static int	check_files_after_redirect(t_list *tokens);
 
 /*

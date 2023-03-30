@@ -46,9 +46,9 @@ int	execute_cmd_line(t_cmdlist *cmd_lst)
 			fd_to_write);
 		if (!cmd_lst->content->heredoc_mode && (cmd_lst->content)->argv &&\
 		is_builtin((cmd_lst->content)->argv[0]) >= 0 )
-			exec_builtin(cmd_lst->content,\
-			fd_to_read,\
-			fd_to_write);
+			exec_builtin(cmd_lst->content, \
+
+						 fd_to_write);
 		close_fds(fd_to_read, fd_to_write);
 		if ((cmd_lst->content)->heredoc_mode)
 			close((cmd_lst->content)->heredoc_pipe[READ]);

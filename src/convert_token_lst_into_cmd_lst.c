@@ -18,7 +18,7 @@ void    case_current_token_type_is_redirect_out(
 		t_list *token_lst_cursor, t_cmd *cmd); //static ?
 void	case_current_token_type_is_redirect_in(
 		t_list *token_lst_cursor, t_cmd *cmd);
-static int token_is_null(void *token_lst_content);
+//static int token_is_null(void *token_lst_content);
 void	case_current_token_type_is_redirect_hd(t_cmdlist **cmd_lst, t_list *token_lst_cursor);
 
 t_cmdlist *convert_token_lst_into_cmd_lst(t_list *token_lst)
@@ -64,7 +64,7 @@ void	case_current_token_type_is_redirect_hd(t_cmdlist **cmd_lst, t_list *token_l
 	pipe( (*(*cmd_lst)->content).heredoc_pipe );
 	manage_here_doc(*(*cmd_lst)->content);
 	(*cmd_lst)->content->path = ft_strdup("heredoc"); // todo protect this
-	(*cmd_lst)->content->argv = ft_strdup("");
+	(*cmd_lst)->content->argv = (char **)ft_strdup("");
 }
 
 void case_current_token_type_is_exec_name(t_list *token_lst_cursor, t_cmd *cmd)

@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = minishell
-FLAGS = -I libft/head -I head -I . -lreadline -g3
+FLAGS = -I libft/head -I head -I . -lreadline
 
 DEBUG_FLAGS = -g3 -fsanitize=address
 
@@ -50,7 +50,7 @@ BONUS_OBJ = $(addprefix obj/,$(BONUS_SRC:.c=.o))
 all : create_obj_folder lib
 	$(MAKE) $(NAME)
 
-$(NAME) : $(OBJ)
+$(NAME) : $(OBJ) $(LIBFT)
 	$(CC) $(OBJ) $(LIBFT) $(FLAGS) -L /opt/homebrew/opt/readline/lib -I /opt/homebrew/opt/readline/include $(DEBUG_FLAGS) -o $(NAME)
 
 bonus : create_obj_folder lib .bonus
@@ -61,11 +61,13 @@ bonus : create_obj_folder lib .bonus
 create_obj_folder :
 	mkdir -p obj
 
-obj/%.o : src/%.c Makefile
-	cc $(DEBUG_FLAGS) -c $< -MD -I /opt/homebrew/opt/readline/include -I libft/head -I head -o $@
+obj/%.o : src/%.c Makefile $(LIBFT)
+	cc $(DEBUG_FLAGS) -Werror -Wall -Wextra -c $< -MD -I /opt/homebrew/opt/readline/include -I libft/head -I head -o $@
 
 debug : lib
 	$(CC) $(OBJ) $(LIBFT) $(FLAGS) $(DEBUG_FLAGS) -o debug$(NAME)
+
+$(LIBFT): lib
 
 lib : libft
 	@$(MAKE) -C libft

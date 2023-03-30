@@ -13,7 +13,7 @@ void update_env_var(t_keyval *keyval_to_update);
 
 bool env_var_exist(t_keyval *keyval_to_check);
 
-void	exec_builtin(t_cmd *cmd, int to_read, int to_write)
+void exec_builtin(t_cmd *cmd, int to_write)
 {
 	int type;
 	type = is_builtin(cmd->argv[0]);
@@ -57,10 +57,8 @@ int	is_builtin(char *str)
  */
 char *get_env_var_value(char *var_name)
 {
-	int		i;
 	t_keyval_list	*curr;
 
-	i = 0;
 	curr = envp_lst;
 	if (!var_name || !envp_lst)
 		return NULL;
@@ -77,10 +75,8 @@ char *get_env_var_value(char *var_name)
  */
 t_keyval *get_env_var(char *var_name)
 {
-	int		i;
 	t_keyval_list	*curr;
 
-	i = 0;
 	curr = envp_lst;
 	if (!var_name || !envp_lst)
 		return NULL;
@@ -155,8 +151,11 @@ void update_env_var(t_keyval *keyval_to_update) {
 	free(keyval_to_update);
 }
 
-void insert_env_var(t_keyval *keyval_to_insert) {
+void insert_env_var(t_keyval *keyval_to_insert)
+{
 	t_keyval_list *curr;
+
+	curr = NULL;
 	if (envp_lst)
 		curr = envp_lst->next;
 	if (!curr || !envp_lst)
@@ -253,7 +252,6 @@ void free_keyval(void *uncasted_keyval) {
 
 void env(int to_write)
 {
-	int i = 0;
 	t_keyval_list *curr;
 
 	curr = envp_lst;
