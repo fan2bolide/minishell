@@ -29,27 +29,21 @@ void	welcome_msg(void)
 	ft_printf("/_/    \\__,_/ /_/    /_.___/\\____//____/ /_/ /_/\\___//_/  /_/   \n");
 }
 
-/**
- * sets system calls for minishell signals handling
- */
+/// sets the system calls for minishell signal handling
+/// \param sig_handler
 static int	setup_signals(void (sig_handler)(int))
 {
 	struct sigaction sa;
 	sa.sa_handler = sig_handler;
 	sa.sa_flags = SA_RESTART;
 	if (sigaction(SIGINT, &sa, NULL) == -1)
-	{
-		perror("Error setting up SIGINT handler");
 		return (0);
-	}
 	if (sigaction(SIGQUIT, &sa, NULL) == -1)
-	{
-		perror("Error setting up SIGQUIT handler");
 		return (0);
-	}
 	return (1);
 }
 
+///gets called when receiving a signal while in interactive mode
 void	sig_handler_interactive_mode(int sig)
 {
 	if (sig == SIGINT)
@@ -63,12 +57,14 @@ void	sig_handler_interactive_mode(int sig)
 	}
 }
 
+///gets called when receiving a signal while in execution mode
 void	sig_handler_execution_mode(int sig)
 {
 	if (sig == SIGINT)
 		update_exit_code(130);
 }
 
+///updates the env '?' variable with the exit code of the last program called
 void	update_exit_code(int exit_code)
 {
 	char *new_exit_code;
@@ -78,6 +74,8 @@ void	update_exit_code(int exit_code)
 	envp_lst->content->value = new_exit_code;
 }
 
+/// sets the value of env's '?' variable to 0
+/// \return 1 if allocation fails, 0 else
 int	set_exit_code(void)
 {
 	t_keyval_list *new;
@@ -95,6 +93,7 @@ int	set_exit_code(void)
 	return (0);
 }
 
+/// \return the value of env's '?' variable
 int	get_exit_code(void)
 {
 	return (ft_atoi(envp_lst->content->value));
@@ -142,6 +141,7 @@ t_str_list * convert_str_arr_into_new_str_list(char **array)
 	return (res);
 }
 
+///converts char *envp to key/value list so we can use and update it
 t_keyval_list * convert_str_arr_into_new_keyval_list(char **array)
 {
 	t_keyval_list *res;
@@ -160,7 +160,7 @@ t_keyval_list * convert_str_arr_into_new_keyval_list(char **array)
 	return (res);
 }
 
-//assign correct values to glabal var 'envp_lst'
+///assign correct values to global var 'envp_lst'
 void dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
 {
 	if (!envp)
@@ -171,8 +171,6 @@ void dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
 	envp_lst = convert_str_arr_into_new_keyval_list(envp);
 	set_exit_code();
 }
-
-
 
 int	main(int argc, char **argv, char **envp)
 {
