@@ -66,10 +66,7 @@ void	sig_handler_interactive_mode(int sig)
 void	sig_handler_execution_mode(int sig)
 {
 	if (sig == SIGINT)
-	{
-		write(1, "\n", 1);
 		update_exit_code(130);
-	}
 }
 
 void	update_exit_code(int exit_code)
