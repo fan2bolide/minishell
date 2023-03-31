@@ -59,7 +59,7 @@ void	sig_handler_interactive_mode(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		ft_printf(ANSI_RED"\r ➜ "ANSI_RESET);
+		ft_printf(ANSI_RED"\r \001➜\002 "ANSI_RESET);
 	}
 }
 
@@ -111,12 +111,12 @@ char	*prompt()
 	if (!setup_signals(sig_handler_interactive_mode))
 		return (NULL);
 	if (get_exit_code())
-		tmp = readline(ANSI_RED" ➜ "ANSI_RESET);
+		tmp = readline(ANSI_RED" \001➜\002 "ANSI_RESET);
 	else
-		tmp = readline(ANSI_BLUE" ➜ "ANSI_RESET);
+		tmp = readline(ANSI_BLUE" \001➜\002 "ANSI_RESET);
 	if (tmp == NULL)
 	{
-		ft_printf("\r ➜ exit\n");
+		ft_printf("\r \001➜\002 exit\n");
 		exit(1);
 	}
 	res = ft_strtrim(tmp, " ");
