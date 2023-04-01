@@ -110,13 +110,14 @@ t_list	*get_main_token_list(char *command_line)
 	while (command_line[i])
 	{
 		curr->next = ft_lstnew(evaluate_expression(command_line + i, \
-
 												   curr->content, is_exec_name));
 		is_exec_name = is_there_an_exec_name_between_those_pipes(is_exec_name, curr);
 		curr = curr->next;
 		if (get_next_expression(command_line + i) == 0)
 		{
-			ft_printf("coucou je suis un fils de pute i = %d\n", i);
+			ft_putstr_fd("Turboshell: parsing error near token: '", 2);
+			ft_putstr_fd(command_line + i, 2);
+			ft_putstr_fd("'\n", 2);
 			return (ft_lstclear(&list, destroy_token), NULL);
 		}
 		i += get_next_expression(command_line + i);
