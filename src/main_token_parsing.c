@@ -38,15 +38,24 @@ t_list	*token_parsing(t_list *tokens)
 	t_token *curr_token;
 
 	curr = tokens;
+	curr_token = curr->content;
 	if (!check_all_consecutives_types(tokens) || \
-	((t_token *)tokens->content)->type == operator_pipe || \
-	!check_files_after_redirect(tokens))
+	curr_token->type == operator_pipe || !check_files_after_redirect(tokens))
 		return (ft_lstclear(&tokens, destroy_token), NULL);
 	while (curr)
 	{
 		curr_token = curr->content;
 		if (curr_token->type == error)
 			return (ft_lstclear(&tokens, destroy_token), NULL);
+		if (curr_token->type == redirect_hd || \
+			curr_token->type == redirect_out_append)
+			if (ft_strlen(curr_token->content) > 2)
+			{
+				ft_putstr_fd("Turboshell: error near token:\'", 2);
+				write(2, curr_token->content + 2, 2);
+				ft_putstr_fd("\'\n", 2);
+				return (ft_lstclear(&tokens, destroy_token), NULL);
+			}
 		curr = curr->next;
 	}
 	return (tokens);
