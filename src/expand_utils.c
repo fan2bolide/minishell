@@ -31,6 +31,7 @@ char	*join_contents(t_list *token_list)
 	char	*res;
 	char	*to_destroy;
 
+	res = NULL;
 	to_destroy = ft_calloc(1, 1);
 	while (token_list)
 	{

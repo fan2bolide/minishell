@@ -4,9 +4,9 @@
 static void here_doc_routine(int fd_to_write, char *delimiter);
 //return 0 if new_line is not delim, return -1 if new_line is delimiter
 static int append_new_line_if_not_delim(int fd, char **str_to_append, char *delim);
-static int append_str(char **str_to_append, char *new_line);
+static int append_str(char **str_to_append, char *next_line);
 static char *remove_quotes(const char *raw);
-static int is_delimiter(char *delim, const char *new_line);
+static int is_delimiter(char *delim, const char *next_line);
 void manage_here_doc(t_cmd cmd)
 {
 	if (!cmd.heredoc_mode)
@@ -36,40 +36,37 @@ static void here_doc_routine(int fd_to_write, char *delimiter)
 
 static int append_new_line_if_not_delim(int fd, char **str_to_append, char *delim)
 {
-	char	*new_line;
+	char	*next_line;
 	int 	expand_optn;
 
 	expand_optn = 0;
 	expand_optn = ft_strchr(delim, '\"') == NULL && ft_strchr(delim, '\'') == NULL;
-	new_line = get_next_line(fd); // on peut remplacer par un readline (ne pas faire add_history)
+	next_line = get_next_line(fd); // on peut remplacer par un readline (ne pas faire add_history)
 
-	if (is_delimiter(delim, new_line))
+	if (is_delimiter(delim, next_line))
 	{
-		free(new_line);
+		free(next_line);
 		return (-1);
 	}
 	if (expand_optn)
 	{
-		char *tmp2;
-		char *tmp = ft_strdup((char *)new_line);
-		if (!tmp && ft_printf("An error occurred \n"))
-			return 0;
-		tmp[ft_strlen(tmp) - 1]= 0;
-		tmp2 = ft_strjoin(expand_content(tmp), "\n");
-		append_str(str_to_append, tmp2);
-		free(tmp2);
-		free(tmp);
+		if (next_line[0])
+			next_line[ft_strlen(next_line) - 1]= 0;
+		next_line = expand_content(next_line);
+		if (next_line)
+			append_str(str_to_append, next_line);
+		append_str(str_to_append, "\n");
 	}
 	else
-		append_str(str_to_append, new_line);
-	free(new_line);
+		append_str(str_to_append, next_line);
+	free(next_line);
 	return (0);
 }
 
-static int is_delimiter(char *delim, const char *new_line)
+static int is_delimiter(char *delim, const char *next_line)
 {
 
-	char *tmp = ft_strdup((char *)new_line);
+	char *tmp = ft_strdup((char *)next_line);
 	if (!tmp && ft_printf("An error occurred \n"))
 		return 0;
 	tmp[ft_strlen(tmp) - 1]= 0;
@@ -78,16 +75,16 @@ static int is_delimiter(char *delim, const char *new_line)
 	return (res);
 }
 
-static int append_str(char **str_to_append, char *new_line)
+static int append_str(char **str_to_append, char *next_line)
 {
 	if (!*str_to_append)
 	{
-		*str_to_append = ft_strdup(new_line);
+		*str_to_append = ft_strdup(next_line);
 		return 1;
 	}
-	*str_to_append = ft_strjoin(*str_to_append, new_line);
+	*str_to_append = ft_strjoin(*str_to_append, next_line);
 	if (!*str_to_append)
-		return (ft_putstr_fd("An error occured (here_doc)(append_line)\n", 2), 0);
+		return (ft_putstr_fd("An error occurred (here_doc)(append_line)\n", 2), 0);
 	return 1;
 }
 
