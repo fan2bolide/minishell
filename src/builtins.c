@@ -143,10 +143,13 @@ void update_env_var(t_keyval *keyval_to_update) {
 		return ;
 	while (!ft_strequ(keyval_to_update->key, curr->content->key))
 	 	curr = curr->next;
-	free(curr->content->value);
-	curr->content->value = ft_strdup(keyval_to_update->value);
-	if (!curr->content->value)
-		ft_putstr_fd("an error occurred (upsert env var)\n", 2);
+	if (keyval_to_update->value)
+	{
+		free(curr->content->value);
+		curr->content->value = ft_strdup(keyval_to_update->value);
+		if (!curr->content->value)
+			ft_putstr_fd("an error occurred (upsert env var)\n", 2);
+	}
 	free_keyval(keyval_to_update);
 	free(keyval_to_update);
 }
