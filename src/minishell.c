@@ -176,7 +176,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt_res;
 	t_list	*token_list;
-	t_list	*curr;
 
 
 	(void)argc;
@@ -190,12 +189,11 @@ int	main(int argc, char **argv, char **envp)
 			return (perror("signal setup failed: "), 1);
 		token_list = get_main_token_list(prompt_res);
 		free(prompt_res);
-		curr = token_list;
-		if (!curr)
-			continue;
+		if (!token_list)
+			continue ;
 		token_list = token_parsing(token_list);
 		if (!token_list)
-			return (ft_printf("syntax error, aborting.\n"), 1);
+			continue ;
 		if (!expand_tokens_from_list(token_list))
 			return (0);
 		t_cmdlist *cmd_lst = convert_token_lst_into_cmd_lst(token_list);
