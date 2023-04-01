@@ -115,7 +115,8 @@ void set_env_var_value(char *var_key, char *var_value)
  */
 void insert_or_update_env_var(t_keyval *keyval_to_insert)
 {
-
+	if (!keyval_to_insert)
+		return ;
 	if (env_var_exist(keyval_to_insert))
 		update_env_var(keyval_to_insert);
 	else
