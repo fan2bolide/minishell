@@ -42,7 +42,8 @@ static int append_new_line_if_not_delim(int fd, char **str_to_append, char *deli
 	expand_optn = 0;
 	expand_optn = ft_strchr(delim, '\"') == NULL && ft_strchr(delim, '\'') == NULL;
 	new_line = get_next_line(fd); // on peut remplacer par un readline (ne pas faire add_history)
-
+	if (!new_line)
+		return (ft_printf("\n"), -1);
 	if (is_delimiter(delim, new_line))
 	{
 		free(new_line);
@@ -68,11 +69,16 @@ static int append_new_line_if_not_delim(int fd, char **str_to_append, char *deli
 
 static int is_delimiter(char *delim, const char *new_line)
 {
+	char *tmp;
 
-	char *tmp = ft_strdup((char *)new_line);
+	tmp = NULL;
+	if (!new_line)
+		return 0;
+	tmp = ft_strdup((char *)new_line);
 	if (!tmp && ft_printf("An error occurred \n"))
 		return 0;
-	tmp[ft_strlen(tmp) - 1]= 0;
+	if (tmp[0])
+		tmp[ft_strlen(tmp) - 1]= 0;
 	int res = ft_strcmp(tmp, remove_quotes(delim)) == 0;
 	free(tmp);
 	return (res);
