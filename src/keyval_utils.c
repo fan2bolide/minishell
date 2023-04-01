@@ -12,7 +12,7 @@ void **ft_keyval_lst_to_str_arr(t_keyval_list *lst)
 	{
 		arr[i++] = ft_strjoin_secure(ft_strjoin_secure(lst->content->key,\
 		"="), lst->content->value);
-		if (!arr[i -1])
+		if (!arr[i -1] && lst->content->value)
 			ft_putstr_fd("an error occurred (ft_keyval_lst_to_str_arr)\n", 2);
 		lst = lst->next;
 	}
