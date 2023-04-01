@@ -24,6 +24,7 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 #include <sys/errno.h>
+#include <stdbool.h>
 
 typedef struct s_str_list
 {

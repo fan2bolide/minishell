@@ -21,6 +21,8 @@ void get_fds(t_cmdlist *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, in
 
 void close_fds(int fd_to_read, int fd_to_write);
 
+bool is_single_builtin_cmd(t_cmdlist *cmd_lst);
+
 int	execute_cmd_line(t_cmdlist *cmd_lst)
 {
 	int	pipes[OPEN_MAX][2];
@@ -30,6 +32,8 @@ int	execute_cmd_line(t_cmdlist *cmd_lst)
 	int	i;
 
 	i = 0;
+	if (is_single_builtin_cmd(cmd_lst))
+		return(exec_builtin(cmd_lst->content, 1), 1);
 	while (cmd_lst)
 	{
 		check_path(cmd_lst);
@@ -44,11 +48,6 @@ int	execute_cmd_line(t_cmdlist *cmd_lst)
 			execute_cmd(*cmd_lst->content,\
 			fd_to_read,\
 			fd_to_write);
-		if (!cmd_lst->content->heredoc_mode && (cmd_lst->content)->argv &&\
-		is_builtin((cmd_lst->content)->argv[0]) >= 0 )
-			exec_builtin(cmd_lst->content, \
-
-						 fd_to_write);
 		close_fds(fd_to_read, fd_to_write);
 		if ((cmd_lst->content)->heredoc_mode)
 			close((cmd_lst->content)->heredoc_pipe[READ]);
@@ -56,6 +55,14 @@ int	execute_cmd_line(t_cmdlist *cmd_lst)
 		i++;
 	}
 	return (exit_routine(pipes, pids, i), free_cmd_lst(&cmd_lst), 1);
+}
+
+bool is_single_builtin_cmd(t_cmdlist *cmd_lst) {
+	if (!cmd_lst->next)
+		if (cmd_lst->content->argv)
+			if (is_builtin(cmd_lst->content->argv[0]))
+				return (true);
+	return (false);
 }
 
 void close_fds(int fd_to_read, int fd_to_write) {
