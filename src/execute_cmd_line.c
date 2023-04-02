@@ -60,7 +60,7 @@ int	execute_cmd_line(t_cmdlist *cmd_lst)
 bool is_single_builtin_cmd(t_cmdlist *cmd_lst) {
 	if (!cmd_lst->next)
 		if (cmd_lst->content->argv)
-			if (is_builtin(cmd_lst->content->argv[0]))
+			if (is_builtin(cmd_lst->content->argv[0]) >= 0)
 				return (true);
 	return (false);
 }
