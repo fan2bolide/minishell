@@ -72,18 +72,18 @@ void	destroy_token(void *token)
 //ex : "echo te quiero loco | ... ": returns 4
 //ex : "ls | ..." : returns only 1
 //ex : "< file | ..." : returns 0
-int	token_cmd_line_size(t_list *token_lst)
+size_t token_cmd_line_size(t_token_list *token_lst)
 {
-    int	res;
+    size_t	res;
+	res = 0;
 
-    res = 0;
 	if (!token_lst)
 		return 1;
-    if (((t_token *)token_lst->content)->type != exec_name)
+    if (token_lst->content->type != exec_name)
         return (0);
     res++;
     token_lst = token_lst->next;
-    while (token_lst && ((t_token *)token_lst->content)->type == arg)
+    while (token_lst && token_lst->content->type == arg)
     {
         res++;
         token_lst = token_lst->next;

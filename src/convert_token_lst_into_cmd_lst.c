@@ -12,21 +12,21 @@
 
 #include "execute_cmd_line.h"
 
-static void switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst);
-void case_current_token_type_is_exec_name(t_list *token_lst_cursor, t_cmd *cmd); //static ?
+static void switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst);
+void case_current_token_type_is_exec_name(t_token_list *token_lst_cursor, t_cmd *cmd); //static ?
 void    case_current_token_type_is_redirect_out(
-		t_list *token_lst_cursor, t_cmd *cmd); //static ?
+		t_token_list *token_lst_cursor, t_cmd *cmd); //static ?
 void	case_current_token_type_is_redirect_in(
-		t_list *token_lst_cursor, t_cmd *cmd);
+		t_token_list *token_lst_cursor, t_cmd *cmd);
 //static int token_is_null(void *token_lst_content);
-void	case_current_token_type_is_redirect_hd(t_cmdlist **cmd_lst, t_list *token_lst_cursor);
+void	case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst, t_token_list *token_lst_cursor);
 
-t_cmdlist *convert_token_lst_into_cmd_lst(t_list *token_lst)
+t_cmd_list *convert_token_lst_into_cmd_lst(t_token_list *token_lst)
 {
-	t_cmdlist *cmd_lst;
-	t_cmdlist  *res;
+	t_cmd_list *cmd_lst;
+	t_cmd_list  *res;
 
-	cmd_lst = (t_cmdlist *)ft_lstnew(NULL);
+	cmd_lst = (t_cmd_list *)ft_lstnew(NULL);
 	res = cmd_lst;
 	cmd_lst->content = create_new_cmd();
 	while (token_lst)
@@ -37,7 +37,7 @@ t_cmdlist *convert_token_lst_into_cmd_lst(t_list *token_lst)
 	return (res);
 }
 
-static void switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst)
+static void switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst)
 {
 	t_token *current_token;
 
@@ -50,26 +50,26 @@ static void switch_case(t_list *token_lst_cursor, t_cmdlist **cmd_lst)
 	{ case_current_token_type_is_redirect_in(token_lst_cursor, (*cmd_lst)->content);}//debug
 	else if (current_token->type == operator_pipe)
 	{
-		(*cmd_lst)->next = (t_cmdlist *)ft_lstnew(create_new_cmd()); // todo protect this
+		(*cmd_lst)->next = (t_cmd_list *)ft_lstnew(create_new_cmd()); // todo protect this
 		*cmd_lst = (*cmd_lst)->next;
 	}
 	else if (current_token->type == redirect_hd)
 		case_current_token_type_is_redirect_hd(cmd_lst, token_lst_cursor);
 }
 
-void	case_current_token_type_is_redirect_hd(t_cmdlist **cmd_lst, t_list *token_lst_cursor)
+void	case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst, t_token_list *token_lst_cursor)
 {
 	(*cmd_lst)->content->heredoc_mode = 1;
-	(*cmd_lst)->content->heredoc_delim = ( (t_token *)token_lst_cursor->next->content)->content;
+	(*cmd_lst)->content->heredoc_delim = token_lst_cursor->next->content->content;
 	pipe( (*(*cmd_lst)->content).heredoc_pipe );
 	manage_here_doc(*(*cmd_lst)->content);
 	(*cmd_lst)->content->path = ft_strdup("heredoc"); // todo protect this
 	(*cmd_lst)->content->argv = (char **)ft_strdup("");
 }
 
-void case_current_token_type_is_exec_name(t_list *token_lst_cursor, t_cmd *cmd)
+void case_current_token_type_is_exec_name(t_token_list *token_lst_cursor, t_cmd *cmd)
 {
-	int		cmd_tab_size;
+	size_t	cmd_tab_size;
 	t_token	*current_token;
 	int		i;
 
@@ -87,11 +87,11 @@ void case_current_token_type_is_exec_name(t_list *token_lst_cursor, t_cmd *cmd)
 	if (is_builtin(cmd->argv[0]) < 0)
 		cmd->path = get_path(cmd->argv[0], envp_lst);
 	else
-		cmd->path = ft_strdup("builtin");// a proteger
+		cmd->path = ft_strdup("builtin");//todo a proteger
 }
 
 void	case_current_token_type_is_redirect_out(
-		t_list *token_lst_cursor, t_cmd *cmd)
+		t_token_list *token_lst_cursor, t_cmd *cmd)
 {
 	t_token *token_with_the_redirect_file;
 	int open_mode;
@@ -99,22 +99,22 @@ void	case_current_token_type_is_redirect_out(
 
 	token_with_the_redirect_file = token_lst_cursor->next->content;
 	file = token_with_the_redirect_file->content;
-	if (((t_token *)token_lst_cursor)->type == redirect_out_trunc)
+	if (token_lst_cursor->content->type == redirect_out_trunc)
 		open_mode = O_TRUNC;
-	if (((t_token *)token_lst_cursor)->type == redirect_out_append)
+	if (token_lst_cursor->content->type == redirect_out_append)
 		open_mode = O_APPEND;
-	cmd->redirect_out = ft_strdup(file); // a proteger
+	cmd->redirect_out = ft_strdup(file); //todo a proteger
 	cmd->redirect_out_mode = open_mode;
 }
 
 
 void	case_current_token_type_is_redirect_in(
-		t_list *token_lst_cursor, t_cmd *cmd)
+		t_token_list *token_lst_cursor, t_cmd *cmd)
 {
 	t_token *token_with_the_redirect_file;
 	char *file;
 
 	token_with_the_redirect_file = token_lst_cursor->next->content;
 	file = token_with_the_redirect_file->content;
-	cmd->redirect_in = ft_strdup(file); // a proteger
+	cmd->redirect_in = ft_strdup(file); //todo a proteger
 }

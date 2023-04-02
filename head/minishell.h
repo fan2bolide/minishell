@@ -65,6 +65,12 @@ typedef struct s_token
 
 }	t_token;
 
+typedef struct s_token_list
+{
+	t_token 			*content;
+	struct s_token_list	*next;
+}	t_token_list;
+
 typedef struct s_cmd
 {
 	char	**argv;
@@ -77,21 +83,21 @@ typedef struct s_cmd
 	int 	heredoc_pipe[2];
 }			t_cmd;
 
-typedef struct s_cmdlist
+typedef struct s_cmd_list
 {
 	t_cmd 			*content;
-	struct s_cmdlist	*next;
-}	t_cmdlist;
+	struct s_cmd_list	*next;
+}	t_cmd_list;
 
 t_keyval_list 	*envp_lst;
 
-t_cmdlist *convert_token_lst_into_cmd_lst(t_list *token_lst);
-int		token_cmd_line_size(t_list *token_lst);
+t_cmd_list *convert_token_lst_into_cmd_lst(t_token_list *token_lst);
+size_t token_cmd_line_size(t_token_list *token_lst);
 
 //debug
 t_list	*get_sample_tokens();
 
-int		execute_cmd_line(t_cmdlist *cmd_lst);
+int		execute_cmd_line(t_cmd_list *cmd_lst);
 char *expand_content(char *raw_content);
 int expand_tokens_from_list(t_list *token_list);
 t_list	*get_main_token_list(char *command_line);
