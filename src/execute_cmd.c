@@ -17,6 +17,8 @@ void	execute_cmd(t_cmd cmd, int to_read, int to_write)
 {
 	if(cmd.argv && is_builtin(cmd.argv[0]) >= 0)
 		exit(EXIT_SUCCESS);
+	if (cmd.argv && cmd.argv[0] && !*cmd.argv[0])
+		exit(EXIT_SUCCESS);
 	if (to_read != STDIN_FILENO)
 	{
 		dup2(to_read, STDIN_FILENO);

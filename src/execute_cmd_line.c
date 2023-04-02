@@ -111,8 +111,9 @@ static int	is_last_cmd(t_cmdlist *cmd)
 
 void check_path(const t_cmdlist *cmd_lst) {
 	if (!(cmd_lst->content)->path)
-		if ((cmd_lst->content)->argv)
-			ft_printf("Turboshell: command not found: %s\n", (cmd_lst->content)->argv[0]); //TODO SEGFAULT ICI
+		if ((cmd_lst->content)->argv && (cmd_lst->content)->argv[0])
+			if (*(cmd_lst->content)->argv[0])
+				ft_printf("Turboshell: command not found: %s\n", (cmd_lst->content)->argv[0]);
 }
 
 int create_and_check_pipes(int pipes[OPEN_MAX][2], int i) {
