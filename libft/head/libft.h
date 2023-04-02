@@ -126,4 +126,6 @@ void **ft_dup_arr(void **arr, size_t sizeof_arr_elemnt);
 void	cpy_arr(void ** arr_src, void ** arr_dest);
 void	**ft_lst_to_arr(t_list *lst, size_t size_of_arr_elemnt);
 
+size_t	count_strs(const char *s, char c);
+
 #endif
