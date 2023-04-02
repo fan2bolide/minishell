@@ -51,7 +51,7 @@ void cd(struct s_cmd *cmd)
 	}
 	else
 	{
-		perror("Turboshell :");
+		ft_putstr_fd("Turboshell : cd : Permission denied\n", 2);
 		update_exit_code(errno);
 		return ;
 	}
