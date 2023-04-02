@@ -20,6 +20,8 @@ void	execute_cmd(t_cmd cmd, int to_read, int to_write)
 		exec_builtin(&cmd, to_write);
 		exit (ft_atoi((const char *)envp_lst->content)) ;
 	}
+	if (cmd.argv && cmd.argv[0] && !*cmd.argv[0])
+		exit(EXIT_SUCCESS);
 	if (to_read != STDIN_FILENO)
 	{
 		dup2(to_read, STDIN_FILENO);
