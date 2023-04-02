@@ -13,17 +13,17 @@
 #include "execute_cmd_line.h"
 
 static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd);
-static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmdlist *cmd_lst);
-static int	is_last_cmd(t_cmdlist *cmd);
-void check_path(const t_cmdlist *cmd_lst);
+static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmd_list *cmd_lst);
+static int	is_last_cmd(t_cmd_list *cmd);
+void check_path(const t_cmd_list *cmd_lst);
 int create_and_check_pipes(int pipes[10240][2], int i);
-void get_fds(t_cmdlist *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, int *fd_to_write);
+void get_fds(t_cmd_list *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, int *fd_to_write);
 
 void close_fds(int fd_to_read, int fd_to_write);
 
-bool is_single_builtin_cmd(t_cmdlist *cmd_lst);
+bool is_single_builtin_cmd(t_cmd_list *cmd_lst);
 
-int	execute_cmd_line(t_cmdlist *cmd_lst)
+int	execute_cmd_line(t_cmd_list *cmd_lst)
 {
 	int	pipes[OPEN_MAX][2];
 	int	pids[OPEN_MAX];
@@ -57,7 +57,7 @@ int	execute_cmd_line(t_cmdlist *cmd_lst)
 	return (exit_routine(pipes, pids, i), free_cmd_lst(&cmd_lst), 1);
 }
 
-bool is_single_builtin_cmd(t_cmdlist *cmd_lst) {
+bool is_single_builtin_cmd(t_cmd_list *cmd_lst) {
 	if (!cmd_lst->next)
 		if (cmd_lst->content->argv)
 			if (is_builtin(cmd_lst->content->argv[0]) >= 0)
@@ -72,7 +72,7 @@ void close_fds(int fd_to_read, int fd_to_write) {
 		close(fd_to_write);
 }
 
-void get_fds(t_cmdlist *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, int *fd_to_write) {
+void get_fds(t_cmd_list *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, int *fd_to_write) {
 	(*fd_to_read) = get_fd_to_read(pipes, i, *(cmd_lst->content));
 	(*fd_to_write) = get_fd_to_write(pipes, i, cmd_lst);
 }
@@ -96,7 +96,7 @@ static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd)
 	return res;
 }
 
-static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmdlist *cmd_lst)
+static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmd_list *cmd_lst)
 {
 	int res;
 	t_cmd *cmd;
@@ -111,12 +111,12 @@ static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmdlist *cmd_lst)
 	return (res);
 }
 
-static int	is_last_cmd(t_cmdlist *cmd)
+static int	is_last_cmd(t_cmd_list *cmd)
 {
 	return (cmd->next == NULL);
 }
 
-void check_path(const t_cmdlist *cmd_lst) {
+void check_path(const t_cmd_list *cmd_lst) {
 	if (!(cmd_lst->content)->path)
 		if ((cmd_lst->content)->argv && (cmd_lst->content)->argv[0])
 			if (*(cmd_lst->content)->argv[0])

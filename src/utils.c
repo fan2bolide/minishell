@@ -50,7 +50,7 @@ void	close_pipes(int pipes[OPEN_MAX][2], int i)
 	}
 }
 
-void	free_cmd_lst(t_cmdlist **cmd_list)
+void	free_cmd_lst(t_cmd_list **cmd_list)
 {
 	ft_lstclear((t_list **)cmd_list, (void *)(free_cmd));
 }
