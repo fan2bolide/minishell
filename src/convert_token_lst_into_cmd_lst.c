@@ -71,18 +71,33 @@ void case_current_token_type_is_exec_name(t_token_list *token_lst_cursor, t_cmd 
 {
 	size_t	cmd_tab_size;
 	t_token	*current_token;
+	char **splits;
 	int		i;
+	int 	j;
 
 	i = 0;
 	cmd_tab_size = token_cmd_line_size(token_lst_cursor) + 1;
 	cmd->argv = ft_calloc(cmd_tab_size, sizeof(char *));
-	while (cmd_tab_size > 1)
+	if (cmd_tab_size > 1)
 		{
 			current_token = token_lst_cursor->content;
-			cmd->argv[i++] = ft_strdup(current_token->content);
+			splits = ft_split(current_token->content, ' ');
+			j = 0;
+			while (splits[j])
+			{
+				cmd->argv[i++] = splits[j++];
+				cmd_tab_size--;
+			}
 			token_lst_cursor = token_lst_cursor->next;
-			cmd_tab_size--;
+			free(splits);
 		}
+	while (cmd_tab_size > 1)
+	{
+		current_token = token_lst_cursor->content;
+		cmd->argv[i++] = ft_strdup(current_token->content);
+		token_lst_cursor = token_lst_cursor->next;
+		cmd_tab_size--;
+	}
 	cmd->argv[i] = NULL;
 	if (is_builtin(cmd->argv[0]) < 0)
 		cmd->path = get_path(cmd->argv[0], envp_lst);
