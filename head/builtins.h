@@ -4,7 +4,7 @@
 # include "minishell.h"
 
 void export(char **argv, int to_write);
-int		str_starts_with(char *str, char *keyword);
+
 void unset(char *var_to_unset);
 void env(int to_write);
 
