@@ -111,5 +111,6 @@ t_keyval_list * convert_str_arr_into_new_keyval_list(char **array);
 t_keyval *create_keyval_from_env_var(char *var);
 t_keyval *create_keyval(void);
 void	update_exit_code(int exit_code);
-
+bool is_a_dir(struct stat *file_status);
+int get_file_status(char * file_or_dir, struct stat *result);
 #endif

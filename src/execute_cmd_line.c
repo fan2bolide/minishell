@@ -23,6 +23,10 @@ void close_fds(int fd_to_read, int fd_to_write);
 
 bool is_single_builtin_cmd(t_cmd_list *cmd_lst);
 
+static void error_depending_on_file_or_dir(char *cmd_with_issue);
+
+void check_if_is_dir(char *path);
+
 int	execute_cmd_line(t_cmd_list *cmd_lst)
 {
 	int	pipes[OPEN_MAX][2];
@@ -117,10 +121,55 @@ static int	is_last_cmd(t_cmd_list *cmd)
 }
 
 void check_path(const t_cmd_list *cmd_lst) {
-	if (!(cmd_lst->content)->path)
-		if ((cmd_lst->content)->argv && (cmd_lst->content)->argv[0])
-			if (*(cmd_lst->content)->argv[0])
-				ft_printf("Turboshell: command not found: %s\n", (cmd_lst->content)->argv[0]);
+	
+	int is_an_issue;
+	char *cmd_with_issue;
+	is_an_issue =0;
+	if (!cmd_lst->content->path)
+		if (cmd_lst->content->argv && cmd_lst->content->argv[0])
+			if (*cmd_lst->content->argv[0])
+				is_an_issue = 1;
+
+	if (!is_an_issue)
+		return (check_if_is_dir(cmd_lst->content->path));
+	cmd_with_issue = (cmd_lst->content)->argv[0];
+	if (str_starts_with(cmd_with_issue, "./") || str_starts_with( cmd_with_issue, "/"))
+		error_depending_on_file_or_dir(cmd_with_issue);
+	else
+		ft_printf("Turboshell: command not found: %s\n", (cmd_lst->content)->argv[0]);
+
+
+}
+
+void check_if_is_dir(char *path) {
+	struct stat file_status;
+	int const success = 0;
+
+	if (!path)
+		return ;
+	if (str_starts_with(path, "./"))
+		path +=2 ;
+	if (get_file_status(path, &file_status) != success)
+		return ;
+	if (is_a_dir(&file_status)) {
+		ft_putstr_fd(path,2);
+		ft_putstr_fd(": is a directory\n", 2);
+	}
+}
+
+static void error_depending_on_file_or_dir(char *cmd_with_issue) {
+
+	struct stat file_status;
+	int const success = 0;
+
+	if (!cmd_with_issue)
+		return ;
+	ft_putstr_fd(cmd_with_issue,2);
+	if (get_file_status(cmd_with_issue, &file_status) != success)
+		ft_putstr_fd(" : No such file or directory \n",2);
+	else
+		ft_putstr_fd(" : is a file or a directory \n",2);
+
 }
 
 int create_and_check_pipes(int pipes[OPEN_MAX][2], int i) {
