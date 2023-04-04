@@ -6,6 +6,8 @@
 
 static void update_pwd();
 
+int user_has_read_permission(struct stat *file_status);
+
 void pwd(int fd_to_write)
 {
 	char *cwd;
@@ -23,28 +25,30 @@ void pwd(int fd_to_write)
 
 void cd(struct s_cmd *cmd)
 {
-	struct stat st;
+	struct stat file_status;
 	char 		*dir;
+	int const success = 0;
+	int const cd_error_code = 1;
 
 	dir = cmd->argv[1];
 	if (!dir)
 		return ;
-	if (stat(dir, &st) < 0){
+	if (get_file_status(dir, &file_status) != success){
 		perror("Turboshell :cd");
 		update_exit_code(1);
 		return ;
 	}
-	if ((st.st_mode & S_IFMT) != S_IFDIR) {
-		perror("Turboshell :cd");
-		update_exit_code(1);
+	if (!is_a_dir(&file_status)) {
+		ft_putstr_fd("Turboshell : cd : not a directory\n", 2);
+		update_exit_code(cd_error_code);
 		return ;
 	}
-	if (st.st_mode & S_IRUSR)
+	if (user_has_read_permission(&file_status))
 	{
-		if (chdir(dir) != 0)
+		if (chdir(dir) != success)
 		{
 			perror("chdir() error");
-			update_exit_code(0);
+			update_exit_code(cd_error_code);
 		}
 		update_pwd();
 		return ;
@@ -52,7 +56,7 @@ void cd(struct s_cmd *cmd)
 	else
 	{
 		print_error(perm_denied, dir);
-		update_exit_code(errno);
+		update_exit_code(cd_error_code);
 		return ;
 	}
 }

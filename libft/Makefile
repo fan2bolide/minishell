@@ -79,6 +79,7 @@ SRC			=	ft_atoi.c			\
 				ft_realloc.c		\
 				ft_dup_arr.c		\
 				ft_lst_to_arr.c		\
+				str_starts_with.c	\
 
 OBJ = $(addprefix obj/,$(SRC:.c=.o))
 

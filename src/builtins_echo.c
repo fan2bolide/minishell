@@ -22,6 +22,7 @@ void	echo(char **argv, int to_write)
 {
 	int 	option_n;
 	int i;
+	int success=0;
 
 	if (!argv[1])
 		return;
@@ -36,6 +37,7 @@ void	echo(char **argv, int to_write)
 	}
 	if (!option_n)
 		ft_putstr_fd("\n", to_write);
+	update_exit_code(success);
 }
 
 static int is_echos_option_n(char *argv1)
