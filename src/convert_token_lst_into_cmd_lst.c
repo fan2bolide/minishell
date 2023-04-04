@@ -64,7 +64,7 @@ void	case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst, t_token_list *
 	pipe( (*(*cmd_lst)->content).heredoc_pipe );
 	manage_here_doc(*(*cmd_lst)->content);
 	(*cmd_lst)->content->path = ft_strdup("heredoc"); // todo protect this
-	(*cmd_lst)->content->argv = (char **)ft_strdup("");
+	(*cmd_lst)->content->argv = NULL;
 }
 
 void case_current_token_type_is_exec_name(t_token_list *token_lst_cursor, t_cmd *cmd)
