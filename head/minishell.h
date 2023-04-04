@@ -23,8 +23,20 @@
 # include <sys/stat.h>
 # include <readline/history.h>
 # include <readline/readline.h>
-#include <sys/errno.h>
-#include <stdbool.h>
+# include <sys/errno.h>
+# include <stdbool.h>
+
+enum e_error_context
+{
+	no_file,
+	unknown_command,
+	parsing_error,
+	perm_denied,
+	error_occured,
+	alloc_error,
+	cwd_error,
+	heredoc_pipe_error
+};
 
 typedef struct s_str_list
 {
@@ -111,5 +123,7 @@ t_keyval_list * convert_str_arr_into_new_keyval_list(char **array);
 t_keyval *create_keyval_from_env_var(char *var);
 t_keyval *create_keyval(void);
 void	update_exit_code(int exit_code);
+void	print_error(enum e_error_context context, char *token);
+
 
 #endif
