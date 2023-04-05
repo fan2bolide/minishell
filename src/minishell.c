@@ -38,6 +38,7 @@ static int	setup_signals(void (sig_handler)(int))
 	struct sigaction sa;
 	sa.sa_handler = sig_handler;
 	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGINT, &sa, NULL) == -1)
 		return (0);
 	if (sigaction(SIGQUIT, &sa, NULL) == -1)
