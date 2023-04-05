@@ -78,13 +78,14 @@ void	destroy_token(void *token)
 size_t token_cmd_line_size(t_token_list *token_lst)
 {
     size_t	res;
-	res = 0;
 
 	if (!token_lst)
 		return 1;
     if (token_lst->content->type != exec_name)
+	{
         return (0);
-	res += count_strs(token_lst->content->content, ' ');
+	}
+	res = count_strs(token_lst->content->content, ' ');
     token_lst = token_lst->next;
     while (token_lst && token_lst->content->type == arg)
     {
