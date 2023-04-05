@@ -1,5 +1,4 @@
 
-#include <stdbool.h>
 #include "builtins.h"
 
 int check_export_syntax(char **argv);
@@ -12,10 +11,11 @@ void insert_env_var(t_keyval *keyval_to_insert);
 void update_env_var(t_keyval *keyval_to_update);
 
 bool env_var_exist(t_keyval *keyval_to_check);
-
+void shell_exit(char *argv1);
 void exec_builtin(t_cmd *cmd, int to_write)
 {
 	int type;
+
 	type = is_builtin(cmd->argv[0]);
 	if (type == 0)
 		echo(cmd->argv, to_write);
@@ -30,7 +30,27 @@ void exec_builtin(t_cmd *cmd, int to_write)
 	else if (type == 5)
 		env(to_write);
 	else if (type == 6)
-		exit(EXIT_SUCCESS); // todo replace with exit_code or with argv[1]
+		shell_exit(cmd->argv[1]);
+}
+
+void shell_exit(char *argv1)
+{
+	int exit_code_modulo;
+	const char* exit_code;
+
+	ft_printf("exit\n");
+	exit_code = envp_lst->content->value;
+	exit_code_modulo = ft_atoi(exit_code) % 256;
+	if (!argv1)
+		exit(exit_code_modulo);
+	if (!str_contains_digits_only(argv1) ||
+	!can_be_converted_to_long(argv1))
+	{
+		//todo print error "numeric argument required" here
+		exit (255);
+	}
+	exit_code_modulo = ft_atoll(argv1) % 256;
+	exit(exit_code_modulo);
 }
 
 // returns -1 if str is not a builtins

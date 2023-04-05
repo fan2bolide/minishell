@@ -16,6 +16,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <stdbool.h>
 
 typedef struct s_list
 {
@@ -128,5 +129,7 @@ void	**ft_lst_to_arr(t_list *lst, size_t size_of_arr_elemnt);
 
 size_t	count_strs(const char *s, char c);
 int str_starts_with(char *str, char *keyword);
+bool str_contains_digits_only(char *str);
+bool can_be_converted_to_long(char *argv1);
 
 #endif
