@@ -14,9 +14,9 @@ void pwd(int fd_to_write)
 
 	cwd = ft_calloc(1024 , sizeof(char));
 	if (!cwd)
-		return (ft_putstr_fd("an error occurred (pwd)\n", 2));
+		return (print_error(error_occured, "pwd"));
 	if (!getcwd(cwd, 1024))
-		ft_putstr_fd("error retrieving the current working directory", 2);
+		print_error(cwd_error, "");
 	else
 		ft_putstr_fd( cwd, fd_to_write);
 	ft_putstr_fd("\n", fd_to_write);
@@ -55,20 +55,10 @@ void cd(struct s_cmd *cmd)
 	}
 	else
 	{
-		ft_putstr_fd("Turboshell : cd : Permission denied\n", 2);
+		print_error(perm_denied, dir);
 		update_exit_code(cd_error_code);
 		return ;
 	}
-}
-
-int user_has_read_permission(struct stat *file_status) { return (*file_status).st_mode & S_IRUSR; }
-
-bool is_a_dir(struct stat *file_status)
-{ return ((*file_status).st_mode & S_IFMT) == S_IFDIR; }
-
-int get_file_status(char * file_or_dir, struct stat *result)
-{
-	return (stat(file_or_dir, result));
 }
 
 static void update_pwd()
@@ -76,7 +66,7 @@ static void update_pwd()
 	char * path =ft_calloc(1024, sizeof (char));
 	if (!path)
 	{
-		ft_putstr_fd("an error occurred (!envp_lst || !path)\nexiting..\n", 2);
+		print_error(error_occured, "(!envp_lst || !path)");
 		exit(EXIT_FAILURE);
 	}
 	path = getcwd(path, 1024);

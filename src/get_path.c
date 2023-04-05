@@ -28,7 +28,7 @@ char	*get_path(char *exec_name, t_keyval_list *envp_lst)
 		envp_lst = envp_lst->next;
 	paths = ft_split(envp_lst->content->value, ':');
 	if (!paths)
-		return (ft_putstr_fd("An error occurred (split)\n", 2), NULL);
+		return (print_error(error_occured, "split"), NULL);
 	i = 0;
 	while (paths[i])
 	{
@@ -54,7 +54,7 @@ static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd)
 		path_w_slash = ft_strjoin_secure(incomplete_path, "/");
 		path = ft_strjoin_secure(path_w_slash, cmd);
 		if (!path || !path_w_slash)
-			ft_putstr_fd("An error occurred (ft_strjoin_w_slash)\n", 2);
+			print_error(error_occured, "strjoin_w_slash");
 		free(path_w_slash);
 		return (path);
 	}

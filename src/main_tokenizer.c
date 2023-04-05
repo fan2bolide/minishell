@@ -115,9 +115,7 @@ t_list	*get_main_token_list(char *command_line)
 		curr = curr->next;
 		if (get_next_expression(command_line + i) == 0)
 		{
-			ft_putstr_fd("Turboshell: parsing error near token: '", 2);
-			ft_putstr_fd(command_line + i, 2);
-			ft_putstr_fd("'\n", 2);
+			print_error(parsing_error, command_line + i);
 			return (ft_lstclear(&list, destroy_token), NULL);
 		}
 		i += get_next_expression(command_line + i);

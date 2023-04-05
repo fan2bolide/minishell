@@ -113,7 +113,7 @@ t_keyval *get_env_var(char *var_name)
 void set_env_var_value(char *var_key, char *var_value)
 {
 	if (!var_key)
-		return (ft_putstr_fd("set_env_var_value : no key\n", 2));
+		return (print_error(error_occured, "set_env_var_value"));
 	t_keyval *var_to_set = get_env_var(var_key);
 	if (var_to_set)
 		free(var_to_set->value);
@@ -125,7 +125,7 @@ void set_env_var_value(char *var_key, char *var_value)
 	}
 	var_to_set->value = ft_strdup(var_value);
 	if (!var_to_set->value)
-		ft_putstr_fd("An error occurred (set_env_var_value)\n",2);
+		print_error(error_occured, "set_env_var_value");
 }
 
 /**
@@ -169,7 +169,7 @@ void update_env_var(t_keyval *keyval_to_update) {
 		free(curr->content->value);
 		curr->content->value = ft_strdup(keyval_to_update->value);
 		if (!curr->content->value)
-			ft_putstr_fd("an error occurred (upsert env var)\n", 2);
+			print_error(error_occured, "update_env_var");
 	}
 	free_keyval(keyval_to_update);
 	free(keyval_to_update);
@@ -183,7 +183,7 @@ void insert_env_var(t_keyval *keyval_to_insert)
 	if (envp_lst)
 		curr = envp_lst->next;
 	if (!curr || !envp_lst)
-		return (ft_putstr_fd("An error occurred (insert env var)\n", 2),(void)0);
+		return (print_error(error_occured, "insert_env_var"),(void)0);
 	while(curr->next && ft_strcmp(keyval_to_insert->key, curr->next->content->key) > 0)
 		(curr) = (curr)->next;
 	t_keyval_list *tmp = curr->next;
@@ -218,7 +218,7 @@ void export(char **argv, int to_write)
 	}
 	t_keyval *keyval_to_export = create_keyval_from_env_var(argv[1]);
 	if (!keyval_to_export)
-		return(ft_putstr_fd("An error occurred (export)\n", 2));
+		return(print_error(error_occured, "export"));
 	insert_or_update_env_var(keyval_to_export);
 }
 

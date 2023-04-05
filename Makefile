@@ -37,6 +37,7 @@ SRC =	minishell.c\
 		expand_utils.c \
 		heredoc_manager.c \
 		keyval_utils.c \
+		error_handling.c\
 
 
 BONUS_SRC =

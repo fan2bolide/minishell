@@ -29,7 +29,7 @@ static void here_doc_routine(int fd_to_write, char *delimiter)
 		bytes_written = \
 		write(fd_to_write, heredoc_buf, ft_strlen(heredoc_buf));
 		if (bytes_written < 0)
-			ft_putstr_fd("Error while trying to write in heredoc's pipe\n", 2);
+			print_error(heredoc_pipe_error, "");
 	}
 	free(heredoc_buf);
 }
@@ -90,7 +90,7 @@ static int append_str(char **str_to_append, char *next_line)
 	}
 	*str_to_append = ft_strjoin(*str_to_append, next_line);
 	if (!*str_to_append)
-		return (ft_putstr_fd("An error occurred (here_doc)(append_line)\n", 2), 0);
+		return (print_error(error_occured, "(here_doc)(append_line)"), 0);
 	return 1;
 }
 

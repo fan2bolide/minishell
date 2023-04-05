@@ -51,7 +51,8 @@ t_list	*token_parsing(t_list *tokens)
 			curr_token->type == redirect_out_append)
 			if (ft_strlen(curr_token->content) > 2)
 			{
-				ft_putstr_fd("Turboshell: error near token:\'", 2);
+				print_error(parsing_error, "");
+				ft_putstr_fd("\'", 2);
 				write(2, curr_token->content + 2, 2);
 				ft_putstr_fd("\'\n", 2);
 				return (ft_lstclear(&tokens, destroy_token), NULL);
