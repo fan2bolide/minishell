@@ -250,7 +250,7 @@ void unset(char *var_to_unset)
 	if(curr->next)
 	{
 		t_keyval_list *tmp = curr->next->next;
-		ft_lstdelone((t_list *)curr->next, free);
+		ft_lstdelone((t_list *)curr->next, &destroy_keyval);
 		curr->next = tmp;
 	}
 }
