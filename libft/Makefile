@@ -80,6 +80,8 @@ SRC			=	ft_atoi.c			\
 				ft_dup_arr.c		\
 				ft_lst_to_arr.c		\
 				str_starts_with.c	\
+				str_contains_digits_only.c \
+				can_be_converted_to_long.c
 
 OBJ = $(addprefix obj/,$(SRC:.c=.o))
 
