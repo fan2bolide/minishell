@@ -131,5 +131,5 @@ size_t	count_strs(const char *s, char c);
 int str_starts_with(char *str, char *keyword);
 bool str_contains_digits_only(char *str);
 bool can_be_converted_to_long(char *argv1);
-
+void	ft_free_arr(void ** array, void (*del)(void *));
 #endif

@@ -12,8 +12,6 @@
 
 #include "execute_cmd_line.h"
 
-void	ft_free_arr(void ** array, void (*del)(void *)); // might want to move this into baj libft
-
 void	exit_routine(int pipes[OPEN_MAX][2], int pids[OPEN_MAX],
 		int i)
 {
@@ -62,16 +60,6 @@ void	free_cmd(t_cmd *cmd)
 	free(cmd->redirect_in);
 	ft_free_arr((void **) cmd->argv, free);
 
-}
-
-//last element of array must be a NULL pointer
-void	ft_free_arr(void ** array, void (*del)(void *))
-{
-	int	i;
-
-	i = 0;
-	while(array[i])
-		del(array[i++]);
 }
 
 int open_and_get_fd(char *file, int open_mode, int rights)

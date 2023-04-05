@@ -81,7 +81,8 @@ SRC			=	ft_atoi.c			\
 				ft_lst_to_arr.c		\
 				str_starts_with.c	\
 				str_contains_digits_only.c \
-				can_be_converted_to_long.c
+				can_be_converted_to_long.c \
+				ft_free_arr.c \
 
 OBJ = $(addprefix obj/,$(SRC:.c=.o))
 

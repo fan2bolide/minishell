@@ -11,11 +11,12 @@ void insert_env_var(t_keyval *keyval_to_insert);
 void update_env_var(t_keyval *keyval_to_update);
 
 bool env_var_exist(t_keyval *keyval_to_check);
-void shell_exit(char *argv1);
-void exec_builtin(t_cmd *cmd, int to_write)
+void shell_exit(t_cmd_list **cmd);
+void exec_builtin(t_cmd_list **cmd_list_ptr, int to_write)
 {
 	int type;
 
+	t_cmd *cmd = (*cmd_list_ptr)->content;
 	type = is_builtin(cmd->argv[0]);
 	if (type == 0)
 		echo(cmd->argv, to_write);
@@ -30,20 +31,26 @@ void exec_builtin(t_cmd *cmd, int to_write)
 	else if (type == 5)
 		env(to_write);
 	else if (type == 6)
-		shell_exit(cmd->argv[1]);
+		shell_exit(cmd_list_ptr);
 }
 
-void shell_exit(char *argv1)
+void shell_exit(t_cmd_list **cmd_list_ptr)
 {
 	int exit_code_modulo;
 	const char* exit_code;
+
+	t_cmd *cmd = (*cmd_list_ptr)->content;
+	char *argv1 = cmd->argv[1];
 
 	ft_printf("exit\n");
 	exit_code = envp_lst->content->value;
 	exit_code_modulo = ft_atoi(exit_code) % 256;
 	ft_lstclear((t_list **)&envp_lst, &destroy_keyval);
 	if (!argv1)
+	{
+		ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) &destroy_cmd);
 		exit(exit_code_modulo);
+	}
 	if (!str_contains_digits_only(argv1) ||
 	!can_be_converted_to_long(argv1))
 	{
@@ -51,6 +58,7 @@ void shell_exit(char *argv1)
 		exit (255);
 	}
 	exit_code_modulo = ft_atoll(argv1) % 256;
+	ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) &destroy_cmd);
 	exit(exit_code_modulo);
 }
 

@@ -13,11 +13,13 @@
 #include "execute_cmd_line.h"
 #include "minishell.h"
 //'to_read' linked to child ´stdin´ and child ´stdout´ linked to ´to_write´
-void	execute_cmd(t_cmd cmd, int to_read, int to_write)
+void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 {
+	t_cmd cmd = *(*cmd_list_ptr)->content;
+
 	if(cmd.argv && is_builtin(cmd.argv[0]) >= 0)
 	{
-		exec_builtin(&cmd, to_write);
+		exec_builtin(cmd_list_ptr, to_write);
 		exit (ft_atoi((const char *)envp_lst->content)) ;
 	}
 	if ((cmd.argv && cmd.argv[0] && !*cmd.argv[0]) ||

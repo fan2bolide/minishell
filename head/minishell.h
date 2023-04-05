@@ -115,7 +115,7 @@ int expand_tokens_from_list(t_list *token_list);
 t_list	*get_main_token_list(char *command_line);
 t_list	*token_parsing(t_list *tokens);
 void	destroy_token(void *token);
-void exec_builtin(t_cmd *cmd, int to_write);
+void exec_builtin(t_cmd_list **cmd, int to_write);
 int		is_builtin(char *str);
 void	log_cmd(t_cmd *cmd);
 char	*get_env_var_value(char *var_name);

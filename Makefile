@@ -92,6 +92,23 @@ fclean : clean
 re : fclean
 	@$(MAKE) all
 
-.PHONY : all lib run re clean fclean bonus create_obj_folder
+.PHONY : all lib run re clean fclean bonus create_obj_folder leaks
+
+leaks:	all
+	echo "{" > valgrind_ignore_leaks.txt
+	echo "    leak readline" >> valgrind_ignore_leaks.txt
+	echo "    Memcheck:Leak" >> valgrind_ignore_leaks.txt
+	echo "    ..." >> valgrind_ignore_leaks.txt
+	echo "    fun:readline" >> valgrind_ignore_leaks.txt
+	echo "}" >> valgrind_ignore_leaks.txt
+	echo "{" >> valgrind_ignore_leaks.txt
+	echo "    leak add_history" >> valgrind_ignore_leaks.txt
+	echo "    Memcheck:Leak" >> valgrind_ignore_leaks.txt
+	echo "    ..." >> valgrind_ignore_leaks.txt
+	echo "    fun:add_history" >> valgrind_ignore_leaks.txt
+	echo "}" >> valgrind_ignore_leaks.txt
+	valgrind --suppressions=valgrind_ignore_leaks.txt --leak-check=full\
+	    --show-leak-kinds=all --track-origins=yes --verbose\
+	    --show-mismatched-frees=yes --read-var-info=yes ./${NAME}
 
 -include $(DEPENDS)

@@ -36,7 +36,7 @@
 # include <sys/wait.h>
 
 void		manage_here_doc(t_cmd cmd);
-void		execute_cmd(t_cmd cmd, int to_read, int to_write);
+void		execute_cmd(t_cmd_list **cmd, int to_read, int to_write);
 char		*get_path(char *exec_name, t_keyval_list *envp_lst);
 void		wait_all_child_proc(int *pids, int childs_counter);
 void		close_pipes(int pipes[OPEN_MAX][2],	int i);
