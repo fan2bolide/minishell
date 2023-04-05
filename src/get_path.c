@@ -37,11 +37,11 @@ char	*get_path(char *exec_name, t_keyval_list *envp_lst)
 		{
 			if (access(path, X_OK) != 0 || exec_name[0] == 0)
 				ft_printf("permission denied :%s\n", exec_name);
-			return (free(paths), path);
+			return (ft_split_destroy(paths), path);
 		}
 		free(path);
 	}
-	return (free(paths), NULL);
+	return (ft_split_destroy(paths), NULL);
 }
 
 static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd)
