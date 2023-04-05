@@ -116,7 +116,7 @@ char	*prompt()
 	if (tmp == NULL)
 	{
 		ft_printf(ANSI_RED" ➜ "ANSI_RESET"exit\n");
-		exit(1);
+		return(ft_strdup("exit"));
 	}
 	res = ft_strtrim(tmp, " ");
 	free(tmp);
