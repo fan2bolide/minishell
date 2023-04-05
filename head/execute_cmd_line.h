@@ -44,8 +44,8 @@ void		free_cmd_lst(t_cmd_list **cmd_list);
 void		free_cmd(t_cmd *cmd_lst);
 void		exit_routine(int pipes[OPEN_MAX][2], int pids[OPEN_MAX], int i);
 int 		open_and_get_fd(char *file, int open_mode, int rights);
-t_cmd *create_new_cmd();
-void **ft_keyval_lst_to_str_arr(t_keyval_list *lst);
+t_cmd 		*create_new_cmd();
+void 		**ft_keyval_lst_to_str_arr(t_keyval_list *lst);
 
 
 #endif

@@ -127,5 +127,6 @@ void	print_error(enum e_error_context context, char *token);
 bool is_a_dir(struct stat *file_status);
 int get_file_status(char * file_or_dir, struct stat *result);
 void destroy_keyval(void *keyval);
+void destroy_cmd(t_cmd *cmd);
 
 #endif

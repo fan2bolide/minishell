@@ -28,3 +28,14 @@ t_cmd *create_new_cmd()
 	res->heredoc_delim = NULL;
 	return (res);
 }
+
+void destroy_cmd(t_cmd *cmd)
+{
+	free(cmd->path);
+	if (cmd->argv)
+		ft_old_split_destroy(cmd->argv);
+	free(cmd->redirect_out);
+	free(cmd->heredoc_delim);
+	free(cmd->redirect_in);
+	free(cmd);
+}
