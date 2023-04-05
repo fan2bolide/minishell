@@ -101,7 +101,7 @@ typedef struct s_cmd_list
 	struct s_cmd_list	*next;
 }	t_cmd_list;
 
-t_keyval_list 	*envp_lst;
+extern t_keyval_list 	*envp_lst;
 
 t_cmd_list *convert_token_lst_into_cmd_lst(t_token_list *token_lst);
 size_t token_cmd_line_size(t_token_list *token_lst);
