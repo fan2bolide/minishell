@@ -53,6 +53,13 @@ t_keyval *create_keyval_from_env_var(char *var) {
 	return res;
 }
 
+void destroy_keyval(void *keyval)
+{
+	free(((t_keyval *)keyval)->value);
+	free(((t_keyval *)keyval)->key);
+	free(keyval);
+}
+
 t_keyval *create_keyval(void) {
 	t_keyval *res = malloc(sizeof(t_keyval));
 	if (!res)

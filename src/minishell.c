@@ -146,11 +146,10 @@ t_keyval_list * convert_str_arr_into_new_keyval_list(char **array)
 {
 	t_keyval_list *res;
 
-	res = (t_keyval_list *)ft_lstnew(create_keyval());
+	res = (t_keyval_list *)ft_lstnew(NULL);
 	if (array == NULL)
 		return (res);
 	res->content = create_keyval_from_env_var(*array);
-
 	array ++;
 	while(*array)
 	{
@@ -197,7 +196,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!expand_tokens_from_list(token_list))
 			return (0);
 		t_cmd_list *cmd_lst = convert_token_lst_into_cmd_lst((t_token_list *)token_list);
-		execute_cmd_line(cmd_lst);
 		ft_lstclear(&token_list, destroy_token);
+		execute_cmd_line(cmd_lst);
 	}
 }
