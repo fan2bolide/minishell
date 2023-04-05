@@ -61,6 +61,21 @@ void cd(struct s_cmd *cmd)
 	}
 }
 
+int	user_has_read_permission(struct stat *file_status)
+{
+	return (*file_status).st_mode & S_IRUSR;
+}
+
+bool	is_a_dir(struct stat *file_status)
+{
+	return ( (*file_status).st_mode & S_IFMT) == S_IFDIR;
+}
+
+int	get_file_status (char * file_or_dir, struct stat *result)
+{
+	return (stat(file_or_dir, result));
+}
+
 static void update_pwd()
 {
 	char * path =ft_calloc(1024, sizeof (char));
