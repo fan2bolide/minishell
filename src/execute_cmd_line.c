@@ -37,8 +37,6 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 
 	i = 0;
 	ft_memset(pipes, 0 , sizeof(int) * OPEN_MAX * 2);
-	if (is_single_builtin_cmd(cmd_lst))
-		return(exec_builtin(&cmd_lst, 1), 1);
 	while (cmd_lst)
 	{
 		check_path(cmd_lst);
@@ -46,6 +44,8 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 			if (!create_and_check_pipes(pipes, i))
 				return (0);
 		get_fds(cmd_lst, pipes, i, &fd_to_read, &fd_to_write);
+		if (is_single_builtin_cmd(cmd_lst))
+			return(exec_builtin(&cmd_lst, fd_to_write), 1);
 		pids[i] = fork();
 		if (pids[i] < 0)
 			return (ft_printf("Failed to fork\n"), 0);
