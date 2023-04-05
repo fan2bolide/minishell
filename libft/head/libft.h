@@ -69,9 +69,10 @@ int			ft_strnequ(char const *s1, char const *s2, size_t n);
 
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strnjoin(char *s1, const char *s2, int n);
-char	*ft_strjoin_secure(char const *s1, char const *s2);
+char		*ft_strjoin_secure(char const *s1, char const *s2);
 char		**ft_split(const char *s, char c);
 void		ft_split_destroy(char **split);
+char		**ft_old_split(const char *s, char c);
 void		ft_old_split_destroy(char **split);
 
 int			ft_putstr(char const *s);
@@ -122,14 +123,15 @@ int			ft_printf(const char *format, ...);
 int			ft_max(int a, int b);
 int			ft_min(int a, int b);
 
-size_t	ft_arrsize(void **arr);
-void **ft_dup_arr(void **arr, size_t sizeof_arr_elemnt);
-void	cpy_arr(void ** arr_src, void ** arr_dest);
-void	**ft_lst_to_arr(t_list *lst, size_t size_of_arr_elemnt);
+size_t		ft_arrsize(void **arr);
+void		**ft_dup_arr(void **arr, size_t sizeof_arr_elemnt);
+void		cpy_arr(void ** arr_src, void ** arr_dest);
+void		**ft_lst_to_arr(t_list *lst, size_t size_of_arr_elemnt);
 
-size_t	count_strs(const char *s, char c);
-int str_starts_with(char *str, char *keyword);
-bool str_contains_digits_only(char *str);
-bool can_be_converted_to_long(char *argv1);
-void	ft_free_arr(void ** array, void (*del)(void *));
+size_t		count_strs(const char *s, char c);
+int			str_starts_with(char *str, char *keyword);
+bool		str_contains_digits_only(char *str);
+bool		can_be_converted_to_long(char *argv1);
+void		ft_free_arr(void ** array, void (*del)(void *));
+
 #endif
