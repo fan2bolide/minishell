@@ -75,7 +75,7 @@ char	*get_next_line(int fd)
 		return (free(line), NULL);
 	*line = 0;
 	size = 1;
-	if (buffer[BUFFER_SIZE] == EOF)
+	if (buffer[BUFFER_SIZE] == (char)EOF)
 		return (free(line), NULL);
 	if (buffer[0])
 	{
