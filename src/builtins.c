@@ -41,6 +41,7 @@ void shell_exit(char *argv1)
 	ft_printf("exit\n");
 	exit_code = envp_lst->content->value;
 	exit_code_modulo = ft_atoi(exit_code) % 256;
+	ft_lstclear((t_list **)&envp_lst, &destroy_keyval);
 	if (!argv1)
 		exit(exit_code_modulo);
 	if (!str_contains_digits_only(argv1) ||
