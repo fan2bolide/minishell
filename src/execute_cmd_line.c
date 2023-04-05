@@ -12,12 +12,12 @@
 
 #include "execute_cmd_line.h"
 
-static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd);
+static int get_fd_to_read(int pipes[OPEN_MAX][2], int i, t_cmd cmd);
 static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmd_list *cmd_lst);
 static int	is_last_cmd(t_cmd_list *cmd);
 void check_path(const t_cmd_list *cmd_lst);
-int create_and_check_pipes(int pipes[10240][2], int i);
-void get_fds(t_cmd_list *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, int *fd_to_write);
+int create_and_check_pipes(int pipes[OPEN_MAX][2], int i);
+void get_fds(t_cmd_list *cmd_lst, int pipes[OPEN_MAX][2], int i, int *fd_to_read, int *fd_to_write);
 
 void close_fds(int fd_to_read, int fd_to_write);
 
@@ -76,12 +76,12 @@ void close_fds(int fd_to_read, int fd_to_write) {
 		close(fd_to_write);
 }
 
-void get_fds(t_cmd_list *cmd_lst, int pipes[10240][2], int i, int *fd_to_read, int *fd_to_write) {
+void get_fds(t_cmd_list *cmd_lst, int pipes[OPEN_MAX][2], int i, int *fd_to_read, int *fd_to_write) {
 	(*fd_to_read) = get_fd_to_read(pipes, i, *(cmd_lst->content));
 	(*fd_to_write) = get_fd_to_write(pipes, i, cmd_lst);
 }
 
-static int get_fd_to_read(int pipes[10240][2], int i, t_cmd cmd)
+static int get_fd_to_read(int pipes[OPEN_MAX][2], int i, t_cmd cmd)
 {
 	int res;
 

@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+t_keyval_list 	*envp_lst;
+
 void	welcome_msg(void)
 {
 	//ft_printf(" ███████████                      █████             \n");
