@@ -16,6 +16,7 @@ char	*set_token_content(char *expression)
 {
 	size_t	i;
 	char	*content;
+	char	*to_destroy;
 
 	i = 0;
 	if (!ft_strchr(SPEC_CHAR, *expression) || *expression == '$')
@@ -42,8 +43,10 @@ char	*set_token_content(char *expression)
 	content = ft_strnew(i);
 	if (!content)
 		return (NULL);
-	ft_strncpy(expression, content, (int)i);
-	return (ft_strtrim(content, " "));
+	to_destroy = ft_strncpy(expression, content, (int)i);
+	content = ft_strtrim(to_destroy, " ");
+	free(to_destroy);
+	return (content);
 }
 
 /*
