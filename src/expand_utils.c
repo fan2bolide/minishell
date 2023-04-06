@@ -118,10 +118,7 @@ int replace_with_value(void *expansion_token)
 	if (token->type != quote)
 	{
 		if (!ft_strchr(token->content, '$'))
-		{
-			printf("str = %s\n", token->content);
 			return (1);
-		}
 		tmp = ft_strnew(0);
 		if (!tmp)
 			return (0);//todo error message here
