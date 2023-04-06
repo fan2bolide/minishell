@@ -14,14 +14,24 @@
 
 void	remove_quotes(t_list *token_list)
 {
+	char	*tmp;
+
 	while (token_list)
 	{
 		if (((t_expansion *)token_list->content)->type == quote)
-			((t_expansion *)token_list->content)->content = \
-			ft_strtrim(((t_expansion *)token_list->content)->content, "\'");
+		{
+			tmp = ft_strtrim(((t_expansion *)token_list->content)->content,\
+			"\'");
+			free(((t_expansion *)token_list->content)->content);
+			((t_expansion *)token_list->content)->content = tmp;
+		}
 		if (((t_expansion *)token_list->content)->type == double_quote)
-			((t_expansion *)token_list->content)->content = \
-			ft_strtrim(((t_expansion *)token_list->content)->content, "\"");
+		{
+			tmp = ft_strtrim(((t_expansion *)token_list->content)->content,\
+			"\"");
+			free(((t_expansion *)token_list->content)->content);
+			((t_expansion *)token_list->content)->content = tmp;
+		}
 		token_list = token_list->next;
 	}
 }
@@ -102,20 +112,21 @@ static char *join_words_with_values(t_expansion *token, char *tmp)
 int replace_with_value(void *expansion_token)
 {
 	t_expansion	*token;
-	char		*token_content_save;
 	char		*tmp;
 
 	token = expansion_token;
 	if (token->type != quote)
 	{
 		if (!ft_strchr(token->content, '$'))
+		{
+			printf("str = %s\n", token->content);
 			return (1);
+		}
 		tmp = ft_strnew(0);
 		if (!tmp)
 			return (0);//todo error message here
-		token_content_save = token->content;
 		tmp = join_words_with_values(token, tmp);
-		free(token_content_save);
+		free(token->content);
 		token->content = tmp;
 	}
 	return (1);
