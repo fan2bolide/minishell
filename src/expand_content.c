@@ -123,7 +123,7 @@ char *expand_content(char *raw_content)
 	while (curr)
 	{
 		if (!replace_with_value(curr->content))
-			return (NULL);
+			return (ft_lstclear(&list, destroy_expand_token), NULL);
 		curr = curr->next;
 	}
 	free(raw_content);
