@@ -35,7 +35,10 @@ void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 		dup2(to_write, STDOUT_FILENO);
 		close(to_write);
 	}
+	char ** envp = (char **)ft_keyval_lst_to_str_arr(envp_lst);
 	execve(cmd.path, cmd.argv,\
-	(char *const*) ft_keyval_lst_to_str_arr(envp_lst));
+	(char *const*) envp);
+	ft_free_arr((void *)envp, free);
+	ft_lstclear((t_list **)&envp_lst, &destroy_keyval);
 	exit(EXIT_FAILURE);
 }

@@ -7,11 +7,13 @@ void **ft_keyval_lst_to_str_arr(t_keyval_list *lst)
 {
 	size_t arr_size = ft_lstsize((t_list *)lst);
 	void	**arr = ft_calloc(arr_size + 1, sizeof(char *)); // todo protect this
+	char	*to_destroy;
 	int i = 0;
 	while (lst)
 	{
-		arr[i++] = ft_strjoin_secure(ft_strjoin_secure(lst->content->key,\
-		"="), lst->content->value);
+		to_destroy = ft_strjoin_secure(lst->content->key,"=");
+		arr[i++] = ft_strjoin_secure(to_destroy, lst->content->value);
+		free(to_destroy);
 		if (!arr[i -1] && lst->content->value)
 			ft_putstr_fd("an error occurred (ft_keyval_lst_to_str_arr)\n", 2);
 		lst = lst->next;

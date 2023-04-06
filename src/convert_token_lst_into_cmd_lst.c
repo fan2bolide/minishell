@@ -81,7 +81,7 @@ void case_current_token_type_is_exec_name(t_token_list *token_lst_cursor, t_cmd 
 	if (cmd_tab_size > 1)
 		{
 			current_token = token_lst_cursor->content;
-			splits = ft_split(current_token->content, ' ');
+			splits = ft_old_split(current_token->content, ' ');
 			j = 0;
 			while (splits[j])
 			{

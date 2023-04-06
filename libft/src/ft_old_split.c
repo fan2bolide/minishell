@@ -12,26 +12,6 @@
 
 #include "libft.h"
 
-static size_t	count_strs(const char *s, char c)
-{
-	int	i;
-	int	count;
-
-	count = 0;
-	i = 0;
-	while (s[i])
-	{
-		while (s[i] && s[i] == c)
-			i++;
-		if (!s[i])
-			return (count);
-		while (s[i] && s[i] != c)
-			i++;
-		count++;
-	}
-	return (count);
-}
-
 static size_t	ft_strclen(const char *s, char c)
 {
 	int	i;
