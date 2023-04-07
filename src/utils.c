@@ -12,7 +12,7 @@
 
 #include "execute_cmd_line.h"
 
-void	exit_routine(int pipes[OPEN_MAX][2], int pids[OPEN_MAX],
+void	exit_routine(int pipes[FOPEN_MAX][2], int pids[FOPEN_MAX],
 		int i)
 {
 	close_pipes(pipes, i);
@@ -33,7 +33,7 @@ void	wait_all_child_proc(int *pids, int childs_counter)
 		update_exit_code(WEXITSTATUS(status));
 }
 
-void	close_pipes(int pipes[OPEN_MAX][2], int i)
+void	close_pipes(int pipes[FOPEN_MAX][2], int i)
 {
 	int	k;
 

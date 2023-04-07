@@ -25,13 +25,9 @@
 # ifndef FILE_2
 #  define FILE_2 1
 # endif
-# ifndef OPEN_MAX
-#  define OPEN_MAX 1024
-# endif
 # include "minishell.h"
 # include <errno.h>
 # include <fcntl.h>
-# include <stdio.h>
 # include <string.h>
 # include <sys/wait.h>
 
@@ -39,10 +35,10 @@ void		manage_here_doc(t_cmd cmd);
 void		execute_cmd(t_cmd_list **cmd, int to_read, int to_write);
 char		*get_path(char *exec_name, t_keyval_list *envp_lst);
 void		wait_all_child_proc(int *pids, int childs_counter);
-void		close_pipes(int pipes[OPEN_MAX][2],	int i);
+void		close_pipes(int pipes[FOPEN_MAX][2],	int i);
 void		free_cmd_lst(t_cmd_list **cmd_list);
 void		free_cmd(t_cmd *cmd_lst);
-void		exit_routine(int pipes[OPEN_MAX][2], int pids[OPEN_MAX], int i);
+void		exit_routine(int pipes[FOPEN_MAX][2], int pids[FOPEN_MAX], int i);
 int 		open_and_get_fd(char *file, int open_mode, int rights);
 t_cmd 		*create_new_cmd();
 void 		**ft_keyval_lst_to_str_arr(t_keyval_list *lst);

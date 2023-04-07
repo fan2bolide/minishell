@@ -120,6 +120,8 @@ t_list	*get_main_token_list(char *command_line)
 		}
 		i += get_next_expression(command_line + i);
 	}
+	if (number_of_pipes_is_above_limit(list))
+		return (ft_lstclear(&list, destroy_token), NULL);
 	return (list);
 }
 

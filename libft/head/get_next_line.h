@@ -12,6 +12,7 @@
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+# include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
@@ -19,8 +20,8 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 128
 # endif
-# ifndef OPEN_MAX
-#  define OPEN_MAX 50
+# ifndef FOPEN_MAX
+#  define FOPEN_MAX 20
 # endif
 # ifndef EOF
 #  define EOF (-1)

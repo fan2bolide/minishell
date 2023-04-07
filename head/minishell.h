@@ -25,6 +25,10 @@
 # include <readline/readline.h>
 # include <sys/errno.h>
 # include <stdbool.h>
+# include <limits.h>
+# ifndef FOPEN_MAX
+#  define FOPEN_MAX 20
+# endif
 
 enum e_error_context
 {

@@ -12,12 +12,12 @@
 
 #include "execute_cmd_line.h"
 
-static int get_fd_to_read(int pipes[OPEN_MAX][2], int i, t_cmd cmd);
-static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmd_list *cmd_lst);
+static int get_fd_to_read(int pipes[FOPEN_MAX][2], int i, t_cmd cmd);
+static int	get_fd_to_write(int	pipes[FOPEN_MAX][2], int i, t_cmd_list *cmd_lst);
 static int	is_last_cmd(t_cmd_list *cmd);
 void check_path(const t_cmd_list *cmd_lst);
-int create_and_check_pipes(int pipes[OPEN_MAX][2], int i);
-void get_fds(t_cmd_list *cmd_lst, int pipes[OPEN_MAX][2], int i, int *fd_to_read, int *fd_to_write);
+int create_and_check_pipes(int pipes[FOPEN_MAX][2], int i);
+void get_fds(t_cmd_list *cmd_lst, int pipes[FOPEN_MAX][2], int i, int *fd_to_read, int *fd_to_write);
 
 void close_fds(int fd_to_read, int fd_to_write);
 
@@ -29,14 +29,14 @@ void check_if_is_dir(char *path);
 
 int	execute_cmd_line(t_cmd_list *cmd_lst)
 {
-	int	pipes[OPEN_MAX][2];
-	int	pids[OPEN_MAX];
+	int	pipes[FOPEN_MAX][2];
+	int	pids[FOPEN_MAX];
 	int fd_to_read;
 	int fd_to_write;
 	int	i;
 
 	i = 0;
-	ft_memset(pipes, 0 , sizeof(int) * OPEN_MAX * 2);
+	ft_memset(pipes, 0 , sizeof(int) * FOPEN_MAX * 2);
 	while (cmd_lst)
 	{
 		check_path(cmd_lst);
@@ -77,12 +77,12 @@ void close_fds(int fd_to_read, int fd_to_write) {
 		close(fd_to_write);
 }
 
-void get_fds(t_cmd_list *cmd_lst, int pipes[OPEN_MAX][2], int i, int *fd_to_read, int *fd_to_write) {
+void get_fds(t_cmd_list *cmd_lst, int pipes[FOPEN_MAX][2], int i, int *fd_to_read, int *fd_to_write) {
 	(*fd_to_read) = get_fd_to_read(pipes, i, *(cmd_lst->content));
 	(*fd_to_write) = get_fd_to_write(pipes, i, cmd_lst);
 }
 
-static int get_fd_to_read(int pipes[OPEN_MAX][2], int i, t_cmd cmd)
+static int get_fd_to_read(int pipes[FOPEN_MAX][2], int i, t_cmd cmd)
 {
 	int res;
 
@@ -101,7 +101,7 @@ static int get_fd_to_read(int pipes[OPEN_MAX][2], int i, t_cmd cmd)
 	return res;
 }
 
-static int	get_fd_to_write(int	pipes[OPEN_MAX][2], int i, t_cmd_list *cmd_lst)
+static int	get_fd_to_write(int	pipes[FOPEN_MAX][2], int i, t_cmd_list *cmd_lst)
 {
 	int res;
 	t_cmd *cmd;
@@ -173,7 +173,7 @@ static void error_depending_on_file_or_dir(char *cmd_with_issue) {
 
 }
 
-int create_and_check_pipes(int pipes[OPEN_MAX][2], int i) {
+int create_and_check_pipes(int pipes[FOPEN_MAX][2], int i) {
 	if (pipe(pipes[i]) < 0)
 		return (ft_printf("Failed to create pipes\n"), 0);
 	return (1);

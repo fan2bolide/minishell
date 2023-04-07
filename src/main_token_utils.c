@@ -93,6 +93,24 @@ size_t token_cmd_line_size(t_token_list *token_lst)
 	return (res);
 }
 
+bool	number_of_pipes_is_above_limit(t_list *tokenized_pipeline)
+{
+	t_token	*token;
+	size_t	i;
+
+	i = 0;
+	while (tokenized_pipeline && i < (FOPEN_MAX - 3) / 2)
+	{
+		token = tokenized_pipeline->content;
+		if (token->type == operator_pipe)
+			i++;
+		tokenized_pipeline = tokenized_pipeline->next;
+	}
+	if (!tokenized_pipeline)
+		return (false);
+	return (print_error(parsing_error, token->content), true);
+}
+
 //static int token_is_null(void *token_lst_content)
 //{
 //	t_token *token;

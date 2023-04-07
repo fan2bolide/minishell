@@ -18,5 +18,6 @@
 char	*set_token_content(char *expression);
 void	log_token(t_token *token);
 size_t	end_of_quote(char *expression);
+bool	number_of_pipes_is_above_limit(t_list *tokenized_pipeline);
 
 # endif
