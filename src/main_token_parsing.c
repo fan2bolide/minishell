@@ -38,6 +38,9 @@ t_token_list	*token_parsing(t_token_list *tokens)
 	t_token_list	*curr;
 
 	curr = tokens;
+	if (curr->content->type == operator_pipe)
+		return (print_error(parsing_error, curr->content->content), \
+					ft_lstclear((t_list **)&tokens, destroy_token), NULL);
 	while (curr)
 	{
 		if (curr->content->type == error)
@@ -66,9 +69,14 @@ int	check_files_after_redirect(t_token_list *tokens)
 			curr->content->type == redirect_out_trunc || \
 			curr->content->type == redirect_out_append || \
 			curr->content->type == redirect_hd)
-			if (!curr->next || curr->next->content->type != file)
+		{
+			if (!curr->next)
+				return (print_error(parsing_error, \
+				curr->content->content), 0);
+			if (curr->next->content->type != file)
 				return (print_error(parsing_error, \
 				curr->next->content->content), 0);
+		}
 		curr = curr->next;
 	}
 	return (1);
@@ -93,7 +101,7 @@ int	check_all_consecutives_types(t_token_list *tokens)
 					continue;
 				}
 				return (print_error(parsing_error, \
-				tokens->content->content), 0);
+				tokens->next->content->content), 0);
 			}
 		}
 		tokens = tokens->next;
