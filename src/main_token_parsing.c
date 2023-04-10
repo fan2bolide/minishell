@@ -46,7 +46,7 @@ t_token_list	*token_parsing(t_token_list *tokens)
 		if (curr->content->type == error)
 			return (print_error(parsing_error, curr->content->content), \
 					ft_lstclear((t_list **)&tokens, destroy_token), NULL);
-		if (!check_redirect_operators(tokens->content))
+		if (!check_redirect_operators(curr->content))
 			return (ft_lstclear((t_list **)&tokens, destroy_token), NULL);
 		curr = curr->next;
 	}
