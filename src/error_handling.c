@@ -44,4 +44,5 @@ void	print_error(enum e_error_context context, char *token)
 	free(tmp);
 	ft_putstr_fd(res, STDERR_FILENO);
 	free(res);
+	update_exit_code(258);
 }
