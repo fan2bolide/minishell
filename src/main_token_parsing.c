@@ -12,9 +12,10 @@
 
 #include "lexer.h"
 
-static int	check_all_consecutives_types(t_list *tokens);
-static int	check_files_after_redirect(t_list *tokens);
+static int	check_all_consecutives_types(t_token_list *tokens);
+static int	check_files_after_redirect(t_token_list *tokens);
 static bool	check_for_pipe_at_end(t_token_list *tokens);
+static bool check_redirect_operators(t_token *token);
 /*
  * checks for parsing rules
  * RULE 1 : there can't be two consecutive redirect operator V
@@ -32,82 +33,70 @@ static bool	check_for_pipe_at_end(t_token_list *tokens);
  * 	----------------------------jusqu'a preuve du contraire c'est bon.
  * todo : search for other rules to be applicated.
  */
-t_list	*token_parsing(t_list *tokens)
+t_token_list	*token_parsing(t_token_list *tokens)
 {
-	t_list	*curr;
-	t_token *curr_token;
+	t_token_list	*curr;
 
 	curr = tokens;
-	curr_token = curr->content;
-	if (!check_all_consecutives_types(tokens) || \
-	curr_token->type == operator_pipe || \
-	!check_files_after_redirect(tokens) || \
-	!check_for_pipe_at_end((t_token_list *)tokens))
-		return (ft_lstclear(&tokens, destroy_token), NULL);
 	while (curr)
 	{
-		curr_token = curr->content;
-		if (curr_token->type == error)
-			return (print_error(parsing_error, curr->content), \
-					ft_lstclear(&tokens, destroy_token), NULL);
-		if (curr_token->type == redirect_hd || \
-			curr_token->type == redirect_out_append)
-			if (ft_strlen(curr_token->content) > 2)
-			{
-				print_error(parsing_error, "");
-				ft_putstr_fd("\'", 2);
-				write(2, curr_token->content + 2, 2);
-				ft_putstr_fd("\'\n", 2);
-				return (ft_lstclear(&tokens, destroy_token), NULL);
-			}
+		if (curr->content->type == error)
+			return (print_error(parsing_error, curr->content->content), \
+					ft_lstclear((t_list **)&tokens, destroy_token), NULL);
+		if (!check_redirect_operators(tokens->content))
+			return (ft_lstclear((t_list **)&tokens, destroy_token), NULL);
 		curr = curr->next;
 	}
+	curr = tokens;
+	if (!check_all_consecutives_types(tokens) || \
+	curr->content->type == operator_pipe || \
+	!check_files_after_redirect(tokens) || !check_for_pipe_at_end(tokens))
+		return (ft_lstclear((t_list **)&tokens, destroy_token), NULL);
 	return (tokens);
 }
 
-int	check_files_after_redirect(t_list *tokens)
+int	check_files_after_redirect(t_token_list *tokens)
 {
-	t_list *curr;
+	t_token_list *curr;
 
 	curr = tokens;
 	while (curr)
 	{
-		if (((t_token *)curr->content)->type == redirect_in || \
-			((t_token *)curr->content)->type == redirect_out_trunc || \
-			((t_token *)curr->content)->type == redirect_out_append || \
-			((t_token *)curr->content)->type == redirect_hd)
-			if (!curr->next || ((t_token *)curr->next->content)->type != file)
-				return (0);
+		if (curr->content->type == redirect_in || \
+			curr->content->type == redirect_out_trunc || \
+			curr->content->type == redirect_out_append || \
+			curr->content->type == redirect_hd)
+			if (!curr->next || curr->next->content->type != file)
+				return (print_error(parsing_error, \
+				curr->next->content->content), 0);
 		curr = curr->next;
 	}
 	return (1);
 }
 
-int	check_all_consecutives_types(t_list *tokens)
+int	check_all_consecutives_types(t_token_list *tokens)
 {
-	t_list	*curr;
-
-	curr = tokens;
-	while (curr && curr->next)
+	while (tokens && tokens->next)
 	{
-		if (((t_token *)curr->content)->type != exec_name && \
-			((t_token *)curr->content)->type != arg && \
-			((t_token *)curr->content)->type != file)
+		if (((t_token *)tokens->content)->type != exec_name && \
+			((t_token *)tokens->content)->type != arg && \
+			((t_token *)tokens->content)->type != file)
 		{
-			if (((t_token *)curr->next->content)->type != exec_name && \
-				((t_token *)curr->next->content)->type != arg && \
-				((t_token *)curr->next->content)->type != file)
+			if (((t_token *)tokens->next->content)->type != exec_name && \
+				((t_token *)tokens->next->content)->type != arg && \
+				((t_token *)tokens->next->content)->type != file)
 			{
-				if (((t_token *)curr->content)->type == operator_pipe && \
-					((t_token *)curr->next->content)->type != operator_pipe)
+				if (((t_token *)tokens->content)->type == operator_pipe && \
+					((t_token *)tokens->next->content)->type != operator_pipe)
 				{
-					curr = curr->next;
+					tokens = tokens->next;
 					continue;
 				}
-				return (0);
+				return (print_error(parsing_error, \
+				tokens->content->content), 0);
 			}
 		}
-		curr = curr->next;
+		tokens = tokens->next;
 	}
 	return (1);
 }
@@ -121,6 +110,23 @@ bool	check_for_pipe_at_end(t_token_list *tokens)
 	if (!tokens)
 		return (true);
 	if (tokens->content->type == operator_pipe)
-		return (false);
+		return (print_error(parsing_error, \
+		tokens->content->content), false);
+	return (true);
+}
+
+static bool check_redirect_operators(t_token *token)
+{
+	if (token->type == redirect_hd || token->type == redirect_out_append)
+	{
+		if (ft_strlen(token->content) > 2)
+		{
+			print_error(parsing_error, "");
+			ft_putstr_fd("\'", 2);
+			write(2, token->content + 2, 2);
+			ft_putstr_fd("\'\n", 2);
+			return (false);
+		}
+	}
 	return (true);
 }
