@@ -14,7 +14,7 @@
 
 static int	check_all_consecutives_types(t_list *tokens);
 static int	check_files_after_redirect(t_list *tokens);
-
+static bool	check_for_pipe_at_end(t_token_list *tokens);
 /*
  * checks for parsing rules
  * RULE 1 : there can't be two consecutive redirect operator V
@@ -40,13 +40,16 @@ t_list	*token_parsing(t_list *tokens)
 	curr = tokens;
 	curr_token = curr->content;
 	if (!check_all_consecutives_types(tokens) || \
-	curr_token->type == operator_pipe || !check_files_after_redirect(tokens))
+	curr_token->type == operator_pipe || \
+	!check_files_after_redirect(tokens) || \
+	!check_for_pipe_at_end((t_token_list *)tokens))
 		return (ft_lstclear(&tokens, destroy_token), NULL);
 	while (curr)
 	{
 		curr_token = curr->content;
 		if (curr_token->type == error)
-			return (ft_lstclear(&tokens, destroy_token), NULL);
+			return (print_error(parsing_error, curr->content), \
+					ft_lstclear(&tokens, destroy_token), NULL);
 		if (curr_token->type == redirect_hd || \
 			curr_token->type == redirect_out_append)
 			if (ft_strlen(curr_token->content) > 2)
@@ -107,4 +110,17 @@ int	check_all_consecutives_types(t_list *tokens)
 		curr = curr->next;
 	}
 	return (1);
+}
+
+bool	check_for_pipe_at_end(t_token_list *tokens)
+{
+	while (tokens && tokens->next)
+	{
+		tokens = tokens->next;
+	}
+	if (!tokens)
+		return (true);
+	if (tokens->content->type == operator_pipe)
+		return (false);
+	return (true);
 }
