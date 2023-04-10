@@ -177,7 +177,7 @@ void dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
 int	main(int argc, char **argv, char **envp)
 {
 	char	*prompt_res;
-	t_list	*token_list;
+	t_token_list	*token_list;
 
 
 	(void)argc;
@@ -199,7 +199,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!expand_tokens_from_list(token_list))
 			return (0);
 		t_cmd_list *cmd_lst = convert_token_lst_into_cmd_lst((t_token_list *)token_list);
-		ft_lstclear(&token_list, destroy_token);
+		ft_lstclear((t_list **)&token_list, destroy_token);
 		execute_cmd_line(cmd_lst);
 		ft_lstclear((t_list **)&cmd_lst, (void (*)(void *)) &destroy_cmd);
 	}

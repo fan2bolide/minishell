@@ -85,7 +85,7 @@ static size_t	get_next_expression(char *command_line)
 	return (i);
 }
 
-static int is_there_an_exec_name_between_those_pipes(int is_exec_name, const t_list *curr)
+static int is_there_an_exec_name_between_those_pipes(int is_exec_name, const t_token_list *curr)
 {
 	if (((t_token *)curr->content)->type == operator_pipe)
 		is_exec_name = 0;
@@ -94,34 +94,34 @@ static int is_there_an_exec_name_between_those_pipes(int is_exec_name, const t_l
 	return is_exec_name;
 }
 
-t_list	*get_main_token_list(char *command_line)
+t_token_list	*get_main_token_list(char *command_line)
 {
 	size_t	i;
-	t_list	*list;
-	t_list	*curr;
+	t_token_list	*list;
+	t_token_list	*curr;
 	int		is_exec_name;
 
 	if (!command_line || !*command_line)
 		return (NULL);
 	is_exec_name = 0;
-	list = ft_lstnew(evaluate_expression(command_line, NULL, 0));
+	list = (t_token_list *)ft_lstnew(evaluate_expression(command_line, NULL, 0));
 	i = get_next_expression(command_line);
 	curr = list;
 	while (command_line[i])
 	{
-		curr->next = ft_lstnew(evaluate_expression(command_line + i, \
+		curr->next = (t_token_list *)ft_lstnew(evaluate_expression(command_line + i, \
 												   curr->content, is_exec_name));
 		is_exec_name = is_there_an_exec_name_between_those_pipes(is_exec_name, curr);
 		curr = curr->next;
 		if (get_next_expression(command_line + i) == 0)
 		{
 			print_error(parsing_error, command_line + i);
-			return (ft_lstclear(&list, destroy_token), NULL);
+			return (ft_lstclear((t_list **)&list, destroy_token), NULL);
 		}
 		i += get_next_expression(command_line + i);
 	}
 	if (number_of_pipes_is_above_limit(list))
-		return (ft_lstclear(&list, destroy_token), NULL);
+		return (ft_lstclear((t_list **)&list, destroy_token), NULL);
 	return (list);
 }
 

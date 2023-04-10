@@ -126,8 +126,8 @@ t_list	*get_sample_tokens();
 
 int		execute_cmd_line(t_cmd_list *cmd_lst);
 char *expand_content(char *raw_content);
-int expand_tokens_from_list(t_list *token_list);
-t_list	*get_main_token_list(char *command_line);
+int expand_tokens_from_list(t_token_list *token_list);
+t_token_list	*get_main_token_list(char *command_line);
 t_token_list	*token_parsing(t_token_list *tokens);
 void	destroy_token(void *token);
 void exec_builtin(t_cmd_list **cmd, int to_write);

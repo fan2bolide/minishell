@@ -12,24 +12,22 @@
 
 #include "expand_content.h"
 
-int expand_tokens_from_list(t_list *token_list)
+int expand_tokens_from_list(t_token_list *token_list)
 {
-	t_list *curr;
 	t_token *token;
 
-	curr = token_list;
-	while (curr)
+	while (token_list)
 	{
-		token = curr->content;
+		token = token_list->content;
 		if (token->type == redirect_hd)
-			curr = curr->next;
+			token_list = token_list->next;
 		else
 		{
 			token->content = expand_content(token->content);
 			if (!token->content)
-				return (ft_lstclear(&token_list, destroy_token), 0);
+				return (ft_lstclear((t_list **)&token_list, destroy_token), 0);
 		}
-		curr = curr->next;
+		token_list = token_list->next;
 	}
 	return (1);
 }
