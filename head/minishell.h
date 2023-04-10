@@ -29,6 +29,17 @@
 # ifndef FOPEN_MAX
 #  define FOPEN_MAX 20
 # endif
+# ifndef _STDBOOL_H
+#  ifndef bool
+#   define bool int
+#  endif
+#  ifndef true
+#   define true 1
+#  endif
+#  ifndef false
+#   define false 0
+#  endif
+# endif
 
 enum e_error_context
 {
@@ -117,7 +128,7 @@ int		execute_cmd_line(t_cmd_list *cmd_lst);
 char *expand_content(char *raw_content);
 int expand_tokens_from_list(t_list *token_list);
 t_list	*get_main_token_list(char *command_line);
-t_list	*token_parsing(t_list *tokens);
+t_token_list	*token_parsing(t_token_list *tokens);
 void	destroy_token(void *token);
 void exec_builtin(t_cmd_list **cmd, int to_write);
 int		is_builtin(char *str);
@@ -132,5 +143,6 @@ bool is_a_dir(struct stat *file_status);
 int get_file_status(char * file_or_dir, struct stat *result);
 void destroy_keyval(void *keyval);
 void destroy_cmd(t_cmd *cmd);
+void	print_token(t_token *token);
 
 #endif
