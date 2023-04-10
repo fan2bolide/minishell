@@ -20,6 +20,7 @@ void	print_error(enum e_error_context context, char *token)
 	res = "Turboshell: ";
 	if (context == parsing_error)
 	{
+		update_exit_code(258);
 		res = "Turboshell: parsing error near token: ";
 		tmp = ft_strjoin(res, token);
 		res = ft_strjoin(tmp, "\n");
@@ -44,5 +45,4 @@ void	print_error(enum e_error_context context, char *token)
 	free(tmp);
 	ft_putstr_fd(res, STDERR_FILENO);
 	free(res);
-	update_exit_code(258);
 }
