@@ -6,7 +6,7 @@
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 03:08:22 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/03/23 08:06:58 by bajeanno         ###   ########.fr       */
+/*   Updated: 2023/04/11 07:06:38 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	remove_quotes(t_list *token_list)
 	{
 		if (((t_expansion *)token_list->content)->type == quote)
 		{
-			tmp = ft_strtrim(((t_expansion *)token_list->content)->content,\
-			"\'");
+			tmp = ft_strtrim(((t_expansion *)token_list->content)->content, \
+				"\'");
 			free(((t_expansion *)token_list->content)->content);
 			((t_expansion *)token_list->content)->content = tmp;
 		}
 		if (((t_expansion *)token_list->content)->type == double_quote)
 		{
-			tmp = ft_strtrim(((t_expansion *)token_list->content)->content,\
-			"\"");
+			tmp = ft_strtrim(((t_expansion *)token_list->content)->content, \
+				"\"");
 			free(((t_expansion *)token_list->content)->content);
 			((t_expansion *)token_list->content)->content = tmp;
 		}
@@ -38,15 +38,16 @@ void	remove_quotes(t_list *token_list)
 
 char	*join_contents(t_list *token_list)
 {
-	char	*res;
-	char	*to_destroy;
+	char		*res;
+	char		*to_destroy;
+	t_expansion	*token;
 
 	res = NULL;
 	to_destroy = ft_calloc(1, 1);
 	while (token_list)
 	{
-		res = ft_strjoin(to_destroy, \
-		((t_expansion *)token_list->content)->content);
+		token = token_list->content;
+		res = ft_strjoin(to_destroy, token->content);
 		free(to_destroy);
 		to_destroy = res;
 		token_list = token_list->next;
@@ -54,7 +55,7 @@ char	*join_contents(t_list *token_list)
 	return (res);
 }
 
-char *get_value_of_var(char *var)
+char	*get_value_of_var(char *var)
 {
 	char	*value;
 	char	*var_name;
@@ -75,10 +76,9 @@ char *get_value_of_var(char *var)
 	return (value);
 }
 
-static char *join_words_with_values(t_expansion *token, char *tmp)
+static char	*join_words_with_values(t_expansion *token, char *tmp)
 {
 	char	*value;
-	char	*to_destroy;
 	size_t	i;
 
 	i = 0;
@@ -88,20 +88,16 @@ static char *join_words_with_values(t_expansion *token, char *tmp)
 		i = 0;
 		while (token->content[i] && token->content[i] != '$')
 			i++;
-		to_destroy = tmp;
-		tmp = ft_strnjoin(to_destroy, token->content, (int)i);
-		free(to_destroy);
+		tmp = ft_strnjoin_free_s1(tmp, token->content, (int)i);
 		if (!token->content[i])
 			return (tmp);
 		i++;
 		value = get_value_of_var(token->content + i);
 		if (!value)
 			value = "";
-		to_destroy = tmp;
-		tmp = ft_strjoin(tmp, value);
-		free(to_destroy);
+		tmp = ft_strjoin_free_s1(tmp, value);
 		while (token->content[i] && token->content[i] != '?' && \
-		(ft_isalnum(token->content[i]) || token->content[i] == '_'))
+				(ft_isalnum(token->content[i]) || token->content[i] == '_'))
 			i++;
 		if (token->content[i] == '?')
 			i++;
@@ -109,7 +105,7 @@ static char *join_words_with_values(t_expansion *token, char *tmp)
 	return (tmp);
 }
 
-int replace_with_value(void *expansion_token)
+int	replace_with_value(void *expansion_token)
 {
 	t_expansion	*token;
 	char		*tmp;

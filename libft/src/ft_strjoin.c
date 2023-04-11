@@ -58,3 +58,21 @@ char	*ft_strjoin_secure(char const *s1, char const *s2)
 	ft_strcat(res, (char *)s2);
 	return (res);
 }
+
+char	*ft_strjoin_free_s1(char *s1, char *s2)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin((const char *)s1, (const char *)s2);
+	free(s1);
+	return (tmp);
+}
+
+char	*ft_strnjoin_free_s1(char *s1, char *s2, int n)
+{
+	char	*tmp;
+
+	tmp = ft_strnjoin(s1, (const char *)s2, n);
+	free(s1);
+	return (tmp);
+}

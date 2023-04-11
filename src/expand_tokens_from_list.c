@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_token.c                                     :+:      :+:    :+:   */
+/*   expand_tokens_from_list.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bajeanno <bajeanno@student.42lyon.f>       +#+  +:+       +#+        */
+/*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 08:08:45 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/03/23 08:08:51 by bajeanno         ###   ########.fr       */
+/*   Updated: 2023/04/11 07:05:45 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "expand_content.h"
 
-int expand_tokens_from_list(t_token_list *token_list)
+int	expand_tokens_from_list(t_token_list *token_list)
 {
-	t_token *token;
+	t_token	*token;
 
 	while (token_list)
 	{
