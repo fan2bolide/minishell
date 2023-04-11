@@ -133,10 +133,7 @@ char	*prompt()
 	else
 		tmp = readline(ANSI_BLUE" \001➜\002 "ANSI_RESET);
 	if (tmp == NULL)
-	{
-		ft_printf(ANSI_RED" ➜ "ANSI_RESET"exit\n");
 		return(ft_strdup("exit"));
-	}
 	res = ft_strtrim(tmp, " ");
 	free(tmp);
 	if (!ft_strequ(res, ""))
