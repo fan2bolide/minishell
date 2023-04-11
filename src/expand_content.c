@@ -1,16 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expand_token.c                                     :+:      :+:    :+:   */
+/*   expand_content.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 03:08:22 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/03/23 08:06:58 by bajeanno         ###   ########.fr       */
+/*   Updated: 2023/04/11 07:06:19 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
 #include "expand_content.h"
 
 static char	*get_clean_content(char *raw_content)
@@ -19,26 +18,11 @@ static char	*get_clean_content(char *raw_content)
 	size_t	i;
 
 	i = 0;
-	if (*raw_content == '\'')
-	{
-		i++;
-		while (raw_content[i] && raw_content[i] != '\'')
-			i++;
-		i++;
-	}
+	if (*raw_content == '\'' || *raw_content == '\"')
+		i += end_of_quote(raw_content) + 1;
 	else
-	{
-		if (*raw_content == '\"')
-		{
-			i++;
-			while (raw_content[i] && raw_content[i] != '\"')
+		while (raw_content[i] && !ft_strchr("\'\"", raw_content[i]))
 				i++;
-			i++;
-		}
-		else
-			while (raw_content[i] && !ft_strchr("\'\"", raw_content[i]))
-				i++;
-	}
 	clean_content = ft_strnew(i);
 	if (!clean_content)
 		return (NULL);
@@ -49,17 +33,17 @@ static t_expansion	*evaluate_token(char *raw_content)
 {
 	t_expansion	*token;
 
-	token = ft_calloc(1, sizeof (t_expansion));
+	token = ft_calloc(1, sizeof(t_expansion));
 	if (!token)
 		return (NULL);
 	if (*raw_content == '\'')
 		return (token->type = quote, \
-			token->content = get_clean_content(raw_content), token);
+				token->content = get_clean_content(raw_content), token);
 	if (*raw_content == '\"')
 		return (token->type = double_quote, \
-			token->content = get_clean_content(raw_content), token);
+				token->content = get_clean_content(raw_content), token);
 	return (token->type = word, \
-		token->content = get_clean_content(raw_content), token);
+			token->content = get_clean_content(raw_content), token);
 }
 
 static size_t	get_next_token(char *token_content)
@@ -103,7 +87,6 @@ static t_list	*get_expand_token_list(char *raw_content)
 	i = get_next_token(raw_content);
 	while (raw_content[i])
 	{
-
 		curr->next = ft_lstnew(evaluate_token(raw_content + i));
 		curr = curr->next;
 		if (!curr)
@@ -113,11 +96,12 @@ static t_list	*get_expand_token_list(char *raw_content)
 	return (list);
 }
 
-char *expand_content(char *raw_content)
+char	*expand_content(char *raw_content)
 {
-	t_list	*list = get_expand_token_list(raw_content);
+	t_list	*list;
 	t_list	*curr;
 
+	list = get_expand_token_list(raw_content);
 	remove_quotes(list);
 	curr = list;
 	while (curr)
