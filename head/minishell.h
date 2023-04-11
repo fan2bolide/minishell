@@ -125,6 +125,7 @@ size_t token_cmd_line_size(t_token_list *token_lst);
 t_list	*get_sample_tokens();
 
 int		execute_cmd_line(t_cmd_list *cmd_lst);
+size_t	end_of_quote(char *expression);
 char *expand_content(char *raw_content);
 int expand_tokens_from_list(t_token_list *token_list);
 t_token_list	*get_main_token_list(char *command_line);

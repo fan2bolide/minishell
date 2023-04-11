@@ -69,6 +69,8 @@ int			ft_strnequ(char const *s1, char const *s2, size_t n);
 
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strnjoin(char *s1, const char *s2, int n);
+char		*ft_strjoin_free_s1(char *s1, char *s2);
+char		*ft_strnjoin_free_s1(char *s1, char *s2, int n);
 char		*ft_strjoin_secure(char const *s1, char const *s2);
 char		**ft_split(const char *s, char c);
 void		ft_split_destroy(char **split);

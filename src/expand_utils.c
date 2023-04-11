@@ -79,7 +79,6 @@ char	*get_value_of_var(char *var)
 static char	*join_words_with_values(t_expansion *token, char *tmp)
 {
 	char	*value;
-	char	*to_destroy;
 	size_t	i;
 
 	i = 0;
@@ -89,18 +88,14 @@ static char	*join_words_with_values(t_expansion *token, char *tmp)
 		i = 0;
 		while (token->content[i] && token->content[i] != '$')
 			i++;
-		to_destroy = tmp;
-		tmp = ft_strnjoin(to_destroy, token->content, (int)i);
-		free(to_destroy);
+		tmp = ft_strnjoin_free_s1(tmp, token->content, (int)i);
 		if (!token->content[i])
 			return (tmp);
 		i++;
 		value = get_value_of_var(token->content + i);
 		if (!value)
 			value = "";
-		to_destroy = tmp;
-		tmp = ft_strjoin(tmp, value);
-		free(to_destroy);
+		tmp = ft_strjoin_free_s1(tmp, value);
 		while (token->content[i] && token->content[i] != '?' && \
 				(ft_isalnum(token->content[i]) || token->content[i] == '_'))
 			i++;
