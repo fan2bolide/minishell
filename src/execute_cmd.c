@@ -36,9 +36,13 @@ void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 		close(to_write);
 	}
 	char ** envp = (char **)ft_keyval_lst_to_str_arr(envp_lst);
-	execve(cmd.path, cmd.argv,\
-	(char *const*) envp);
-	ft_free_arr((void *)envp, free);
+	if (cmd.path)
+		execve(cmd.path, cmd.argv,\
+		(char *const*) envp);
+	if (envp)
+		ft_free_arr((void *)envp, free);
+	free(envp);
 	ft_lstclear((t_list **)&envp_lst, &destroy_keyval);
+	ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) &destroy_cmd);
 	exit(EXIT_FAILURE);
 }

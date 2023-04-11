@@ -11,11 +11,20 @@ void **ft_keyval_lst_to_str_arr(t_keyval_list *lst)
 	int i = 0;
 	while (lst)
 	{
-		to_destroy = ft_strjoin_secure(lst->content->key,"=");
-		arr[i++] = ft_strjoin_secure(to_destroy, lst->content->value);
-		free(to_destroy);
-		if (!arr[i -1] && lst->content->value)
-			ft_putstr_fd("an error occurred (ft_keyval_lst_to_str_arr)\n", 2);
+		if (lst->content->key && lst->content->value)
+		{
+			to_destroy = ft_strjoin_secure(lst->content->key,"=");
+			arr[i] = ft_strjoin_secure(to_destroy, lst->content->value);
+			free(to_destroy);
+			if (!arr[i])
+			{
+				ft_putstr_fd("an error occurred (ft_keyval_lst_to_str_arr)\n", 2);
+				ft_free_arr(arr, free);
+				free(arr);
+				return NULL;
+			}
+			i ++;
+		}
 		lst = lst->next;
 	}
 	arr[i] = NULL;
