@@ -109,17 +109,19 @@ int	replace_with_value(void *expansion_token)
 {
 	t_expansion	*token;
 	char		*tmp;
+	char		*content_save;
 
 	token = expansion_token;
+	content_save = token->content;
 	if (token->type != quote)
 	{
 		if (!ft_strchr(token->content, '$'))
 			return (1);
 		tmp = ft_strnew(0);
 		if (!tmp)
-			return (0); //todo error message here
+			return (print_error(alloc_error, "replace_with_value"), 0);
 		tmp = join_words_with_values(token, tmp);
-		free(token->content);
+		free(content_save);
 		token->content = tmp;
 	}
 	return (1);
