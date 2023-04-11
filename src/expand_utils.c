@@ -113,8 +113,10 @@ int replace_with_value(void *expansion_token)
 {
 	t_expansion	*token;
 	char		*tmp;
+	char		*content_save;
 
 	token = expansion_token;
+	content_save = token->content;
 	if (token->type != quote)
 	{
 		if (!ft_strchr(token->content, '$'))
@@ -123,7 +125,7 @@ int replace_with_value(void *expansion_token)
 		if (!tmp)
 			return (0);//todo error message here
 		tmp = join_words_with_values(token, tmp);
-		free(token->content);
+		free(content_save);
 		token->content = tmp;
 	}
 	return (1);
