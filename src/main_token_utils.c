@@ -12,24 +12,36 @@
 
 #include "lexer.h"
 
-char	*set_token_content(char *expression)
+char	*allocate_token_content(char *expression, size_t i)
+{
+	char	*to_destroy;
+	char	*content;
+
+	content = ft_strnew(i);
+	if (!content)
+		return (NULL);
+	to_destroy = ft_strncpy(expression, content, (int)i);
+	content = ft_strtrim(to_destroy, " ");
+	free(to_destroy);
+	return (content);
+}
+
+char	*create_token_content(char *expression)
 {
 	size_t	i;
-	char	*content;
-	char	*to_destroy;
 
 	i = 0;
 	if (!ft_strchr(SPEC_CHAR, *expression) || *expression == '$')
-		while ((expression[i] && (!ft_strchr(SPEC_CHAR, expression[i]) || \
-		expression[i] == '$' || ft_strchr("\"\'", expression[i])) &&
-		!ft_isspace(expression[i])))
+	{
+		while ((expression[i] && (!ft_strchr(SPEC_CHAR, expression[i]) \
+			|| expression[i] == '$' || ft_strchr("\"\'", expression[i])) \
+			&& !ft_isspace(expression[i])))
 		{
-			if (ft_strchr("\"\'", expression[i]))
-				i += end_of_quote(expression + i);
-			if (!expression[i])
+			i += end_of_quote(expression + i);
+			if (!expression[i++])
 				return (NULL);
-			i++;
 		}
+	}
 	else
 	{
 		while (expression[i] && *expression == expression[i])
@@ -40,24 +52,18 @@ char	*set_token_content(char *expression)
 			!ft_isspace(expression[i]))
 				i++;
 	}
-	content = ft_strnew(i);
-	if (!content)
-		return (NULL);
-	to_destroy = ft_strncpy(expression, content, (int)i);
-	content = ft_strtrim(to_destroy, " ");
-	free(to_destroy);
-	return (content);
+	return (allocate_token_content(expression, i));
 }
 
-/*
- * in absolute, it will search for the next occurrence of the first char in
- * the string. But if you send it a quote, it will bring you the index of the
- * end of the quote.
- */
+///
+/// \param expression
+/// \return the index of the end of the quote if <expression> is one
 size_t	end_of_quote(char *expression)
 {
 	size_t	i;
 
+	if (*expression != '\'' && *expression != '\"')
+		return (0);
 	i = 1;
 	while (expression[i] && expression[i] != *expression)
 		i++;
@@ -75,12 +81,12 @@ void	destroy_token(void *token)
 //ex : "echo te quiero loco | ... ": returns 4
 //ex : "ls | ..." : returns only 1
 //ex : "< file | ..." : returns 0
-size_t token_cmd_line_size(t_token_list *token_lst)
+size_t	token_cmd_line_size(t_token_list *token_lst)
 {
 	size_t	res;
 
 	if (!token_lst)
-		return 1;
+		return (1);
 	if (token_lst->content->type != exec_name)
 		return (0);
 	res = count_strs(token_lst->content->content, ' ');
@@ -92,27 +98,3 @@ size_t token_cmd_line_size(t_token_list *token_lst)
 	}
 	return (res);
 }
-
-bool	number_of_pipes_is_above_limit(t_token_list *tokenized_pipeline)
-{
-	size_t	i;
-
-	i = 0;
-	while (tokenized_pipeline && i < (FOPEN_MAX - 3) / 2)
-	{
-		if (tokenized_pipeline->content->type == operator_pipe)
-			i++;
-		tokenized_pipeline = tokenized_pipeline->next;
-	}
-	if (!tokenized_pipeline)
-		return (false);
-	return (print_error(parsing_error, tokenized_pipeline->content->content), true);
-}
-
-//static int token_is_null(void *token_lst_content)
-//{
-//	t_token *token;
-//
-//	token = token_lst_content;
-//	return (token->content == NULL);
-//}

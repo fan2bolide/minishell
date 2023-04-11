@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_tokenizer.c                                   :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:44:06 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/02/27 21:44:09 by bajeanno         ###   ########lyon.fr   */
+/*   Updated: 2023/04/11 04:39:03 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-t_type assign_operator_to_token(char const *expression)
+static t_type	assign_operator_to_token(char const *expression)
 {
 	if (*expression == '|')
 		return (operator_pipe);
@@ -37,16 +37,16 @@ t_token	*evaluate_expression(char *expression, t_token *prev, int is_exec_name)
 {
 	t_token	*curr;
 
-	curr = malloc(sizeof (t_token));
+	curr = malloc(sizeof(t_token));
 	if (!curr)
 		return (NULL);
-	curr->content = set_token_content(expression);
+	curr->content = create_token_content(expression);
 	if (!expression || !*expression || !curr->content)
 		return (curr->type = error, curr);
 	if (ft_strchr(SPEC_CHAR, *expression) && *expression != '$')
 		return (curr->type = assign_operator_to_token(expression), curr);
-	if (!prev || prev->type == operator_pipe || (prev->type == file && \
-		!is_exec_name))
+	if (!prev || prev->type == operator_pipe || (prev->type == file
+			&& !is_exec_name))
 		return (curr->type = exec_name, curr);
 	if (ft_strchr("<>", *(prev->content)))
 		return (curr->type = file, curr);
@@ -55,76 +55,44 @@ t_token	*evaluate_expression(char *expression, t_token *prev, int is_exec_name)
 	return (curr->type = error, curr);
 }
 
-static size_t	get_next_expression(char *command_line)
+static size_t	skip_whitespaces(char *command_line)
 {
 	size_t	i;
 
 	i = 0;
-	if (!ft_strchr(SPEC_CHAR, *command_line) || *command_line == '$')
-		while ((command_line[i] && (!ft_strchr(SPEC_CHAR, command_line[i]) \
-		|| command_line[i] == '$' || ft_strchr("\'\"", command_line[i])) && \
-		!ft_isspace(command_line[i])))
-		{
-			if (ft_strchr("\'\"", command_line[i]))
-				i += end_of_quote(command_line + i);
-			if (!command_line[i])
-				return (0);
-			i++;
-		}
-	else
-	{
-		while (command_line[i] && *command_line == command_line[i])
-			i++;
-		if (*command_line == '$' && i == 1)
-			while (command_line[i] && !ft_strchr(SPEC_CHAR, \
-			command_line[i]) && !ft_isspace(command_line[i]))
-				i++;
-	}
 	while (command_line[i] && ft_isspace(command_line[i]))
 		i++;
 	return (i);
 }
 
-static int is_there_an_exec_name_between_those_pipes(int is_exec_name, const t_token_list *curr)
-{
-	if (((t_token *)curr->content)->type == operator_pipe)
-		is_exec_name = 0;
-	if (((t_token *)curr->content)->type == exec_name)
-		is_exec_name = 1;
-	return is_exec_name;
-}
-
-t_token_list	*get_main_token_list(char *command_line)
+size_t	get_next_expression(char *command_line)
 {
 	size_t	i;
-	t_token_list	*list;
-	t_token_list	*curr;
-	int		is_exec_name;
 
-	if (!command_line || !*command_line)
-		return (NULL);
-	is_exec_name = 0;
-	list = (t_token_list *)ft_lstnew(evaluate_expression(command_line, NULL, 0));
-	i = get_next_expression(command_line);
-	curr = list;
-	while (command_line[i])
+	i = 0;
+	if (!ft_strchr(SPEC_CHAR, *command_line) || *command_line == '$')
 	{
-		curr->next = (t_token_list *)ft_lstnew(evaluate_expression(command_line + i, \
-												   curr->content, is_exec_name));
-		is_exec_name = is_there_an_exec_name_between_those_pipes(is_exec_name, curr);
-		curr = curr->next;
-		if (get_next_expression(command_line + i) == 0)
+		while ((command_line[i] && (!ft_strchr(SPEC_CHAR, command_line[i])
+					|| command_line[i] == '$' || ft_strchr("\'\"",
+						command_line[i])) && !ft_isspace(command_line[i])))
 		{
-			print_error(parsing_error, command_line + i);
-			return (ft_lstclear((t_list **)&list, destroy_token), NULL);
+			i += end_of_quote(command_line + i);
+			if (!command_line[i])
+				return (0);
+			i++;
 		}
-		i += get_next_expression(command_line + i);
 	}
-	if (number_of_pipes_is_above_limit(list))
-		return (ft_lstclear((t_list **)&list, destroy_token), NULL);
-	return (list);
+	else
+	{
+		while (command_line[i] && *command_line == command_line[i])
+			i++;
+		if (*command_line == '$' && i == 1)
+			while (command_line[i] && !ft_strchr(SPEC_CHAR, command_line[i])
+				&& !ft_isspace(command_line[i]))
+				i++;
+	}
+	return (i + skip_whitespaces(command_line + i));
 }
-
 
 void	print_token(t_token *token)
 {

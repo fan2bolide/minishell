@@ -29,8 +29,10 @@ SRC =	minishell.c\
 		get_path.c\
 		main_token_parsing.c\
 		main_token_utils.c \
+		main_token_checkers.c\
+		lexer.c\
 		utils.c\
-		main_tokenizer.c\
+		lexer_utils.c\
 		expand_content.c\
 		expand_tokens_from_list.c\
 		expand_content_utils.c\
