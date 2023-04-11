@@ -123,7 +123,7 @@ int replace_with_value(void *expansion_token)
 			return (1);
 		tmp = ft_strnew(0);
 		if (!tmp)
-			return (0);//todo error message here
+			return (print_error(alloc_error, "replace_with_value"), 0);
 		tmp = join_words_with_values(token, tmp);
 		free(content_save);
 		token->content = tmp;
