@@ -34,6 +34,9 @@ static char	*get_error_msg_from_context(enum e_error_context context, \
 	if (context == heredoc_pipe_error)
 		res = ft_strjoin(generic_error_msg, \
 		"error while writing in heredoc's pipe\n");
+	if (context == numeric_argument_required)
+		res = ft_strjoin(generic_error_msg, \
+		": numeric argument required\n");
 	return (res);
 }
 

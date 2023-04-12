@@ -19,6 +19,7 @@ void		insert_env_var(t_keyval *keyval_to_insert);
 void		update_env_var(t_keyval *keyval_to_update);
 bool		env_var_exist(t_keyval *keyval_to_check);
 void		shell_exit(t_cmd_list **cmd);
+bool		check_numeric_argument(char *argv1);
 
 void	exec_builtin(t_cmd_list **cmd_list_ptr, int to_write)
 {
@@ -61,16 +62,27 @@ void	shell_exit(t_cmd_list **cmd_list_ptr)
 		ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
 		exit(exit_code_modulo);
 	}
-	if (!str_contains_digits_only(argv1) || \
-		!can_be_converted_to_long(argv1))
+	if (check_numeric_argument(argv1) == false)
 	{
-		//todo print error "numeric argument required" here
+		print_error(numeric_argument_required, ft_strjoin_secure("exit: ", argv1));
 		exit(255);
 	}
 	exit_code_modulo = ft_atoll(argv1) % 256;
 	ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
 	exit(exit_code_modulo);
 }
+
+bool	check_numeric_argument(char *argv1)
+{
+	if (!can_be_converted_to_long(argv1))
+		return (false);
+	if (argv1[0] == '-')
+		argv1++;
+	if (!str_contains_digits_only(argv1))
+		return (false);
+	return (true);
+}
+
 
 // returns -1 if str is not a builtins
 // returns [0...6] if str is builtins

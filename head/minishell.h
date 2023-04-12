@@ -50,7 +50,8 @@ enum e_error_context
 	error_occured,
 	alloc_error,
 	cwd_error,
-	heredoc_pipe_error
+	heredoc_pipe_error,
+	numeric_argument_required
 };
 
 typedef struct s_str_list
