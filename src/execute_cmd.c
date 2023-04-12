@@ -12,17 +12,20 @@
 
 #include "execute_cmd_line.h"
 #include "minishell.h"
-//'to_read' linked to child ´stdin´ and child ´stdout´ linked to ´to_write´
+
+//'to_read' linked to child 'stdin' and child 'stdout' linked to 'to_write'
 void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 {
-	t_cmd cmd = *(*cmd_list_ptr)->content;
+	t_cmd	cmd;
+	char	**envp;
 
-	if(cmd.argv && is_builtin(cmd.argv[0]) >= 0)
+	cmd = *(*cmd_list_ptr)->content;
+	if (cmd.argv && is_builtin(cmd.argv[0]) >= 0)
 	{
 		exec_builtin(cmd_list_ptr, to_write);
-		exit (ft_atoi((const char *)envp_lst->content)) ;
+		exit(ft_atoi((const char *)envp_lst->content));
 	}
-	if ((cmd.argv && cmd.argv[0] && !*cmd.argv[0]) ||
+	if ((cmd.argv && cmd.argv[0] && !*cmd.argv[0]) || \
 		(cmd.path && ft_strequ(cmd.path, "heredoc")))
 		exit(EXIT_SUCCESS);
 	if (to_read != STDIN_FILENO)
@@ -35,14 +38,13 @@ void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 		dup2(to_write, STDOUT_FILENO);
 		close(to_write);
 	}
-	char ** envp = (char **)ft_keyval_lst_to_str_arr(envp_lst);
+	envp = (char **)ft_keyval_lst_to_str_arr(envp_lst);
 	if (cmd.path)
-		execve(cmd.path, cmd.argv,\
-		(char *const*) envp);
+		execve(cmd.path, cmd.argv, (char *const *)envp);
 	if (envp)
 		ft_free_arr((void *)envp, free);
 	free(envp);
 	ft_lstclear((t_list **)&envp_lst, &destroy_keyval);
-	ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) &destroy_cmd);
+	ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
 	exit(EXIT_FAILURE);
 }

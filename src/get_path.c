@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: aurelienlevra <aurelienlevra@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 12:47:34 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/23 15:25:33 by alevra           ###   ########.fr       */
+/*   Updated: 2023/04/12 01:54:33 by aurelienlev      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,3 @@ static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd)
 	else
 		return (ft_strdup(cmd));
 }
-
-//static void	freepath(char **paths)
-//{
-//	int	i;
-//
-//	i = 0;
-//	while (paths && paths[i])
-//		free(paths[i++]);
-//}

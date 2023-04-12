@@ -12,9 +12,9 @@
 
 #include "execute_cmd_line.h"
 
-t_cmd *create_new_cmd()
+t_cmd	*create_new_cmd(void)
 {
-	t_cmd *res;
+	t_cmd	*res;
 
 	res = ft_calloc(sizeof(t_cmd), 1);
 	if (!res)
@@ -29,7 +29,7 @@ t_cmd *create_new_cmd()
 	return (res);
 }
 
-void destroy_cmd(t_cmd *cmd)
+void	destroy_cmd(t_cmd *cmd)
 {
 	free(cmd->path);
 	if (cmd->argv)

@@ -1,10 +1,18 @@
-//
-// Created by Aurelien Levra on 29/03/2023.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtins_echo.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aurelienlevra <aurelienlevra@student.42    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/12 01:46:05 by aurelienlev       #+#    #+#             */
+/*   Updated: 2023/04/12 01:46:31 by aurelienlev      ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "builtins.h"
 
-static int is_echos_option_n(char *argv1);
+static int	is_echos_option_n(char *argv1);
 
 /* can manage :
  *
@@ -20,12 +28,13 @@ static int is_echos_option_n(char *argv1);
  * */
 void	echo(char **argv, int to_write)
 {
-	int 	option_n;
-	int i;
-	int success=0;
+	int	option_n;
+	int	i;
+	int	success;
 
+	success = 0;
 	if (!argv[1])
-		return;
+		return ;
 	option_n = is_echos_option_n(argv[1]);
 	i = 1 + option_n;
 	while (argv[i])
@@ -40,11 +49,13 @@ void	echo(char **argv, int to_write)
 	update_exit_code(success);
 }
 
-static int is_echos_option_n(char *argv1)
+static int	is_echos_option_n(char *argv1)
 {
+	int	i;
+
 	if (!str_starts_with(argv1, "-n"))
-		return 0;
-	int i = 2;
+		return (0);
+	i = 2;
 	while (argv1[i] == 'n')
 		i++;
 	return (argv1[i] == 0);

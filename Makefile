@@ -23,7 +23,6 @@ SRC =	minishell.c\
 		builtins_echo.c \
 		cmd_utils.c \
 		convert_token_lst_into_cmd_lst.c \
-		debug_utils.c \
 		execute_cmd.c\
 		execute_cmd_line.c\
 		get_path.c\

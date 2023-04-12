@@ -12,32 +12,16 @@
 
 #include "minishell.h"
 
-t_keyval_list 	*envp_lst;
+t_keyval_list	*envp_lst;
 
-int	get_exit_code(void);
-
-void	welcome_msg(void)
-{
-	//ft_printf(" ███████████                      █████             \n");
-	//ft_printf("░█░░░███░░░█                     ░░███              \n");
-	//ft_printf("░   ░███  ░  █████ ████ ████████  ░███████   ██████ \n");
-	//ft_printf("    ░███    ░░███ ░███ ░░███░░███ ░███░░███ ███░░███\n");
-	//ft_printf("    ░███     ░███ ░███  ░███ ░░░  ░███ ░███░███ ░███\n");
-	//ft_printf("    ░███     ░███ ░███  ░███      ░███ ░███░███ ░███\n");
-	//ft_printf("    █████    ░░████████ █████     ████████ ░░██████ \n");
-	//ft_printf("   ░░░░░      ░░░░░░░░ ░░░░░     ░░░░░░░░   ░░░░░░  \n");
-	ft_printf("\033c________             ______              ______      ___________\n");
-	ft_printf("___  __/___  ___________  /_________________  /_________  /__  /\n");
-	ft_printf("__  /  _  / / /_  ___/_  __ \\  __ \\_  ___/_  __ \\  _ \\_  /__  / \n");
-	ft_printf("_  /   / /_/ /_  /   _  /_/ / /_/ /(__  )_  / / /  __/  / _  /  \n");
-	ft_printf("/_/    \\__,_/ /_/    /_.___/\\____//____/ /_/ /_/\\___//_/  /_/   \n");
-}
+int				get_exit_code(void);
 
 /// sets the system calls for minishell signal handling
 /// \param sig_handler
-static int	setup_signals(void (sig_handler)(int))
+static int	setup_signals(void(sig_handler)(int))
 {
-	struct sigaction sa;
+	struct sigaction	sa;
+
 	sa.sa_handler = sig_handler;
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
@@ -63,14 +47,14 @@ void	sig_handler_interactive_mode(int sig)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		ft_printf(ANSI_RED"\r \001➜\002 "ANSI_RESET);
+		ft_printf(ANSI_RED "\r \001➜\002 " ANSI_RESET);
 	}
 	if (sig == SIGQUIT)
 	{
 		if (get_exit_code() == 0)
-			ft_printf(ANSI_BLUE"\r     \r \001➜\002 "ANSI_RESET);
+			ft_printf(ANSI_BLUE "\r     \r \001➜\002 " ANSI_RESET);
 		else
-			ft_printf(ANSI_RED"\r     \r \001➜\002 "ANSI_RESET);
+			ft_printf(ANSI_RED "\r     \r \001➜\002 " ANSI_RESET);
 	}
 }
 
@@ -89,7 +73,7 @@ void	sig_handler_execution_mode(int sig)
 ///updates the env '?' variable with the exit code of the last program called
 void	update_exit_code(int exit_code)
 {
-	char *new_exit_code;
+	char	*new_exit_code;
 
 	new_exit_code = ft_itoa(exit_code);
 	free(envp_lst->content->value);
@@ -100,9 +84,9 @@ void	update_exit_code(int exit_code)
 /// \return 1 if allocation fails, 0 else
 int	set_exit_code(void)
 {
-	t_keyval_list *new;
+	t_keyval_list	*new;
 
-	new = malloc(sizeof (t_keyval_list));
+	new = malloc(sizeof(t_keyval_list));
 	if (!new)
 		return (1);
 	new->next = envp_lst;
@@ -121,7 +105,7 @@ int	get_exit_code(void)
 	return (ft_atoi(envp_lst->content->value));
 }
 
-char	*prompt()
+char	*prompt(void)
 {
 	char	*res;
 	char	*tmp;
@@ -129,11 +113,11 @@ char	*prompt()
 	if (!setup_signals(sig_handler_interactive_mode))
 		return (NULL);
 	if (get_exit_code())
-		tmp = readline(ANSI_RED" \001➜\002 "ANSI_RESET);
+		tmp = readline(ANSI_RED " \001➜\002 " ANSI_RESET);
 	else
-		tmp = readline(ANSI_BLUE" \001➜\002 "ANSI_RESET);
+		tmp = readline(ANSI_BLUE " \001➜\002 " ANSI_RESET);
 	if (tmp == NULL)
-		return(ft_strdup("exit"));
+		return (ft_strdup("exit"));
 	res = ft_strtrim(tmp, " ");
 	free(tmp);
 	if (!ft_strequ(res, ""))
@@ -143,43 +127,44 @@ char	*prompt()
 	return (res);
 }
 
-t_str_list * convert_str_arr_into_new_str_list(char **array)
+t_str_list	*convert_str_arr_into_new_str_list(char **array)
 {
-	t_str_list *res;
+	t_str_list	*res;
 
 	res = (t_str_list *)ft_lstnew(NULL);
 	if (array == NULL)
 		return (res);
 	res->content = *array;
-	array ++;
-	while(*array)
+	array++;
+	while (*array)
 	{
 		ft_lstadd_back((t_list **)&res, ft_lstnew(*array));
-		array ++;
+		array++;
 	}
 	return (res);
 }
 
 ///converts char *envp to key/value list so we can use and update it
-t_keyval_list * convert_str_arr_into_new_keyval_list(char **array)
+t_keyval_list	*convert_str_arr_into_new_keyval_list(char **array)
 {
-	t_keyval_list *res;
+	t_keyval_list	*res;
 
 	res = (t_keyval_list *)ft_lstnew(NULL);
 	if (array == NULL)
 		return (res);
 	res->content = create_keyval_from_env_var(*array);
-	array ++;
-	while(*array)
+	array++;
+	while (*array)
 	{
-		ft_lstadd_back((t_list **)&res, ft_lstnew(create_keyval_from_env_var(*array)));
-		array ++;
+		ft_lstadd_back((t_list **)&res,
+						ft_lstnew(create_keyval_from_env_var(*array)));
+		array++;
 	}
 	return (res);
 }
 
 ///assign correct values to global var 'envp_lst'
-void dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
+void	dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
 {
 	if (!envp)
 	{
@@ -192,14 +177,13 @@ void dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*prompt_res;
+	char			*prompt_res;
 	t_token_list	*token_list;
-
+	t_cmd_list		*cmd_lst;
 
 	(void)argc;
 	(void)argv;
 	dup_envp(envp);
-	welcome_msg();
 	while (1)
 	{
 		prompt_res = prompt();
@@ -214,9 +198,9 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (!expand_tokens_from_list(token_list))
 			return (0);
-		t_cmd_list *cmd_lst = convert_token_lst_into_cmd_lst((t_token_list *)token_list);
+		cmd_lst = convert_token_lst_into_cmd_lst((t_token_list *)token_list);
 		ft_lstclear((t_list **)&token_list, destroy_token);
 		execute_cmd_line(cmd_lst);
-		ft_lstclear((t_list **)&cmd_lst, (void (*)(void *)) &destroy_cmd);
+		ft_lstclear((t_list **)&cmd_lst, (void (*)(void *)) & destroy_cmd);
 	}
 }

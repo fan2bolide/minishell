@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: aurelienlevra <aurelienlevra@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/09 23:06:50 by alevra            #+#    #+#             */
-/*   Updated: 2023/02/23 15:25:36 by alevra           ###   ########.fr       */
+/*   Updated: 2023/04/12 02:01:42 by aurelienlev      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute_cmd_line.h"
 
-void	exit_routine(int pipes[FOPEN_MAX][2], int pids[FOPEN_MAX],
-		int i)
+void	exit_routine(int pipes[FOPEN_MAX][2], int pids[FOPEN_MAX], int i)
 {
 	close_pipes(pipes, i);
 	wait_all_child_proc(pids, i);
@@ -22,7 +21,7 @@ void	exit_routine(int pipes[FOPEN_MAX][2], int pids[FOPEN_MAX],
 void	wait_all_child_proc(int *pids, int childs_counter)
 {
 	int	k;
-	int status;
+	int	status;
 
 	k = 0;
 	while (k < childs_counter)
@@ -58,13 +57,12 @@ void	free_cmd(t_cmd *cmd)
 	free(cmd->path);
 	free(cmd->redirect_out);
 	free(cmd->redirect_in);
-	ft_free_arr((void **) cmd->argv, free);
-
+	ft_free_arr((void **)cmd->argv, free);
 }
 
-int open_and_get_fd(char *file, int open_mode, int rights)
+int	open_and_get_fd(char *file, int open_mode, int rights)
 {
 	if (rights)
-		return (open(file,open_mode, rights));
-	return (open(file,open_mode));
+		return (open(file, open_mode, rights));
+	return (open(file, open_mode));
 }
