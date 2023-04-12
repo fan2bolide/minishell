@@ -54,8 +54,8 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 		if (pids[i] == 0)
 			execute_cmd(&cmd_lst, fd_to_read, fd_to_write);
 		close_fds(fd_to_read, fd_to_write);
-		if ((cmd_lst->content)->heredoc_mode)
-			close((cmd_lst->content)->heredoc_pipe[READ]);
+		if (cmd_lst->content->heredoc_mode)
+			close(cmd_lst->content->heredoc_pipe[READ]);
 		cmd_lst = cmd_lst->next;
 		i++;
 	}
@@ -90,6 +90,7 @@ static int	get_fd_to_read(int pipes[FOPEN_MAX][2], int i, t_cmd cmd)
 {
 	int	res;
 
+	res = -1;
 	if (cmd.redirect_in)
 		res = open_and_get_fd(cmd.redirect_in, O_RDONLY, 0);
 	else if (cmd.heredoc_mode)
@@ -100,7 +101,7 @@ static int	get_fd_to_read(int pipes[FOPEN_MAX][2], int i, t_cmd cmd)
 	}
 	else if (i == 0)
 		res = STDIN_FILENO;
-	else
+	else if (i - 1 < FOPEN_MAX)
 		res = (pipes[i - 1][READ]);
 	return (res);
 }
@@ -110,13 +111,14 @@ static int	get_fd_to_write(int pipes[FOPEN_MAX][2], int i, t_cmd_list *cmd_lst)
 	int		res;
 	t_cmd	*cmd;
 
+	res = -1;
 	cmd = cmd_lst->content;
 	if (cmd->redirect_out)
 		res = open_and_get_fd(cmd->redirect_out,
 				O_WRONLY | cmd->redirect_out_mode | O_CREAT, 0644);
 	else if (is_last_cmd(cmd_lst))
 		res = STDOUT_FILENO;
-	else
+	else if (i < FOPEN_MAX)
 		res = (pipes[i][WRITE]);
 	return (res);
 }
@@ -181,7 +183,7 @@ static void	error_depending_on_file_or_dir(char *cmd_with_issue)
 
 int	create_and_check_pipes(int pipes[FOPEN_MAX][2], int i)
 {
-	if (pipe(pipes[i]) < 0) //todo #43
-		return (ft_printf("Failed to create pipes\n"), 0);
+	if (pipe(pipes[i]) < 0)
+		return (print_error(error_occured, "Failed to create pipes\n"), 0);
 	return (1);
 }

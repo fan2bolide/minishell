@@ -17,6 +17,11 @@ void	exec_builtin(t_cmd_list **cmd_list_ptr, int to_write)
 	int		type;
 	t_cmd	*cmd;
 
+	if (to_write < 0)
+	{
+		update_exit_code(1);
+		return (print_error(error_occured, "negative file descriptors"));
+	}
 	cmd = (*cmd_list_ptr)->content;
 	type = is_builtin(cmd->argv[0]);
 	if (type == 0)

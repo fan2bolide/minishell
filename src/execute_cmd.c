@@ -19,6 +19,11 @@ void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 	t_cmd	cmd;
 	char	**envp;
 
+	if (to_read < 0 || to_write < 0)
+	{
+		update_exit_code(1);
+		return (print_error(error_occured, "negative file descriptors"));
+	}
 	cmd = *(*cmd_list_ptr)->content;
 	if (cmd.argv && is_builtin(cmd.argv[0]) >= 0)
 	{
