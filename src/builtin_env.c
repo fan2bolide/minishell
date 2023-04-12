@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_echo.c                                    :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,51 +12,22 @@
 
 #include "builtins.h"
 
-static int	is_echos_option_n(char *argv1);
-
-/* can manage :
- *
- * >echo message
- * >message
- *k
- *>echo -n message
- * message >
- *
- * >echo  message1          message2
- * >message1 message2
- *
- * */
-void	echo(char **argv, int to_write)
+void	env(int to_write)
 {
-	int	option_n;
-	int	i;
-	int	success;
+	t_keyval_list	*curr;
 
-	success = 0;
-	if (!argv[1])
-		return ;
-	option_n = is_echos_option_n(argv[1]);
-	i = 1 + option_n;
-	while (argv[i])
+	curr = envp_lst;
+	if (curr)
+		curr = curr->next; //skipping the first value (exit code)
+	while (curr && curr->content)
 	{
-		ft_putstr_fd(argv[i], to_write);
-		if (argv[i + 1])
-			ft_putstr_fd(" ", to_write);
-		i++;
+		if (curr->content->value)
+		{
+			ft_putstr_fd(curr->content->key, to_write);
+			ft_putstr_fd("=", to_write);
+			ft_putstr_fd(curr->content->value, to_write);
+			ft_putstr_fd("\n", to_write);
+		}
+		curr = curr->next;
 	}
-	if (!option_n)
-		ft_putstr_fd("\n", to_write);
-	update_exit_code(success);
-}
-
-static int	is_echos_option_n(char *argv1)
-{
-	int	i;
-
-	if (!str_starts_with(argv1, "-n"))
-		return (0);
-	i = 2;
-	while (argv1[i] == 'n')
-		i++;
-	return (argv1[i] == 0);
 }

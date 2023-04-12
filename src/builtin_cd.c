@@ -1,35 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_cd_pwd.c                                  :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurelienlevra <aurelienlevra@student.42    +#+  +:+       +#+        */
+/*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 01:41:26 by aurelienlev       #+#    #+#             */
-/*   Updated: 2023/04/12 01:44:54 by aurelienlev      ###   ########.fr       */
+/*   Created: 2023/03/01 14:30:13 by alevra            #+#    #+#             */
+/*   Updated: 2023/03/01 23:33:32 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-static void	update_pwd(void);
-
 int			user_has_read_permission(struct stat *file_status);
-
-void	pwd(int fd_to_write)
-{
-	char	*cwd;
-
-	cwd = ft_calloc(1024, sizeof(char));
-	if (!cwd)
-		return (print_error(error_occured, "pwd"));
-	if (!getcwd(cwd, 1024))
-		print_error(cwd_error, "");
-	else
-		ft_putstr_fd(cwd, fd_to_write);
-	ft_putstr_fd("\n", fd_to_write);
-	free(cwd);
-}
+bool		is_a_dir(struct stat *file_status);
+int			get_file_status(char *file_or_dir, struct stat *result);
+static void	update_pwd(void);
 
 void	cd(struct s_cmd *cmd)
 {

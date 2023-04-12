@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_echo.c                                    :+:      :+:    :+:   */
+/*   builtin_unset.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,51 +12,27 @@
 
 #include "builtins.h"
 
-static int	is_echos_option_n(char *argv1);
-
-/* can manage :
- *
- * >echo message
- * >message
- *k
- *>echo -n message
- * message >
- *
- * >echo  message1          message2
- * >message1 message2
- *
- * */
-void	echo(char **argv, int to_write)
+void	unset(char *var_to_unset)
 {
-	int	option_n;
-	int	i;
-	int	success;
+	t_keyval_list	*curr;
+	t_keyval_list	*tmp;
 
-	success = 0;
-	if (!argv[1])
-		return ;
-	option_n = is_echos_option_n(argv[1]);
-	i = 1 + option_n;
-	while (argv[i])
+	if (!var_to_unset)
+		return ((void)0);
+	curr = envp_lst;
+	if (ft_strequ(curr->content->key, var_to_unset))
 	{
-		ft_putstr_fd(argv[i], to_write);
-		if (argv[i + 1])
-			ft_putstr_fd(" ", to_write);
-		i++;
+		envp_lst = envp_lst->next;
+		ft_lstdelone((t_list *)curr, (void (*)(void *)) & destroy_keyval);
+		return ;
 	}
-	if (!option_n)
-		ft_putstr_fd("\n", to_write);
-	update_exit_code(success);
-}
-
-static int	is_echos_option_n(char *argv1)
-{
-	int	i;
-
-	if (!str_starts_with(argv1, "-n"))
-		return (0);
-	i = 2;
-	while (argv1[i] == 'n')
-		i++;
-	return (argv1[i] == 0);
+	while (curr && curr->next && \
+			!ft_strequ(curr->next->content->key, var_to_unset))
+		curr = curr->next;
+	if (curr->next)
+	{
+		tmp = curr->next->next;
+		ft_lstdelone((t_list *)curr->next, & destroy_keyval);
+		curr->next = tmp;
+	}
 }

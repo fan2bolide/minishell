@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_token_lst_into_cmd_lst.c                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurelienlevra <aurelienlevra@student.42    +#+  +:+       +#+        */
+/*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 14:30:13 by alevra            #+#    #+#             */
-/*   Updated: 2023/04/12 01:59:35 by aurelienlev      ###   ########.fr       */
+/*   Updated: 2023/04/12 01:59:35 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -18,27 +18,34 @@ DEBUG_FLAGS = -g3 #-fsanitize=address
 LIBFT = libft/libft.a
 
 SRC =	minishell.c\
+		builtin_cd.c \
+		builtin_env.c \
+		builtin_exit.c \
+		builtin_export.c \
+		builtin_unset.c \
 		builtins.c \
-		builtins_cd_pwd.c \
 		builtins_echo.c \
+		builtins_pwd.c \
 		cmd_utils.c \
 		convert_token_lst_into_cmd_lst.c \
+		env_var_utils.c \
+		env_var_utils_getters_and_setters.c \
+		error_handling.c\
+		exec_utils.c\
 		execute_cmd.c\
 		execute_cmd_line.c\
+		expand_content.c\
+		expand_content_utils.c\
+		expand_tokens_from_list.c\
+		expand_utils.c \
 		get_path.c\
 		main_token_parsing.c\
 		main_token_utils.c \
 		main_token_checkers.c\
 		lexer.c\
-		utils.c\
 		lexer_utils.c\
-		expand_content.c\
-		expand_tokens_from_list.c\
-		expand_content_utils.c\
-		expand_utils.c \
 		heredoc_manager.c \
 		keyval_utils.c \
-		error_handling.c\
 
 
 BONUS_SRC =

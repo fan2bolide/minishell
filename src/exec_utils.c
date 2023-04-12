@@ -47,19 +47,6 @@ void	close_pipes(int pipes[FOPEN_MAX][2], int i)
 	}
 }
 
-void	free_cmd_lst(t_cmd_list **cmd_list)
-{
-	ft_lstclear((t_list **)cmd_list, (void *)(free_cmd));
-}
-
-void	free_cmd(t_cmd *cmd)
-{
-	free(cmd->path);
-	free(cmd->redirect_out);
-	free(cmd->redirect_in);
-	ft_free_arr((void **)cmd->argv, free);
-}
-
 int	open_and_get_fd(char *file, int open_mode, int rights)
 {
 	if (rights)

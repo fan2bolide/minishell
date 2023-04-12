@@ -181,7 +181,7 @@ static void	error_depending_on_file_or_dir(char *cmd_with_issue)
 
 int	create_and_check_pipes(int pipes[FOPEN_MAX][2], int i)
 {
-	if (pipe(pipes[i]) < 0)
+	if (pipe(pipes[i]) < 0) //todo #43
 		return (ft_printf("Failed to create pipes\n"), 0);
 	return (1);
 }

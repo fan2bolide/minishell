@@ -31,6 +31,17 @@ t_cmd	*create_new_cmd(void)
 
 void	destroy_cmd(t_cmd *cmd)
 {
+	free_cmd(cmd);
+	free(cmd);
+}
+
+void	free_cmd_lst(t_cmd_list **cmd_list)
+{
+	ft_lstclear((t_list **)cmd_list, (void *)(free_cmd));
+}
+
+void	free_cmd(t_cmd *cmd)
+{
 	free(cmd->path);
 	if (cmd->argv)
 		ft_free_arr((void **)cmd->argv, free);
@@ -38,5 +49,4 @@ void	destroy_cmd(t_cmd *cmd)
 	free(cmd->redirect_out);
 	free(cmd->heredoc_delim);
 	free(cmd->redirect_in);
-	free(cmd);
 }

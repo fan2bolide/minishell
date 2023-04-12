@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyval_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurelienlevra <aurelienlevra@student.42    +#+  +:+       +#+        */
+/*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 01:49:15 by aurelienlev       #+#    #+#             */
-/*   Updated: 2023/04/12 01:50:32 by aurelienlev      ###   ########.fr       */
+/*   Created: 2023/03/01 14:30:13 by alevra            #+#    #+#             */
+/*   Updated: 2023/03/01 23:33:32 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
