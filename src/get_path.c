@@ -24,8 +24,10 @@ char	*get_path(char *exec_name, t_keyval_list *envp_lst)
 	i = 0;
 	if (!envp_lst || !exec_name || !*exec_name)
 		return (NULL);
-	while (ft_strequ(envp_lst->content->key, "PATH") == 0)
+	while (envp_lst && ft_strequ(envp_lst->content->key, "PATH") == 0)
 		envp_lst = envp_lst->next;
+	if (!envp_lst)
+		return (NULL);
 	paths = ft_split(envp_lst->content->value, ':');
 	if (!paths)
 		return (print_error(error_occured, "split"), NULL);

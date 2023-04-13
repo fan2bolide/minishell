@@ -14,8 +14,6 @@
 
 t_keyval_list	*g_envp_lst;
 
-int				get_exit_code(void);
-
 ///updates the env '?' variable with the exit code of the last program called
 void	update_exit_code(int exit_code)
 {
@@ -28,21 +26,28 @@ void	update_exit_code(int exit_code)
 
 /// sets the value of env's '?' variable to 0
 /// \return 1 if allocation fails, 0 else
-int	set_exit_code(void)
+bool	set_exit_code(void)
 {
 	t_keyval_list	*new;
 
 	new = malloc(sizeof(t_keyval_list));
 	if (!new)
-		return (1);
+		return (false);
 	new->next = g_envp_lst;
 	new->content = malloc(sizeof(t_keyval));
 	if (!new->content)
-		return (free(new), 1);
+		return (free(new), false);
 	new->content->key = ft_strdup("?");
 	new->content->value = ft_strdup("0");
+	if (!new->content->key || !new->content->value)
+	{
+		free(new->content->key);
+		free(new->content->value);
+		free(new);
+		return (false);
+	}
 	g_envp_lst = new;
-	return (0);
+	return (true);
 }
 
 /// \return the value of env's '?' variable
@@ -51,17 +56,22 @@ int	get_exit_code(void)
 	return (ft_atoi(g_envp_lst->content->value));
 }
 
-char	*prompt(void)
+char	*prompt(int term_does_handle_color)
 {
 	char	*res;
 	char	*tmp;
 
 	if (!setup_signals(sig_handler_interactive_mode))
 		return (NULL);
-	if (get_exit_code())
-		tmp = readline(ANSI_RED " \001➜\002 " ANSI_RESET);
+	if (term_does_handle_color)
+	{
+		if (get_exit_code())
+			tmp = readline(ANSI_RED " \001➜\002 " ANSI_RESET);
+		else
+			tmp = readline(ANSI_BLUE " \001➜\002 " ANSI_RESET);
+	}
 	else
-		tmp = readline(ANSI_BLUE " \001➜\002 " ANSI_RESET);
+		tmp = readline(" ➜ ");
 	if (tmp == NULL)
 		return (ft_strdup("exit"));
 	res = ft_strtrim(tmp, " ");
@@ -112,13 +122,23 @@ t_keyval_list	*convert_str_arr_into_new_keyval_list(char **array)
 ///assign correct values to global var 'envp_lst'
 void	dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
 {
-	if (!envp)
+	char	*tmp;
+
+	if (!*envp)
 	{
-		g_envp_lst = NULL;
-		return ;
+		g_envp_lst = malloc(sizeof (struct s_keyval_list));
+		g_envp_lst->next = NULL;
+		g_envp_lst->content = create_keyval();
+		g_envp_lst->content->key = ft_strdup("PWD");
+		tmp = ft_calloc(1, 1024);
+		getcwd(tmp, 1024);
+		g_envp_lst->content->value = ft_strdup(tmp);
+		free(tmp);
 	}
-	g_envp_lst = convert_str_arr_into_new_keyval_list(envp);
-	set_exit_code();
+	else
+		g_envp_lst = convert_str_arr_into_new_keyval_list(envp);
+	if (!set_exit_code())
+		return (ft_lstclear((t_list **)&g_envp_lst, destroy_keyval));
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -126,13 +146,17 @@ int	main(int argc, char **argv, char **envp)
 	char			*prompt_res;
 	t_token_list	*token_list;
 	t_cmd_list		*cmd_lst;
+	bool			term_color;
 
 	(void)argc;
 	(void)argv;
+	term_color = true;
+	if (!*envp)
+		term_color = false;
 	dup_envp(envp);
 	while (1)
 	{
-		prompt_res = prompt();
+		prompt_res = prompt(term_color);
 		if (!prompt_res)
 			return (perror("signal setup failed: "), 1);
 		token_list = get_main_token_list(prompt_res);
