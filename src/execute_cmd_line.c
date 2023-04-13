@@ -54,7 +54,7 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 		if (pids[i] == 0)
 			execute_cmd(&cmd_lst, fd_to_read, fd_to_write);
 		close_fds(fd_to_read, fd_to_write);
-		if (cmd_lst->content->heredoc_mode)
+		if (cmd_lst->content->heredoc_mode && cmd_lst->content->heredoc_pipe[READ] != 0)
 			close(cmd_lst->content->heredoc_pipe[READ]);
 		cmd_lst = cmd_lst->next;
 		i++;

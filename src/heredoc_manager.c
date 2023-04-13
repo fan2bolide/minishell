@@ -23,8 +23,8 @@ static int	is_delimiter(char *delim, const char *next_line);
 
 void	manage_here_doc(t_cmd cmd)
 {
-	if (!cmd.heredoc_mode)
-		return ;
+	if (!cmd.heredoc_mode || !cmd.heredoc_delim)
+		return (close(cmd.heredoc_pipe[WRITE]), (void)0);
 	here_doc_routine(cmd.heredoc_pipe[WRITE], cmd.heredoc_delim);
 	close(cmd.heredoc_pipe[WRITE]);
 }
@@ -85,6 +85,7 @@ static int	is_delimiter(char *delim, const char *next_line)
 {
 	char	*tmp;
 	int		res;
+	char 	*delim_without_quotes;
 
 	tmp = NULL;
 	if (!next_line)
@@ -94,20 +95,32 @@ static int	is_delimiter(char *delim, const char *next_line)
 		return (0);
 	if (tmp[0])
 		tmp[ft_strlen(tmp) - 1] = 0;
-	res = ft_strcmp(tmp, remove_quotes(delim)) == 0;
+	delim_without_quotes =	remove_quotes(delim);
+	if (!delim_without_quotes)
+	{
+		print_error(error_occured, "(heredoc_manager)");
+		res = 1;
+	}
+	else
+		res = (ft_strcmp(tmp, delim_without_quotes) == 0);
+	free(delim_without_quotes);
 	free(tmp);
 	return (res);
 }
 
 static int	append_str(char **str_to_append, char *next_line)
 {
+	char	*str_to_append_tmp;
+
 	if (!*str_to_append)
 	{
 		*str_to_append = ft_strdup(next_line);
 		return (1);
 	}
-	*str_to_append = ft_strjoin(*str_to_append, next_line);
-	if (!*str_to_append)
+	str_to_append_tmp = ft_strjoin(*str_to_append, next_line);
+	free(*str_to_append);
+	*str_to_append = str_to_append_tmp;
+	if (!str_to_append_tmp)
 		return (print_error(error_occured, "(here_doc)(append_line)"), 0);
 	return (1);
 }
@@ -128,7 +141,7 @@ static char	*remove_quotes(const char *raw)
 		res_size += ((raw[i] != '\'') && (raw[i] != '\"'));
 		i++;
 	}
-	res = malloc(res_size * sizeof(char));
+	res = ft_calloc(res_size +1, sizeof(char));
 	if (!res)
 		return (NULL);
 	i = 0;
@@ -142,5 +155,6 @@ static char	*remove_quotes(const char *raw)
 		}
 		i++;
 	}
+	res[j] = 0;
 	return (res);
 }
