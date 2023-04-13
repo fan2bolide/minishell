@@ -27,8 +27,12 @@ void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 	cmd = *(*cmd_list_ptr)->content;
 	if (cmd.argv && is_builtin(cmd.argv[0]) >= 0)
 	{
+		int exit_code;
 		exec_builtin(cmd_list_ptr, to_write);
-		exit(ft_atoi((const char *)g_envp_lst->content));
+		exit_code = ft_atoi((const char *)g_envp_lst->content);
+		ft_lstclear((t_list **)&g_envp_lst, &destroy_keyval);
+		ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
+		exit(exit_code);
 	}
 	if ((cmd.argv && cmd.argv[0] && !*cmd.argv[0]) || \
 		(cmd.path && ft_strequ(cmd.path, "heredoc")))

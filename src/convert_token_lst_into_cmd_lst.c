@@ -141,6 +141,7 @@ void	case_current_token_type_is_redirect_out(
 		open_mode = O_TRUNC;
 	if (token_lst_cursor->content->type == redirect_out_append)
 		open_mode = O_APPEND;
+	free(cmd->redirect_out);
 	cmd->redirect_out = ft_strdup(file); //todo protect this
 	cmd->redirect_out_mode = open_mode;
 }

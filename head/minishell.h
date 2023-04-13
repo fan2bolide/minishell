@@ -119,7 +119,6 @@ t_token_list				*token_parsing(t_token_list *tokens);
 void						destroy_token(void *token);
 void						exec_builtin(t_cmd_list **cmd, int to_write);
 int							is_builtin(char *str);
-void						log_cmd(t_cmd *cmd);
 char						*get_env_var_value(char *var_name);
 t_keyval_list				*convert_str_arr_into_new_keyval_list(char **array);
 t_keyval					*create_keyval_from_env_var(char *var);
@@ -136,6 +135,6 @@ void						destroy_cmd(t_cmd *cmd);
 int							setup_signals(void (sig_handler)(int));
 void						sig_handler_interactive_mode(int sig);
 void						sig_handler_execution_mode(int sig);
-void						print_token(t_token *token);
+void						shell_exit(t_cmd_list **cmd_list_ptr);
 
 #endif
