@@ -44,12 +44,12 @@ void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 		close(to_write);
 	}
 	envp = (char **)ft_keyval_lst_to_str_arr(g_envp_lst);
+	ft_lstclear((t_list **)&g_envp_lst, &destroy_keyval);
 	if (cmd.path)
 		execve(cmd.path, cmd.argv, (char *const *)envp);
 	if (envp)
 		ft_free_arr((void *)envp, free);
 	free(envp);
-	ft_lstclear((t_list **)&g_envp_lst, &destroy_keyval);
 	ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
 	exit(EXIT_FAILURE);
 }

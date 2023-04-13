@@ -118,7 +118,7 @@ void	case_current_token_type_is_exec_name(t_token_list *token_lst_cursor,
 	if (is_builtin(cmd->argv[0]) < 0)
 		cmd->path = get_path(cmd->argv[0], g_envp_lst);
 	else
-		cmd->path = ft_strdup("builtin"); //todo a proteger
+		cmd->path = ft_strdup("builtin"); //todo protect this
 }
 
 void	case_current_token_type_is_redirect_out(
@@ -134,7 +134,7 @@ void	case_current_token_type_is_redirect_out(
 		open_mode = O_TRUNC;
 	if (token_lst_cursor->content->type == redirect_out_append)
 		open_mode = O_APPEND;
-	cmd->redirect_out = ft_strdup(file); //todo a proteger
+	cmd->redirect_out = ft_strdup(file); //todo protect this
 	cmd->redirect_out_mode = open_mode;
 }
 
@@ -146,5 +146,5 @@ void		case_current_token_type_is_redirect_in(
 
 	token_with_the_redirect_file = token_lst_cursor->next->content;
 	file = token_with_the_redirect_file->content;
-	cmd->redirect_in = ft_strdup(file); //todo a proteger
+	cmd->redirect_in = ft_strdup(file); //todo protect this
 }

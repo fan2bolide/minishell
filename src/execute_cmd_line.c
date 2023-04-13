@@ -29,6 +29,8 @@ static void	error_depending_on_file_or_dir(char *cmd_with_issue);
 
 void		check_if_is_dir(char *path);
 
+t_cmd_list * destroy_first_cmd_lst(t_cmd_list *cmd_lst);
+
 int	execute_cmd_line(t_cmd_list *cmd_lst)
 {
 	int	pipes[FOPEN_MAX][2];
@@ -56,10 +58,19 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 		close_fds(fd_to_read, fd_to_write);
 		if (cmd_lst->content->heredoc_mode && cmd_lst->content->heredoc_pipe[READ] != 0)
 			close(cmd_lst->content->heredoc_pipe[READ]);
-		cmd_lst = cmd_lst->next;
+		cmd_lst = destroy_first_cmd_lst(cmd_lst);
 		i++;
 	}
 	return (exit_routine(pipes, pids, i), free_cmd_lst(&cmd_lst), 1);
+}
+
+t_cmd_list * destroy_first_cmd_lst(t_cmd_list *cmd_lst)
+{
+	t_cmd_list *new_cmd_list;
+
+	new_cmd_list = cmd_lst->next;
+	ft_lstdelone((t_list *)cmd_lst, (void(*)(void *))destroy_cmd);
+	return (new_cmd_list);
 }
 
 bool	is_single_builtin_cmd(t_cmd_list *cmd_lst)
