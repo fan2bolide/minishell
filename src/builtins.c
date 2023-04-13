@@ -12,6 +12,15 @@
 
 #include "builtins.h"
 
+int			check_export_syntax(char **argv);
+int			is_echos_option_n(char *argv1);
+void		free_keyval(void *uncasted_keyval);
+void		insert_env_var(t_keyval *keyval_to_insert);
+void		update_env_var(t_keyval *keyval_to_update);
+bool		env_var_exist(t_keyval *keyval_to_check);
+void		shell_exit(t_cmd_list **cmd);
+bool		check_numeric_argument(char *argv1);
+
 void	exec_builtin(t_cmd_list **cmd_list_ptr, int to_write)
 {
 	int		type;
@@ -44,7 +53,8 @@ void	exec_builtin(t_cmd_list **cmd_list_ptr, int to_write)
 // returns [0...6] if str is builtins
 int	is_builtin(char *str)
 {
-	const char	*builtins[] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+	const char	*builtins[] = \
+	{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 	int			i;
 
 	if (!str)
@@ -55,4 +65,3 @@ int	is_builtin(char *str)
 			return (i - 1);
 	return (-1);
 }
-

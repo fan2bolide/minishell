@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_utils.c                                      :+:      :+:    :+:   */
+/*   main_token_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bajeanno <ba...@student.42lyon.fr>         +#+  +:+       +#+        */
+/*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/06 14:43:37 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/03/06 14:59:22 by bajeanno         ###   ########.fr       */
+/*   Updated: 2023/04/12 06:16:11 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ char	*create_token_content(char *expression)
 	i = 0;
 	if (!ft_strchr(SPEC_CHAR, *expression) || *expression == '$')
 	{
-		while ((expression[i] && (!ft_strchr(SPEC_CHAR, expression[i])
-					|| expression[i] == '$' || ft_strchr("\"\'", expression[i]))
-						&& !ft_isspace(expression[i])))
+		while ((expression[i] && (!ft_strchr(SPEC_CHAR, expression[i]) || \
+		expression[i] == '$' || ft_strchr("\"\'", expression[i])) && \
+		!ft_isspace(expression[i])))
 		{
 			i += end_of_quote(expression + i);
 			if (!expression[i++])
@@ -47,8 +47,8 @@ char	*create_token_content(char *expression)
 		while (expression[i] && *expression == expression[i])
 			i++;
 		if (*expression == '$' && i == 1)
-			while (expression[i] &&
-					!ft_strchr(SPEC_CHAR, expression[i]) &&
+			while (expression[i] && \
+					!ft_strchr(SPEC_CHAR, expression[i]) && \
 					!ft_isspace(expression[i]))
 				i++;
 	}

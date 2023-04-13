@@ -113,7 +113,7 @@ void	case_current_token_type_is_exec_name(t_token_list *token_lst_cursor,
 	}
 	cmd->argv[i] = NULL;
 	if (is_builtin(cmd->argv[0]) < 0)
-		cmd->path = get_path(cmd->argv[0], envp_lst);
+		cmd->path = get_path(cmd->argv[0], g_envp_lst);
 	else
 		cmd->path = ft_strdup("builtin"); //todo a proteger
 }

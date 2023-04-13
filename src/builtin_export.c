@@ -19,9 +19,9 @@ void	export(char **argv, int to_write)
 	t_keyval_list	*curr;
 	t_keyval		*keyval_to_export;
 
-	if (!envp_lst)
+	if (!g_envp_lst)
 		return ;
-	curr = envp_lst;
+	curr = g_envp_lst;
 	if (check_export_syntax(argv) <= 0)
 		return (ft_printf("Bad syntax\n"), (void)(0));
 	if (!argv[1])

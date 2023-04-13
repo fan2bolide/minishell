@@ -6,7 +6,7 @@
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:56:05 by bajeanno          #+#    #+#             */
-/*   Updated: 2023/01/23 03:40:00 by bajeanno         ###   ########lyon.fr   */
+/*   Updated: 2023/04/12 06:13:01 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
-#include <stdbool.h>
+# include <stdbool.h>
 
 typedef struct s_list
 {
@@ -127,13 +127,13 @@ int			ft_min(int a, int b);
 
 size_t		ft_arrsize(void **arr);
 void		**ft_dup_arr(void **arr, size_t sizeof_arr_elemnt);
-void		cpy_arr(void ** arr_src, void ** arr_dest);
+void		cpy_arr(void **arr_src, void **arr_dest);
 void		**ft_lst_to_arr(t_list *lst, size_t size_of_arr_elemnt);
 
 size_t		count_strs(const char *s, char c);
 int			str_starts_with(char *str, char *keyword);
 bool		str_contains_digits_only(char *str);
 bool		can_be_converted_to_long(char *argv1);
-void		ft_free_arr(void ** array, void (*del)(void *));
+void		ft_free_arr(void **array, void (*del)(void *));
 
 #endif

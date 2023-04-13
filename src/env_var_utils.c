@@ -36,9 +36,9 @@ bool	env_var_exist(t_keyval *keyval_to_check)
 {
 	t_keyval_list	*curr;
 
-	if (envp_lst)
-		curr = envp_lst->next;
-	if (!envp_lst || !curr)
+	if (g_envp_lst)
+		curr = g_envp_lst->next;
+	if (!g_envp_lst || !curr)
 		return (0);
 	while (curr && !ft_strequ(keyval_to_check->key, curr->content->key))
 		curr = curr->next;
@@ -51,9 +51,9 @@ void	update_env_var(t_keyval *keyval_to_update)
 {
 	t_keyval_list	*curr;
 
-	if (envp_lst)
-		curr = envp_lst->next;
-	if (!envp_lst || !curr)
+	if (g_envp_lst)
+		curr = g_envp_lst->next;
+	if (!g_envp_lst || !curr)
 		return ;
 	while (!ft_strequ(keyval_to_update->key, curr->content->key))
 		curr = curr->next;
@@ -73,12 +73,12 @@ void	insert_env_var(t_keyval *keyval_to_insert)
 	t_keyval_list	*tmp;
 
 	curr = NULL;
-	if (envp_lst)
-		curr = envp_lst->next;
-	if (!curr || !envp_lst)
+	if (g_envp_lst)
+		curr = g_envp_lst->next;
+	if (!curr || !g_envp_lst)
 		return (print_error(error_occured, "insert_env_var"), (void)0);
-	while (curr->next && ft_strcmp(keyval_to_insert->key,
-								   curr->next->content->key) > 0)
+	while (curr->next && ft_strcmp(keyval_to_insert->key, \
+			curr->next->content->key) > 0)
 		(curr) = (curr)->next;
 	tmp = curr->next;
 	curr->next = (t_keyval_list *)ft_lstnew(keyval_to_insert);

@@ -28,7 +28,7 @@ void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 	if (cmd.argv && is_builtin(cmd.argv[0]) >= 0)
 	{
 		exec_builtin(cmd_list_ptr, to_write);
-		exit(ft_atoi((const char *)envp_lst->content));
+		exit(ft_atoi((const char *)g_envp_lst->content));
 	}
 	if ((cmd.argv && cmd.argv[0] && !*cmd.argv[0]) || \
 		(cmd.path && ft_strequ(cmd.path, "heredoc")))
@@ -43,13 +43,13 @@ void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 		dup2(to_write, STDOUT_FILENO);
 		close(to_write);
 	}
-	envp = (char **)ft_keyval_lst_to_str_arr(envp_lst);
+	envp = (char **)ft_keyval_lst_to_str_arr(g_envp_lst);
 	if (cmd.path)
 		execve(cmd.path, cmd.argv, (char *const *)envp);
 	if (envp)
 		ft_free_arr((void *)envp, free);
 	free(envp);
-	ft_lstclear((t_list **)&envp_lst, &destroy_keyval);
+	ft_lstclear((t_list **)&g_envp_lst, &destroy_keyval);
 	ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
 	exit(EXIT_FAILURE);
 }

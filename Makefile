@@ -46,6 +46,7 @@ SRC =	minishell.c\
 		lexer_utils.c\
 		heredoc_manager.c \
 		keyval_utils.c \
+		signal_handling.c\
 
 
 BONUS_SRC =

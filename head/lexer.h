@@ -24,4 +24,4 @@ bool	check_files_after_redirect(t_token_list *tokens);
 bool	check_for_pipe_at_end(t_token_list *tokens);
 bool	check_redirect_operators(t_token *token);
 
-# endif
+#endif

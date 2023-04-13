@@ -47,6 +47,7 @@ static char	*get_string(char *return_str, const char *s, char c)
 static void	ft_free_all(char **strs)
 {
 	int	i;
+
 	i = 0;
 	while (strs[i])
 	{

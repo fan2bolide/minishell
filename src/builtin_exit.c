@@ -24,9 +24,9 @@ void	shell_exit(t_cmd_list **cmd_list_ptr)
 	cmd = (*cmd_list_ptr)->content;
 	argv1 = cmd->argv[1];
 	ft_printf("exit\n");
-	exit_code = envp_lst->content->value;
+	exit_code = g_envp_lst->content->value;
 	exit_code_modulo = ft_atoi(exit_code) % 256;
-	ft_lstclear((t_list **)&envp_lst, &destroy_keyval);
+	ft_lstclear((t_list **)&g_envp_lst, &destroy_keyval);
 	if (!argv1)
 	{
 		ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
@@ -34,7 +34,8 @@ void	shell_exit(t_cmd_list **cmd_list_ptr)
 	}
 	if (check_numeric_argument(argv1) == false)
 	{
-		print_error(numeric_argument_required, ft_strjoin_secure("exit: ", argv1));
+		print_error(numeric_argument_required, \
+					ft_strjoin_secure("exit: ", argv1));
 		exit(255);
 	}
 	exit_code_modulo = ft_atoll(argv1) % 256;

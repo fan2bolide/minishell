@@ -12,63 +12,9 @@
 
 #include "minishell.h"
 
-t_keyval_list	*envp_lst;
+t_keyval_list	*g_envp_lst;
 
 int				get_exit_code(void);
-
-/// sets the system calls for minishell signal handling
-/// \param sig_handler
-static int	setup_signals(void(sig_handler)(int))
-{
-	struct sigaction	sa;
-
-	sa.sa_handler = sig_handler;
-	sa.sa_flags = SA_RESTART;
-	sigemptyset(&sa.sa_mask);
-	if (sigaction(SIGINT, &sa, NULL) == -1)
-		return (0);
-	if (sigaction(SIGQUIT, &sa, NULL) == -1)
-		return (0);
-	return (1);
-}
-
-/**
- * gets called when receiving a sigint or sigquit
- * if sigint then readline ona newline and set exitcode to 130 according to bash
- * if sigquit then just rewrite the prompt and continue reading
- * @param sig
- */
-void	sig_handler_interactive_mode(int sig)
-{
-	if (sig == SIGINT)
-	{
-		update_exit_code(130);
-		rl_replace_line("", 0);
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_redisplay();
-		ft_printf(ANSI_RED "\r \001➜\002 " ANSI_RESET);
-	}
-	if (sig == SIGQUIT)
-	{
-		if (get_exit_code() == 0)
-			ft_printf(ANSI_BLUE "\r     \r \001➜\002 " ANSI_RESET);
-		else
-			ft_printf(ANSI_RED "\r     \r \001➜\002 " ANSI_RESET);
-	}
-}
-
-/**
- * gets called when receiving a sigint or sigquit while in execution mode
- * if sigint then update exit code to 130 according to bash
- * if sigquit then do nothing
- * @param sig
- */
-void	sig_handler_execution_mode(int sig)
-{
-	if (sig == SIGINT)
-		update_exit_code(130);
-}
 
 ///updates the env '?' variable with the exit code of the last program called
 void	update_exit_code(int exit_code)
@@ -76,8 +22,8 @@ void	update_exit_code(int exit_code)
 	char	*new_exit_code;
 
 	new_exit_code = ft_itoa(exit_code);
-	free(envp_lst->content->value);
-	envp_lst->content->value = new_exit_code;
+	free(g_envp_lst->content->value);
+	g_envp_lst->content->value = new_exit_code;
 }
 
 /// sets the value of env's '?' variable to 0
@@ -89,20 +35,20 @@ int	set_exit_code(void)
 	new = malloc(sizeof(t_keyval_list));
 	if (!new)
 		return (1);
-	new->next = envp_lst;
+	new->next = g_envp_lst;
 	new->content = malloc(sizeof(t_keyval));
 	if (!new->content)
 		return (free(new), 1);
 	new->content->key = ft_strdup("?");
 	new->content->value = ft_strdup("0");
-	envp_lst = new;
+	g_envp_lst = new;
 	return (0);
 }
 
 /// \return the value of env's '?' variable
 int	get_exit_code(void)
 {
-	return (ft_atoi(envp_lst->content->value));
+	return (ft_atoi(g_envp_lst->content->value));
 }
 
 char	*prompt(void)
@@ -168,10 +114,10 @@ void	dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
 {
 	if (!envp)
 	{
-		envp_lst = NULL;
+		g_envp_lst = NULL;
 		return ;
 	}
-	envp_lst = convert_str_arr_into_new_keyval_list(envp);
+	g_envp_lst = convert_str_arr_into_new_keyval_list(envp);
 	set_exit_code();
 }
 

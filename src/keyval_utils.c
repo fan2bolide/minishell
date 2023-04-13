@@ -31,8 +31,7 @@ void	**ft_keyval_lst_to_str_arr(t_keyval_list *lst)
 			free(to_destroy);
 			if (!arr[i])
 			{
-				ft_putstr_fd("an error occurred (ft_keyval_lst_to_str_arr)\n",
-						2); //todo put a clean error here
+				print_error(error_occured, "ft_keyval_lst_to_str_arr");
 				ft_free_arr(arr, free);
 				free(arr);
 				return (NULL);

@@ -19,10 +19,10 @@ void	unset(char *var_to_unset)
 
 	if (!var_to_unset)
 		return ((void)0);
-	curr = envp_lst;
+	curr = g_envp_lst;
 	if (ft_strequ(curr->content->key, var_to_unset))
 	{
-		envp_lst = envp_lst->next;
+		g_envp_lst = g_envp_lst->next;
 		ft_lstdelone((t_list *)curr, (void (*)(void *)) & destroy_keyval);
 		return ;
 	}

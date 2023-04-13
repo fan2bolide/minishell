@@ -16,9 +16,9 @@ void	env(int to_write)
 {
 	t_keyval_list	*curr;
 
-	curr = envp_lst;
+	curr = g_envp_lst;
 	if (curr)
-		curr = curr->next; //skipping the first value (exit code)
+		curr = curr->next;
 	while (curr && curr->content)
 	{
 		if (curr->content->value)
