@@ -22,7 +22,7 @@ char	*get_env_var_value(char *var_name)
 	t_keyval_list	*curr;
 
 	curr = g_envp_lst;
-	if (!var_name || !g_envp_lst)
+	if (!var_name || !g_envp_lst || curr->content)
 		return (NULL);
 	while (curr && !ft_strequ(curr->content->key, var_name))
 		curr = curr->next;

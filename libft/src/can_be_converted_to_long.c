@@ -16,7 +16,7 @@
 
 bool	can_be_converted_to_long(char *argv1)
 {
-	size_t			argv1_len;
+	size_t				argv1_len;
 	long long			atoll_res;
 
 	argv1_len = ft_strlen(argv1);

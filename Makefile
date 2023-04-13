@@ -19,6 +19,7 @@ LIBFT = libft/libft.a
 
 SRC =	minishell.c\
 		builtin_cd.c \
+		builtin_cd_utils.c \
 		builtin_env.c \
 		builtin_exit.c \
 		builtin_export.c \

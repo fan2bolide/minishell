@@ -18,7 +18,6 @@
 t_token	*evaluate_expression(char *expression, t_token *prev, int is_exec_name);
 size_t	get_next_expression(char *command_line);
 char	*create_token_content(char *expression);
-void	log_token(t_token *token);
 bool	check_all_consecutives_types(t_token_list *tokens);
 bool	check_files_after_redirect(t_token_list *tokens);
 bool	check_for_pipe_at_end(t_token_list *tokens);

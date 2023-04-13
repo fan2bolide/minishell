@@ -22,11 +22,11 @@ char	*get_path(char *exec_name, t_keyval_list *envp_lst)
 	int		i;
 
 	i = 0;
-	if (!envp_lst || !exec_name || !*exec_name)
+	if (!envp_lst || !envp_lst->content || !envp_lst->content->key || !exec_name || !*exec_name)
 		return (NULL);
-	while (envp_lst && ft_strequ(envp_lst->content->key, "PATH") == 0)
+	while (envp_lst && envp_lst->content && envp_lst->content->key && ft_strequ(envp_lst->content->key, "PATH") == 0)
 		envp_lst = envp_lst->next;
-	if (!envp_lst)
+	if (!envp_lst ||  !envp_lst->content || !envp_lst->content->key || ft_strequ(envp_lst->content->key, "PATH") == 0)
 		return (NULL);
 	paths = ft_split(envp_lst->content->value, ':');
 	if (!paths)

@@ -12,7 +12,8 @@
 
 #include "builtins.h"
 
-int		check_export_syntax(char **argv);
+static void		print_loop(int to_write, t_keyval_list *curr);
+static int		check_export_syntax(char **argv);
 
 void	export(char **argv, int to_write)
 {
@@ -26,19 +27,7 @@ void	export(char **argv, int to_write)
 		return (ft_printf("Bad syntax\n"), (void)(0));
 	if (!argv[1])
 	{
-		while (curr)
-		{
-			ft_putstr_fd("declare -x ", to_write);
-			ft_putstr_fd(curr->content->key, to_write);
-			if (curr->content->value)
-			{
-				ft_putstr_fd("=\"", to_write);
-				ft_putstr_fd(curr->content->value, to_write);
-				ft_putstr_fd("\"", to_write);
-			}
-			ft_putstr_fd("\n", to_write);
-			curr = curr->next;
-		}
+		print_loop(to_write, curr);
 		return ;
 	}
 	keyval_to_export = create_keyval_from_env_var(argv[1]);
@@ -47,7 +36,24 @@ void	export(char **argv, int to_write)
 	insert_or_update_env_var(keyval_to_export);
 }
 
-int	check_export_syntax(char **argv)
+static void	print_loop(int to_write, t_keyval_list *curr)
+{
+	while (curr)
+	{
+		ft_putstr_fd("declare -x ", to_write);
+		ft_putstr_fd(curr->content->key, to_write);
+		if (curr->content->value)
+		{
+			ft_putstr_fd("=\"", to_write);
+			ft_putstr_fd(curr->content->value, to_write);
+			ft_putstr_fd("\"", to_write);
+		}
+		ft_putstr_fd("\n", to_write);
+		curr = curr->next;
+	}
+}
+
+static int	check_export_syntax(char **argv)
 {
 	if (argv[1] == NULL)
 		return (1);

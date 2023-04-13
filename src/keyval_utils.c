@@ -12,19 +12,31 @@
 
 #include "execute_cmd_line.h"
 
+static int	fill_array(t_keyval_list *lst, void **arr);
+
 void	**ft_keyval_lst_to_str_arr(t_keyval_list *lst)
 {
 	size_t	arr_size;
-	char	*to_destroy;
-	int		i;
 	void	**arr;
 
 	arr_size = ft_lstsize((t_list *)lst);
-	arr = ft_calloc(arr_size + 1, sizeof(char *)); // todo protect this
+	arr = ft_calloc(arr_size + 1, sizeof(char *));
+	if (!arr)
+		return (print_error(error_occured, "(keyval to str arr)"), NULL);
+	if (fill_array(lst, arr) < 0 )
+		return (NULL);
+	return (arr);
+}
+
+static int fill_array(t_keyval_list *lst, void **arr)
+{
+	int		i;
+
 	i = 0;
+	char	*to_destroy;
 	while (lst)
 	{
-		if (lst->content->key && lst->content->value)
+		if (lst->content && lst->content->key && lst->content->value)
 		{
 			to_destroy = ft_strjoin_secure(lst->content->key, "=");
 			arr[i] = ft_strjoin_secure(to_destroy, lst->content->value);
@@ -34,14 +46,14 @@ void	**ft_keyval_lst_to_str_arr(t_keyval_list *lst)
 				print_error(error_occured, "ft_keyval_lst_to_str_arr");
 				ft_free_arr(arr, free);
 				free(arr);
-				return (NULL);
+				return (-1);
 			}
 			i++;
 		}
 		lst = lst->next;
 	}
 	arr[i] = NULL;
-	return (arr);
+	return (0);
 }
 
 /**
@@ -58,15 +70,16 @@ t_keyval	*create_keyval_from_env_var(char *var)
 	char		*equal;
 
 	if (!var)
-		return (NULL); //todo test
+		return (NULL);
 	res = create_keyval();
 	if (!res)
-		return (NULL); //todo test
+		return (NULL);
 	equal = ft_strchr(var, '=');
 	if (!equal)
 	{
 		res->key = ft_strdup(var);
-		return (res); //todo test
+		res->value = NULL;
+		return (res);
 	}
 	res->key = ft_strndup(var, equal - var);
 	res->value = NULL;
@@ -77,8 +90,11 @@ t_keyval	*create_keyval_from_env_var(char *var)
 
 void	destroy_keyval(void *keyval)
 {
-	free(((t_keyval *)keyval)->value);
-	free(((t_keyval *)keyval)->key);
+	if (keyval)
+	{
+		free(((t_keyval *)keyval)->value);
+		free(((t_keyval *)keyval)->key);
+	}
 	free(keyval);
 }
 

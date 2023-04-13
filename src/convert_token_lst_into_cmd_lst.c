@@ -12,16 +12,20 @@
 
 #include "execute_cmd_line.h"
 
-static void	switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst);
-void		case_current_token_type_is_exec_name(t_token_list *token_lst_cursor,
-				t_cmd *cmd); //static ?
-void		case_current_token_type_is_redirect_out(
-				t_token_list *token_lst_cursor, t_cmd *cmd); //static ?
-void		case_current_token_type_is_redirect_in(
-				t_token_list *token_lst_cursor, t_cmd *cmd);
-//static int token_is_null(void *token_lst_content);
-void		case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst,
-				t_token_list *token_lst_cursor);
+static void		\
+switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst);
+static void		\
+case_current_token_type_is_exec_name(t_token_list *token_lst_cursor, \
+t_cmd *cmd);
+static void		\
+case_current_token_type_is_redirect_out( \
+t_token_list *token_lst_cursor, t_cmd *cmd);
+static void		\
+case_current_token_type_is_redirect_in( \
+t_token_list *token_lst_cursor, t_cmd *cmd);
+static void		\
+case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst, \
+t_token_list *token_lst_cursor);
 
 t_cmd_list	*convert_token_lst_into_cmd_lst(t_token_list *token_lst)
 {
@@ -43,6 +47,8 @@ static void	switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst)
 {
 	t_token	*current_token;
 
+	if (!*cmd_lst)
+		return ;
 	current_token = token_lst_cursor->content;
 	if (current_token->type == exec_name)
 		case_current_token_type_is_exec_name(token_lst_cursor,
@@ -61,7 +67,8 @@ static void	switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst)
 	else if (current_token->type == operator_pipe)
 	{
 		(*cmd_lst)->next = (t_cmd_list *)ft_lstnew(create_new_cmd());
-		// todo protect this
+		if (!(*cmd_lst)->next)
+			return print_error(error_occured, NULL);
 		*cmd_lst = (*cmd_lst)->next;
 	}
 	else if (current_token->type == redirect_hd)

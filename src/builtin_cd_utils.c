@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*   builtin_cd_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,27 +12,33 @@
 
 #include "builtins.h"
 
-void	unset(char *var_to_unset)
+void	error_cd(char *error_message)
 {
-	t_keyval_list	*curr;
-	t_keyval_list	*tmp;
+	ft_putstr_fd(error_message, 2);
+	update_exit_code(1);
+}
 
-	if (!var_to_unset)
-		return ((void)0);
-	curr = g_envp_lst;
-	if (ft_strequ(curr->content->key, var_to_unset))
+void	chdir_and_update_pwd(const char *dir, const int success)
+{
+	if (chdir(dir) != success)
 	{
-		g_envp_lst = g_envp_lst->next;
-		ft_lstdelone((t_list *)curr, (void (*)(void *)) & destroy_keyval);
-		return ;
+		perror("chdir() error");
+		update_exit_code(1);
 	}
-	while (curr && curr->next && \
-			!ft_strequ(curr->next->content->key, var_to_unset))
-		curr = curr->next;
-	if (curr->next)
-	{
-		tmp = curr->next->next;
-		ft_lstdelone((t_list *)curr->next, & destroy_keyval);
-		curr->next = tmp;
-	}
+	update_pwd();
+}
+
+int	user_has_read_permission(struct stat *file_status)
+{
+	return ((*file_status).st_mode & S_IRUSR);
+}
+
+bool	is_a_dir(struct stat *file_status)
+{
+	return (((*file_status).st_mode & S_IFMT) == S_IFDIR);
+}
+
+int	get_file_status(char *file_or_dir, struct stat *result)
+{
+	return (stat(file_or_dir, result));
 }

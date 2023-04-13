@@ -18,12 +18,12 @@
 # define ANSI_RESET "\001\x1b[0m\002"
 # define ANSI_BLUE "\001\x1b[34m\002"
 # include "libft.h"
+# include <stdio.h>
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
-# include <stdio.h>
 # include <sys/errno.h>
 # include <sys/stat.h>
 # ifndef FOPEN_MAX

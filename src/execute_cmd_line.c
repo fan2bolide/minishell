@@ -49,7 +49,11 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 				return (0);
 		get_fds(cmd_lst, pipes, i, &fd_to_read, &fd_to_write);
 		if (is_single_builtin_cmd(cmd_lst))
-			return (exec_builtin(&cmd_lst, fd_to_write), 1);
+		{
+			exec_builtin(&cmd_lst, fd_to_write);
+			cmd_lst = destroy_first_cmd_lst(cmd_lst);
+			return (1);
+		}
 		pids[i] = fork();
 		if (pids[i] < 0)
 			return (ft_printf("Failed to fork\n"), 0);
