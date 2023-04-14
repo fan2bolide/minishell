@@ -35,10 +35,10 @@ static void	here_doc_routine(int fd_to_write, char *delimiter)
 	int		bytes_written;
 
 	heredoc_buf = NULL;
-	ft_printf("heredoc> ");
+	printf("heredoc> ");
 	while (append_new_line_if_not_delim(STDIN_FILENO, &heredoc_buf,
 			delimiter) == 0)
-		ft_printf("heredoc> ");
+		printf("heredoc> ");
 	if (heredoc_buf)
 	{
 		bytes_written = \
@@ -60,7 +60,7 @@ static int	append_new_line_if_not_delim(int fd, char **str_to_append,
 	ft_strchr(delim, '\'') == NULL);
 	next_line = get_next_line(fd);
 	if (!next_line)
-		return (ft_printf("\n"), -1);
+		return (printf("\n"), -1);
 	if (is_delimiter(delim, next_line))
 	{
 		free(next_line);
@@ -91,7 +91,7 @@ static int	is_delimiter(char *delim, const char *next_line)
 	if (!next_line)
 		return (0);
 	tmp = ft_strdup((char *)next_line);
-	if (!tmp && ft_printf("An error occurred \n"))
+	if (!tmp && printf("An error occurred \n"))
 		return (0);
 	if (tmp[0])
 		tmp[ft_strlen(tmp) - 1] = 0;

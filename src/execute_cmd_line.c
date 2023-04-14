@@ -56,7 +56,7 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 		}
 		pids[i] = fork();
 		if (pids[i] < 0)
-			return (ft_printf("Failed to fork\n"), 0);
+			return (printf("Failed to fork\n"), 0);
 		if (pids[i] == 0)
 			execute_cmd(&cmd_lst, fd_to_read, fd_to_write);
 		close_fds(fd_to_read, fd_to_write);
@@ -160,7 +160,7 @@ void	check_path(const t_cmd_list *cmd_lst)
 			"/"))
 		error_depending_on_file_or_dir(cmd_with_issue);
 	else
-		ft_printf("Turboshell: command not found: %s\n",
+		printf("Turboshell: command not found: %s\n",
 				(cmd_lst->content)->argv[0]);
 }
 

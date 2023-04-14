@@ -23,7 +23,7 @@ void	shell_exit(t_cmd_list **cmd_list_ptr)
 
 	cmd = (*cmd_list_ptr)->content;
 	argv1 = cmd->argv[1];
-	ft_printf("exit\n");
+	printf("exit\n");
 	exit_code = g_envp_lst->content->value;
 	exit_code_modulo = ft_atoi(exit_code) % 256;
 	ft_lstclear((t_list **)&g_envp_lst, &destroy_keyval);

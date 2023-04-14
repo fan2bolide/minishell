@@ -24,7 +24,7 @@ void	export(char **argv, int to_write)
 		return ;
 	curr = g_envp_lst;
 	if (check_export_syntax(argv) <= 0)
-		return (ft_printf("Bad syntax\n"), (void)(0));
+		return (printf("Bad syntax\n"), (void)(0));
 	if (!argv[1])
 	{
 		print_loop(to_write, curr);

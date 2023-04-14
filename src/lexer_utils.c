@@ -99,7 +99,7 @@ void	print_token(t_token *token)
 	char	*token_type;
 
 	if (!token)
-		return (ft_printf("(null token)\n"), (void)0);
+		return (printf("(null token)\n"), (void)0);
 	token_type = "error, \t";
 	if (token->type == exec_name)
 		token_type = "exec_name, \t";
@@ -117,5 +117,5 @@ void	print_token(t_token *token)
 		token_type = "redirect_out_trunc, \t";
 	if (token->type == redirect_hd)
 		token_type = "redirect_hd, \t";
-	ft_printf("%s%s\n", token_type, token->content);
+	printf("%s%s\n", token_type, token->content);
 }

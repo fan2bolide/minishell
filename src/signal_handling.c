@@ -43,14 +43,14 @@ void	sig_handler_interactive_mode(int sig)
 		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		ft_printf(ANSI_RED "\r \001➜\002 " ANSI_RESET);
+		printf(ANSI_RED "\r \001➜\002 " ANSI_RESET);
 	}
 	if (sig == SIGQUIT)
 	{
 		if (get_exit_code() == 0)
-			ft_printf(ANSI_BLUE "\r     \r \001➜\002 " ANSI_RESET);
+			printf(ANSI_BLUE "\r     \r \001➜\002 " ANSI_RESET);
 		else
-			ft_printf(ANSI_RED "\r     \r \001➜\002 " ANSI_RESET);
+			printf(ANSI_RED "\r     \r \001➜\002 " ANSI_RESET);
 	}
 }
 
