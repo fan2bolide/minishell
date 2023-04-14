@@ -50,7 +50,7 @@ int	open_and_get_fd(char *file, int open_mode, int rights)
 	int	res;
 
 	if (rights)
-		res =  (open(file, open_mode, rights));
+		res = (open(file, open_mode, rights));
 	else
 		res = (open(file, open_mode));
 	if (res < 0)
