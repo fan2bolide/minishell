@@ -133,10 +133,12 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	dup_envp(envp);
 	term_color = true;
 	if (!*envp)
 		term_color = false;
-	dup_envp(envp);
+	if (term_color)
+		term_color = check_terminal();
 	while (1)
 	{
 		prompt_res = prompt(term_color);

@@ -27,6 +27,7 @@ SRC =	minishell.c\
 		builtins.c \
 		builtins_echo.c \
 		builtins_pwd.c \
+		check_terminal.c\
 		cmd_utils.c \
 		convert_token_lst_into_cmd_lst.c \
 		env_var_utils.c \
