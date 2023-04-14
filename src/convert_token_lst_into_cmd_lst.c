@@ -55,20 +55,16 @@ static void	switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst)
 			(*cmd_lst)->content);
 	else if (current_token->type == redirect_out_trunc
 		|| current_token->type == redirect_out_append)
-	{
 		case_current_token_type_is_redirect_out(token_lst_cursor,
 			(*cmd_lst)->content);
-	}
 	else if (current_token->type == redirect_in)
-	{
 		case_current_token_type_is_redirect_in(token_lst_cursor,
 			(*cmd_lst)->content);
-	}
 	else if (current_token->type == operator_pipe)
 	{
 		(*cmd_lst)->next = (t_cmd_list *)ft_lstnew(create_new_cmd());
 		if (!(*cmd_lst)->next)
-			return print_error(error_occured, NULL);
+			return (print_error(error_occured, NULL));
 		*cmd_lst = (*cmd_lst)->next;
 	}
 	else if (current_token->type == redirect_hd)
@@ -79,8 +75,10 @@ void	case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst,
 											t_token_list *token_lst_cursor)
 {
 	(*cmd_lst)->content->heredoc_mode = 1;
-	(*cmd_lst)->content->heredoc_delim = ft_strdup(token_lst_cursor->next->content->content);
-	if (!(*cmd_lst)->content->heredoc_delim && token_lst_cursor->next->content->content)
+	(*cmd_lst)->content->heredoc_delim = \
+	ft_strdup(token_lst_cursor->next->content->content);
+	if (!(*cmd_lst)->content->heredoc_delim && \
+	token_lst_cursor->next->content->content)
 		return (print_error(error_occured, "heredoc error"));
 	pipe((*(*cmd_lst)->content).heredoc_pipe);
 	manage_here_doc(*(*cmd_lst)->content);
@@ -127,7 +125,11 @@ void	case_current_token_type_is_exec_name(t_token_list *token_lst_cursor,
 	if (is_builtin(cmd->argv[0]) < 0)
 		cmd->path = get_path(cmd->argv[0], g_envp_lst);
 	else
-		cmd->path = ft_strdup("builtin"); //todo protect this
+	{
+		cmd->path = ft_strdup("builtin");
+		if (!cmd->path)
+			print_error(error_occured, "");
+	}
 }
 
 void	case_current_token_type_is_redirect_out(
