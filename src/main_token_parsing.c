@@ -17,7 +17,7 @@ static bool	number_of_pipes_is_above_limit(t_token_list *tokenized_pipeline)
 	size_t	i;
 
 	i = 0;
-	while (tokenized_pipeline && i < (FOPEN_MAX - 3) / 2)
+	while (tokenized_pipeline && i < (OPEN_MAX - 3) / 2)
 	{
 		if (tokenized_pipeline->content->type == operator_pipe)
 			i++;

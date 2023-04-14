@@ -20,8 +20,8 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 128
 # endif
-# ifndef FOPEN_MAX
-#  define FOPEN_MAX 20
+# ifndef OPEN_MAX
+#  define OPEN_MAX 10240
 # endif
 # ifndef EOF
 #  define EOF (-1)

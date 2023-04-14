@@ -65,7 +65,7 @@ char	*get_next_line(int fd)
 	int				size;
 	static int		old_fd = -1;
 
-	if (fd >= FOPEN_MAX || fd < 0 || read(fd, NULL, 0) != 0)
+	if (fd >= OPEN_MAX || fd < 0 || read(fd, NULL, 0) != 0)
 		return (buffer[0] = 0, NULL);
 	if (old_fd != fd && old_fd != -1)
 		buffer[0] = 0;

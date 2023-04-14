@@ -26,8 +26,8 @@
 # include <stdbool.h>
 # include <sys/errno.h>
 # include <sys/stat.h>
-# ifndef FOPEN_MAX
-#  define FOPEN_MAX 20
+# ifndef OPEN_MAX
+#  define OPEN_MAX 10240
 # endif
 
 enum						e_error_context
