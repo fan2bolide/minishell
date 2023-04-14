@@ -25,9 +25,7 @@ void	wait_all_child_proc(int *pids, int childs_counter)
 
 	k = 0;
 	while (k < childs_counter)
-	{
 		waitpid(pids[k++], &status, 0);
-	}
 	if (WIFEXITED(status))
 		update_exit_code(WEXITSTATUS(status));
 }
