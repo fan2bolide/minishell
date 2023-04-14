@@ -4,3 +4,4 @@ minishell
 libft/libft.a
 CMakeLists.txt
 cmake-build-debug
+minishell_tester
