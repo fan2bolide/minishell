@@ -83,23 +83,6 @@ char	*prompt(int term_does_handle_color)
 	return (res);
 }
 
-t_str_list	*convert_str_arr_into_new_str_list(char **array)
-{
-	t_str_list	*res;
-
-	res = (t_str_list *)ft_lstnew(NULL);
-	if (array == NULL)
-		return (res);
-	res->content = *array;
-	array++;
-	while (*array)
-	{
-		ft_lstadd_back((t_list **)&res, ft_lstnew(*array));
-		array++;
-	}
-	return (res);
-}
-
 ///converts char *envp to key/value list so we can use and update it
 t_keyval_list	*convert_str_arr_into_new_keyval_list(char **array)
 {

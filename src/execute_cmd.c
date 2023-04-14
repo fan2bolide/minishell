@@ -13,6 +13,8 @@
 #include "execute_cmd_line.h"
 #include "minishell.h"
 
+static void clear_and_exit_with_exit_code(t_cmd_list *const *cmd_list_ptr);
+
 //'to_read' linked to child 'stdin' and child 'stdout' linked to 'to_write'
 void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 {
@@ -20,19 +22,12 @@ void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 	char	**envp;
 
 	if (to_read < 0 || to_write < 0)
-	{
-		update_exit_code(1);
-		return (print_error(error_occured, "negative file descriptors"));
-	}
+		clear_and_exit_with_exit_code(cmd_list_ptr);
 	cmd = *(*cmd_list_ptr)->content;
 	if (cmd.argv && is_builtin(cmd.argv[0]) >= 0)
 	{
-		int exit_code;
 		exec_builtin(cmd_list_ptr, to_write);
-		exit_code = ft_atoi((const char *)g_envp_lst->content);
-		ft_lstclear((t_list **)&g_envp_lst, &destroy_keyval);
-		ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
-		exit(exit_code);
+		clear_and_exit_with_exit_code(cmd_list_ptr);
 	}
 	if ((cmd.argv && cmd.argv[0] && !*cmd.argv[0]) || \
 		(cmd.path && ft_strequ(cmd.path, "heredoc")))
@@ -56,4 +51,14 @@ void	execute_cmd(t_cmd_list **cmd_list_ptr, int to_read, int to_write)
 	free(envp);
 	ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
 	exit(EXIT_FAILURE);
+}
+
+static void	clear_and_exit_with_exit_code(t_cmd_list *const *cmd_list_ptr)
+{
+	int	exit_code;
+
+	exit_code = ft_atoi((const char *)g_envp_lst->content);
+	ft_lstclear((t_list **)&g_envp_lst, &destroy_keyval);
+	ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
+	exit(exit_code);
 }
