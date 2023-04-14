@@ -15,9 +15,6 @@
 static void		\
 switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst);
 static void		\
-case_current_token_type_is_exec_name(t_token_list *token_lst_cursor, \
-t_cmd *cmd);
-static void		\
 case_current_token_type_is_redirect_out( \
 t_token_list *token_lst_cursor, t_cmd *cmd);
 static void		\
@@ -88,50 +85,6 @@ void	case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst,
 		(*cmd_lst)->content->argv = NULL;
 }
 
-void	case_current_token_type_is_exec_name(t_token_list *token_lst_cursor,
-											t_cmd *cmd)
-{
-	size_t	cmd_tab_size;
-	t_token	*current_token;
-	char	**splits;
-	int		i;
-	int		j;
-
-	i = 0;
-	cmd_tab_size = token_cmd_line_size(token_lst_cursor) + 1;
-	cmd->argv = ft_calloc(cmd_tab_size, sizeof(char *));
-	if (cmd_tab_size > 1)
-	{
-		current_token = token_lst_cursor->content;
-		splits = ft_old_split(current_token->content, ' ');
-		j = 0;
-		while (splits[j])
-		{
-			cmd->argv[i++] = splits[j++];
-			cmd_tab_size--;
-		}
-		token_lst_cursor = token_lst_cursor->next;
-		free(splits);
-	}
-	while (cmd_tab_size > 1)
-	{
-		current_token = token_lst_cursor->content;
-		cmd->argv[i++] = ft_strdup(current_token->content);
-		token_lst_cursor = token_lst_cursor->next;
-		cmd_tab_size--;
-	}
-	cmd->argv[i] = NULL;
-	free(cmd->path);
-	if (is_builtin(cmd->argv[0]) < 0)
-		cmd->path = get_path(cmd->argv[0], g_envp_lst);
-	else
-	{
-		cmd->path = ft_strdup("builtin");
-		if (!cmd->path)
-			print_error(error_occured, "");
-	}
-}
-
 void	case_current_token_type_is_redirect_out(
 	t_token_list *token_lst_cursor, t_cmd *cmd)
 {
@@ -153,7 +106,7 @@ void	case_current_token_type_is_redirect_out(
 	cmd->redirect_out_mode = open_mode;
 }
 
-void		case_current_token_type_is_redirect_in(
+void	case_current_token_type_is_redirect_in(
 	t_token_list *token_lst_cursor, t_cmd *cmd)
 {
 	t_token	*token_with_the_redirect_file;

@@ -27,6 +27,8 @@ SRC =	minishell.c\
 		builtins.c \
 		builtins_echo.c \
 		builtins_pwd.c \
+		case_current_token_type_is_exec_name.c \
+		check_path.c \
 		check_terminal.c\
 		cmd_utils.c \
 		convert_token_lst_into_cmd_lst.c \
@@ -36,10 +38,12 @@ SRC =	minishell.c\
 		exec_utils.c\
 		execute_cmd.c\
 		execute_cmd_line.c\
+		execute_cmd_line_utils.c\
 		expand_content.c\
 		expand_content_utils.c\
 		expand_tokens_from_list.c\
 		expand_utils.c \
+		fds.c \
 		get_path.c\
 		main_token_parsing.c\
 		main_token_utils.c \
