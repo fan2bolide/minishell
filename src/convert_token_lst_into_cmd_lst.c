@@ -84,8 +84,10 @@ void	case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst,
 		return (print_error(error_occured, "heredoc error"));
 	pipe((*(*cmd_lst)->content).heredoc_pipe);
 	manage_here_doc(*(*cmd_lst)->content);
-	(*cmd_lst)->content->path = ft_strdup("heredoc");
-	(*cmd_lst)->content->argv = NULL;
+	if (!(*cmd_lst)->content->path)
+		(*cmd_lst)->content->path = ft_strdup("heredoc");
+	if (!(*cmd_lst)->content->argv)
+		(*cmd_lst)->content->argv = NULL;
 }
 
 void	case_current_token_type_is_exec_name(t_token_list *token_lst_cursor,
