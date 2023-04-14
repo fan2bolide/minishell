@@ -39,6 +39,7 @@ SRC =	minishell.c\
 		execute_cmd.c\
 		execute_cmd_line.c\
 		execute_cmd_line_utils.c\
+		exit_code_handler.c\
 		expand_content.c\
 		expand_content_utils.c\
 		expand_tokens_from_list.c\

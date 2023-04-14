@@ -14,47 +14,7 @@
 
 t_keyval_list	*g_envp_lst;
 
-///updates the env '?' variable with the exit code of the last program called
-void	update_exit_code(int exit_code)
-{
-	char	*new_exit_code;
-
-	new_exit_code = ft_itoa(exit_code);
-	free(g_envp_lst->content->value);
-	g_envp_lst->content->value = new_exit_code;
-}
-
-/// sets the value of env's '?' variable to 0
-/// \return 1 if allocation fails, 0 else
-bool	set_exit_code(void)
-{
-	t_keyval_list	*new;
-
-	new = malloc(sizeof(t_keyval_list));
-	if (!new)
-		return (false);
-	new->next = g_envp_lst;
-	new->content = malloc(sizeof(t_keyval));
-	if (!new->content)
-		return (free(new), false);
-	new->content->key = ft_strdup("?");
-	new->content->value = ft_strdup("0");
-	if (!new->content->key || !new->content->value)
-	{
-		free(new->content->key);
-		free(new->content->value);
-		free(new);
-		return (false);
-	}
-	g_envp_lst = new;
-	return (true);
-}
-
-/// \return the value of env's '?' variable
-int	get_exit_code(void)
-{
-	return (ft_atoi(g_envp_lst->content->value));
-}
+bool	set_exit_code(void);
 
 char	*prompt(int term_does_handle_color)
 {
@@ -129,19 +89,13 @@ int	main(int argc, char **argv, char **envp)
 	char			*prompt_res;
 	t_token_list	*token_list;
 	t_cmd_list		*cmd_lst;
-	bool			term_color;
 
 	(void)argc;
 	(void)argv;
 	dup_envp(envp);
-	term_color = true;
-	if (!*envp)
-		term_color = false;
-	if (term_color)
-		term_color = check_terminal();
 	while (1)
 	{
-		prompt_res = prompt(term_color);
+		prompt_res = prompt(*envp && check_terminal());
 		if (!prompt_res)
 			return (perror("signal setup failed: "), 1);
 		token_list = get_main_token_list(prompt_res);
