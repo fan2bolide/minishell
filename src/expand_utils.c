@@ -68,7 +68,7 @@ char	*get_value_of_var(char *var)
 		while (var[i] && var[i] != '?' && (ft_isalnum(var[i]) || var[i] == '_'))
 			i++;
 	if (i == 0)
-		return (NULL);
+		return (ft_strdup("$"));
 	var_name = ft_strnew(i);
 	var_name = ft_strncpy(var, var_name, i);
 	value = get_env_var_value(var_name);
