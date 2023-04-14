@@ -20,9 +20,9 @@ void	export(char **argv, int to_write)
 	t_keyval_list	*curr;
 	t_keyval		*keyval_to_export;
 
-	if (!g_envp_lst)
+	if (!g_envp_lst || !g_envp_lst->next)
 		return ;
-	curr = g_envp_lst;
+	curr = g_envp_lst->next;
 	if (check_export_syntax(argv) <= 0)
 		return (printf("Bad syntax\n"), (void)(0));
 	if (!argv[1])
