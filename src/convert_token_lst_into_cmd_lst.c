@@ -115,6 +115,6 @@ void	case_current_token_type_is_redirect_in(
 	token_with_the_redirect_file = token_lst_cursor->next->content;
 	file = token_with_the_redirect_file->content;
 	cmd->redirect_in = ft_strdup(file);
-	if (!cmd->redirect_out)
+	if (!cmd->redirect_in)
 		print_error(error_occured, "");
 }

@@ -54,9 +54,12 @@ static void	get_exec_name_and_args(t_token_list *token_lst_cursor, t_cmd *cmd)
 	while (cmd_tab_size > 1)
 	{
 		current_token = token_lst_cursor->content;
-		cmd->argv[i++] = ft_strdup(current_token->content);
+		if (current_token->type == arg)
+		{
+			cmd->argv[i++] = ft_strdup(current_token->content);
+			cmd_tab_size--;
+		}
 		token_lst_cursor = token_lst_cursor->next;
-		cmd_tab_size--;
 	}
 	cmd->argv[i] = NULL;
 }
