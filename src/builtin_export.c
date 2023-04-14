@@ -24,7 +24,11 @@ void	export(char **argv, int to_write)
 		return ;
 	curr = g_envp_lst->next;
 	if (check_export_syntax(argv) <= 0)
-		return (printf("Bad syntax\n"), (void)(0));
+	{
+		print_error(bad_identifier, "argv[1]");
+		update_exit_code(1);
+		return ;
+	}
 	if (!argv[1])
 	{
 		print_loop(to_write, curr);
@@ -55,9 +59,19 @@ static void	print_loop(int to_write, t_keyval_list *curr)
 
 static int	check_export_syntax(char **argv)
 {
+	int i;
+
+	i = 0;
 	if (argv[1] == NULL)
 		return (1);
-	if (isalpha(argv[1][0]) || argv[1][0] == '_')
-		return (1);
+	if (isalpha(argv[1][i]) || argv[1][i] == '_')
+	{
+		i++;
+		while (argv[1][i] && argv[1][i] != '=' && \
+				(ft_isalnum(argv[1][i]) || argv[1][i] == '_'))
+			i++;
+		if (!argv[1][i] || argv[1][i] == '=')
+			return (1);
+	}
 	return (0);
 }

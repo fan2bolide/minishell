@@ -37,6 +37,9 @@ static char	*get_error_msg_from_context(enum e_error_context context, \
 	if (context == numeric_argument_required)
 		res = ft_strjoin(generic_error_msg, \
 		": numeric argument required\n");
+	if (context == bad_identifier)
+		res = ft_strjoin(generic_error_msg, \
+		": not a valid identifier\n");
 	return (res);
 }
 
