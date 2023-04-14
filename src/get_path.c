@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   get_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurelienlevra <aurelienlevra@student.42    +#+  +:+       +#+        */
+/*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 12:47:34 by alevra            #+#    #+#             */
-/*   Updated: 2023/04/12 01:54:33 by aurelienlev      ###   ########.fr       */
+/*   Updated: 2023/04/12 01:54:33 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute_cmd_line.h"
 
-//static void	freepath(char **paths);
 static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd);
+static bool	key_exist(const t_keyval_list *envp_lst);
+int			search_path(t_keyval_list *envp_lst);
 
 char	*get_path(char *exec_name, t_keyval_list *envp_lst)
 {
@@ -21,12 +22,9 @@ char	*get_path(char *exec_name, t_keyval_list *envp_lst)
 	char	*path;
 	int		i;
 
-	i = 0;
-	if (!envp_lst || !envp_lst->content || !envp_lst->content->key || !exec_name || !*exec_name)
+	if (!key_exist(envp_lst) || !exec_name || !*exec_name)
 		return (NULL);
-	while (envp_lst && envp_lst->content && envp_lst->content->key && ft_strequ(envp_lst->content->key, "PATH") == 0)
-		envp_lst = envp_lst->next;
-	if (!envp_lst ||  !envp_lst->content || !envp_lst->content->key || ft_strequ(envp_lst->content->key, "PATH") == 0)
+	if (!search_path(envp_lst))
 		return (NULL);
 	paths = ft_split(envp_lst->content->value, ':');
 	if (!paths)
@@ -44,6 +42,25 @@ char	*get_path(char *exec_name, t_keyval_list *envp_lst)
 		free(path);
 	}
 	return (ft_split_destroy(paths), NULL);
+}
+
+int	search_path(t_keyval_list *envp_lst)
+{
+	const int	fail = 0;
+	const int	success = 1;
+
+	while (key_exist(envp_lst) \
+	&& ft_strequ(envp_lst->content->key, "PATH") == 0)
+		envp_lst = envp_lst->next;
+	if (!key_exist(envp_lst) \
+	|| ft_strequ(envp_lst->content->key, "PATH") == 0)
+		return (fail);
+	return (success);
+}
+
+static bool	key_exist(const t_keyval_list *envp_lst)
+{
+	return (envp_lst && envp_lst->content && envp_lst->content->key);
 }
 
 static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd)
