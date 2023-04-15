@@ -96,6 +96,8 @@ static char	*join_words_with_values(t_expansion *token, char *tmp)
 		if (!value)
 			value = "";
 		tmp = ft_strjoin_free_s1(tmp, value);
+		if (*value == '$')
+			free(value);
 		while (token->content[i] && token->content[i] != '?' && \
 				(ft_isalnum(token->content[i]) || token->content[i] == '_'))
 			i++;
