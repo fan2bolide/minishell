@@ -29,6 +29,7 @@ void	check_path(const t_cmd_list *cmd_lst)
 		return (check_if_is_dir(cmd_lst->content->path));
 	cmd_with_issue = (cmd_lst->content)->argv[0];
 	if (str_starts_with(cmd_with_issue, "./") \
+	|| str_starts_with(cmd_with_issue, "../") \
 	|| str_starts_with(cmd_with_issue, "/"))
 		error_depending_on_file_or_dir(cmd_with_issue);
 	else
@@ -45,6 +46,8 @@ void	check_if_is_dir(char *path)
 		return ;
 	if (str_starts_with(path, "./"))
 		path += 2;
+	if (str_starts_with(path, "../"))
+		path += 3;
 	if (get_file_status(path, &file_status) != success)
 		return ;
 	if (is_a_dir(&file_status))
