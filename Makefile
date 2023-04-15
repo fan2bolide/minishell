@@ -13,7 +13,7 @@
 NAME = minishell
 FLAGS = -I libft/head -I head -I . -lreadline
 
-DEBUG_FLAGS = -g3 -fsanitize=address
+DEBUG_FLAGS = -g3 #-fsanitize=address
 
 LIBFT = libft/libft.a
 
@@ -44,6 +44,7 @@ SRC =	minishell.c\
 		expand_content_utils.c\
 		expand_tokens_from_list.c\
 		expand_utils.c \
+		expand_with_value.c\
 		fds.c \
 		get_path.c\
 		main_token_parsing.c\
