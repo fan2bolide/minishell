@@ -16,6 +16,8 @@ static char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd);
 static bool	key_exist(const t_keyval_list *envp_lst);
 int			search_path(t_keyval_list **envp_lst);
 
+bool check_abs_or_rel_path(char **exec_name);
+
 char	*get_path(char *exec_name, t_keyval_list *envp_lst)
 {
 	char	**paths;
@@ -24,6 +26,8 @@ char	*get_path(char *exec_name, t_keyval_list *envp_lst)
 
 	if (!key_exist(envp_lst) || !exec_name || !*exec_name)
 		return (NULL);
+	if (check_abs_or_rel_path(&exec_name))
+		return (exec_name);
 	if (!search_path(&envp_lst))
 		return (NULL);
 	paths = ft_split(envp_lst->content->value, ':');
@@ -43,6 +47,22 @@ char	*get_path(char *exec_name, t_keyval_list *envp_lst)
 	}
 	return (ft_split_destroy(paths), NULL);
 }
+
+bool check_abs_or_rel_path(char **exec_name)
+{
+
+	if (access(*exec_name, F_OK) == 0)
+	{
+		if (access(*exec_name, X_OK) != 0)
+			printf("permission denied :%s\n", *exec_name); // a tester
+		*exec_name = ft_strdup(*exec_name);
+		if (!*exec_name)
+			print_error(error_occured, "(get_path)");
+		return (true);
+	}
+	return (false);
+}
+
 
 int	search_path(t_keyval_list **envp_lst)
 {
