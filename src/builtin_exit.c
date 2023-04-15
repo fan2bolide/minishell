@@ -17,15 +17,15 @@ static bool	check_numeric_argument(char *argv1);
 void	shell_exit(t_cmd_list **cmd_list_ptr)
 {
 	int			exit_code_modulo;
-	const char	*exit_code;
 	t_cmd		*cmd;
 	char		*argv1;
 
 	cmd = (*cmd_list_ptr)->content;
+	if (cmd->argv[1] && cmd->argv[2])
+		return (update_exit_code(1), print_error(too_many_args, "exit"));
 	argv1 = cmd->argv[1];
 	printf("exit\n");
-	exit_code = g_envp_lst->content->value;
-	exit_code_modulo = ft_atoi(exit_code) % 256;
+	exit_code_modulo = get_exit_code() % 256;
 	ft_lstclear((t_list **)&g_envp_lst, &destroy_keyval);
 	if (!argv1)
 	{
