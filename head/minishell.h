@@ -41,7 +41,8 @@ enum						e_error_context
 	cwd_error,
 	heredoc_pipe_error,
 	numeric_argument_required,
-	bad_identifier
+	bad_identifier,
+	too_many_args
 };
 
 typedef struct s_str_list

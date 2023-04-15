@@ -40,6 +40,9 @@ static char	*get_error_msg_from_context(enum e_error_context context, \
 	if (context == bad_identifier)
 		res = ft_strjoin(generic_error_msg, \
 		": not a valid identifier\n");
+	if (context == too_many_args)
+		res = ft_strjoin(generic_error_msg, \
+		": too many arguments\n");
 	return (res);
 }
 
