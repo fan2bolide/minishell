@@ -55,6 +55,6 @@ int	create_and_check_pipes(int pipes[10240][2], int i, t_cmd_list *cmd_lst)
 	if (is_last_cmd(cmd_lst))
 		return (1);
 	if (pipe(pipes[i]) < 0)
-		return (print_error(error_occured, "Failed to create pipes\n"), 0);
+		return (print_error(alloc_error, "Failed to create pipes\n"), 0);
 	return (1);
 }

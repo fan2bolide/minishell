@@ -27,7 +27,7 @@ int	append_str(char **str_to_append, char *next_line)
 	free(*str_to_append);
 	*str_to_append = str_to_append_tmp;
 	if (!str_to_append_tmp)
-		return (print_error(error_occured, "(here_doc)(append_line)"), 0);
+		return (print_error(alloc_error, "(here_doc)(append_line)"), 0);
 	return (1);
 }
 

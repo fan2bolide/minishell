@@ -61,7 +61,7 @@ static void	switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst)
 	{
 		(*cmd_lst)->next = (t_cmd_list *)ft_lstnew(create_new_cmd());
 		if (!(*cmd_lst)->next)
-			return (print_error(error_occured, NULL));
+			return (print_error(alloc_error, NULL));
 		*cmd_lst = (*cmd_lst)->next;
 	}
 	else if (current_token->type == redirect_hd)
@@ -76,7 +76,7 @@ void	case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst,
 	ft_strdup(token_lst_cursor->next->content->content);
 	if (!(*cmd_lst)->content->heredoc_delim && \
 	token_lst_cursor->next->content->content)
-		return (print_error(error_occured, "heredoc error"));
+		return (print_error(alloc_error, "heredoc error"));
 	pipe((*(*cmd_lst)->content).heredoc_pipe);
 	manage_here_doc(*(*cmd_lst)->content);
 	if (!(*cmd_lst)->content->path)
@@ -100,9 +100,8 @@ void	case_current_token_type_is_redirect_out(
 		open_mode = O_APPEND;
 	free(cmd->redirect_out);
 	cmd->redirect_out = ft_strdup(file);
-	cmd->redirect_out = NULL;
 	if (!cmd->redirect_out)
-		print_error(error_occured, "");
+		print_error(alloc_error, "(convert_token_lst)");
 	cmd->redirect_out_mode = open_mode;
 }
 
@@ -124,5 +123,5 @@ void	case_current_token_type_is_redirect_in(
 	}
 	cmd->redirect_in = ft_strdup(file);
 	if (!cmd->redirect_in)
-		print_error(error_occured, "");
+		print_error(alloc_error, "");
 }

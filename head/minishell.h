@@ -36,7 +36,6 @@ enum						e_error_context
 	unknown_command,
 	parsing_error,
 	perm_denied,
-	error_occured,
 	alloc_error,
 	cwd_error,
 	heredoc_pipe_error,

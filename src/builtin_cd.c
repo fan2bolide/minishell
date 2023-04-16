@@ -50,7 +50,7 @@ void	update_pwd(void)
 	path = ft_calloc(1024, sizeof(char));
 	if (!path)
 	{
-		print_error(error_occured, "(!envp_lst || !path)");
+		print_error(alloc_error, "(update_pwd)");
 		exit(EXIT_FAILURE);
 	}
 	path = getcwd(path, 1024);
@@ -59,10 +59,10 @@ void	update_pwd(void)
 	env_var_oldpwd = ft_strjoin_secure("OLDPWD=", \
 	get_env_var_value("PWD"));
 	if (!env_var_oldpwd && get_env_var_value("PWD"))
-		print_error(error_occured, "(update_pwd)");
+		print_error(alloc_error, "(update_pwd)");
 	env_var_newpwd = ft_strjoin_secure("PWD=", path);
 	if (!env_var_newpwd && path)
-		print_error(error_occured, "(update_pwd)");
+		print_error(alloc_error, "(update_pwd)");
 	insert_or_update_env_var(create_keyval_from_env_var(env_var_oldpwd));
 	insert_or_update_env_var(create_keyval_from_env_var(env_var_newpwd));
 	free(env_var_oldpwd);

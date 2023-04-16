@@ -29,7 +29,7 @@ char	*get_path(char *exec_name, t_keyval_list *envp_lst)
 		return (NULL);
 	paths = ft_split(envp_lst->content->value, ':');
 	if (!paths)
-		return (print_error(error_occured, "split"), NULL);
+		return (print_error(alloc_error, "split"), NULL);
 	return (test_each_path(exec_name, paths));
 }
 
@@ -58,10 +58,10 @@ static bool	check_abs_or_rel_path(char **exec_name)
 	if (access(*exec_name, F_OK) == 0)
 	{
 		if (access(*exec_name, X_OK) != 0)
-			printf("permission denied :%s\n", *exec_name); // a tester
+			printf("permission denied :%s\n", *exec_name);
 		*exec_name = ft_strdup(*exec_name);
 		if (!*exec_name)
-			print_error(error_occured, "(get_path)");
+			print_error(alloc_error, "(get_path)");
 		return (true);
 	}
 	return (false);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_cmd.c                                    :+:      :+:    :+:   */
+/*   get_path_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alevra <alevra@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -22,7 +22,7 @@ char	*ft_strjoin_w_slash(char *incomplete_path, char *cmd)
 		path_w_slash = ft_strjoin_secure(incomplete_path, "/");
 		path = ft_strjoin_secure(path_w_slash, cmd);
 		if (!path || !path_w_slash)
-			print_error(error_occured, "strjoin_w_slash");
+			print_error(alloc_error, "strjoin_w_slash");
 		free(path_w_slash);
 		return (path);
 	}

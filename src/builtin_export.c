@@ -36,7 +36,7 @@ void	export(char **argv, int to_write)
 	}
 	keyval_to_export = create_keyval_from_env_var(argv[1]);
 	if (!keyval_to_export)
-		return (print_error(error_occured, "export"));
+		return (print_error(alloc_error, "(export)"));
 	insert_or_update_env_var(keyval_to_export);
 }
 

@@ -62,7 +62,7 @@ void	update_env_var(t_keyval *keyval_to_update)
 		free(curr->content->value);
 		curr->content->value = ft_strdup(keyval_to_update->value);
 		if (!curr->content->value)
-			print_error(error_occured, "update_env_var");
+			print_error(alloc_error, "update_env_var");
 	}
 	destroy_keyval(keyval_to_update);
 }
@@ -76,7 +76,7 @@ void	insert_env_var(t_keyval *keyval_to_insert)
 	if (g_envp_lst)
 		curr = g_envp_lst->next;
 	if (!curr || !g_envp_lst)
-		return (print_error(error_occured, "insert_env_var"), (void)0);
+		return (print_error(alloc_error, "insert_env_var"), (void)0);
 	while (curr->next && ft_strcmp(keyval_to_insert->key, \
 			curr->next->content->key) > 0)
 		(curr) = (curr)->next;

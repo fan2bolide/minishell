@@ -57,7 +57,7 @@ void	set_env_var_value(char *var_key, char *var_value)
 	t_keyval	*var_to_set;
 
 	if (!var_key)
-		return (print_error(error_occured, "set_env_var_value"));
+		return (print_error(alloc_error, "set_env_var_value"));
 	var_to_set = get_env_var(var_key);
 	if (var_to_set)
 		free(var_to_set->value);
@@ -69,5 +69,5 @@ void	set_env_var_value(char *var_key, char *var_value)
 	}
 	var_to_set->value = ft_strdup(var_value);
 	if (!var_to_set->value)
-		print_error(error_occured, "set_env_var_value");
+		print_error(alloc_error, "set_env_var_value");
 }

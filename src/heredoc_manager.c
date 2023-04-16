@@ -85,7 +85,7 @@ static int	is_delimiter(char *delim, const char *next_line)
 	delim_without_quotes = remove_quotes_heredoc(delim);
 	if (!delim_without_quotes)
 	{
-		print_error(error_occured, "(heredoc_manager)");
+		print_error(alloc_error, "(heredoc_manager)");
 		res = 1;
 	}
 	else

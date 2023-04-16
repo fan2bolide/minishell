@@ -35,7 +35,7 @@ t_cmd *cmd)
 	{
 		cmd->path = ft_strdup("builtin");
 		if (!cmd->path)
-			print_error(error_occured, "");
+			print_error(alloc_error, "");
 	}
 }
 

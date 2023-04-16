@@ -22,7 +22,7 @@ void	**ft_keyval_lst_to_str_arr(t_keyval_list *lst)
 	arr_size = ft_lstsize((t_list *)lst);
 	arr = ft_calloc(arr_size + 1, sizeof(char *));
 	if (!arr)
-		return (print_error(error_occured, "(keyval to str arr)"), NULL);
+		return (print_error(alloc_error, "(keyval to str arr)"), NULL);
 	if (fill_array(lst, arr) < 0)
 		return (NULL);
 	return (arr);
@@ -43,7 +43,7 @@ static int	fill_array(t_keyval_list *lst, void **arr)
 			free(to_destroy);
 			if (!arr[i])
 			{
-				print_error(error_occured, "ft_keyval_lst_to_str_arr");
+				print_error(alloc_error, "ft_keyval_lst_to_str_arr");
 				ft_free_arr(arr, free);
 				free(arr);
 				return (-1);
