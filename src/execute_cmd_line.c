@@ -12,6 +12,9 @@
 
 #include "execute_cmd_line.h"
 
+static void	exec_hook(t_cmd_list **cmd_lst, int *fds, \
+bool hook, int fd_to_close);
+
 int	execute_cmd_line(t_cmd_list *cmd_lst)
 {
 	int			pipes[OPEN_MAX][2];
@@ -32,11 +35,20 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 		pids[i] = fork();
 		if (pids[i] < 0)
 			printf("Failed to fork\n");
-		if (pids[i] == 0)
-			execute_cmd(&cmd_lst, fds);
+		exec_hook(&cmd_lst, fds, pids[i] == 0, pipes[i][READ]);
 		close_fds(fds, cmd_lst);
 		cmd_lst = destroy_first_cmd_lst(cmd_lst);
 		i++;
 	}
 	return (exit_routine(pipes, pids, i), free_cmd_lst(&cmd_lst), 1);
+}
+
+static void	exec_hook(t_cmd_list **cmd_lst, int *fds, \
+bool hook, int fd_to_close)
+{
+	if (hook)
+	{
+		close (fd_to_close);
+		execute_cmd(cmd_lst, fds);
+	}
 }
