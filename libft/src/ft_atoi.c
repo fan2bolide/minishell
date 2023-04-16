@@ -59,9 +59,9 @@ long long	ft_atoll(const char *str)
 		res += str[i] - '0';
 		i++;
 	}
-	if (res > LLONG_MAX && neg < 0)
+	if (res - 1 > LLONG_MAX && neg < 0)
 		return (0);
 	if (res > LLONG_MAX && neg > 0)
 		return (-1);
-	return (res * neg);
+	return ((long long)res * neg);
 }

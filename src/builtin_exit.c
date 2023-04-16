@@ -36,7 +36,7 @@ void	shell_exit(t_cmd_list **cmd_list_ptr)
 	{
 		print_error(numeric_argument_required, \
 					ft_strjoin_secure("exit: ", argv1));
-		exit(255);
+		exit(2);
 	}
 	exit_code_modulo = ft_atoll(argv1) % 256;
 	ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
@@ -45,10 +45,17 @@ void	shell_exit(t_cmd_list **cmd_list_ptr)
 
 static bool	check_numeric_argument(char *argv1)
 {
+	int	i;
+
+	i = 0;
 	if (!can_be_converted_to_long(argv1))
 		return (false);
-	if (argv1[0] == '-')
+	if (argv1[0] == '-' || argv1[0] == '+')
 		argv1++;
+	if (ft_atoll(argv1) == 0)
+		while (argv1[i])
+			if (argv1[i++] != '0')
+				return (false);
 	if (!str_contains_digits_only(argv1))
 		return (false);
 	return (true);
