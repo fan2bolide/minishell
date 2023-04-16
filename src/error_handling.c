@@ -19,7 +19,7 @@ static char	*get_error_msg_from_context(enum e_error_context context, \
 
 	if (context == no_file)
 		res = ft_strjoin(generic_error_msg, \
-		": no such file or directory\n");
+		": No such file or directory\n");
 	if (context == unknown_command)
 		res = ft_strjoin(generic_error_msg, ": command not found\n");
 	if (context == perm_denied)

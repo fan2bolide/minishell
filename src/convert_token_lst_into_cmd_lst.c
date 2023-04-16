@@ -111,9 +111,17 @@ void	case_current_token_type_is_redirect_in(
 {
 	t_token	*token_with_the_redirect_file;
 	char	*file;
+	int		fd;
 
 	token_with_the_redirect_file = token_lst_cursor->next->content;
 	file = token_with_the_redirect_file->content;
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+	{
+		update_exit_code(1);
+		print_error(no_file, file);
+		return ;
+	}
 	cmd->redirect_in = ft_strdup(file);
 	if (!cmd->redirect_in)
 		print_error(error_occured, "");

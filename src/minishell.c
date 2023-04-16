@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!token_list)
 			continue ;
 		if (!expand_tokens_from_list(token_list))
-			return (0);
+			continue ;
 		cmd_lst = convert_token_lst_into_cmd_lst((t_token_list *)token_list);
 		ft_lstclear((t_list **)&token_list, destroy_token);
 		execute_cmd_line(cmd_lst);
