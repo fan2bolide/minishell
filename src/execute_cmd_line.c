@@ -30,8 +30,8 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 		if (check_if_single_builtin(&cmd_lst, fds))
 			return (1);
 		pids[i] = fork();
-		if (pids[i] < 0) //todo a tester
-			return (printf("Failed to fork\n"), 0);
+		if (pids[i] < 0)
+			printf("Failed to fork\n");
 		if (pids[i] == 0)
 			execute_cmd(&cmd_lst, fds);
 		close_fds(fds, cmd_lst);
