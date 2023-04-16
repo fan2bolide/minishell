@@ -34,7 +34,7 @@ void	check_path(const t_cmd_list *cmd_lst)
 		error_depending_on_file_or_dir(cmd_with_issue);
 	else
 		printf("Turboshell: command not found: %s\n", \
-		(cmd_lst->content)->argv[0]);
+		cmd_lst->content->argv[0]);
 }
 
 void	check_if_is_dir(char *path)

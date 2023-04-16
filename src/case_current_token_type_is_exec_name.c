@@ -17,10 +17,12 @@ get_exec_name_and_args(t_token_list *token_lst_cursor, t_cmd *cmd);
 static void		\
 cpy_splits_in_cmd_argv(t_cmd *cmd, char *const *splits, \
 int *i, size_t *cmd_tab_size);
-
-static void get_first_token(t_cmd *cmd, t_token_list **token_lst_cursor, int *i, size_t *cmd_tab_size);
-
-static int get_next_tokens(t_token_list *token_lst_cursor, t_cmd *cmd, int i, size_t cmd_tab_size);
+static void		\
+get_first_token(t_cmd *cmd, t_token_list **token_lst_cursor, \
+int *i, size_t *cmd_tab_size);
+static int		\
+get_next_tokens(t_token_list *token_lst_cursor, t_cmd *cmd, \
+int i, size_t cmd_tab_size);
 
 void	case_current_token_type_is_exec_name(t_token_list *token_lst_cursor, \
 t_cmd *cmd)
@@ -53,10 +55,10 @@ static void	get_exec_name_and_args(t_token_list *token_lst_cursor, t_cmd *cmd)
 static int	get_next_tokens(t_token_list *token_lst_cursor, t_cmd *cmd, \
 int i, size_t cmd_tab_size)
 {
+	t_token	*current_token;
+
 	while (cmd_tab_size > 1)
 	{
-		t_token	*current_token;
-
 		current_token = token_lst_cursor->content;
 		if (current_token->type == arg)
 		{
@@ -65,16 +67,17 @@ int i, size_t cmd_tab_size)
 		}
 		token_lst_cursor = token_lst_cursor->next;
 	}
-	return i;
+	return (i);
 }
 
 static void	get_first_token(t_cmd *cmd, t_token_list **token_lst_cursor, \
 int *i, size_t *cmd_tab_size)
 {
+	t_token	*current_token;
+	char	**splits;
+
 	if ((*cmd_tab_size) > 1)
 	{
-	char	**splits;
-	t_token	*current_token;
 		current_token = (*token_lst_cursor)->content;
 		splits = ft_old_split(current_token->content, ' ');
 		cpy_splits_in_cmd_argv(cmd, splits, i, cmd_tab_size);
