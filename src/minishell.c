@@ -55,15 +55,15 @@ t_keyval_list	*convert_str_arr_into_new_keyval_list(char **array)
 	array++;
 	while (*array)
 	{
-		ft_lstadd_back((t_list **)&res,
-						ft_lstnew(create_keyval_from_env_var(*array)));
+		ft_lstadd_back((t_list **)&res, \
+		ft_lstnew(create_keyval_from_env_var(*array)));
 		array++;
 	}
 	return (res);
 }
 
 ///assign correct values to global var 'envp_lst'
-void	dup_envp(char **envp) //todo si env est NULL, créer ququchose quand même
+void	dup_envp(char **envp)
 {
 	char	*tmp;
 
