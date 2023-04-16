@@ -18,8 +18,7 @@ static char	*get_error_msg_from_context(enum e_error_context context, \
 	char	*res;
 
 	if (context == no_file)
-		res = ft_strjoin(generic_error_msg, \
-		": No such file or directory\n");
+		res = ft_strjoin(generic_error_msg, ": No such file or directory\n");
 	if (context == unknown_command)
 		res = ft_strjoin(generic_error_msg, ": command not found\n");
 	if (context == perm_denied)
@@ -35,14 +34,11 @@ static char	*get_error_msg_from_context(enum e_error_context context, \
 		res = ft_strjoin(generic_error_msg, \
 		"error while writing in heredoc's pipe\n");
 	if (context == numeric_argument_required)
-		res = ft_strjoin(generic_error_msg, \
-		": numeric argument required\n");
+		res = ft_strjoin(generic_error_msg, ": numeric argument required\n");
 	if (context == bad_identifier)
-		res = ft_strjoin(generic_error_msg, \
-		": not a valid identifier\n");
+		res = ft_strjoin(generic_error_msg, ": not a valid identifier\n");
 	if (context == too_many_args)
-		res = ft_strjoin(generic_error_msg, \
-		": too many arguments\n");
+		res = ft_strjoin(generic_error_msg, ": too many arguments\n");
 	return (res);
 }
 

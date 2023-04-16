@@ -6,7 +6,7 @@
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:43:13 by bajeanno          #+#    #+#             */
-/*   Updated: 2022/12/15 21:17:47 by bajeanno         ###   ########lyon.fr   */
+/*   Updated: 2023/04/16 17:38:36 by bajeanno         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_atoi(const char *str)
 		res += str[i] - '0';
 		i++;
 	}
-	if (res > LLONG_MAX && neg < 0)
+	if (res - 1 > LLONG_MAX && neg < 0)
 		return (0);
 	if (res > LLONG_MAX && neg > 0)
 		return (-1);
