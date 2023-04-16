@@ -59,7 +59,7 @@ static void	print_loop(int to_write, t_keyval_list *curr)
 
 static int	check_export_syntax(char **argv)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (argv[1] == NULL)

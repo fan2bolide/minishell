@@ -25,7 +25,7 @@ void	cd(struct s_cmd *cmd)
 		return ;
 	if (get_file_status(dir, &file_status) != success)
 	{
- 		perror("Turboshell: cd");
+		perror("Turboshell: cd");
 		update_exit_code(1);
 		return ;
 	}
