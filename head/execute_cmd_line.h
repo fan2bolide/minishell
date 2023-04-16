@@ -54,5 +54,11 @@ int			create_and_check_pipes(int pipes[10240][2], int i, \
 t_cmd_list *cmd_lst);
 t_cmd_list	*destroy_first_cmd_lst(t_cmd_list *cmd_lst);
 int			is_last_cmd(t_cmd_list *cmd);
+void		dup2_fds(int to_read, int to_write);
+void		heredoc_only_hook(t_cmd *cmd);
+void		builtin_hook(t_cmd_list **cmd_list_ptr, const int *fds, \
+t_cmd *cmd, const int to_write);
+void		check_fds(t_cmd_list **cmd_list_ptr, const int *fds, \
+const int to_read, const int to_write);
 
 #endif

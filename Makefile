@@ -37,6 +37,7 @@ SRC =	minishell.c\
 		error_handling.c\
 		exec_utils.c\
 		execute_cmd.c\
+		execute_cmd_utils.c \
 		execute_cmd_line.c\
 		execute_cmd_line_utils.c\
 		exit_code_handler.c\
