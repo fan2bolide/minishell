@@ -48,12 +48,14 @@ SRC =	minishell.c\
 		expand_with_value.c\
 		fds.c \
 		get_path.c\
+		get_path_utils.c\
 		main_token_parsing.c\
 		main_token_utils.c \
 		main_token_checkers.c\
 		lexer.c\
 		lexer_utils.c\
 		heredoc_manager.c \
+		heredoc_manager_utils.c \
 		keyval_utils.c \
 		signal_handling.c\
 

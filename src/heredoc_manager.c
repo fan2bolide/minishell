@@ -15,9 +15,7 @@
 
 static void	here_doc_routine(int fd_to_write, char *delimiter);
 //return 0 if new_line is not delim, return -1 if new_line is delimiter
-static int append_new_line_if_not_delim(char **str_to_append, char *delim);
-static int	append_str(char **str_to_append, char *next_line);
-static char	*remove_quotes(const char *raw);
+static int	append_new_line_if_not_delim(char **str_to_append, char *delim);
 static int	is_delimiter(char *delim, const char *next_line);
 
 void	manage_here_doc(t_cmd cmd)
@@ -35,8 +33,8 @@ static void	here_doc_routine(int fd_to_write, char *delimiter)
 
 	heredoc_buf = NULL;
 	printf("heredoc> ");
-	while (append_new_line_if_not_delim(&heredoc_buf,
-										delimiter) == 0)
+	while (append_new_line_if_not_delim(&heredoc_buf, \
+	delimiter) == 0)
 		printf("heredoc> ");
 	if (heredoc_buf)
 	{
@@ -48,7 +46,7 @@ static void	here_doc_routine(int fd_to_write, char *delimiter)
 	free(heredoc_buf);
 }
 
-static int append_new_line_if_not_delim(char **str_to_append, char *delim)
+static int	append_new_line_if_not_delim(char **str_to_append, char *delim)
 {
 	char	*next_line;
 	char	*tmp;
@@ -78,13 +76,13 @@ static int	is_delimiter(char *delim, const char *next_line)
 {
 	char	*tmp;
 	int		res;
-	char 	*delim_without_quotes;
+	char	*delim_without_quotes;
 
 	tmp = NULL;
 	tmp = ft_strdup((char *)next_line);
 	if (!tmp && printf("An error occurred \n"))
 		return (0);
-	delim_without_quotes =	remove_quotes(delim);
+	delim_without_quotes = remove_quotes_heredoc(delim);
 	if (!delim_without_quotes)
 	{
 		print_error(error_occured, "(heredoc_manager)");
@@ -94,56 +92,5 @@ static int	is_delimiter(char *delim, const char *next_line)
 		res = (ft_strcmp(tmp, delim_without_quotes) == 0);
 	free(delim_without_quotes);
 	free(tmp);
-	return (res);
-}
-
-static int	append_str(char **str_to_append, char *next_line)
-{
-	char	*str_to_append_tmp;
-
-	if (!*str_to_append)
-	{
-		*str_to_append = ft_strdup(next_line);
-		return (1);
-	}
-	str_to_append_tmp = ft_strjoin(*str_to_append, next_line);
-	free(*str_to_append);
-	*str_to_append = str_to_append_tmp;
-	if (!str_to_append_tmp)
-		return (print_error(error_occured, "(here_doc)(append_line)"), 0);
-	return (1);
-}
-
-static char	*remove_quotes(const char *raw)
-{
-	int		res_size;
-	int		i;
-	char	*res;
-	int		j;
-
-	res_size = 0;
-	i = 0;
-	if (!raw)
-		return (NULL);
-	while (raw[i])
-	{
-		res_size += ((raw[i] != '\'') && (raw[i] != '\"'));
-		i++;
-	}
-	res = ft_calloc(res_size +1, sizeof(char));
-	if (!res)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (raw[i])
-	{
-		if ((raw[i] != '\'') && (raw[i] != '\"'))
-		{
-			res[j] = raw[i];
-			j++;
-		}
-		i++;
-	}
-	res[j] = 0;
 	return (res);
 }

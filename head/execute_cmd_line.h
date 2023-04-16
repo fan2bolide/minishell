@@ -60,5 +60,7 @@ void		builtin_hook(t_cmd_list **cmd_list_ptr, const int *fds, \
 t_cmd *cmd, const int to_write);
 void		check_fds(t_cmd_list **cmd_list_ptr, const int *fds, \
 const int to_read, const int to_write);
-
+char		*ft_strjoin_w_slash(char *incomplete_path, char *cmd);
+char		*remove_quotes_heredoc(const char *raw);
+int			append_str(char **str_to_append, char *next_line);
 #endif
