@@ -67,8 +67,12 @@ static int	get_fd_to_write(int pipes[OPEN_MAX][2], int i, t_cmd_list *cmd_lst)
 	res = -1;
 	cmd = cmd_lst->content;
 	if (cmd->redirect_out)
+	{
 		res = open_and_get_fd(cmd->redirect_out, \
 		O_WRONLY | cmd->redirect_out_mode | O_CREAT, 0644);
+		if (pipes[i][WRITE] > STDERR_FILENO)
+			close(pipes[i][WRITE]);
+	}
 	else if (is_last_cmd(cmd_lst))
 		res = STDOUT_FILENO;
 	else if (i < OPEN_MAX)
