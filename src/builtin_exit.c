@@ -36,7 +36,7 @@ void	shell_exit(t_cmd_list **cmd_list_ptr)
 	{
 		print_error(numeric_argument_required, \
 					ft_strjoin_secure("exit: ", argv1));
-		exit(2);
+		exit(255);
 	}
 	exit_code_modulo = ft_atoll(argv1) % 256;
 	ft_lstclear((t_list **)cmd_list_ptr, (void (*)(void *)) & destroy_cmd);
