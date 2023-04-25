@@ -14,8 +14,6 @@
 
 t_keyval_list	*g_envp_lst;
 
-bool	set_exit_code(void);
-
 char	*prompt(int term_does_handle_color)
 {
 	char	*res;
@@ -60,28 +58,6 @@ t_keyval_list	*convert_str_arr_into_new_keyval_list(char **array)
 		array++;
 	}
 	return (res);
-}
-
-///assign correct values to global var 'envp_lst'
-void	dup_envp(char **envp)
-{
-	char	*tmp;
-
-	if (!*envp)
-	{
-		g_envp_lst = malloc(sizeof (struct s_keyval_list));
-		g_envp_lst->next = NULL;
-		g_envp_lst->content = create_keyval();
-		g_envp_lst->content->key = ft_strdup("PWD");
-		tmp = ft_calloc(1, 1024);
-		getcwd(tmp, 1024);
-		g_envp_lst->content->value = ft_strdup(tmp);
-		free(tmp);
-	}
-	else
-		g_envp_lst = convert_str_arr_into_new_keyval_list(envp);
-	if (!set_exit_code())
-		return (ft_lstclear((t_list **)&g_envp_lst, destroy_keyval));
 }
 
 int	main(int argc, char **argv, char **envp)

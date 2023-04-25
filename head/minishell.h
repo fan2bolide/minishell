@@ -26,6 +26,7 @@
 # include <stdbool.h>
 # include <sys/errno.h>
 # include <sys/stat.h>
+# include <fcntl.h>
 # ifndef OPEN_MAX
 #  define OPEN_MAX 10240
 # endif
@@ -126,6 +127,7 @@ t_keyval					*create_keyval_from_env_var(char *var);
 t_keyval					*create_keyval(void);
 void						update_exit_code(int exit_code);
 int							get_exit_code(void);
+bool						set_exit_code(void);
 void						print_error(enum e_error_context context,
 								char *token);
 bool						is_a_dir(struct stat *file_status);
@@ -138,5 +140,6 @@ void						sig_handler_interactive_mode(int sig);
 void						sig_handler_execution_mode(int sig);
 void						shell_exit(t_cmd_list **cmd_list_ptr);
 bool						check_terminal(void);
+void						dup_envp(char **envp);
 
 #endif
