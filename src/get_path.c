@@ -55,6 +55,8 @@ static char	*test_each_path(char *exec_name, char **paths)
 
 static bool	check_abs_or_rel_path(char **exec_name)
 {
+	if (!ft_strchr(*exec_name, '/'))
+		return (false);
 	if (access(*exec_name, F_OK) == 0)
 	{
 		if (access(*exec_name, X_OK) != 0)
