@@ -48,7 +48,8 @@ bool hook, int fd_to_close)
 {
 	if (hook)
 	{
-		close (fd_to_close);
+		if (fd_to_close > 2)
+			close (fd_to_close);
 		execute_cmd(cmd_lst, fds);
 	}
 }
