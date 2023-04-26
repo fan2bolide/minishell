@@ -114,6 +114,6 @@ fclean : clean
 re : fclean
 	@$(MAKE) all
 
-.PHONY : all lib run re clean fclean bonus create_obj_folder leaks
+.PHONY : all lib run re clean fclean bonus create_obj_folder
 
 -include $(DEPENDS)
