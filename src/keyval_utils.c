@@ -36,11 +36,7 @@ t_keyval	*create_keyval_from_env_var(char *var)
 		return (NULL);
 	equal = ft_strchr(var, '=');
 	if (!equal)
-	{
-		res->key = ft_strdup(var);
-		res->value = NULL;
-		return (res);
-	}
+		return (res->key = ft_strdup(var), res->value = NULL, res);
 	if (equal - var > 0)
 		append = (*(equal - 1) == '+');
 	if (append)
