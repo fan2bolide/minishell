@@ -15,11 +15,11 @@
 static void		print_loop(int to_write, t_keyval_list *curr);
 static int		check_export_syntax(char **argv);
 
+void export_args(char *const *argv);
+
 void	export(char **argv, int to_write)
 {
 	t_keyval_list	*curr;
-	t_keyval		*keyval_to_export;
-
 	if (!g_envp_lst || !g_envp_lst->next)
 		return ;
 	curr = g_envp_lst->next;
@@ -30,14 +30,23 @@ void	export(char **argv, int to_write)
 		return ;
 	}
 	if (!argv[1])
+		return (print_loop(to_write, curr), (void)0 );
+	export_args(argv);
+}
+
+void export_args(char *const *argv)
+{
+	t_keyval		*keyval_to_export;
+	int 			i;
+
+	i = 1;
+	while (argv[i])
 	{
-		print_loop(to_write, curr);
-		return ;
+		keyval_to_export = create_keyval_from_env_var(argv[i++]);
+		if (!keyval_to_export)
+			return (print_error(alloc_error, "(export)"));
+		insert_or_update_env_var(keyval_to_export);
 	}
-	keyval_to_export = create_keyval_from_env_var(argv[1]);
-	if (!keyval_to_export)
-		return (print_error(alloc_error, "(export)"));
-	insert_or_update_env_var(keyval_to_export);
 }
 
 static void	print_loop(int to_write, t_keyval_list *curr)
