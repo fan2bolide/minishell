@@ -12,9 +12,8 @@
 
 #include "minishell.h"
 
-bool	env_var_exist(t_keyval *keyval_to_check);
-void	update_env_var(t_keyval *keyval_to_update);
-void	insert_env_var(t_keyval *keyval_to_insert);
+static	bool	env_var_exist(t_keyval *keyval_to_check);
+static	void	insert_env_var(t_keyval *keyval_to_insert);
 
 /**
  * insert env_var in ascii order
@@ -32,7 +31,7 @@ void	insert_or_update_env_var(t_keyval *keyval_to_insert)
 		insert_env_var(keyval_to_insert);
 }
 
-bool	env_var_exist(t_keyval *keyval_to_check)
+static bool	env_var_exist(t_keyval *keyval_to_check)
 {
 	t_keyval_list	*curr;
 
@@ -67,7 +66,7 @@ void	update_env_var(t_keyval *keyval_to_update)
 	destroy_keyval(keyval_to_update);
 }
 
-void	insert_env_var(t_keyval *keyval_to_insert)
+static void	insert_env_var(t_keyval *keyval_to_insert)
 {
 	t_keyval_list	*curr;
 	t_keyval_list	*tmp;

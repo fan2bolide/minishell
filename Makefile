@@ -57,6 +57,7 @@ SRC =	minishell.c\
 		lexer_utils.c\
 		heredoc_manager.c \
 		heredoc_manager_utils.c \
+		keyval_conversion.c \
 		keyval_utils.c \
 		signal_handling.c\
 

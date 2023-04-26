@@ -141,5 +141,6 @@ void						sig_handler_execution_mode(int sig);
 void						shell_exit(t_cmd_list **cmd_list_ptr);
 bool						check_terminal(void);
 void						dup_envp(char **envp);
+void						update_env_var(t_keyval *keyval_to_update);
 
 #endif

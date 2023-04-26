@@ -14,12 +14,12 @@
 
 static void		print_loop(int to_write, t_keyval_list *curr);
 static int		check_export_syntax(char **argv);
-
-void export_args(char *const *argv);
+static void		export_args(char *const *argv);
 
 void	export(char **argv, int to_write)
 {
 	t_keyval_list	*curr;
+
 	if (!g_envp_lst || !g_envp_lst->next)
 		return ;
 	curr = g_envp_lst->next;
@@ -30,14 +30,14 @@ void	export(char **argv, int to_write)
 		return ;
 	}
 	if (!argv[1])
-		return (print_loop(to_write, curr), (void)0 );
+		return (print_loop(to_write, curr), (void)0);
 	export_args(argv);
 }
 
-void export_args(char *const *argv)
+static void	export_args(char *const *argv)
 {
 	t_keyval		*keyval_to_export;
-	int 			i;
+	int				i;
 
 	i = 1;
 	while (argv[i])
@@ -76,8 +76,12 @@ static int	check_export_syntax(char **argv)
 	if (isalpha(argv[1][i]) || argv[1][i] == '_')
 	{
 		i++;
-		while (argv[1][i] && argv[1][i] != '=' && \
+		if (argv[1][i] == '+')
+			i++;
+		while (argv[1][i] && \
 				(ft_isalnum(argv[1][i]) || argv[1][i] == '_'))
+			i++;
+		if (argv[1][i] == '+')
 			i++;
 		if (!argv[1][i] || argv[1][i] == '=')
 			return (1);

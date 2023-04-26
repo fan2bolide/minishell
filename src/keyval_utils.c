@@ -12,49 +12,7 @@
 
 #include "execute_cmd_line.h"
 
-static int	fill_array(t_keyval_list *lst, void **arr);
-
-void	**ft_keyval_lst_to_str_arr(t_keyval_list *lst)
-{
-	size_t	arr_size;
-	void	**arr;
-
-	arr_size = ft_lstsize((t_list *)lst);
-	arr = ft_calloc(arr_size + 1, sizeof(char *));
-	if (!arr)
-		return (print_error(alloc_error, "(keyval to str arr)"), NULL);
-	if (fill_array(lst, arr) < 0)
-		return (NULL);
-	return (arr);
-}
-
-static int	fill_array(t_keyval_list *lst, void **arr)
-{
-	int		i;
-	char	*to_destroy;
-
-	i = 0;
-	while (lst)
-	{
-		if (lst->content && lst->content->key && lst->content->value)
-		{
-			to_destroy = ft_strjoin_secure(lst->content->key, "=");
-			arr[i] = ft_strjoin_secure(to_destroy, lst->content->value);
-			free(to_destroy);
-			if (!arr[i])
-			{
-				print_error(alloc_error, "ft_keyval_lst_to_str_arr");
-				ft_free_arr(arr, free);
-				free(arr);
-				return (-1);
-			}
-			i++;
-		}
-		lst = lst->next;
-	}
-	arr[i] = NULL;
-	return (0);
-}
+static t_keyval	*append_keyval(char *var, t_keyval *res, const char *equal);
 
 /**
  * create a new "keyval"
@@ -68,7 +26,9 @@ t_keyval	*create_keyval_from_env_var(char *var)
 {
 	t_keyval	*res;
 	char		*equal;
+	bool		append;
 
+	append = 0;
 	if (!var)
 		return (NULL);
 	res = create_keyval();
@@ -81,10 +41,30 @@ t_keyval	*create_keyval_from_env_var(char *var)
 		res->value = NULL;
 		return (res);
 	}
+	if (equal - var > 0)
+		append = (*(equal - 1) == '+');
+	if (append)
+		return (append_keyval(var, res, equal));
 	res->key = ft_strndup(var, equal - var);
 	res->value = NULL;
 	if (*(equal + 1))
 		res->value = ft_strdup(equal + 1);
+	return (res);
+}
+
+static t_keyval	*append_keyval(char *var, t_keyval *res, const char *equal)
+{
+	res->key = ft_strndup(var, equal - var - 1);
+	if (!res->key)
+	{
+		print_error(alloc_error, "(create_keyval..)");
+		return (NULL);
+	}
+	res->value = get_env_var_value(res->key);
+	if (!res->value)
+		res->value = ft_strjoin_secure("", equal + 1);
+	else
+		res->value = ft_strjoin_secure(res->value, equal + 1);
 	return (res);
 }
 
