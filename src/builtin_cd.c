@@ -19,7 +19,7 @@ void	cd(struct s_cmd *cmd)
 	int const	success = 0;
 
 	if (cmd->argv[2])
-		return (update_exit_code(0));
+		return (update_exit_code(1), print_error(too_many_args, "cd"));
 	dir = cmd->argv[1];
 	if (!dir)
 		return ;
