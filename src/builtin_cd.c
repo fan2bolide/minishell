@@ -18,7 +18,7 @@ void	cd(struct s_cmd *cmd)
 	char		*dir;
 	int const	success = 0;
 
-	if (cmd->argv[2])
+	if (cmd->argv[1] && cmd->argv[2])
 		return (update_exit_code(1), print_error(too_many_args, "cd"));
 	dir = cmd->argv[1];
 	if (!dir)
@@ -30,7 +30,7 @@ void	cd(struct s_cmd *cmd)
 		return ;
 	}
 	if (!is_a_dir(&file_status))
-		return (error_cd("Turboshell : cd : not a directory\n"));
+		return (error_cd(cmd->argv[1]));
 	if (user_has_read_permission(&file_status))
 		return (chdir_and_update_pwd(dir, success), (void)0);
 	else

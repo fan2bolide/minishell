@@ -24,7 +24,7 @@ void	cd(struct s_cmd *cmd);
 void	insert_or_update_env_var(t_keyval *keyval_to_insert);
 int		user_has_read_permission(struct stat *file_status);
 void	chdir_and_update_pwd(const char *dir, const int success);
-void	error_cd(char *error_message);
+void	error_cd(char *file);
 void	update_pwd(void);
 
 #endif

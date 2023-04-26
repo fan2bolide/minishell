@@ -12,9 +12,11 @@
 
 #include "builtins.h"
 
-void	error_cd(char *error_message)
+void	error_cd(char *file)
 {
-	ft_putstr_fd(error_message, 2);
+	ft_putstr_fd("Turboshell: cd: ", 2);
+	ft_putstr_fd(file, 2);
+	ft_putstr_fd(": Not a directory\n", 2);
 	update_exit_code(1);
 }
 
