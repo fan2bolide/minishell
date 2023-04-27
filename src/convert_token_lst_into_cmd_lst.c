@@ -118,7 +118,9 @@ void	case_current_token_type_is_redirect_in(
 	if (fd == -1)
 	{
 		update_exit_code(1);
-		print_error(no_file, file);
+		if (cmd->error == false)
+			print_error(no_file, file);
+		cmd->error = true;
 		return ;
 	}
 	cmd->redirect_in = ft_strdup(file);

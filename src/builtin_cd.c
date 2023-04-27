@@ -18,6 +18,7 @@ void	cd(struct s_cmd *cmd)
 	char		*dir;
 	int const	success = 0;
 
+	update_exit_code(0);
 	if (cmd->argv[1] && cmd->argv[2])
 		return (update_exit_code(1), print_error(too_many_args, "cd"));
 	dir = cmd->argv[1];
@@ -25,19 +26,18 @@ void	cd(struct s_cmd *cmd)
 		return ;
 	if (get_file_status(dir, &file_status) != success)
 	{
-		perror("Turboshell: cd");
-		update_exit_code(1);
-		return ;
+		ft_putstr_fd("Turboshell: cd: ", 2);
+		perror(dir);
+		return (update_exit_code(1));
 	}
 	if (!is_a_dir(&file_status))
-		return (error_cd(cmd->argv[1]));
+		return (update_exit_code(1), error_cd(cmd->argv[1]));
 	if (user_has_read_permission(&file_status))
 		return (chdir_and_update_pwd(dir, success), (void)0);
 	else
 	{
 		print_error(perm_denied, dir);
-		update_exit_code(1);
-		return ;
+		return (update_exit_code(1));
 	}
 }
 

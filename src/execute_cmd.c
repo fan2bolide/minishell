@@ -27,7 +27,7 @@ void	execute_cmd(t_cmd_list **cmd_list_ptr, int fds[2])
 	dup2_fds(fds[to_read], fds[to_write]);
 	envp = (char **)ft_keyval_lst_to_str_arr(g_envp_lst);
 	ft_lstclear((t_list **)&g_envp_lst, &destroy_keyval);
-	if (cmd.path)
+	if (cmd.path && !cmd.error)
 		execve(cmd.path, cmd.argv, (char *const *)envp);
 	if (envp)
 		ft_free_arr((void *)envp, free);

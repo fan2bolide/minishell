@@ -99,6 +99,7 @@ typedef struct s_cmd
 	int						heredoc_mode;
 	char					*heredoc_delim;
 	int						heredoc_pipe[2];
+	bool					error;
 }							t_cmd;
 
 typedef struct s_cmd_list

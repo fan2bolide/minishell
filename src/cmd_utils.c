@@ -26,6 +26,7 @@ t_cmd	*create_new_cmd(void)
 	res->redirect_out_mode = 0;
 	res->heredoc_mode = 0;
 	res->heredoc_delim = NULL;
+	res->error = false;
 	return (res);
 }
 

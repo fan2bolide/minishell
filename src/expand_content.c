@@ -22,7 +22,7 @@ static char	*get_clean_content(char *raw_content)
 		i += end_of_quote(raw_content) + 1;
 	else
 		while (raw_content[i] && !ft_strchr("\'\"", raw_content[i]))
-				i++;
+			i++;
 	clean_content = ft_strnew(i);
 	if (!clean_content)
 		return (NULL);
