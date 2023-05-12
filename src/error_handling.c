@@ -23,7 +23,7 @@ static char	*get_error_msg_from_context(enum e_error_context context, \
 		res = ft_strjoin(generic_error_msg, ": command not found\n");
 	if (context == perm_denied)
 		res = ft_strjoin(generic_error_msg, ": Permission denied\n");
-	if (context == alloc_error)
+	if (context == error_occured)
 		res = ft_strjoin(generic_error_msg, ": An error occurred\n");
 	if (context == alloc_error)
 		res = ft_strjoin(generic_error_msg, ": allocation error\n");

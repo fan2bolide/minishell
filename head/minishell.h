@@ -27,6 +27,7 @@
 # include <sys/errno.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <termios.h>
 # ifndef OPEN_MAX
 #  define OPEN_MAX 10240
 # endif
@@ -42,7 +43,8 @@ enum						e_error_context
 	heredoc_pipe_error,
 	numeric_argument_required,
 	bad_identifier,
-	too_many_args
+	too_many_args,
+	error_occured
 };
 
 typedef struct s_str_list
@@ -143,5 +145,8 @@ void						shell_exit(t_cmd_list **cmd_list_ptr);
 bool						check_terminal(void);
 void						dup_envp(char **envp);
 void						update_env_var(t_keyval *keyval_to_update);
+int							backup_termios(struct termios *termios_to_backup);
+int							restore_termios(struct termios *termios_to_restore);
+int							disable_ctrl_backslash(void);
 
 #endif

@@ -18,8 +18,13 @@ char	*prompt(int term_does_handle_color)
 {
 	char	*res;
 	char	*tmp;
+	struct termios term;
 
 	if (!setup_signals(sig_handler_interactive_mode))
+		return (NULL);
+	if (!backup_termios(&term))
+		return (NULL);
+	if (!disable_ctrl_backslash())
 		return (NULL);
 	if (term_does_handle_color)
 	{
@@ -37,6 +42,8 @@ char	*prompt(int term_does_handle_color)
 	if (!ft_strequ(res, ""))
 		add_history(res);
 	if (!setup_signals(sig_handler_execution_mode))
+		return (NULL);
+	if (!restore_termios(&term))
 		return (NULL);
 	return (res);
 }

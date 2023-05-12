@@ -47,15 +47,6 @@ void	sig_handler_interactive_mode(int sig)
 			return (printf("\r ➜ "), (void)0);
 		printf(ANSI_RED "\r \001➜\002 " ANSI_RESET);
 	}
-	if (sig == SIGQUIT)
-	{
-		if (!check_terminal())
-			return (printf("\r     \r ➜ "), (void)0);
-		if (get_exit_code() == 0)
-			printf(ANSI_BLUE "\r     \r \001➜\002 " ANSI_RESET);
-		else
-			printf(ANSI_RED "\r     \r \001➜\002 " ANSI_RESET);
-	}
 }
 
 /**
@@ -67,5 +58,8 @@ void	sig_handler_interactive_mode(int sig)
 void	sig_handler_execution_mode(int sig)
 {
 	if (sig == SIGINT)
+	{
+		printf("\n");
 		update_exit_code(130);
+	}
 }

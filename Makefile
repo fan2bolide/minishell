@@ -29,7 +29,7 @@ SRC =	minishell.c\
 		builtins_pwd.c \
 		case_current_token_type_is_exec_name.c \
 		check_path.c \
-		check_terminal.c\
+		terminal_handling.c\
 		cmd_utils.c \
 		convert_token_lst_into_cmd_lst.c \
 		create_env.c\

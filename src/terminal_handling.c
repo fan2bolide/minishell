@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_terminal.c                                   :+:      :+:    :+:   */
+/*   terminal_handling.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -32,3 +32,36 @@ bool	check_terminal(void)
 	}
 	return (false);
 }
+
+int backup_termios(struct termios *termios_to_backup)
+{
+	if (!isatty(STDERR_FILENO))
+		return (1);
+	if (tcgetattr(STDERR_FILENO, termios_to_backup) < 0)
+		return (print_error(error_occured, "unable to backup terminal"), 0);
+	return (1);
+}
+
+int disable_ctrl_backslash(void)
+{
+	struct termios	termios;
+
+	if (!isatty(STDERR_FILENO))
+		return (1);
+	if (tcgetattr(STDERR_FILENO, &termios) < 0)
+		return (print_error(error_occured, "unable to disable SIGQUIT"), 0);
+	termios.c_cc[VQUIT] = 0;
+	if (tcsetattr(STDERR_FILENO, TCSANOW, &termios) < 0)
+		return (print_error(error_occured, "unable to disable SIGQUIT"), 0);
+	return (1);
+}
+
+int restore_termios(struct termios *termios_to_restore)
+{
+	if (!isatty(STDERR_FILENO))
+		return (1);
+	if (tcsetattr(STDERR_FILENO, TCSANOW, termios_to_restore) < 0)
+		return (print_error(error_occured, "unable to restore terminal"), 0);
+	return (1);
+}
+
