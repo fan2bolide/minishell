@@ -52,8 +52,7 @@ void	dup_envp(char **envp)
 		g_envp_lst->next = NULL;
 		g_envp_lst->content = create_keyval();
 		g_envp_lst->content->key = ft_strdup("PWD");
-		tmp = ft_calloc(1, 1024);
-		getcwd(tmp, 1024);
+		tmp = getcwd(NULL, 0);
 		g_envp_lst->content->value = ft_strdup(tmp);
 		free(tmp);
 		add_path_to_envp();

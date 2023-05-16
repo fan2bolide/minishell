@@ -47,13 +47,7 @@ void	update_pwd(void)
 	char	*env_var_newpwd;
 	char	*path;
 
-	path = ft_calloc(1024, sizeof(char));
-	if (!path)
-	{
-		print_error(alloc_error, "(update_pwd)");
-		exit(EXIT_FAILURE);
-	}
-	path = getcwd(path, 1024);
+	path = getcwd(NULL, 0);
 	if (!path)
 		return (perror("getcwd"));
 	env_var_oldpwd = ft_strjoin_secure("OLDPWD=", \

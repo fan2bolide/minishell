@@ -16,10 +16,8 @@ void	pwd(int fd_to_write)
 {
 	char	*cwd;
 
-	cwd = ft_calloc(1024, sizeof(char));
+	cwd = getcwd(NULL, 0);
 	if (!cwd)
-		return (print_error(alloc_error, "pwd"));
-	if (!getcwd(cwd, 1024))
 		print_error(cwd_error, "");
 	else
 		ft_putstr_fd(cwd, fd_to_write);
