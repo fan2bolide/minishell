@@ -33,7 +33,8 @@ static void	here_doc_routine(int fd_to_write, char *delimiter)
 
 	heredoc_buf = NULL;
 	while (append_new_line_if_not_delim(&heredoc_buf, \
-	delimiter) == 0);
+	delimiter) == 0)
+		;
 	if (heredoc_buf)
 	{
 		bytes_written = \

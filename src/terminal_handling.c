@@ -33,16 +33,7 @@ bool	check_terminal(void)
 	return (false);
 }
 
-int backup_termios(struct termios *termios_to_backup)
-{
-	if (!isatty(STDERR_FILENO))
-		return (1);
-	if (tcgetattr(STDERR_FILENO, termios_to_backup) < 0)
-		return (print_error(error_occured, "unable to backup terminal"), 0);
-	return (1);
-}
-
-int disable_ctrl_backslash(void)
+int	backup_termios_and_disable_ctrl_backslash(struct termios *backup_termios)
 {
 	struct termios	termios;
 
@@ -50,13 +41,15 @@ int disable_ctrl_backslash(void)
 		return (1);
 	if (tcgetattr(STDERR_FILENO, &termios) < 0)
 		return (print_error(error_occured, "unable to disable SIGQUIT"), 0);
+	if (tcgetattr(STDERR_FILENO, backup_termios) < 0)
+		return (print_error(error_occured, "unable to disable SIGQUIT"), 0);
 	termios.c_cc[VQUIT] = 0;
 	if (tcsetattr(STDERR_FILENO, TCSANOW, &termios) < 0)
 		return (print_error(error_occured, "unable to disable SIGQUIT"), 0);
 	return (1);
 }
 
-int restore_termios(struct termios *termios_to_restore)
+int	restore_termios(struct termios *termios_to_restore)
 {
 	if (!isatty(STDERR_FILENO))
 		return (1);

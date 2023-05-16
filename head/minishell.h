@@ -145,8 +145,8 @@ void						shell_exit(t_cmd_list **cmd_list_ptr);
 bool						check_terminal(void);
 void						dup_envp(char **envp);
 void						update_env_var(t_keyval *keyval_to_update);
-int							backup_termios(struct termios *termios_to_backup);
 int							restore_termios(struct termios *termios_to_restore);
-int							disable_ctrl_backslash(void);
+int							backup_termios_and_disable_ctrl_backslash(\
+												struct termios *backup_termios);
 
 #endif

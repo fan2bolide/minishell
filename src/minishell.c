@@ -14,17 +14,24 @@
 
 t_keyval_list	*g_envp_lst;
 
-char	*prompt(int term_does_handle_color)
+char	*clean_prompt_res(char *tmp)
 {
 	char	*res;
-	char	*tmp;
-	struct termios term;
 
-	if (!setup_signals(sig_handler_interactive_mode))
-		return (NULL);
-	if (!backup_termios(&term))
-		return (NULL);
-	if (!disable_ctrl_backslash())
+	res = ft_strtrim(tmp, " ");
+	free(tmp);
+	if (!ft_strequ(res, ""))
+		add_history(res);
+	return (res);
+}
+
+char	*prompt(int term_does_handle_color)
+{
+	char			*tmp;
+	struct termios	term;
+
+	if (!setup_signals(sig_handler_interactive_mode) || \
+		!backup_termios_and_disable_ctrl_backslash(&term))
 		return (NULL);
 	if (term_does_handle_color)
 	{
@@ -35,17 +42,12 @@ char	*prompt(int term_does_handle_color)
 	}
 	else
 		tmp = readline(" ➜ ");
+	if (!restore_termios(&term) || \
+		!setup_signals(sig_handler_execution_mode))
+		return (NULL);
 	if (tmp == NULL)
 		return (ft_strdup("exit"));
-	res = ft_strtrim(tmp, " ");
-	free(tmp);
-	if (!ft_strequ(res, ""))
-		add_history(res);
-	if (!setup_signals(sig_handler_execution_mode))
-		return (NULL);
-	if (!restore_termios(&term))
-		return (NULL);
-	return (res);
+	return (clean_prompt_res(tmp));
 }
 
 ///converts char *envp to key/value list so we can use and update it
