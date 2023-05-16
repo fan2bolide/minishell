@@ -32,10 +32,8 @@ static void	here_doc_routine(int fd_to_write, char *delimiter)
 	int		bytes_written;
 
 	heredoc_buf = NULL;
-	printf("heredoc> ");
 	while (append_new_line_if_not_delim(&heredoc_buf, \
-	delimiter) == 0)
-		printf("heredoc> ");
+	delimiter) == 0);
 	if (heredoc_buf)
 	{
 		bytes_written = \
@@ -54,7 +52,7 @@ static int	append_new_line_if_not_delim(char **str_to_append, char *delim)
 
 	expand_optn = (ft_strchr(delim, '\"') == NULL && \
 	ft_strchr(delim, '\'') == NULL);
-	next_line = readline("");
+	next_line = readline("heredoc >");
 	if (!next_line)
 		return (append_str(str_to_append, "\n"), -1);
 	if (is_delimiter(delim, next_line))
@@ -63,7 +61,7 @@ static int	append_new_line_if_not_delim(char **str_to_append, char *delim)
 	{
 		tmp = expand_content(next_line);
 		if (!tmp)
-			return (free(next_line), -1);
+			return (-1);
 		next_line = tmp;
 	}
 	if (*str_to_append)

@@ -71,6 +71,8 @@ static void	switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst)
 void	case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst,
 											t_token_list *token_lst_cursor)
 {
+	struct termios term;
+
 	(*cmd_lst)->content->heredoc_mode = 1;
 	(*cmd_lst)->content->heredoc_delim = \
 	ft_strdup(token_lst_cursor->next->content->content);
@@ -78,7 +80,10 @@ void	case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst,
 	token_lst_cursor->next->content->content)
 		return (print_error(alloc_error, "heredoc error"));
 	pipe((*(*cmd_lst)->content).heredoc_pipe);
+	backup_termios(&term);
+	disable_ctrl_backslash();
 	manage_here_doc(*(*cmd_lst)->content);
+	restore_termios(&term);
 	if (!(*cmd_lst)->content->path)
 		(*cmd_lst)->content->path = ft_strdup("heredoc");
 	if (!(*cmd_lst)->content->argv)

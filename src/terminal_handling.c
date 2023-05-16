@@ -64,4 +64,3 @@ int restore_termios(struct termios *termios_to_restore)
 		return (print_error(error_occured, "unable to restore terminal"), 0);
 	return (1);
 }
-

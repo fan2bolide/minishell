@@ -101,6 +101,8 @@ char	*expand_content(char *raw_content)
 	t_list	*list;
 	t_list	*curr;
 
+	if (!raw_content || !*raw_content)
+		return (raw_content);
 	list = get_expand_token_list(raw_content);
 	remove_quotes(list);
 	curr = list;
