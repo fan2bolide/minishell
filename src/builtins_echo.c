@@ -34,7 +34,10 @@ void	echo(char **argv, int to_write)
 
 	success = 0;
 	if (!argv[1])
+	{
+		printf("\n");
 		return ;
+	}
 	option_n = is_echos_option_n(argv[1]);
 	i = 1 + option_n;
 	while (argv[i])
