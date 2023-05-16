@@ -61,7 +61,7 @@ SRC =	minishell.c\
 		keyval_utils.c \
 		signal_handling.c\
 
-
+BONUS_SRC =
 
 DEPENDS	:=	$(addprefix obj/,$(SRC:.c=.d)) $(addprefix obj/,${BONUS_SRC:.c=.d})
 
