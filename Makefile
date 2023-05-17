@@ -83,7 +83,7 @@ bonus : create_obj_folder lib .bonus
 create_obj_folder :
 	mkdir -p obj
 
-obj/%.o : src/%.c Makefile $(LIBFT)
+obj/%.o : src/%.c Makefile
 	cc $(DEBUG_FLAGS) -Werror -Wall -Wextra -c $< -MD -I /opt/homebrew/opt/readline/include -I libft/head -I head -o $@
 
 debug : lib
