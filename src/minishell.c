@@ -14,6 +14,20 @@
 
 t_keyval_list	*g_envp_lst;
 
+char *add_colours_to_prompt(char *prompt)
+{
+	char *res;
+
+	prompt = ft_strjoin_free_s1(prompt, ANSI_RESET);
+	if (get_exit_code())
+		prompt = ft_strjoin_free_s1(prompt, ANSI_RED" \001➜\002 "ANSI_RESET);
+	else
+		prompt = ft_strjoin_free_s1(prompt, ANSI_BLUE" \001➜\002 "ANSI_RESET);
+	res = ft_strjoin(ANSI_BOLD_WHITE, prompt);
+	free(prompt);
+	return (res);
+}
+
 char *get_prompt(void)
 {
 	char *prompt;
@@ -28,9 +42,7 @@ char *get_prompt(void)
 		i++;
 	prompt = ft_strdup(cwd + i);
 	free(cwd);
-	if (get_exit_code())
-		return (ft_strjoin_free_s1(prompt, ANSI_RED" \001➜\002 "ANSI_RESET));
-	return (ft_strjoin_free_s1(prompt, ANSI_BLUE" \001➜\002 "ANSI_RESET));
+	return (add_colours_to_prompt(prompt));
 }
 
 char	*clean_prompt_res(char *tmp)

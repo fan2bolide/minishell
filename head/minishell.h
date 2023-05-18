@@ -17,6 +17,7 @@
 # define ANSI_RED "\001\x1b[31m\002"
 # define ANSI_RESET "\001\x1b[0m\002"
 # define ANSI_BLUE "\001\x1b[34m\002"
+# define ANSI_BOLD_WHITE "\001\033[1m\033[37m\002  "
 # include "libft.h"
 # include <stdio.h>
 # include <limits.h>
