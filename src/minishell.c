@@ -14,6 +14,25 @@
 
 t_keyval_list	*g_envp_lst;
 
+char *get_prompt(void)
+{
+	char *prompt;
+	char *cwd;
+	size_t i;
+
+	cwd = getcwd(NULL, 0);
+	i = ft_strlen(cwd) - 1;
+	while (i > 0 && cwd[i] != '/')
+		i--;
+	if (i)
+		i++;
+	prompt = ft_strdup(cwd + i);
+	free(cwd);
+	if (get_exit_code())
+		return (ft_strjoin_free_s1(prompt, ANSI_RED" \001➜\002 "ANSI_RESET));
+	return (ft_strjoin_free_s1(prompt, ANSI_BLUE" \001➜\002 "ANSI_RESET));
+}
+
 char	*clean_prompt_res(char *tmp)
 {
 	char	*res;
@@ -34,12 +53,7 @@ char	*prompt(int term_does_handle_color)
 		!backup_termios_and_disable_ctrl_backslash(&term))
 		return (NULL);
 	if (term_does_handle_color)
-	{
-		if (get_exit_code())
-			tmp = readline(ANSI_RED " \001➜\002 " ANSI_RESET);
-		else
-			tmp = readline(ANSI_BLUE " \001➜\002 " ANSI_RESET);
-	}
+		tmp = readline(get_prompt());
 	else
 		tmp = readline(" ➜ ");
 	if (!restore_termios(&term) || \
