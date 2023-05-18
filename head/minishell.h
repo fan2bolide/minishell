@@ -148,5 +148,6 @@ void						update_env_var(t_keyval *keyval_to_update);
 int							restore_termios(struct termios *termios_to_restore);
 int							backup_termios_and_disable_ctrl_backslash(\
 												struct termios *backup_termios);
+char						*get_prompt(void);
 
 #endif

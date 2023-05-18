@@ -45,7 +45,7 @@ void	sig_handler_interactive_mode(int sig)
 		rl_redisplay();
 		if (!check_terminal())
 			return (printf("\r ➜ "), (void)0);
-		printf(ANSI_RED "\r \001➜\002 " ANSI_RESET);
+		printf("\r%s", get_prompt());
 	}
 }
 
