@@ -31,7 +31,7 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 			return (0);
 		get_fds(cmd_lst, pipes, i, fds);
 		if (check_if_single_builtin(&cmd_lst, fds))
-			return (1);
+			return (exit_routine(pipes, pids, i), free_cmd_lst(&cmd_lst), 1);
 		pids[i] = fork();
 		if (pids[i] < 0)
 			printf("Failed to fork\n");

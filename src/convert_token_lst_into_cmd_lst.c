@@ -127,6 +127,7 @@ void	case_current_token_type_is_redirect_in(
 		cmd->error = true;
 		return ;
 	}
+	close(fd);
 	cmd->redirect_in = ft_strdup(file);
 	if (!cmd->redirect_in)
 		print_error(alloc_error, "");
