@@ -44,6 +44,9 @@ void	exec_builtin(t_cmd_list **cmd_list_ptr, int to_write)
 		env(to_write);
 	else if (type == 6)
 		shell_exit(cmd_list_ptr);
+	if (to_write > STDERR_FILENO)
+		close(to_write);
+
 }
 
 // returns -1 if str is not a builtins
