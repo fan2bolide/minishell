@@ -20,7 +20,7 @@ void	export(char **argv, int to_write)
 {
 	t_keyval_list	*curr;
 
-	if (!g_envp_lst || !g_envp_lst->next)
+	if (!g_envp_lst)
 		return ;
 	curr = g_envp_lst->next;
 	if (check_export_syntax(argv) <= 0)

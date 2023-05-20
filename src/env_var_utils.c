@@ -74,12 +74,17 @@ static void	insert_env_var(t_keyval *keyval_to_insert)
 	curr = NULL;
 	if (g_envp_lst)
 		curr = g_envp_lst->next;
-	if (!curr || !g_envp_lst)
+	if (!g_envp_lst)
 		return (print_error(alloc_error, "insert_env_var"), (void)0);
-	while (curr->next && ft_strcmp(keyval_to_insert->key, \
+	while (curr && curr->next && ft_strcmp(keyval_to_insert->key, \
 			curr->next->content->key) > 0)
 		(curr) = (curr)->next;
-	tmp = curr->next;
-	curr->next = (t_keyval_list *)ft_lstnew(keyval_to_insert);
-	curr->next->next = tmp;
+	if (curr)
+	{
+		tmp = curr->next;
+		curr->next = (t_keyval_list *)ft_lstnew(keyval_to_insert);
+		curr->next->next = tmp;
+	}
+	else
+		g_envp_lst->next = (t_keyval_list *)ft_lstnew(keyval_to_insert);
 }
