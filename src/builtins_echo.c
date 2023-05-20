@@ -36,6 +36,7 @@ void	echo(char **argv, int to_write)
 	if (!argv[1])
 	{
 		printf("\n");
+		update_exit_code(EXIT_SUCCESS);
 		return ;
 	}
 	option_n = is_echos_option_n(argv[1]);
