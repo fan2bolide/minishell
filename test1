@@ -1,0 +1,11 @@
+Makefile
+enviminishell
+head
+libft
+minishell
+minishell_tester
+obj
+src
+test
+test1
+valgrind_ignore_leaks.txt
