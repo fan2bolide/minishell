@@ -31,7 +31,7 @@
 # include <string.h>
 # include <sys/wait.h>
 
-void		manage_here_doc(t_cmd cmd);
+void		manage_here_doc(t_cmd *cmd);
 void		execute_cmd(t_cmd_list **cmd, int fds[2]);
 char		*get_path(char *exec_name, t_keyval_list *envp_lst);
 void		wait_all_child_proc(int *pids, int childs_counter);

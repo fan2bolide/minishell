@@ -81,7 +81,7 @@ void	case_current_token_type_is_redirect_hd(t_cmd_list **cmd_lst,
 		return (print_error(alloc_error, "heredoc error"));
 	pipe((*(*cmd_lst)->content).heredoc_pipe);
 	backup_termios_and_disable_ctrl_backslash(&term);
-	manage_here_doc(*(*cmd_lst)->content);
+	manage_here_doc((*cmd_lst)->content);
 	restore_termios(&term);
 	if (!(*cmd_lst)->content->path)
 		(*cmd_lst)->content->path = ft_strdup("heredoc");

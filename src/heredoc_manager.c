@@ -18,7 +18,7 @@ static void	here_doc_routine(int fd_to_write, char *delimiter);
 static int	append_new_line_if_not_delim(char **str_to_append, char *delim);
 static int	is_delimiter(char *delim, const char *next_line);
 
-void	manage_here_doc(t_cmd cmd)
+void	manage_here_doc(t_cmd *cmd)
 {
 	int	pid;
 	int status;
@@ -27,19 +27,18 @@ void	manage_here_doc(t_cmd cmd)
 	if (pid == 0)
 	{
 		setup_signals(sig_handler_heredoc_mode);
-		if (!cmd.heredoc_mode || !cmd.heredoc_delim)
-			return (close(cmd.heredoc_pipe[WRITE]), (void)0);
-		here_doc_routine(cmd.heredoc_pipe[WRITE], cmd.heredoc_delim);
+		if (!cmd->heredoc_mode || !cmd->heredoc_delim)
+			return (close(cmd->heredoc_pipe[WRITE]), (void)0);
+		here_doc_routine(cmd->heredoc_pipe[WRITE], cmd->heredoc_delim);
 		setup_signals(sig_handler_execution_mode);
 		exit(EXIT_SUCCESS);
 	}
-	close(cmd.heredoc_pipe[WRITE]);
+	close(cmd->heredoc_pipe[WRITE]);
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 	{
 		if (WEXITSTATUS(status) == EXIT_FAILURE)
-			free(NULL);// debug
-			//exit la pipeline
+			cmd->abort_cmd_line = true;
 	}
 }
 

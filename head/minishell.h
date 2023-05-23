@@ -102,6 +102,7 @@ typedef struct s_cmd
 	char					*heredoc_delim;
 	int						heredoc_pipe[2];
 	bool					error;
+	bool					abort_cmd_line;
 }							t_cmd;
 
 typedef struct s_cmd_list
