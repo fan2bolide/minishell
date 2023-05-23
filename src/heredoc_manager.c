@@ -26,15 +26,21 @@ void	manage_here_doc(t_cmd cmd)
 	pid = fork();
 	if (pid == 0)
 	{
+		setup_signals(sig_handler_heredoc_mode);
 		if (!cmd.heredoc_mode || !cmd.heredoc_delim)
 			return (close(cmd.heredoc_pipe[WRITE]), (void)0);
 		here_doc_routine(cmd.heredoc_pipe[WRITE], cmd.heredoc_delim);
+		setup_signals(sig_handler_execution_mode);
 		exit(EXIT_SUCCESS);
 	}
 	close(cmd.heredoc_pipe[WRITE]);
 	waitpid(pid, &status, 0);
-//	if (WIFEXITED(status))
-//		exit_basile(WEXITSTATUS(status));
+	if (WIFEXITED(status))
+	{
+		if (WEXITSTATUS(status) == EXIT_FAILURE)
+			free(NULL);// debug
+			//exit la pipeline
+	}
 }
 
 static void	here_doc_routine(int fd_to_write, char *delimiter)

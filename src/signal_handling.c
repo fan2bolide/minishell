@@ -63,3 +63,14 @@ void	sig_handler_execution_mode(int sig)
 		update_exit_code(130);
 	}
 }
+
+/**
+ * gets called when receiving a sigint or sigquit while in heredoc mode
+ * if sigint then exit as a failure so the main process knows how to handle it
+ * @param sig
+ */
+void	sig_handler_heredoc_mode(int sig)
+{
+	if (sig == SIGINT)
+		exit(EXIT_FAILURE);
+}

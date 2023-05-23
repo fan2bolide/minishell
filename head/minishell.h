@@ -141,6 +141,7 @@ void						destroy_cmd(t_cmd *cmd);
 int							setup_signals(void (sig_handler)(int));
 void						sig_handler_interactive_mode(int sig);
 void						sig_handler_execution_mode(int sig);
+void						sig_handler_heredoc_mode(int sig);
 void						shell_exit(t_cmd_list **cmd_list_ptr);
 bool						check_terminal(void);
 void						dup_envp(char **envp);
