@@ -35,7 +35,7 @@ void	echo(char **argv, int to_write)
 	success = 0;
 	if (!argv[1])
 	{
-		printf("\n");
+		ft_putstr_fd("\n", to_write);
 		update_exit_code(EXIT_SUCCESS);
 		return ;
 	}
