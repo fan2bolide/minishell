@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_manager.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurelienlevra <aurelienlevra@student.42    +#+  +:+       +#+        */
+/*   By: alevra <aurelienlevra@student.42           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 01:50:44 by aurelienlev       #+#    #+#             */
-/*   Updated: 2023/04/12 01:54:03 by aurelienlev      ###   ########.fr       */
+/*   Created: 2023/04/12 01:50:44 by alevra            #+#    #+#             */
+/*   Updated: 2023/04/12 01:54:03 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,21 @@ static int	is_delimiter(char *delim, const char *next_line);
 
 void	manage_here_doc(t_cmd cmd)
 {
-	if (!cmd.heredoc_mode || !cmd.heredoc_delim)
-		return (close(cmd.heredoc_pipe[WRITE]), (void)0);
-	here_doc_routine(cmd.heredoc_pipe[WRITE], cmd.heredoc_delim);
+	int	pid;
+	int status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		if (!cmd.heredoc_mode || !cmd.heredoc_delim)
+			return (close(cmd.heredoc_pipe[WRITE]), (void)0);
+		here_doc_routine(cmd.heredoc_pipe[WRITE], cmd.heredoc_delim);
+		exit(EXIT_SUCCESS);
+	}
 	close(cmd.heredoc_pipe[WRITE]);
+	waitpid(pid, &status, 0);
+//	if (WIFEXITED(status))
+//		exit_basile(WEXITSTATUS(status));
 }
 
 static void	here_doc_routine(int fd_to_write, char *delimiter)
