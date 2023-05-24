@@ -152,5 +152,6 @@ int							restore_termios(struct termios *termios_to_restore);
 int							backup_termios_and_disable_ctrl_backslash(\
 												struct termios *backup_termios);
 char						*get_prompt(void);
+char						*prompt(int term_does_handle_color);
 
 #endif

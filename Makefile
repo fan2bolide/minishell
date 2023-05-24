@@ -61,6 +61,7 @@ SRC =	minishell.c\
 		env/keyval_conversion.c \
 		env/keyval_utils.c \
 		signals/signal_handling.c\
+		prompt/prompt.c\
 
 BONUS_SRC =
 
@@ -82,7 +83,7 @@ bonus : create_obj_folder lib .bonus
 	$(CC) $(OBJ) $(BONUS_OBJ) $(LIBFT) $(FLAGS) -o $(NAME)
 
 create_obj_folder :
-	mkdir -p obj/builtins obj/env obj/error obj/execution obj/exit_code obj/expands obj/heredoc obj/lexer obj/signals
+	mkdir -p obj/builtins obj/env obj/error obj/execution obj/exit_code obj/expands obj/heredoc obj/lexer obj/signals obj/prompt
 
 obj/%.o : src/%.c Makefile
 	cc $(DEBUG_FLAGS) -Werror -Wall -Wextra -c $< -MD -I /opt/homebrew/opt/readline/include -I libft/head -I head -o $@
