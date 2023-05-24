@@ -30,23 +30,22 @@ void	exec_builtin(t_cmd_list **cmd_list_ptr, int to_write)
 		return ;
 	cmd = (*cmd_list_ptr)->content;
 	type = is_builtin(cmd->argv[0]);
-	if (type == 0)
+	if (type == 0 && !cmd->error)
 		echo(cmd->argv, to_write);
-	else if (type == 1)
+	else if (type == 1 && !cmd->error)
 		cd(cmd);
-	else if (type == 2)
+	else if (type == 2 && !cmd->error)
 		pwd(to_write);
-	else if (type == 3)
+	else if (type == 3 && !cmd->error)
 		export(cmd->argv, to_write);
-	else if (type == 4)
+	else if (type == 4 && !cmd->error)
 		unset(cmd->argv[1]);
-	else if (type == 5)
+	else if (type == 5 && !cmd->error)
 		env(to_write);
-	else if (type == 6)
+	else if (type == 6 && !cmd->error)
 		shell_exit(cmd_list_ptr);
 	if (to_write > STDERR_FILENO)
 		close(to_write);
-
 }
 
 // returns -1 if str is not a builtins
