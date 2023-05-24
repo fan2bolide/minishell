@@ -66,7 +66,7 @@ static int	get_fd_to_write(int pipes[OPEN_MAX][2], int i, t_cmd_list *cmd_lst)
 
 	res = -1;
 	cmd = cmd_lst->content;
-	if (cmd->redirect_out)
+	if (cmd->redirect_out && !cmd->error)
 	{
 		res = open_and_get_fd(cmd->redirect_out, \
 		O_WRONLY | cmd->redirect_out_mode | O_CREAT, 0644);

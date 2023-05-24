@@ -32,6 +32,7 @@ SRC =	minishell.c\
 		terminal_handling.c\
 		cmd_utils.c \
 		convert_token_lst_into_cmd_lst.c \
+		convert_utils.c \
 		create_env.c\
 		env_var_utils.c \
 		env_var_utils_getters_and_setters.c \

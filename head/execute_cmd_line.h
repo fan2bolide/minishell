@@ -63,4 +63,6 @@ const int to_read, const int to_write);
 char		*ft_strjoin_w_slash(char *incomplete_path, char *cmd);
 char		*remove_quotes_heredoc(const char *raw);
 int			append_str(char **str_to_append, char *next_line);
+void		try_to_create_file(t_cmd *cmd, int open_mode, char *file);
+
 #endif

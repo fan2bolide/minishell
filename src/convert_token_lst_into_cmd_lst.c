@@ -40,7 +40,7 @@ t_cmd_list	*convert_token_lst_into_cmd_lst(t_token_list *token_lst)
 	return (res);
 }
 
-static void	switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst)
+void	switch_case(t_token_list *token_lst_cursor, t_cmd_list **cmd_lst)
 {
 	t_token	*current_token;
 
@@ -102,6 +102,7 @@ void	case_current_token_type_is_redirect_out(
 		open_mode = O_TRUNC;
 	if (token_lst_cursor->content->type == redirect_out_append)
 		open_mode = O_APPEND;
+	try_to_create_file(cmd, open_mode, file);
 	free(cmd->redirect_out);
 	cmd->redirect_out = ft_strdup(file);
 	if (!cmd->redirect_out)
