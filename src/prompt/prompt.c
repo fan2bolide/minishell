@@ -22,7 +22,7 @@ char	*add_colours_to_prompt(char *prompt)
 	if (get_exit_code())
 		prompt = ft_strjoin_free_s1(prompt, ANSI_RED" \001➜\002 "ANSI_RESET);
 	else
-	prompt = ft_strjoin_free_s1(prompt, ANSI_BLUE" \001➜\002 "ANSI_RESET);
+		prompt = ft_strjoin_free_s1(prompt, ANSI_BLUE" \001➜\002 "ANSI_RESET);
 	res = ft_strjoin(ANSI_BOLD_WHITE, prompt);
 	free(prompt);
 	return (res);
