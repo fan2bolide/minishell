@@ -21,7 +21,7 @@ static int	is_delimiter(char *delim, const char *next_line);
 void	manage_here_doc(t_cmd *cmd)
 {
 	int	pid;
-	int status;
+	int	status;
 
 	pid = fork();
 	if (pid == 0)

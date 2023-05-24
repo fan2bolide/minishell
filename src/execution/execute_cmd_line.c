@@ -14,7 +14,7 @@
 
 static void	exec_hook(t_cmd_list **cmd_lst, int *fds, \
 bool hook, int fd_to_close);
-static bool check_heredoc_error(t_cmd_list *cmd_lst);
+static bool	check_heredoc_error(t_cmd_list *cmd_lst);
 
 int	execute_cmd_line(t_cmd_list *cmd_lst)
 {
@@ -44,7 +44,7 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 	return (exit_routine(pipes, pids, i), free_cmd_lst(&cmd_lst), 1);
 }
 
-bool check_heredoc_error(t_cmd_list *cmd_lst)
+bool	check_heredoc_error(t_cmd_list *cmd_lst)
 {
 	while (cmd_lst)
 	{
