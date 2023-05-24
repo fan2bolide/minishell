@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_manager.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurelienlevra <aurelienlevra@student.42    +#+  +:+       +#+        */
+/*   By: alevra <aurelienlevra@student.42           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 01:50:44 by aurelienlev       #+#    #+#             */
-/*   Updated: 2023/04/12 01:54:03 by aurelienlev      ###   ########.fr       */
+/*   Created: 2023/04/12 01:50:44 by alevra            #+#    #+#             */
+/*   Updated: 2023/04/12 01:54:03 by alevra           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,28 @@ static void	here_doc_routine(int fd_to_write, char *delimiter);
 static int	append_new_line_if_not_delim(char **str_to_append, char *delim);
 static int	is_delimiter(char *delim, const char *next_line);
 
-void	manage_here_doc(t_cmd cmd)
+void	manage_here_doc(t_cmd *cmd)
 {
-	if (!cmd.heredoc_mode || !cmd.heredoc_delim)
-		return (close(cmd.heredoc_pipe[WRITE]), (void)0);
-	here_doc_routine(cmd.heredoc_pipe[WRITE], cmd.heredoc_delim);
-	close(cmd.heredoc_pipe[WRITE]);
+	int	pid;
+	int	status;
+
+	pid = fork();
+	if (pid == 0)
+	{
+		setup_signals(sig_handler_heredoc_mode);
+		if (!cmd->heredoc_mode || !cmd->heredoc_delim)
+			return (close(cmd->heredoc_pipe[WRITE]), (void)0);
+		here_doc_routine(cmd->heredoc_pipe[WRITE], cmd->heredoc_delim);
+		setup_signals(sig_handler_execution_mode);
+		exit(EXIT_SUCCESS);
+	}
+	close(cmd->heredoc_pipe[WRITE]);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+	{
+		if (WEXITSTATUS(status) == EXIT_FAILURE)
+			cmd->abort_cmd_line = true;
+	}
 }
 
 static void	here_doc_routine(int fd_to_write, char *delimiter)

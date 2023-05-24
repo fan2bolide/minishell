@@ -93,29 +93,3 @@ size_t	get_next_expression(char *command_line)
 	}
 	return (i + skip_whitespaces(command_line + i));
 }
-
-void	print_token(t_token *token)
-{
-	char	*token_type;
-
-	if (!token)
-		return (printf("(null token)\n"), (void)0);
-	token_type = "error, \t";
-	if (token->type == exec_name)
-		token_type = "exec_name, \t";
-	if (token->type == arg)
-		token_type = "arg, \t\t";
-	if (token->type == file)
-		token_type = "file, \t\t";
-	if (token->type == operator_pipe)
-		token_type = "operator_pipe, \t";
-	if (token->type == redirect_out_append)
-		token_type = "redirect_out_append, \t";
-	if (token->type == redirect_in)
-		token_type = "redirect_in, \t";
-	if (token->type == redirect_out_trunc)
-		token_type = "redirect_out_trunc, \t";
-	if (token->type == redirect_hd)
-		token_type = "redirect_hd, \t";
-	printf("%s%s\n", token_type, token->content);
-}

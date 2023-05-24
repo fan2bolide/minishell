@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   token_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bajeanno <ba...@student.42lyon.fr>         +#+  +:+       +#+        */
+/*   By: bajeanno <bajeanno@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 23:06:38 by bajeanno          #+#    #+#             */
 /*   Updated: 2023/03/07 11:01:37 by bajeanno         ###   ########.fr       */

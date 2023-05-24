@@ -14,6 +14,7 @@
 
 static void	exec_hook(t_cmd_list **cmd_lst, int *fds, \
 bool hook, int fd_to_close);
+static bool	check_heredoc_error(t_cmd_list *cmd_lst);
 
 int	execute_cmd_line(t_cmd_list *cmd_lst)
 {
@@ -24,7 +25,7 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 
 	i = 0;
 	ft_memset(pipes, 0, sizeof(int) * OPEN_MAX * 2);
-	while (cmd_lst)
+	while (cmd_lst && check_heredoc_error(cmd_lst))
 	{
 		check_path(cmd_lst);
 		if (!create_and_check_pipes(pipes, i, cmd_lst))
@@ -41,6 +42,17 @@ int	execute_cmd_line(t_cmd_list *cmd_lst)
 		i++;
 	}
 	return (exit_routine(pipes, pids, i), free_cmd_lst(&cmd_lst), 1);
+}
+
+bool	check_heredoc_error(t_cmd_list *cmd_lst)
+{
+	while (cmd_lst)
+	{
+		if (cmd_lst->content->abort_cmd_line == true)
+			return (false);
+		cmd_lst = cmd_lst->next;
+	}
+	return (true);
 }
 
 static void	exec_hook(t_cmd_list **cmd_lst, int *fds, \

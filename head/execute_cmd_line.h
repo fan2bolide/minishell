@@ -31,7 +31,7 @@
 # include <string.h>
 # include <sys/wait.h>
 
-void		manage_here_doc(t_cmd cmd);
+void		manage_here_doc(t_cmd *cmd);
 void		execute_cmd(t_cmd_list **cmd, int fds[2]);
 char		*get_path(char *exec_name, t_keyval_list *envp_lst);
 void		wait_all_child_proc(int *pids, int childs_counter);
@@ -63,4 +63,6 @@ const int to_read, const int to_write);
 char		*ft_strjoin_w_slash(char *incomplete_path, char *cmd);
 char		*remove_quotes_heredoc(const char *raw);
 int			append_str(char **str_to_append, char *next_line);
+void		try_to_create_file(t_cmd *cmd, int open_mode, char *file);
+
 #endif

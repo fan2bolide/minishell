@@ -18,48 +18,49 @@ DEBUG_FLAGS = -g3 #-fsanitize=address
 LIBFT = libft/libft.a
 
 SRC =	minishell.c\
-		builtin_cd.c \
-		builtin_cd_utils.c \
-		builtin_env.c \
-		builtin_exit.c \
-		builtin_export.c \
-		builtin_unset.c \
-		builtins.c \
-		builtins_echo.c \
-		builtins_pwd.c \
-		case_current_token_type_is_exec_name.c \
-		check_path.c \
-		terminal_handling.c\
-		cmd_utils.c \
-		convert_token_lst_into_cmd_lst.c \
-		create_env.c\
-		env_var_utils.c \
-		env_var_utils_getters_and_setters.c \
-		error_handling.c\
-		exec_utils.c\
-		execute_cmd.c\
-		execute_cmd_utils.c \
-		execute_cmd_line.c\
-		execute_cmd_line_utils.c\
-		exit_code_handler.c\
-		expand_content.c\
-		expand_content_utils.c\
-		expand_tokens_from_list.c\
-		expand_utils.c \
-		expand_with_value.c\
-		fds.c \
-		get_path.c\
-		get_path_utils.c\
-		main_token_parsing.c\
-		main_token_utils.c \
-		main_token_checkers.c\
-		lexer.c\
-		lexer_utils.c\
-		heredoc_manager.c \
-		heredoc_manager_utils.c \
-		keyval_conversion.c \
-		keyval_utils.c \
-		signal_handling.c\
+		builtins/builtin_cd.c \
+		builtins/builtin_cd_utils.c \
+		builtins/builtin_env.c \
+		builtins/builtin_exit.c \
+		builtins/builtin_export.c \
+		builtins/builtin_unset.c \
+		builtins/builtins.c \
+		builtins/builtins_echo.c \
+		builtins/builtins_pwd.c \
+		execution/case_current_token_type_is_exec_name.c \
+		execution/check_path.c \
+		signals/terminal_handling.c\
+		execution/cmd_utils.c \
+		execution/convert_token_lst_into_cmd_lst.c \
+		execution/convert_utils.c \
+		env/create_env.c\
+		env/env_var_utils.c \
+		env/env_var_utils_getters_and_setters.c \
+		error/error_handling.c\
+		execution/exec_utils.c\
+		execution/execute_cmd.c\
+		execution/execute_cmd_utils.c \
+		execution/execute_cmd_line.c\
+		execution/execute_cmd_line_utils.c\
+		exit_code/exit_code_handler.c\
+		expands/expand_content.c\
+		expands/expand_content_utils.c\
+		expands/expand_tokens_from_list.c\
+		expands/expand_utils.c \
+		expands/expand_with_value.c\
+		execution/fds.c \
+		execution/get_path.c\
+		execution/get_path_utils.c\
+		lexer/main_token_parsing.c\
+		lexer/main_token_utils.c \
+		lexer/main_token_checkers.c\
+		lexer/lexer.c\
+		lexer/lexer_utils.c\
+		heredoc/heredoc_manager.c \
+		heredoc/heredoc_manager_utils.c \
+		env/keyval_conversion.c \
+		env/keyval_utils.c \
+		signals/signal_handling.c\
 
 BONUS_SRC =
 
@@ -81,7 +82,7 @@ bonus : create_obj_folder lib .bonus
 	$(CC) $(OBJ) $(BONUS_OBJ) $(LIBFT) $(FLAGS) -o $(NAME)
 
 create_obj_folder :
-	mkdir -p obj
+	mkdir -p obj/builtins obj/env obj/error obj/execution obj/exit_code obj/expands obj/heredoc obj/lexer obj/signals
 
 obj/%.o : src/%.c Makefile
 	cc $(DEBUG_FLAGS) -Werror -Wall -Wextra -c $< -MD -I /opt/homebrew/opt/readline/include -I libft/head -I head -o $@

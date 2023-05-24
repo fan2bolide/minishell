@@ -27,6 +27,7 @@ t_cmd	*create_new_cmd(void)
 	res->heredoc_mode = 0;
 	res->heredoc_delim = NULL;
 	res->error = false;
+	res->abort_cmd_line = false;
 	return (res);
 }
 
