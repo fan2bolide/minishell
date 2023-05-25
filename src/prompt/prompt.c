@@ -35,6 +35,8 @@ char	*get_prompt(void)
 	size_t	i;
 
 	cwd = getcwd(NULL, 0);
+	if (!cwd)
+		return (NULL);
 	i = ft_strlen(cwd) - 1;
 	while (i > 0 && cwd[i] != '/')
 		i--;
